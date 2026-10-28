@@ -1,0 +1,316 @@
+{
+  "project_id": "projet_03",
+  "project_name": "Recrutement responsable d'entrepôt",
+  "meetings": [
+    {
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "participants": ["Marie", "Olivier", "Yannick", "Inès"],
+      "transcript": "Marie: On a reçu une quarantaine de candidatures pour le poste de responsable d'entrepôt, il faut qu'on avance sur la présélection.\nOlivier: J'en ai regardé une bonne partie, il y a trois profils vraiment solides.\nMarie: Parfait. Yannick, est-ce que tu peux appeler les trois candidats pour fixer les entretiens avant vendredi ?\nYannick: Oui, je m'en charge dès cet après-midi.\nInès: Qui fait partie du jury d'entretien ?\nMarie: Olivier et moi, plus quelqu'un de l'équipe terrain si possible.\nOlivier: Inès, tu veux bien faire partie du jury ? Tu connais mieux que personne les équipes de nuit.\nInès: Avec plaisir, je bloque mes après-midis de la semaine prochaine.\nMarie: Autre chose, la grille d'évaluation date de l'an dernier, elle n'est plus vraiment adaptée.\nOlivier: Je peux la retravailler, mais pas avant la semaine prochaine.\nMarie: Ça ira. Inès, je te demande d'envoyer à Olivier tes remarques sur la grille d'ici jeudi.\nInès: C'est noté, je lui envoie ça jeudi au plus tard.\nMarie: Très bien, on se retrouve après les premiers entretiens."
+    },
+    {
+      "source_id": "p03_m02",
+      "source_date": "2026-05-26",
+      "participants": ["Marie", "Olivier", "Inès", "Fatou"],
+      "transcript": "Marie: Les trois entretiens ont eu lieu, on fait le point. Olivier, tu commences ?\nOlivier: Pour moi, c'est clairement Sandrine Morel qui sort du lot, elle a géré un site deux fois plus gros que le nôtre.\nInès: Je suis assez d'accord, et elle a posé les bonnes questions sur le travail de nuit.\nFatou: Quelle est sa prétention salariale ?\nMarie: Elle demande 48 000 euros, c'est dans le haut de notre fourchette.\nFatou: Ça reste acceptable. On retient Sandrine Morel pour le poste.\nOlivier: Très bonne nouvelle, elle pourrait démarrer début juillet.\nFatou: Marie, je te laisse demander à Yannick de préparer la promesse d'embauche, c'est lui qui a les modèles.\nMarie: D'accord, je lui transmets la demande dès ce soir.\nInès: Et pour les deux autres candidats, on les prévient comment ?\nOlivier: Je m'occupe de les appeler moi-même, ils ont fait le déplacement, ça me semble plus correct qu'un mail.\nFatou: Il faudrait aussi vérifier ses références avant de signer quoi que ce soit.\nMarie: Olivier, tu pourras contacter son ancien employeur d'ici lundi ?\nOlivier: Oui, j'ai déjà le nom de son ancien directeur de site."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p03_u01",
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "type": "fact",
+      "statement": "Une quarantaine de candidatures ont été reçues pour le poste de responsable d'entrepôt.",
+      "speaker": "Marie",
+      "evidence": "On a reçu une quarantaine de candidatures pour le poste de responsable d'entrepôt, il faut qu'on avance sur la présélection.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u02",
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "type": "fact",
+      "statement": "Trois profils solides ressortent de la présélection.",
+      "speaker": "Olivier",
+      "evidence": "J'en ai regardé une bonne partie, il y a trois profils vraiment solides.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u03",
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "type": "action",
+      "statement": "Yannick doit appeler les trois candidats présélectionnés pour fixer les entretiens avant vendredi.",
+      "speaker": "Marie",
+      "evidence": "Yannick, est-ce que tu peux appeler les trois candidats pour fixer les entretiens avant vendredi ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u04",
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "type": "commitment",
+      "statement": "Yannick s'engage à appeler les candidats dès l'après-midi même.",
+      "speaker": "Yannick",
+      "evidence": "Oui, je m'en charge dès cet après-midi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u05",
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "type": "question",
+      "statement": "Qui compose le jury d'entretien ?",
+      "speaker": "Inès",
+      "evidence": "Qui fait partie du jury d'entretien ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u06",
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "type": "answer",
+      "statement": "Le jury est composé d'Olivier, de Marie et si possible d'une personne de l'équipe terrain.",
+      "speaker": "Marie",
+      "evidence": "Olivier et moi, plus quelqu'un de l'équipe terrain si possible.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u07",
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "type": "action",
+      "statement": "Inès est sollicitée par Olivier pour rejoindre le jury d'entretien.",
+      "speaker": "Olivier",
+      "evidence": "Inès, tu veux bien faire partie du jury ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u08",
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "type": "commitment",
+      "statement": "Inès accepte de faire partie du jury et bloque ses après-midis de la semaine suivante.",
+      "speaker": "Inès",
+      "evidence": "Avec plaisir, je bloque mes après-midis de la semaine prochaine.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u09",
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "type": "fact",
+      "statement": "La grille d'évaluation date de l'an dernier et n'est plus adaptée.",
+      "speaker": "Marie",
+      "evidence": "Autre chose, la grille d'évaluation date de l'an dernier, elle n'est plus vraiment adaptée.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u10",
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "type": "commitment",
+      "statement": "Olivier retravaillera la grille d'évaluation, pas avant la semaine suivante.",
+      "speaker": "Olivier",
+      "evidence": "Je peux la retravailler, mais pas avant la semaine prochaine.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u11",
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "type": "action",
+      "statement": "Inès doit envoyer ses remarques sur la grille d'évaluation à Olivier d'ici jeudi.",
+      "speaker": "Marie",
+      "evidence": "Inès, je te demande d'envoyer à Olivier tes remarques sur la grille d'ici jeudi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u12",
+      "source_id": "p03_m01",
+      "source_date": "2026-05-12",
+      "type": "commitment",
+      "statement": "Inès s'engage à envoyer ses remarques à Olivier jeudi au plus tard.",
+      "speaker": "Inès",
+      "evidence": "C'est noté, je lui envoie ça jeudi au plus tard.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u13",
+      "source_id": "p03_m02",
+      "source_date": "2026-05-26",
+      "type": "fact",
+      "statement": "Olivier estime que Sandrine Morel est la meilleure candidate, elle a géré un site deux fois plus grand.",
+      "speaker": "Olivier",
+      "evidence": "Pour moi, c'est clairement Sandrine Morel qui sort du lot, elle a géré un site deux fois plus gros que le nôtre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u14",
+      "source_id": "p03_m02",
+      "source_date": "2026-05-26",
+      "type": "question",
+      "statement": "Quelle est la prétention salariale de Sandrine Morel ?",
+      "speaker": "Fatou",
+      "evidence": "Quelle est sa prétention salariale ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u15",
+      "source_id": "p03_m02",
+      "source_date": "2026-05-26",
+      "type": "answer",
+      "statement": "Sandrine Morel demande 48 000 euros, dans le haut de la fourchette prévue.",
+      "speaker": "Marie",
+      "evidence": "Elle demande 48 000 euros, c'est dans le haut de notre fourchette.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u16",
+      "source_id": "p03_m02",
+      "source_date": "2026-05-26",
+      "type": "decision",
+      "statement": "Sandrine Morel est retenue pour le poste de responsable d'entrepôt.",
+      "speaker": "Fatou",
+      "evidence": "On retient Sandrine Morel pour le poste.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u17",
+      "source_id": "p03_m02",
+      "source_date": "2026-05-26",
+      "type": "action",
+      "statement": "Yannick doit préparer la promesse d'embauche de Sandrine Morel, la demande lui étant transmise par Marie.",
+      "speaker": "Fatou",
+      "evidence": "Marie, je te laisse demander à Yannick de préparer la promesse d'embauche, c'est lui qui a les modèles.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u18",
+      "source_id": "p03_m02",
+      "source_date": "2026-05-26",
+      "type": "commitment",
+      "statement": "Marie transmet à Yannick la demande de promesse d'embauche le soir même.",
+      "speaker": "Marie",
+      "evidence": "D'accord, je lui transmets la demande dès ce soir.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u19",
+      "source_id": "p03_m02",
+      "source_date": "2026-05-26",
+      "type": "question",
+      "statement": "Comment prévenir les deux candidats non retenus ?",
+      "speaker": "Inès",
+      "evidence": "Et pour les deux autres candidats, on les prévient comment ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u20",
+      "source_id": "p03_m02",
+      "source_date": "2026-05-26",
+      "type": "answer",
+      "statement": "Olivier appellera lui-même les deux candidats non retenus plutôt que d'envoyer un mail.",
+      "speaker": "Olivier",
+      "evidence": "Je m'occupe de les appeler moi-même, ils ont fait le déplacement, ça me semble plus correct qu'un mail.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p03_u21",
+      "source_id": "p03_m02",
+      "source_date": "2026-05-26",
+      "type": "action",
+      "statement": "Olivier doit contacter l'ancien employeur de Sandrine Morel d'ici lundi pour vérifier ses références.",
+      "speaker": "Marie",
+      "evidence": "Olivier, tu pourras contacter son ancien employeur d'ici lundi ?",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p03_u02",
+      "to_id": "p03_u03",
+      "relation": "supports",
+      "evidence_source_id": "p03_m01"
+    },
+    {
+      "from_id": "p03_u04",
+      "to_id": "p03_u03",
+      "relation": "supports",
+      "evidence_source_id": "p03_m01"
+    },
+    {
+      "from_id": "p03_u06",
+      "to_id": "p03_u05",
+      "relation": "answers",
+      "evidence_source_id": "p03_m01"
+    },
+    {
+      "from_id": "p03_u06",
+      "to_id": "p03_u07",
+      "relation": "creates_action",
+      "evidence_source_id": "p03_m01"
+    },
+    {
+      "from_id": "p03_u08",
+      "to_id": "p03_u07",
+      "relation": "supports",
+      "evidence_source_id": "p03_m01"
+    },
+    {
+      "from_id": "p03_u09",
+      "to_id": "p03_u10",
+      "relation": "creates_action",
+      "evidence_source_id": "p03_m01"
+    },
+    {
+      "from_id": "p03_u09",
+      "to_id": "p03_u11",
+      "relation": "creates_action",
+      "evidence_source_id": "p03_m01"
+    },
+    {
+      "from_id": "p03_u12",
+      "to_id": "p03_u11",
+      "relation": "supports",
+      "evidence_source_id": "p03_m01"
+    },
+    {
+      "from_id": "p03_u13",
+      "to_id": "p03_u16",
+      "relation": "supports",
+      "evidence_source_id": "p03_m02"
+    },
+    {
+      "from_id": "p03_u15",
+      "to_id": "p03_u14",
+      "relation": "answers",
+      "evidence_source_id": "p03_m02"
+    },
+    {
+      "from_id": "p03_u16",
+      "to_id": "p03_u17",
+      "relation": "creates_action",
+      "evidence_source_id": "p03_m02"
+    },
+    {
+      "from_id": "p03_u18",
+      "to_id": "p03_u17",
+      "relation": "supports",
+      "evidence_source_id": "p03_m02"
+    },
+    {
+      "from_id": "p03_u20",
+      "to_id": "p03_u19",
+      "relation": "answers",
+      "evidence_source_id": "p03_m02"
+    },
+    {
+      "from_id": "p03_u16",
+      "to_id": "p03_u21",
+      "relation": "creates_action",
+      "evidence_source_id": "p03_m02"
+    }
+  ]
+}

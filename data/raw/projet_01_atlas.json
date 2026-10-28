@@ -1,0 +1,332 @@
+{
+  "project_id": "projet_01",
+  "project_name": "Atlas",
+  "meetings": [
+    {
+      "source_id": "p01_m01",
+      "source_date": "2026-03-03",
+      "participants": ["Claire", "Mehdi", "Julien", "Sophie"],
+      "transcript": "Claire: Bon, on commence. L'objectif aujourd'hui, c'est de caler un calendrier réaliste pour la mise en production d'Atlas.\nMehdi: Côté dev, le module de facturation est quasiment terminé. Il nous reste surtout l'export comptable à finir.\nClaire: D'accord. Je propose qu'on vise une mise en production le 14 avril. Ça laisse un peu plus d'un mois.\nJulien: Le 14 avril, ça me paraît jouable, mais il faut que l'environnement de préproduction soit prêt avant la fin du mois.\nSophie: Et pour les équipes support, est-ce qu'on prévoit une formation avant le lancement ?\nClaire: Oui, il faudra au moins une demi-journée. Sophie, tu pourrais t'en occuper ?\nSophie: Pas de souci, je prépare un support de formation pour les équipes.\nMehdi: Petite alerte quand même : si l'API du prestataire de paiement change encore, on risque de prendre du retard sur l'export.\nJulien: Je m'engage à livrer la préproduction pour le 27 mars au plus tard.\nClaire: Parfait. On ne fige rien aujourd'hui, on confirme la date du 14 avril à la prochaine réunion."
+    },
+    {
+      "source_id": "p01_m02",
+      "source_date": "2026-03-31",
+      "participants": ["Claire", "Mehdi", "Julien", "Aminata"],
+      "transcript": "Claire: Merci à tous d'être là. Premier point, l'état de la préproduction.\nJulien: La préproduction est en ligne depuis jeudi, avec un jour d'avance sur le planning.\nMehdi: Les tests de bout en bout passent, à part deux anomalies mineures sur l'affichage des factures.\nAminata: Ces anomalies, elles bloquent le lancement ou pas ?\nMehdi: Non, elles ne sont pas bloquantes, on les corrige dans la semaine.\nAminata: Dans ce cas, je n'ai pas d'objection. On part sur le 14 avril pour la mise en production.\nClaire: C'est donc acté, mise en production d'Atlas le 14 avril.\nJulien: Il faudra prévenir les utilisateurs au moins une semaine avant, à cause de la coupure de service.\nClaire: Je m'occupe d'envoyer la communication aux utilisateurs d'ici vendredi.\nAminata: Et l'export comptable, il est terminé ?\nMehdi: Presque, il manque la validation par la compta, Thomas doit nous faire un retour lundi.\nClaire: Très bien, on refait un point la semaine prochaine."
+    },
+    {
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "participants": ["Claire", "Mehdi", "Julien", "Aminata", "Thomas"],
+      "transcript": "Claire: On a un sujet un peu délicat aujourd'hui. Thomas, tu veux commencer ?\nThomas: Oui. En testant l'export comptable, on a trouvé des écarts sur la TVA intracommunautaire.\nMehdi: On a regardé hier soir, ça vient du format envoyé par le prestataire de paiement, ils ont modifié leur API sans prévenir.\nAminata: Combien de temps pour corriger ?\nMehdi: Deux semaines minimum, en comptant les tests de non régression.\nJulien: Alors le 14 avril n'est plus tenable, on ne peut pas mettre en production avec un export faux.\nAminata: Je suis d'accord, je préfère décaler plutôt que livrer quelque chose de bancal.\nClaire: Je propose le 5 mai, ça nous laisse de la marge en cas de nouveau souci.\nAminata: Va pour le 5 mai. La mise en production d'Atlas est reportée au 5 mai.\nClaire: Je renvoie un message aux utilisateurs pour annoncer le report dès cet après-midi.\nThomas: De mon côté, je referai une passe complète sur l'export dès que le correctif sera livré.\nClaire: Merci à tous, on garde le point hebdomadaire jusqu'au lancement."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p01_u01",
+      "source_id": "p01_m01",
+      "source_date": "2026-03-03",
+      "type": "idea",
+      "statement": "Claire propose une mise en production d'Atlas le 14 avril.",
+      "speaker": "Claire",
+      "evidence": "Je propose qu'on vise une mise en production le 14 avril.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p01_u02",
+      "source_id": "p01_m01",
+      "source_date": "2026-03-03",
+      "type": "fact",
+      "statement": "Le module de facturation d'Atlas est quasiment terminé, il reste l'export comptable.",
+      "speaker": "Mehdi",
+      "evidence": "Côté dev, le module de facturation est quasiment terminé.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u03",
+      "source_id": "p01_m01",
+      "source_date": "2026-03-03",
+      "type": "question",
+      "statement": "Une formation des équipes support est-elle prévue avant le lancement ?",
+      "speaker": "Sophie",
+      "evidence": "Et pour les équipes support, est-ce qu'on prévoit une formation avant le lancement ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u04",
+      "source_id": "p01_m01",
+      "source_date": "2026-03-03",
+      "type": "answer",
+      "statement": "Une formation d'au moins une demi-journée est nécessaire pour les équipes support.",
+      "speaker": "Claire",
+      "evidence": "Oui, il faudra au moins une demi-journée.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u05",
+      "source_id": "p01_m01",
+      "source_date": "2026-03-03",
+      "type": "action",
+      "statement": "Sophie prépare un support de formation pour les équipes support.",
+      "speaker": "Sophie",
+      "evidence": "Pas de souci, je prépare un support de formation pour les équipes.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u06",
+      "source_id": "p01_m01",
+      "source_date": "2026-03-03",
+      "type": "risk",
+      "statement": "Un changement de l'API du prestataire de paiement pourrait retarder l'export comptable.",
+      "speaker": "Mehdi",
+      "evidence": "Petite alerte quand même : si l'API du prestataire de paiement change encore, on risque de prendre du retard sur l'export.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u07",
+      "source_id": "p01_m01",
+      "source_date": "2026-03-03",
+      "type": "commitment",
+      "statement": "Julien s'engage à livrer l'environnement de préproduction au plus tard le 27 mars.",
+      "speaker": "Julien",
+      "evidence": "Je m'engage à livrer la préproduction pour le 27 mars au plus tard.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u08",
+      "source_id": "p01_m02",
+      "source_date": "2026-03-31",
+      "type": "fact",
+      "statement": "La préproduction d'Atlas est en ligne depuis le jeudi 26 mars, un jour avant l'échéance.",
+      "speaker": "Julien",
+      "evidence": "La préproduction est en ligne depuis jeudi, avec un jour d'avance sur le planning.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u09",
+      "source_id": "p01_m02",
+      "source_date": "2026-03-31",
+      "type": "fact",
+      "statement": "Les tests de bout en bout passent, hormis deux anomalies mineures d'affichage des factures.",
+      "speaker": "Mehdi",
+      "evidence": "Les tests de bout en bout passent, à part deux anomalies mineures sur l'affichage des factures.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u10",
+      "source_id": "p01_m02",
+      "source_date": "2026-03-31",
+      "type": "question",
+      "statement": "Les anomalies d'affichage des factures bloquent-elles le lancement ?",
+      "speaker": "Aminata",
+      "evidence": "Ces anomalies, elles bloquent le lancement ou pas ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u11",
+      "source_id": "p01_m02",
+      "source_date": "2026-03-31",
+      "type": "answer",
+      "statement": "Les anomalies ne sont pas bloquantes et seront corrigées dans la semaine.",
+      "speaker": "Mehdi",
+      "evidence": "Non, elles ne sont pas bloquantes, on les corrige dans la semaine.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u12",
+      "source_id": "p01_m02",
+      "source_date": "2026-03-31",
+      "type": "decision",
+      "statement": "La mise en production d'Atlas est validée pour le 14 avril.",
+      "speaker": "Claire",
+      "evidence": "C'est donc acté, mise en production d'Atlas le 14 avril.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p01_u13",
+      "source_id": "p01_m02",
+      "source_date": "2026-03-31",
+      "type": "action",
+      "statement": "Claire envoie la communication aux utilisateurs sur la coupure de service d'ici vendredi.",
+      "speaker": "Claire",
+      "evidence": "Je m'occupe d'envoyer la communication aux utilisateurs d'ici vendredi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u14",
+      "source_id": "p01_m02",
+      "source_date": "2026-03-31",
+      "type": "fact",
+      "statement": "L'export comptable attend la validation de la comptabilité, Thomas doit faire un retour lundi.",
+      "speaker": "Mehdi",
+      "evidence": "Presque, il manque la validation par la compta, Thomas doit nous faire un retour lundi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u15",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "type": "fact",
+      "statement": "Les tests de l'export comptable révèlent des écarts sur la TVA intracommunautaire.",
+      "speaker": "Thomas",
+      "evidence": "En testant l'export comptable, on a trouvé des écarts sur la TVA intracommunautaire.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u16",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "type": "fact",
+      "statement": "Les écarts viennent d'une modification non annoncée de l'API du prestataire de paiement.",
+      "speaker": "Mehdi",
+      "evidence": "On a regardé hier soir, ça vient du format envoyé par le prestataire de paiement, ils ont modifié leur API sans prévenir.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u17",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "type": "question",
+      "statement": "Combien de temps faut-il pour corriger l'export comptable ?",
+      "speaker": "Aminata",
+      "evidence": "Combien de temps pour corriger ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u18",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "type": "answer",
+      "statement": "La correction demande au moins deux semaines, tests de non régression compris.",
+      "speaker": "Mehdi",
+      "evidence": "Deux semaines minimum, en comptant les tests de non régression.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u19",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "type": "fact",
+      "statement": "La date du 14 avril n'est plus tenable car l'export comptable est faux.",
+      "speaker": "Julien",
+      "evidence": "Alors le 14 avril n'est plus tenable, on ne peut pas mettre en production avec un export faux.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u20",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "type": "decision",
+      "statement": "La mise en production d'Atlas est reportée au 5 mai.",
+      "speaker": "Aminata",
+      "evidence": "La mise en production d'Atlas est reportée au 5 mai.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u21",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "type": "action",
+      "statement": "Claire envoie un message aux utilisateurs pour annoncer le report, le jour même.",
+      "speaker": "Claire",
+      "evidence": "Je renvoie un message aux utilisateurs pour annoncer le report dès cet après-midi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p01_u22",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "type": "commitment",
+      "statement": "Thomas refera une vérification complète de l'export une fois le correctif livré.",
+      "speaker": "Thomas",
+      "evidence": "De mon côté, je referai une passe complète sur l'export dès que le correctif sera livré.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p01_u04",
+      "to_id": "p01_u03",
+      "relation": "answers",
+      "evidence_source_id": "p01_m01"
+    },
+    {
+      "from_id": "p01_u04",
+      "to_id": "p01_u05",
+      "relation": "creates_action",
+      "evidence_source_id": "p01_m01"
+    },
+    {
+      "from_id": "p01_u07",
+      "to_id": "p01_u01",
+      "relation": "supports",
+      "evidence_source_id": "p01_m01"
+    },
+    {
+      "from_id": "p01_u08",
+      "to_id": "p01_u07",
+      "relation": "supports",
+      "evidence_source_id": "p01_m02"
+    },
+    {
+      "from_id": "p01_u11",
+      "to_id": "p01_u10",
+      "relation": "answers",
+      "evidence_source_id": "p01_m02"
+    },
+    {
+      "from_id": "p01_u09",
+      "to_id": "p01_u12",
+      "relation": "supports",
+      "evidence_source_id": "p01_m02"
+    },
+    {
+      "from_id": "p01_u12",
+      "to_id": "p01_u01",
+      "relation": "supersedes",
+      "evidence_source_id": "p01_m02"
+    },
+    {
+      "from_id": "p01_u12",
+      "to_id": "p01_u13",
+      "relation": "creates_action",
+      "evidence_source_id": "p01_m02"
+    },
+    {
+      "from_id": "p01_u16",
+      "to_id": "p01_u06",
+      "relation": "supports",
+      "evidence_source_id": "p01_m03"
+    },
+    {
+      "from_id": "p01_u18",
+      "to_id": "p01_u17",
+      "relation": "answers",
+      "evidence_source_id": "p01_m03"
+    },
+    {
+      "from_id": "p01_u15",
+      "to_id": "p01_u19",
+      "relation": "supports",
+      "evidence_source_id": "p01_m03"
+    },
+    {
+      "from_id": "p01_u19",
+      "to_id": "p01_u20",
+      "relation": "supports",
+      "evidence_source_id": "p01_m03"
+    },
+    {
+      "from_id": "p01_u20",
+      "to_id": "p01_u12",
+      "relation": "supersedes",
+      "evidence_source_id": "p01_m03"
+    },
+    {
+      "from_id": "p01_u20",
+      "to_id": "p01_u21",
+      "relation": "creates_action",
+      "evidence_source_id": "p01_m03"
+    }
+  ]
+}

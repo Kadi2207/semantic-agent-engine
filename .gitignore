@@ -34,6 +34,7 @@ data/raw/*
 data/processed/*
 data/eval/*
 !data/raw/.gitkeep
+!data/raw/projet_*.json
 !data/processed/.gitkeep
 !data/eval/.gitkeep
 

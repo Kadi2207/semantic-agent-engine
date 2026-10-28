@@ -1,0 +1,270 @@
+{
+  "project_id": "projet_04",
+  "project_name": "Migration CRM",
+  "meetings": [
+    {
+      "source_id": "p04_m01",
+      "source_date": "2026-06-02",
+      "participants": ["Guillaume", "Céline", "Samia", "Romain"],
+      "transcript": "Guillaume: L'objet de la réunion, c'est de décider si on bascule nos agences sur le nouveau CRM avant les congés d'août.\nCéline: Côté commerce, on est demandeurs, l'outil actuel rame dès qu'on dépasse dix utilisateurs connectés.\nSamia: Mon inquiétude, c'est la reprise des données. On a plus de 60 000 fiches contacts, dont beaucoup en doublon.\nRomain: L'éditeur propose un test de reprise sur un échantillon de deux agences.\nGuillaume: Alors voilà ce que je propose. On valide la migration vers le nouveau CRM si le test de reprise passe sans perte de données.\nCéline: Ça me va, à condition que ce soit fait rapidement.\nSamia: Je peux dédoublonner les fiches des deux agences pilotes avant le test.\nRomain: Et moi je cale le test avec l'éditeur pour la semaine du 15 juin.\nCéline: Qui seront les agences pilotes ?\nRomain: Je proposerais Lyon Part-Dieu et Annecy, ce sont les deux plus actives sur le CRM.\nGuillaume: Parfait, on se revoit quand on aura les résultats du test."
+    },
+    {
+      "source_id": "p04_m02",
+      "source_date": "2026-06-23",
+      "participants": ["Guillaume", "Romain", "Samia", "Vincent", "Céline"],
+      "transcript": "Guillaume: On a les résultats du test de reprise. Romain, je te laisse présenter.\nRomain: Le test s'est fait la semaine du 15 comme prévu. Toutes les fiches des deux agences pilotes ont été reprises, sans aucune perte.\nSamia: Le dédoublonnage a bien aidé, on est passés de 4 200 à 3 100 fiches sur les deux agences.\nVincent: Donc la condition qu'on avait posée est remplie ?\nGuillaume: Oui, elle est remplie. La migration vers le nouveau CRM est validée définitivement.\nVincent: Très bien. Quand est-ce qu'on bascule l'ensemble du réseau ?\nRomain: L'éditeur peut tout migrer le week-end du 11 juillet.\nCéline: Il faudra former les conseillers avant, sinon le lundi va être compliqué.\nVincent: Céline, tu organises les sessions de formation dans les agences d'ici le 10 juillet ?\nCéline: Oui, je m'en occupe avec les responsables d'agence.\nSamia: Je lance le dédoublonnage sur toutes les autres agences dès demain.\nGuillaume: Parfait, on fait un point de contrôle juste après la bascule."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p04_u01",
+      "source_id": "p04_m01",
+      "source_date": "2026-06-02",
+      "type": "fact",
+      "statement": "L'outil CRM actuel ralentit fortement dès que plus de dix utilisateurs sont connectés.",
+      "speaker": "Céline",
+      "evidence": "Côté commerce, on est demandeurs, l'outil actuel rame dès qu'on dépasse dix utilisateurs connectés.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u02",
+      "source_id": "p04_m01",
+      "source_date": "2026-06-02",
+      "type": "risk",
+      "statement": "La reprise de plus de 60 000 fiches contacts, dont de nombreux doublons, présente un risque.",
+      "speaker": "Samia",
+      "evidence": "On a plus de 60 000 fiches contacts, dont beaucoup en doublon.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u03",
+      "source_id": "p04_m01",
+      "source_date": "2026-06-02",
+      "type": "decision",
+      "statement": "La migration vers le nouveau CRM est validée à condition que le test de reprise passe sans perte de données.",
+      "speaker": "Guillaume",
+      "evidence": "On valide la migration vers le nouveau CRM si le test de reprise passe sans perte de données.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p04_u04",
+      "source_id": "p04_m01",
+      "source_date": "2026-06-02",
+      "type": "commitment",
+      "statement": "Samia dédoublonne les fiches des deux agences pilotes avant le test de reprise.",
+      "speaker": "Samia",
+      "evidence": "Je peux dédoublonner les fiches des deux agences pilotes avant le test.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u05",
+      "source_id": "p04_m01",
+      "source_date": "2026-06-02",
+      "type": "commitment",
+      "statement": "Romain planifie le test de reprise avec l'éditeur pour la semaine du 15 juin.",
+      "speaker": "Romain",
+      "evidence": "Et moi je cale le test avec l'éditeur pour la semaine du 15 juin.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u06",
+      "source_id": "p04_m01",
+      "source_date": "2026-06-02",
+      "type": "question",
+      "statement": "Quelles agences serviront de pilotes pour le test de reprise ?",
+      "speaker": "Céline",
+      "evidence": "Qui seront les agences pilotes ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u07",
+      "source_id": "p04_m01",
+      "source_date": "2026-06-02",
+      "type": "answer",
+      "statement": "Les agences pilotes proposées sont Lyon Part-Dieu et Annecy, les plus actives sur le CRM.",
+      "speaker": "Romain",
+      "evidence": "Je proposerais Lyon Part-Dieu et Annecy, ce sont les deux plus actives sur le CRM.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u08",
+      "source_id": "p04_m02",
+      "source_date": "2026-06-23",
+      "type": "fact",
+      "statement": "Le test de reprise a repris toutes les fiches des deux agences pilotes sans aucune perte.",
+      "speaker": "Romain",
+      "evidence": "Toutes les fiches des deux agences pilotes ont été reprises, sans aucune perte.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u09",
+      "source_id": "p04_m02",
+      "source_date": "2026-06-23",
+      "type": "fact",
+      "statement": "Le dédoublonnage a réduit les fiches des deux agences pilotes de 4 200 à 3 100.",
+      "speaker": "Samia",
+      "evidence": "Le dédoublonnage a bien aidé, on est passés de 4 200 à 3 100 fiches sur les deux agences.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u10",
+      "source_id": "p04_m02",
+      "source_date": "2026-06-23",
+      "type": "question",
+      "statement": "La condition posée pour valider la migration est-elle remplie ?",
+      "speaker": "Vincent",
+      "evidence": "Donc la condition qu'on avait posée est remplie ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u11",
+      "source_id": "p04_m02",
+      "source_date": "2026-06-23",
+      "type": "answer",
+      "statement": "La condition du test de reprise sans perte est remplie.",
+      "speaker": "Guillaume",
+      "evidence": "Oui, elle est remplie.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u12",
+      "source_id": "p04_m02",
+      "source_date": "2026-06-23",
+      "type": "decision",
+      "statement": "La migration vers le nouveau CRM est validée définitivement, sans condition restante.",
+      "speaker": "Guillaume",
+      "evidence": "La migration vers le nouveau CRM est validée définitivement.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u13",
+      "source_id": "p04_m02",
+      "source_date": "2026-06-23",
+      "type": "question",
+      "statement": "Quand l'ensemble du réseau d'agences basculera-t-il sur le nouveau CRM ?",
+      "speaker": "Vincent",
+      "evidence": "Quand est-ce qu'on bascule l'ensemble du réseau ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u14",
+      "source_id": "p04_m02",
+      "source_date": "2026-06-23",
+      "type": "answer",
+      "statement": "L'éditeur peut migrer tout le réseau le week-end du 11 juillet.",
+      "speaker": "Romain",
+      "evidence": "L'éditeur peut tout migrer le week-end du 11 juillet.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u15",
+      "source_id": "p04_m02",
+      "source_date": "2026-06-23",
+      "type": "risk",
+      "statement": "Sans formation préalable des conseillers, le premier jour après la bascule sera difficile.",
+      "speaker": "Céline",
+      "evidence": "Il faudra former les conseillers avant, sinon le lundi va être compliqué.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u16",
+      "source_id": "p04_m02",
+      "source_date": "2026-06-23",
+      "type": "action",
+      "statement": "Céline organise les sessions de formation des conseillers dans les agences d'ici le 10 juillet.",
+      "speaker": "Vincent",
+      "evidence": "Céline, tu organises les sessions de formation dans les agences d'ici le 10 juillet ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p04_u17",
+      "source_id": "p04_m02",
+      "source_date": "2026-06-23",
+      "type": "commitment",
+      "statement": "Samia lance le dédoublonnage des fiches de toutes les autres agences dès le lendemain.",
+      "speaker": "Samia",
+      "evidence": "Je lance le dédoublonnage sur toutes les autres agences dès demain.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p04_u01",
+      "to_id": "p04_u03",
+      "relation": "supports",
+      "evidence_source_id": "p04_m01"
+    },
+    {
+      "from_id": "p04_u03",
+      "to_id": "p04_u04",
+      "relation": "creates_action",
+      "evidence_source_id": "p04_m01"
+    },
+    {
+      "from_id": "p04_u03",
+      "to_id": "p04_u05",
+      "relation": "creates_action",
+      "evidence_source_id": "p04_m01"
+    },
+    {
+      "from_id": "p04_u02",
+      "to_id": "p04_u04",
+      "relation": "supports",
+      "evidence_source_id": "p04_m01"
+    },
+    {
+      "from_id": "p04_u07",
+      "to_id": "p04_u06",
+      "relation": "answers",
+      "evidence_source_id": "p04_m01"
+    },
+    {
+      "from_id": "p04_u09",
+      "to_id": "p04_u08",
+      "relation": "supports",
+      "evidence_source_id": "p04_m02"
+    },
+    {
+      "from_id": "p04_u08",
+      "to_id": "p04_u12",
+      "relation": "supports",
+      "evidence_source_id": "p04_m02"
+    },
+    {
+      "from_id": "p04_u11",
+      "to_id": "p04_u10",
+      "relation": "answers",
+      "evidence_source_id": "p04_m02"
+    },
+    {
+      "from_id": "p04_u12",
+      "to_id": "p04_u03",
+      "relation": "supersedes",
+      "evidence_source_id": "p04_m02"
+    },
+    {
+      "from_id": "p04_u14",
+      "to_id": "p04_u13",
+      "relation": "answers",
+      "evidence_source_id": "p04_m02"
+    },
+    {
+      "from_id": "p04_u15",
+      "to_id": "p04_u16",
+      "relation": "supports",
+      "evidence_source_id": "p04_m02"
+    },
+    {
+      "from_id": "p04_u12",
+      "to_id": "p04_u16",
+      "relation": "creates_action",
+      "evidence_source_id": "p04_m02"
+    },
+    {
+      "from_id": "p04_u12",
+      "to_id": "p04_u17",
+      "relation": "creates_action",
+      "evidence_source_id": "p04_m02"
+    }
+  ]
+}

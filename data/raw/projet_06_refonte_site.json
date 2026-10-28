@@ -1,0 +1,354 @@
+{
+  "project_id": "projet_06",
+  "project_name": "Refonte du site e-commerce",
+  "meetings": [
+    {
+      "source_id": "p06_m01",
+      "source_date": "2026-01-13",
+      "participants": ["Laurent", "Émilie", "Benoît", "Nora"],
+      "transcript": "Laurent: On démarre officiellement la refonte du site. L'objectif, c'est d'être en ligne avant les soldes d'été.\nÉmilie: J'ai terminé les premières maquettes de la page d'accueil et des fiches produits.\nBenoît: On part sur quel CMS ? On reste sur l'actuel ou on change ?\nLaurent: On change, on part sur Shopify, c'est déjà validé par la direction.\nNora: J'ai une question importante côté référencement. Est-ce qu'on prévoit un plan de redirection pour les anciennes URL des fiches produits ?\nBenoît: Ça dépend un peu de la structure qu'Émilie va proposer.\nÉmilie: D'ailleurs, sur la structure, je voudrais qu'on réduise le menu à cinq catégories.\nLaurent: Ça me paraît bien, le menu actuel est illisible. On part sur cinq catégories.\nBenoît: Il me faudrait les maquettes définitives avant le 6 février pour tenir le planning.\nÉmilie: Je vous envoie la version finale le 4 février.\nLaurent: Très bien. On fait un point dans un mois."
+    },
+    {
+      "source_id": "p06_m02",
+      "source_date": "2026-02-10",
+      "participants": ["Laurent", "Damien", "Benoît", "Nora", "Émilie"],
+      "transcript": "Laurent: Je vous présente Damien, de l'agence qui va nous accompagner sur l'intégration Shopify.\nDamien: Bonjour à tous. J'ai regardé les maquettes envoyées par Émilie, elles sont tout à fait intégrables.\nBenoît: On a combien de temps pour l'intégration, d'après toi ?\nDamien: Comptez six semaines pour le catalogue et le tunnel de paiement.\nNora: Je reviens sur ma question de la dernière fois, sur les anciennes URL des fiches produits.\nLaurent: Oui, on en parlera, mais d'abord il faut qu'on tranche sur le module d'avis clients.\nÉmilie: Les maquettes prévoient un bloc d'avis sous chaque fiche produit.\nDamien: Je vous conseille l'application native, elle est gratuite jusqu'à 500 avis par mois.\nLaurent: Va pour l'application native.\nBenoît: Et pour le paiement en plusieurs fois, on le garde ?\nLaurent: Oui, on le garde, c'est 15 % de nos ventes.\nDamien: Je vous envoie le planning détaillé de l'intégration d'ici jeudi."
+    },
+    {
+      "source_id": "p06_m03",
+      "source_date": "2026-03-10",
+      "participants": ["Laurent", "Damien", "Benoît", "Nora"],
+      "transcript": "Laurent: Point d'avancement à mi-parcours. Damien, où en est l'intégration ?\nDamien: Le catalogue est intégré à 70 %, on attaque le tunnel de paiement la semaine prochaine.\nBenoît: On a un souci sur l'import des photos produits, certaines sont en trop basse résolution.\nLaurent: Combien de produits sont concernés ?\nBenoît: Environ 300 sur les 2 000 du catalogue.\nLaurent: Je demande au studio photo de refaire les clichés en priorité.\nNora: Pour le référencement, j'aimerais qu'on fixe une date pour ouvrir la préproduction et lancer un premier crawl.\nDamien: Alors on ouvre la préproduction le 30 mars, c'est noté.\nNora: Parfait. Par contre, toujours aucune décision sur les redirections des anciennes URL.\nLaurent: On verra ça plus tard, pour l'instant la priorité, ce sont les photos et le paiement.\nDamien: Je vous fais un compte rendu écrit d'ici demain."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p06_u01",
+      "source_id": "p06_m01",
+      "source_date": "2026-01-13",
+      "type": "fact",
+      "statement": "Le nouveau site doit être en ligne avant les soldes d'été.",
+      "speaker": "Laurent",
+      "evidence": "L'objectif, c'est d'être en ligne avant les soldes d'été.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u02",
+      "source_id": "p06_m01",
+      "source_date": "2026-01-13",
+      "type": "fact",
+      "statement": "Les premières maquettes de la page d'accueil et des fiches produits sont terminées.",
+      "speaker": "Émilie",
+      "evidence": "J'ai terminé les premières maquettes de la page d'accueil et des fiches produits.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u03",
+      "source_id": "p06_m01",
+      "source_date": "2026-01-13",
+      "type": "question",
+      "statement": "Quel CMS utiliser pour le nouveau site ?",
+      "speaker": "Benoît",
+      "evidence": "On part sur quel CMS ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u04",
+      "source_id": "p06_m01",
+      "source_date": "2026-01-13",
+      "type": "answer",
+      "statement": "Le site passe sur Shopify, choix déjà validé par la direction.",
+      "speaker": "Laurent",
+      "evidence": "On change, on part sur Shopify, c'est déjà validé par la direction.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u05",
+      "source_id": "p06_m01",
+      "source_date": "2026-01-13",
+      "type": "question",
+      "statement": "Un plan de redirection est-il prévu pour les anciennes URL des fiches produits ?",
+      "speaker": "Nora",
+      "evidence": "Est-ce qu'on prévoit un plan de redirection pour les anciennes URL des fiches produits ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u06",
+      "source_id": "p06_m01",
+      "source_date": "2026-01-13",
+      "type": "idea",
+      "statement": "Émilie propose de réduire le menu du site à cinq catégories.",
+      "speaker": "Émilie",
+      "evidence": "D'ailleurs, sur la structure, je voudrais qu'on réduise le menu à cinq catégories.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u07",
+      "source_id": "p06_m01",
+      "source_date": "2026-01-13",
+      "type": "decision",
+      "statement": "Le menu du nouveau site comptera cinq catégories.",
+      "speaker": "Laurent",
+      "evidence": "On part sur cinq catégories.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u08",
+      "source_id": "p06_m01",
+      "source_date": "2026-01-13",
+      "type": "fact",
+      "statement": "Benoît a besoin des maquettes définitives avant le 6 février pour tenir le planning.",
+      "speaker": "Benoît",
+      "evidence": "Il me faudrait les maquettes définitives avant le 6 février pour tenir le planning.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u09",
+      "source_id": "p06_m01",
+      "source_date": "2026-01-13",
+      "type": "commitment",
+      "statement": "Émilie envoie la version finale des maquettes le 4 février.",
+      "speaker": "Émilie",
+      "evidence": "Je vous envoie la version finale le 4 février.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u10",
+      "source_id": "p06_m02",
+      "source_date": "2026-02-10",
+      "type": "fact",
+      "statement": "Les maquettes envoyées par Émilie sont intégrables sur Shopify.",
+      "speaker": "Damien",
+      "evidence": "J'ai regardé les maquettes envoyées par Émilie, elles sont tout à fait intégrables.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u11",
+      "source_id": "p06_m02",
+      "source_date": "2026-02-10",
+      "type": "question",
+      "statement": "Combien de temps faut-il pour l'intégration ?",
+      "speaker": "Benoît",
+      "evidence": "On a combien de temps pour l'intégration, d'après toi ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u12",
+      "source_id": "p06_m02",
+      "source_date": "2026-02-10",
+      "type": "answer",
+      "statement": "L'intégration du catalogue et du tunnel de paiement prend six semaines.",
+      "speaker": "Damien",
+      "evidence": "Comptez six semaines pour le catalogue et le tunnel de paiement.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u13",
+      "source_id": "p06_m02",
+      "source_date": "2026-02-10",
+      "type": "question",
+      "statement": "Nora relance sa question sur le traitement des anciennes URL des fiches produits.",
+      "speaker": "Nora",
+      "evidence": "Je reviens sur ma question de la dernière fois, sur les anciennes URL des fiches produits.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u14",
+      "source_id": "p06_m02",
+      "source_date": "2026-02-10",
+      "type": "idea",
+      "statement": "Damien recommande l'application native d'avis clients, gratuite jusqu'à 500 avis par mois.",
+      "speaker": "Damien",
+      "evidence": "Je vous conseille l'application native, elle est gratuite jusqu'à 500 avis par mois.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u15",
+      "source_id": "p06_m02",
+      "source_date": "2026-02-10",
+      "type": "decision",
+      "statement": "L'application native est retenue pour les avis clients.",
+      "speaker": "Laurent",
+      "evidence": "Va pour l'application native.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u16",
+      "source_id": "p06_m02",
+      "source_date": "2026-02-10",
+      "type": "question",
+      "statement": "Le paiement en plusieurs fois est-il conservé ?",
+      "speaker": "Benoît",
+      "evidence": "Et pour le paiement en plusieurs fois, on le garde ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u17",
+      "source_id": "p06_m02",
+      "source_date": "2026-02-10",
+      "type": "answer",
+      "statement": "Le paiement en plusieurs fois est conservé, il représente 15 % des ventes.",
+      "speaker": "Laurent",
+      "evidence": "Oui, on le garde, c'est 15 % de nos ventes.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u18",
+      "source_id": "p06_m02",
+      "source_date": "2026-02-10",
+      "type": "commitment",
+      "statement": "Damien envoie le planning détaillé de l'intégration d'ici jeudi.",
+      "speaker": "Damien",
+      "evidence": "Je vous envoie le planning détaillé de l'intégration d'ici jeudi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u19",
+      "source_id": "p06_m03",
+      "source_date": "2026-03-10",
+      "type": "fact",
+      "statement": "Le catalogue est intégré à 70 % et le tunnel de paiement démarre la semaine suivante.",
+      "speaker": "Damien",
+      "evidence": "Le catalogue est intégré à 70 %, on attaque le tunnel de paiement la semaine prochaine.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u20",
+      "source_id": "p06_m03",
+      "source_date": "2026-03-10",
+      "type": "risk",
+      "statement": "Une partie des photos produits importées est en trop basse résolution.",
+      "speaker": "Benoît",
+      "evidence": "On a un souci sur l'import des photos produits, certaines sont en trop basse résolution.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u21",
+      "source_id": "p06_m03",
+      "source_date": "2026-03-10",
+      "type": "question",
+      "statement": "Combien de produits ont des photos en basse résolution ?",
+      "speaker": "Laurent",
+      "evidence": "Combien de produits sont concernés ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u22",
+      "source_id": "p06_m03",
+      "source_date": "2026-03-10",
+      "type": "answer",
+      "statement": "Environ 300 produits sur 2 000 sont concernés.",
+      "speaker": "Benoît",
+      "evidence": "Environ 300 sur les 2 000 du catalogue.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u23",
+      "source_id": "p06_m03",
+      "source_date": "2026-03-10",
+      "type": "commitment",
+      "statement": "Laurent demande au studio photo de refaire en priorité les clichés concernés.",
+      "speaker": "Laurent",
+      "evidence": "Je demande au studio photo de refaire les clichés en priorité.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u24",
+      "source_id": "p06_m03",
+      "source_date": "2026-03-10",
+      "type": "decision",
+      "statement": "La préproduction du nouveau site ouvre le 30 mars.",
+      "speaker": "Damien",
+      "evidence": "Alors on ouvre la préproduction le 30 mars, c'est noté.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u25",
+      "source_id": "p06_m03",
+      "source_date": "2026-03-10",
+      "type": "risk",
+      "statement": "Aucune décision n'a encore été prise sur les redirections des anciennes URL.",
+      "speaker": "Nora",
+      "evidence": "Par contre, toujours aucune décision sur les redirections des anciennes URL.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p06_u26",
+      "source_id": "p06_m03",
+      "source_date": "2026-03-10",
+      "type": "commitment",
+      "statement": "Damien envoie un compte rendu écrit d'ici le lendemain.",
+      "speaker": "Damien",
+      "evidence": "Je vous fais un compte rendu écrit d'ici demain.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p06_u04",
+      "to_id": "p06_u03",
+      "relation": "answers",
+      "evidence_source_id": "p06_m01"
+    },
+    {
+      "from_id": "p06_u06",
+      "to_id": "p06_u07",
+      "relation": "supports",
+      "evidence_source_id": "p06_m01"
+    },
+    {
+      "from_id": "p06_u08",
+      "to_id": "p06_u09",
+      "relation": "creates_action",
+      "evidence_source_id": "p06_m01"
+    },
+    {
+      "from_id": "p06_u10",
+      "to_id": "p06_u09",
+      "relation": "supports",
+      "evidence_source_id": "p06_m02"
+    },
+    {
+      "from_id": "p06_u12",
+      "to_id": "p06_u11",
+      "relation": "answers",
+      "evidence_source_id": "p06_m02"
+    },
+    {
+      "from_id": "p06_u13",
+      "to_id": "p06_u05",
+      "relation": "supports",
+      "evidence_source_id": "p06_m02"
+    },
+    {
+      "from_id": "p06_u14",
+      "to_id": "p06_u15",
+      "relation": "supports",
+      "evidence_source_id": "p06_m02"
+    },
+    {
+      "from_id": "p06_u17",
+      "to_id": "p06_u16",
+      "relation": "answers",
+      "evidence_source_id": "p06_m02"
+    },
+    {
+      "from_id": "p06_u20",
+      "to_id": "p06_u23",
+      "relation": "creates_action",
+      "evidence_source_id": "p06_m03"
+    },
+    {
+      "from_id": "p06_u22",
+      "to_id": "p06_u21",
+      "relation": "answers",
+      "evidence_source_id": "p06_m03"
+    },
+    {
+      "from_id": "p06_u25",
+      "to_id": "p06_u05",
+      "relation": "supports",
+      "evidence_source_id": "p06_m03"
+    }
+  ]
+}

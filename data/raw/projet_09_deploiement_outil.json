@@ -1,0 +1,254 @@
+{
+  "project_id": "projet_09",
+  "project_name": "Déploiement de l'application Chantio",
+  "meetings": [
+    {
+      "source_id": "p09_m01",
+      "source_date": "2026-03-17",
+      "participants": ["Patrick", "Sarah", "Hakim", "Mathieu"],
+      "transcript": "Patrick: On a choisi Chantio pour le suivi de chantier, maintenant il faut organiser le déploiement.\nSarah: Il y a un point bloquant. Aujourd'hui, l'application n'est compatible qu'avec les iPhone et les iPad.\nHakim: Ça coince, la moitié de mes chefs d'équipe ont des téléphones Android.\nMathieu: Combien de personnes faut-il équiper en tout ?\nSarah: D'après la liste des RH, on est à 140 utilisateurs terrain.\nPatrick: Donc on démarre avec ceux qui ont déjà un iPhone, et on verra pour les autres.\nSarah: Je prépare les comptes des utilisateurs iPhone pour la fin du mois.\nHakim: Je peux faire remonter la liste de mes gars équipés en Android, que vous sachiez combien ça représente.\nPatrick: Oui, envoie-la à Sarah d'ici vendredi.\nMathieu: Et la formation, elle se fait comment ?\nSarah: L'éditeur propose des webinaires de 45 minutes, on peut en caler deux par semaine."
+    },
+    {
+      "source_id": "p09_m02",
+      "source_date": "2026-04-07",
+      "participants": ["Patrick", "Sarah", "Hakim", "Isabelle"],
+      "transcript": "Patrick: On fait le point sur Chantio. Sarah, des nouvelles de l'éditeur ?\nSarah: Oui, et elles sont bonnes. Depuis la version 4.1 sortie la semaine dernière, l'application fonctionne aussi sur Android.\nHakim: Enfin ! Mes chefs d'équipe vont être contents.\nIsabelle: Petite correction aussi sur les effectifs. La liste de 140 utilisateurs ne comptait pas les intérimaires de longue durée, on est en réalité à 172.\nSarah: Ça change le budget licences, je vais devoir revoir la commande.\nPatrick: Pas de souci, le budget le permet. Du coup, on déploie Chantio pour tout le monde, iPhone et Android, dès le 20 avril.\nSarah: Je complète la commande de licences pour les 172 utilisateurs d'ici la fin de semaine.\nHakim: Les comptes iPhone ont bien été créés, une trentaine de gars l'utilisent déjà sur le chantier de Villeurbanne.\nIsabelle: Je m'occupe d'inscrire tout le monde aux webinaires de formation.\nPatrick: Merci, on se refait un point après le déploiement."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p09_u01",
+      "source_id": "p09_m01",
+      "source_date": "2026-03-17",
+      "type": "fact",
+      "statement": "Chantio a été choisi comme outil de suivi de chantier et doit être déployé.",
+      "speaker": "Patrick",
+      "evidence": "On a choisi Chantio pour le suivi de chantier, maintenant il faut organiser le déploiement.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p09_u02",
+      "source_id": "p09_m01",
+      "source_date": "2026-03-17",
+      "type": "fact",
+      "statement": "L'application Chantio n'est compatible qu'avec iPhone et iPad.",
+      "speaker": "Sarah",
+      "evidence": "Aujourd'hui, l'application n'est compatible qu'avec les iPhone et les iPad.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p09_u03",
+      "source_id": "p09_m01",
+      "source_date": "2026-03-17",
+      "type": "risk",
+      "statement": "La moitié des chefs d'équipe d'Hakim utilisent des téléphones Android.",
+      "speaker": "Hakim",
+      "evidence": "Ça coince, la moitié de mes chefs d'équipe ont des téléphones Android.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p09_u04",
+      "source_id": "p09_m01",
+      "source_date": "2026-03-17",
+      "type": "question",
+      "statement": "Combien d'utilisateurs terrain faut-il équiper ?",
+      "speaker": "Mathieu",
+      "evidence": "Combien de personnes faut-il équiper en tout ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p09_u05",
+      "source_id": "p09_m01",
+      "source_date": "2026-03-17",
+      "type": "answer",
+      "statement": "Il y a 140 utilisateurs terrain à équiper selon la liste des RH.",
+      "speaker": "Sarah",
+      "evidence": "D'après la liste des RH, on est à 140 utilisateurs terrain.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p09_u06",
+      "source_id": "p09_m01",
+      "source_date": "2026-03-17",
+      "type": "decision",
+      "statement": "Le déploiement démarre uniquement avec les utilisateurs équipés d'un iPhone.",
+      "speaker": "Patrick",
+      "evidence": "Donc on démarre avec ceux qui ont déjà un iPhone, et on verra pour les autres.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p09_u07",
+      "source_id": "p09_m01",
+      "source_date": "2026-03-17",
+      "type": "commitment",
+      "statement": "Sarah prépare les comptes des utilisateurs iPhone pour la fin du mois.",
+      "speaker": "Sarah",
+      "evidence": "Je prépare les comptes des utilisateurs iPhone pour la fin du mois.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p09_u08",
+      "source_id": "p09_m01",
+      "source_date": "2026-03-17",
+      "type": "action",
+      "statement": "Hakim envoie à Sarah d'ici vendredi la liste de ses chefs d'équipe équipés en Android.",
+      "speaker": "Patrick",
+      "evidence": "Oui, envoie-la à Sarah d'ici vendredi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p09_u09",
+      "source_id": "p09_m01",
+      "source_date": "2026-03-17",
+      "type": "question",
+      "statement": "Comment la formation à Chantio sera-t-elle organisée ?",
+      "speaker": "Mathieu",
+      "evidence": "Et la formation, elle se fait comment ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p09_u10",
+      "source_id": "p09_m01",
+      "source_date": "2026-03-17",
+      "type": "answer",
+      "statement": "L'éditeur propose des webinaires de 45 minutes, à raison de deux par semaine.",
+      "speaker": "Sarah",
+      "evidence": "L'éditeur propose des webinaires de 45 minutes, on peut en caler deux par semaine.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p09_u11",
+      "source_id": "p09_m02",
+      "source_date": "2026-04-07",
+      "type": "fact",
+      "statement": "Depuis la version 4.1, l'application Chantio fonctionne aussi sur Android.",
+      "speaker": "Sarah",
+      "evidence": "Depuis la version 4.1 sortie la semaine dernière, l'application fonctionne aussi sur Android.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p09_u12",
+      "source_id": "p09_m02",
+      "source_date": "2026-04-07",
+      "type": "fact",
+      "statement": "Il y a en réalité 172 utilisateurs terrain à équiper, intérimaires de longue durée compris.",
+      "speaker": "Isabelle",
+      "evidence": "La liste de 140 utilisateurs ne comptait pas les intérimaires de longue durée, on est en réalité à 172.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p09_u13",
+      "source_id": "p09_m02",
+      "source_date": "2026-04-07",
+      "type": "decision",
+      "statement": "Chantio est déployé pour tous les utilisateurs, iPhone et Android, dès le 20 avril.",
+      "speaker": "Patrick",
+      "evidence": "Du coup, on déploie Chantio pour tout le monde, iPhone et Android, dès le 20 avril.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p09_u14",
+      "source_id": "p09_m02",
+      "source_date": "2026-04-07",
+      "type": "commitment",
+      "statement": "Sarah complète la commande de licences pour 172 utilisateurs d'ici la fin de semaine.",
+      "speaker": "Sarah",
+      "evidence": "Je complète la commande de licences pour les 172 utilisateurs d'ici la fin de semaine.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p09_u15",
+      "source_id": "p09_m02",
+      "source_date": "2026-04-07",
+      "type": "fact",
+      "statement": "Les comptes iPhone sont créés et une trentaine de compagnons utilisent déjà Chantio à Villeurbanne.",
+      "speaker": "Hakim",
+      "evidence": "Les comptes iPhone ont bien été créés, une trentaine de gars l'utilisent déjà sur le chantier de Villeurbanne.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p09_u16",
+      "source_id": "p09_m02",
+      "source_date": "2026-04-07",
+      "type": "commitment",
+      "statement": "Isabelle inscrit tous les utilisateurs aux webinaires de formation.",
+      "speaker": "Isabelle",
+      "evidence": "Je m'occupe d'inscrire tout le monde aux webinaires de formation.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p09_u02",
+      "to_id": "p09_u06",
+      "relation": "supports",
+      "evidence_source_id": "p09_m01"
+    },
+    {
+      "from_id": "p09_u03",
+      "to_id": "p09_u08",
+      "relation": "creates_action",
+      "evidence_source_id": "p09_m01"
+    },
+    {
+      "from_id": "p09_u05",
+      "to_id": "p09_u04",
+      "relation": "answers",
+      "evidence_source_id": "p09_m01"
+    },
+    {
+      "from_id": "p09_u06",
+      "to_id": "p09_u07",
+      "relation": "creates_action",
+      "evidence_source_id": "p09_m01"
+    },
+    {
+      "from_id": "p09_u10",
+      "to_id": "p09_u09",
+      "relation": "answers",
+      "evidence_source_id": "p09_m01"
+    },
+    {
+      "from_id": "p09_u11",
+      "to_id": "p09_u02",
+      "relation": "supersedes",
+      "evidence_source_id": "p09_m02"
+    },
+    {
+      "from_id": "p09_u12",
+      "to_id": "p09_u05",
+      "relation": "supersedes",
+      "evidence_source_id": "p09_m02"
+    },
+    {
+      "from_id": "p09_u11",
+      "to_id": "p09_u13",
+      "relation": "supports",
+      "evidence_source_id": "p09_m02"
+    },
+    {
+      "from_id": "p09_u13",
+      "to_id": "p09_u06",
+      "relation": "supersedes",
+      "evidence_source_id": "p09_m02"
+    },
+    {
+      "from_id": "p09_u12",
+      "to_id": "p09_u14",
+      "relation": "creates_action",
+      "evidence_source_id": "p09_m02"
+    },
+    {
+      "from_id": "p09_u15",
+      "to_id": "p09_u07",
+      "relation": "supports",
+      "evidence_source_id": "p09_m02"
+    },
+    {
+      "from_id": "p09_u13",
+      "to_id": "p09_u16",
+      "relation": "creates_action",
+      "evidence_source_id": "p09_m02"
+    }
+  ]
+}

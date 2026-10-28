@@ -1,0 +1,258 @@
+{
+  "project_id": "projet_02",
+  "project_name": "Budget marketing",
+  "meetings": [
+    {
+      "source_id": "p02_m01",
+      "source_date": "2026-02-04",
+      "participants": ["Nadia", "Karim", "Léa", "Baptiste"],
+      "transcript": "Nadia: Bonjour à tous, je sors d'un point avec Pierre et j'ai une bonne nouvelle.\nKarim: Laisse-moi deviner, c'est pour la campagne de printemps ?\nNadia: Exactement. Le budget de 85 000 euros pour la campagne de printemps est approuvé.\nLéa: Super, on va enfin pouvoir avancer sur le créatif.\nBaptiste: Vous savez déjà comment on le répartit ?\nNadia: En gros, 50 000 euros sur le digital, 20 000 pour les salons et le reste en print.\nKarim: Pour le digital, l'agence Horizon nous a envoyé un devis la semaine dernière, il rentre dans l'enveloppe.\nNadia: Alors vas-y, tu peux signer le devis d'Horizon d'ici vendredi.\nKarim: Ça marche, je m'en occupe.\nBaptiste: Attention, les tarifs des salons augmentent après le 15 février, il faudrait réserver vite.\nNadia: Bien vu. Baptiste, tu peux réserver le stand pour le salon de Lyon dès demain ?\nBaptiste: Oui, je verse l'acompte demain matin.\nLéa: De mon côté, j'envoie un premier brief créatif à l'équipe d'ici mercredi prochain."
+    },
+    {
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "participants": ["Nadia", "Karim", "Hélène", "Léa"],
+      "transcript": "Nadia: J'ai invité Hélène aujourd'hui parce qu'il y a un souci côté finances.\nHélène: Oui, je préfère être claire tout de suite. Le budget de 85 000 euros pour la campagne de printemps n'est pas approuvé.\nNadia: Pourtant Pierre m'avait donné son feu vert, j'étais dans son bureau.\nHélène: Il a donné un accord de principe, mais rien n'a été signé, et la direction a gelé les nouveaux engagements jusqu'à la clôture du premier trimestre.\nKarim: Et le devis d'Horizon ? Ils m'ont renvoyé une version corrigée, du coup je ne l'ai pas encore signé.\nHélène: Tant mieux, il ne faut surtout rien signer pour l'instant.\nNadia: D'accord, on met la signature du devis d'Horizon en attente.\nLéa: Et le salon de Lyon ? Baptiste a déjà versé l'acompte.\nHélène: L'acompte est versé, donc cette dépense reste engagée, on ne revient pas dessus.\nNadia: Qu'est-ce qu'il faudrait pour que ça passe en comité ?\nHélène: Une version plus resserrée, autour de 60 000 euros, avec un chiffrage ligne par ligne.\nNadia: Je vous prépare une version révisée à 60 000 euros pour le comité du 4 mars.\nLéa: En attendant, je demande à l'équipe créative de mettre le travail en pause."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p02_u01",
+      "source_id": "p02_m01",
+      "source_date": "2026-02-04",
+      "type": "decision",
+      "statement": "Le budget de 85 000 euros pour la campagne de printemps est approuvé.",
+      "speaker": "Nadia",
+      "evidence": "Le budget de 85 000 euros pour la campagne de printemps est approuvé.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p02_u02",
+      "source_id": "p02_m01",
+      "source_date": "2026-02-04",
+      "type": "question",
+      "statement": "Comment le budget de la campagne de printemps est-il réparti ?",
+      "speaker": "Baptiste",
+      "evidence": "Vous savez déjà comment on le répartit ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u03",
+      "source_id": "p02_m01",
+      "source_date": "2026-02-04",
+      "type": "answer",
+      "statement": "Le budget se répartit en 50 000 euros pour le digital, 20 000 euros pour les salons et le reste pour le print.",
+      "speaker": "Nadia",
+      "evidence": "En gros, 50 000 euros sur le digital, 20 000 pour les salons et le reste en print.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u04",
+      "source_id": "p02_m01",
+      "source_date": "2026-02-04",
+      "type": "action",
+      "statement": "Karim doit signer le devis de l'agence Horizon d'ici vendredi.",
+      "speaker": "Nadia",
+      "evidence": "Alors vas-y, tu peux signer le devis d'Horizon d'ici vendredi.",
+      "status": "cancelled"
+    },
+    {
+      "unit_id": "p02_u05",
+      "source_id": "p02_m01",
+      "source_date": "2026-02-04",
+      "type": "risk",
+      "statement": "Les tarifs des salons augmentent après le 15 février.",
+      "speaker": "Baptiste",
+      "evidence": "Attention, les tarifs des salons augmentent après le 15 février, il faudrait réserver vite.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u06",
+      "source_id": "p02_m01",
+      "source_date": "2026-02-04",
+      "type": "commitment",
+      "statement": "Baptiste réserve le stand du salon de Lyon et verse l'acompte le lendemain matin.",
+      "speaker": "Baptiste",
+      "evidence": "Oui, je verse l'acompte demain matin.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u07",
+      "source_id": "p02_m01",
+      "source_date": "2026-02-04",
+      "type": "commitment",
+      "statement": "Léa envoie un premier brief créatif à l'équipe d'ici le mercredi suivant.",
+      "speaker": "Léa",
+      "evidence": "De mon côté, j'envoie un premier brief créatif à l'équipe d'ici mercredi prochain.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u08",
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "type": "decision",
+      "statement": "Le budget de 85 000 euros pour la campagne de printemps n'est pas approuvé.",
+      "speaker": "Hélène",
+      "evidence": "Le budget de 85 000 euros pour la campagne de printemps n'est pas approuvé.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u09",
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "type": "fact",
+      "statement": "La direction n'a donné qu'un accord de principe, rien n'est signé et les nouveaux engagements sont gelés jusqu'à la clôture du premier trimestre.",
+      "speaker": "Hélène",
+      "evidence": "Il a donné un accord de principe, mais rien n'a été signé, et la direction a gelé les nouveaux engagements jusqu'à la clôture du premier trimestre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u10",
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "type": "fact",
+      "statement": "Le devis d'Horizon n'a pas encore été signé, l'agence ayant envoyé une version corrigée.",
+      "speaker": "Karim",
+      "evidence": "Ils m'ont renvoyé une version corrigée, du coup je ne l'ai pas encore signé.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u11",
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "type": "decision",
+      "statement": "La signature du devis de l'agence Horizon est mise en attente.",
+      "speaker": "Nadia",
+      "evidence": "D'accord, on met la signature du devis d'Horizon en attente.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u12",
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "type": "question",
+      "statement": "Qu'en est-il de la réservation du salon de Lyon ?",
+      "speaker": "Léa",
+      "evidence": "Et le salon de Lyon ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u13",
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "type": "answer",
+      "statement": "L'acompte du salon de Lyon étant versé, cette dépense reste engagée.",
+      "speaker": "Hélène",
+      "evidence": "L'acompte est versé, donc cette dépense reste engagée, on ne revient pas dessus.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u14",
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "type": "question",
+      "statement": "Que faut-il pour que le budget soit accepté en comité ?",
+      "speaker": "Nadia",
+      "evidence": "Qu'est-ce qu'il faudrait pour que ça passe en comité ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u15",
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "type": "answer",
+      "statement": "Il faut une version resserrée autour de 60 000 euros avec un chiffrage ligne par ligne.",
+      "speaker": "Hélène",
+      "evidence": "Une version plus resserrée, autour de 60 000 euros, avec un chiffrage ligne par ligne.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u16",
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "type": "commitment",
+      "statement": "Nadia prépare une version révisée du budget à 60 000 euros pour le comité du 4 mars.",
+      "speaker": "Nadia",
+      "evidence": "Je vous prépare une version révisée à 60 000 euros pour le comité du 4 mars.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p02_u17",
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "type": "action",
+      "statement": "Léa demande à l'équipe créative de mettre le travail en pause.",
+      "speaker": "Léa",
+      "evidence": "En attendant, je demande à l'équipe créative de mettre le travail en pause.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p02_u03",
+      "to_id": "p02_u02",
+      "relation": "answers",
+      "evidence_source_id": "p02_m01"
+    },
+    {
+      "from_id": "p02_u01",
+      "to_id": "p02_u04",
+      "relation": "creates_action",
+      "evidence_source_id": "p02_m01"
+    },
+    {
+      "from_id": "p02_u01",
+      "to_id": "p02_u07",
+      "relation": "creates_action",
+      "evidence_source_id": "p02_m01"
+    },
+    {
+      "from_id": "p02_u05",
+      "to_id": "p02_u06",
+      "relation": "supports",
+      "evidence_source_id": "p02_m01"
+    },
+    {
+      "from_id": "p02_u08",
+      "to_id": "p02_u01",
+      "relation": "contradicts",
+      "evidence_source_id": "p02_m02"
+    },
+    {
+      "from_id": "p02_u09",
+      "to_id": "p02_u08",
+      "relation": "supports",
+      "evidence_source_id": "p02_m02"
+    },
+    {
+      "from_id": "p02_u11",
+      "to_id": "p02_u04",
+      "relation": "supersedes",
+      "evidence_source_id": "p02_m02"
+    },
+    {
+      "from_id": "p02_u13",
+      "to_id": "p02_u12",
+      "relation": "answers",
+      "evidence_source_id": "p02_m02"
+    },
+    {
+      "from_id": "p02_u15",
+      "to_id": "p02_u14",
+      "relation": "answers",
+      "evidence_source_id": "p02_m02"
+    },
+    {
+      "from_id": "p02_u15",
+      "to_id": "p02_u16",
+      "relation": "creates_action",
+      "evidence_source_id": "p02_m02"
+    },
+    {
+      "from_id": "p02_u08",
+      "to_id": "p02_u17",
+      "relation": "creates_action",
+      "evidence_source_id": "p02_m02"
+    }
+  ]
+}

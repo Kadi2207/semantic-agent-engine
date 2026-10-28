@@ -1,0 +1,300 @@
+{
+  "project_id": "projet_08",
+  "project_name": "Renouvellement fournisseur emballages",
+  "meetings": [
+    {
+      "source_id": "p08_m01",
+      "source_date": "2026-07-07",
+      "participants": ["Bernard", "Lucie", "Stéphane", "Amandine"],
+      "transcript": "Bernard: Le contrat avec Embaleco arrive à échéance fin septembre, il faut décider si on le renouvelle.\nLucie: Côté qualité, rien à redire, on a eu deux non-conformités en un an, c'est très peu.\nStéphane: Par contre, les livraisons sont de moins en moins ponctuelles, on a eu six retards depuis mars.\nAmandine: Et ils annoncent une hausse de 8 % sur les barquettes au prochain contrat.\nBernard: On pourrait peut-être regarder du côté d'un deuxième fournisseur, juste pour comparer, mais je ne sais pas si ça vaut le coup.\nLucie: Pourquoi pas, mais un nouveau fournisseur, c'est au moins trois mois d'homologation.\nBernard: Oui, c'est vrai. Bon, on garde ça dans un coin de la tête.\nAmandine: Dans tous les cas, il faut renégocier la hausse. Bernard, tu peux demander un rendez-vous à leur directeur commercial ?\nBernard: Je l'appelle demain pour caler une rencontre avant la fin du mois.\nStéphane: Je vous prépare un relevé précis des retards de livraison, ça nous servira pour négocier.\nAmandine: Bonne idée, envoie-le à Bernard avant son rendez-vous.\nStéphane: Ça marche."
+    },
+    {
+      "source_id": "p08_m02",
+      "source_date": "2026-07-28",
+      "participants": ["Bernard", "Gaëlle", "Stéphane", "Amandine"],
+      "transcript": "Bernard: J'ai vu le directeur commercial d'Embaleco jeudi dernier.\nGaëlle: Et alors, ils acceptent de revenir sur la hausse ?\nBernard: En partie. Ils proposent 4 % au lieu de 8 %, avec des pénalités en cas de retard de livraison.\nStéphane: Les pénalités, c'est exactement ce qu'il nous fallait, mon relevé a bien servi.\nAmandine: 4 %, c'est encore au-dessus de notre budget, mais ça reste absorbable.\nGaëlle: Dans ce cas, on renouvelle le contrat avec Embaleco pour deux ans, aux conditions négociées.\nBernard: Je fais rédiger l'avenant par le juridique d'ici le 15 août.\nStéphane: Et l'idée d'un deuxième fournisseur, on en est où ?\nBernard: Nulle part pour l'instant, c'était juste une piste.\nGaëlle: Oui, ne dispersons pas l'équipe là-dessus pour le moment.\nAmandine: Je mets à jour la prévision de coûts avec les 4 % pour la clôture de juillet."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p08_u01",
+      "source_id": "p08_m01",
+      "source_date": "2026-07-07",
+      "type": "fact",
+      "statement": "Le contrat avec Embaleco arrive à échéance fin septembre.",
+      "speaker": "Bernard",
+      "evidence": "Le contrat avec Embaleco arrive à échéance fin septembre, il faut décider si on le renouvelle.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u02",
+      "source_id": "p08_m01",
+      "source_date": "2026-07-07",
+      "type": "fact",
+      "statement": "Embaleco n'a eu que deux non-conformités qualité en un an.",
+      "speaker": "Lucie",
+      "evidence": "Côté qualité, rien à redire, on a eu deux non-conformités en un an, c'est très peu.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u03",
+      "source_id": "p08_m01",
+      "source_date": "2026-07-07",
+      "type": "risk",
+      "statement": "Les livraisons d'Embaleco sont de moins en moins ponctuelles, avec six retards depuis mars.",
+      "speaker": "Stéphane",
+      "evidence": "Par contre, les livraisons sont de moins en moins ponctuelles, on a eu six retards depuis mars.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u04",
+      "source_id": "p08_m01",
+      "source_date": "2026-07-07",
+      "type": "risk",
+      "statement": "Embaleco annonce une hausse de 8 % sur les barquettes au prochain contrat.",
+      "speaker": "Amandine",
+      "evidence": "Et ils annoncent une hausse de 8 % sur les barquettes au prochain contrat.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u05",
+      "source_id": "p08_m01",
+      "source_date": "2026-07-07",
+      "type": "idea",
+      "statement": "Bernard évoque, sans conviction, l'hypothèse de consulter un deuxième fournisseur pour comparer.",
+      "speaker": "Bernard",
+      "evidence": "On pourrait peut-être regarder du côté d'un deuxième fournisseur, juste pour comparer, mais je ne sais pas si ça vaut le coup.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u06",
+      "source_id": "p08_m01",
+      "source_date": "2026-07-07",
+      "type": "fact",
+      "statement": "L'homologation d'un nouveau fournisseur prend au moins trois mois.",
+      "speaker": "Lucie",
+      "evidence": "Pourquoi pas, mais un nouveau fournisseur, c'est au moins trois mois d'homologation.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u07",
+      "source_id": "p08_m01",
+      "source_date": "2026-07-07",
+      "type": "decision",
+      "statement": "La hausse annoncée par Embaleco doit être renégociée.",
+      "speaker": "Amandine",
+      "evidence": "Dans tous les cas, il faut renégocier la hausse.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u08",
+      "source_id": "p08_m01",
+      "source_date": "2026-07-07",
+      "type": "action",
+      "statement": "Bernard doit demander un rendez-vous au directeur commercial d'Embaleco.",
+      "speaker": "Amandine",
+      "evidence": "Bernard, tu peux demander un rendez-vous à leur directeur commercial ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u09",
+      "source_id": "p08_m01",
+      "source_date": "2026-07-07",
+      "type": "commitment",
+      "statement": "Bernard appelle le directeur commercial d'Embaleco le lendemain pour fixer une rencontre avant la fin du mois.",
+      "speaker": "Bernard",
+      "evidence": "Je l'appelle demain pour caler une rencontre avant la fin du mois.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u10",
+      "source_id": "p08_m01",
+      "source_date": "2026-07-07",
+      "type": "commitment",
+      "statement": "Stéphane prépare un relevé précis des retards de livraison pour la négociation.",
+      "speaker": "Stéphane",
+      "evidence": "Je vous prépare un relevé précis des retards de livraison, ça nous servira pour négocier.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u11",
+      "source_id": "p08_m02",
+      "source_date": "2026-07-28",
+      "type": "fact",
+      "statement": "Bernard a rencontré le directeur commercial d'Embaleco.",
+      "speaker": "Bernard",
+      "evidence": "J'ai vu le directeur commercial d'Embaleco jeudi dernier.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u12",
+      "source_id": "p08_m02",
+      "source_date": "2026-07-28",
+      "type": "question",
+      "statement": "Embaleco accepte-t-il de revenir sur la hausse ?",
+      "speaker": "Gaëlle",
+      "evidence": "Et alors, ils acceptent de revenir sur la hausse ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u13",
+      "source_id": "p08_m02",
+      "source_date": "2026-07-28",
+      "type": "answer",
+      "statement": "Embaleco propose une hausse de 4 % au lieu de 8 %, avec des pénalités en cas de retard de livraison.",
+      "speaker": "Bernard",
+      "evidence": "Ils proposent 4 % au lieu de 8 %, avec des pénalités en cas de retard de livraison.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u14",
+      "source_id": "p08_m02",
+      "source_date": "2026-07-28",
+      "type": "fact",
+      "statement": "Le relevé des retards a servi à obtenir les pénalités de retard.",
+      "speaker": "Stéphane",
+      "evidence": "Les pénalités, c'est exactement ce qu'il nous fallait, mon relevé a bien servi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u15",
+      "source_id": "p08_m02",
+      "source_date": "2026-07-28",
+      "type": "fact",
+      "statement": "Une hausse de 4 % dépasse le budget mais reste absorbable.",
+      "speaker": "Amandine",
+      "evidence": "4 %, c'est encore au-dessus de notre budget, mais ça reste absorbable.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u16",
+      "source_id": "p08_m02",
+      "source_date": "2026-07-28",
+      "type": "decision",
+      "statement": "Le contrat avec Embaleco est renouvelé pour deux ans aux conditions négociées.",
+      "speaker": "Gaëlle",
+      "evidence": "Dans ce cas, on renouvelle le contrat avec Embaleco pour deux ans, aux conditions négociées.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u17",
+      "source_id": "p08_m02",
+      "source_date": "2026-07-28",
+      "type": "commitment",
+      "statement": "Bernard fait rédiger l'avenant au contrat par le service juridique d'ici le 15 août.",
+      "speaker": "Bernard",
+      "evidence": "Je fais rédiger l'avenant par le juridique d'ici le 15 août.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u18",
+      "source_id": "p08_m02",
+      "source_date": "2026-07-28",
+      "type": "question",
+      "statement": "Où en est l'idée de consulter un deuxième fournisseur ?",
+      "speaker": "Stéphane",
+      "evidence": "Et l'idée d'un deuxième fournisseur, on en est où ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u19",
+      "source_id": "p08_m02",
+      "source_date": "2026-07-28",
+      "type": "answer",
+      "statement": "Rien n'a été engagé sur un deuxième fournisseur, ce n'était qu'une piste.",
+      "speaker": "Bernard",
+      "evidence": "Nulle part pour l'instant, c'était juste une piste.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p08_u20",
+      "source_id": "p08_m02",
+      "source_date": "2026-07-28",
+      "type": "action",
+      "statement": "Amandine met à jour la prévision de coûts avec la hausse de 4 % pour la clôture de juillet.",
+      "speaker": "Amandine",
+      "evidence": "Je mets à jour la prévision de coûts avec les 4 % pour la clôture de juillet.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p08_u04",
+      "to_id": "p08_u07",
+      "relation": "supports",
+      "evidence_source_id": "p08_m01"
+    },
+    {
+      "from_id": "p08_u07",
+      "to_id": "p08_u08",
+      "relation": "creates_action",
+      "evidence_source_id": "p08_m01"
+    },
+    {
+      "from_id": "p08_u09",
+      "to_id": "p08_u08",
+      "relation": "supports",
+      "evidence_source_id": "p08_m01"
+    },
+    {
+      "from_id": "p08_u07",
+      "to_id": "p08_u10",
+      "relation": "creates_action",
+      "evidence_source_id": "p08_m01"
+    },
+    {
+      "from_id": "p08_u03",
+      "to_id": "p08_u10",
+      "relation": "supports",
+      "evidence_source_id": "p08_m01"
+    },
+    {
+      "from_id": "p08_u11",
+      "to_id": "p08_u09",
+      "relation": "supports",
+      "evidence_source_id": "p08_m02"
+    },
+    {
+      "from_id": "p08_u13",
+      "to_id": "p08_u12",
+      "relation": "answers",
+      "evidence_source_id": "p08_m02"
+    },
+    {
+      "from_id": "p08_u14",
+      "to_id": "p08_u10",
+      "relation": "supports",
+      "evidence_source_id": "p08_m02"
+    },
+    {
+      "from_id": "p08_u13",
+      "to_id": "p08_u16",
+      "relation": "supports",
+      "evidence_source_id": "p08_m02"
+    },
+    {
+      "from_id": "p08_u15",
+      "to_id": "p08_u16",
+      "relation": "supports",
+      "evidence_source_id": "p08_m02"
+    },
+    {
+      "from_id": "p08_u16",
+      "to_id": "p08_u17",
+      "relation": "creates_action",
+      "evidence_source_id": "p08_m02"
+    },
+    {
+      "from_id": "p08_u19",
+      "to_id": "p08_u18",
+      "relation": "answers",
+      "evidence_source_id": "p08_m02"
+    },
+    {
+      "from_id": "p08_u16",
+      "to_id": "p08_u20",
+      "relation": "creates_action",
+      "evidence_source_id": "p08_m02"
+    }
+  ]
+}

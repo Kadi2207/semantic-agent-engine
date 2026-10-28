@@ -1,0 +1,258 @@
+{
+  "project_id": "projet_07",
+  "project_name": "Fiabilisation du pipeline commercial",
+  "meetings": [
+    {
+      "source_id": "p07_m01",
+      "source_date": "2026-09-08",
+      "participants": ["Alexandra", "Manon", "Jérémie", "Thibault"],
+      "transcript": "Alexandra: On a un vrai problème de fiabilité sur le pipeline, le forecast du deuxième trimestre était faux de presque 30 %.\nManon: J'ai creusé. On a 45 opportunités au stade proposition sans aucune activité depuis plus de 60 jours.\nJérémie: Une bonne partie, ce sont des deals morts que personne n'a pris le temps de clôturer.\nAlexandra: Alors on fait le ménage. Toute opportunité sans activité depuis 60 jours sera passée en perdue, sauf justification du commercial.\nThibault: Je peux m'en charger. Je m'engage à traiter les 45 opportunités d'ici le vendredi 18 septembre.\nAlexandra: Parfait, Thibault, je compte sur toi pour le 18.\nJérémie: Il faudra prévenir les commerciaux avant, sinon ils vont mal le prendre.\nAlexandra: Jérémie, tu envoies un message à l'équipe dès demain pour expliquer la règle ?\nJérémie: Oui, je l'envoie demain matin.\nManon: Je pourrais aussi créer une alerte automatique dans le CRM pour les opportunités inactives depuis 45 jours.\nAlexandra: Bonne idée, mais on verra ça après le nettoyage.\nThibault: Est-ce qu'on revoit aussi les probabilités par stade ?\nManon: Oui, je proposerai de nouvelles probabilités à partir des taux de conversion réels de l'an dernier."
+    },
+    {
+      "source_id": "p07_m02",
+      "source_date": "2026-09-22",
+      "participants": ["Alexandra", "Thibault", "Sébastien", "Manon", "Jérémie"],
+      "transcript": "Alexandra: Thibault, où en est le nettoyage du pipeline ?\nThibault: C'est terminé depuis vendredi, comme prévu. Sur les 45 opportunités, 31 sont passées en perdues et 14 ont été justifiées par les commerciaux.\nSébastien: Ça change quoi pour le forecast du quatrième trimestre ?\nManon: On passe de 2,4 millions à 1,7 million d'euros pondérés, mais le chiffre est beaucoup plus crédible.\nSébastien: Je préfère un chiffre bas et fiable à un chiffre gonflé.\nJérémie: Les commerciaux ont plutôt bien réagi au message, deux ou trois ont râlé mais rien de grave.\nManon: J'ai préparé les nouvelles probabilités par stade, je vous les partage après la réunion.\nAlexandra: On les applique à partir du 1er octobre.\nSébastien: Il me faudra le forecast mis à jour pour le comité de direction.\nAlexandra: Manon, tu peux livrer le forecast recalculé à Sébastien d'ici le mardi 29 septembre ?\nManon: Oui, je m'engage à lui envoyer le mardi 29 au matin.\nAlexandra: Et maintenant, on peut reparler de l'alerte automatique sur les opportunités inactives."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p07_u01",
+      "source_id": "p07_m01",
+      "source_date": "2026-09-08",
+      "type": "fact",
+      "statement": "Le forecast du deuxième trimestre s'est révélé faux de près de 30 %.",
+      "speaker": "Alexandra",
+      "evidence": "On a un vrai problème de fiabilité sur le pipeline, le forecast du deuxième trimestre était faux de presque 30 %.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u02",
+      "source_id": "p07_m01",
+      "source_date": "2026-09-08",
+      "type": "fact",
+      "statement": "45 opportunités au stade proposition n'ont eu aucune activité depuis plus de 60 jours.",
+      "speaker": "Manon",
+      "evidence": "On a 45 opportunités au stade proposition sans aucune activité depuis plus de 60 jours.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u03",
+      "source_id": "p07_m01",
+      "source_date": "2026-09-08",
+      "type": "decision",
+      "statement": "Toute opportunité sans activité depuis 60 jours passe en perdue, sauf justification du commercial.",
+      "speaker": "Alexandra",
+      "evidence": "Toute opportunité sans activité depuis 60 jours sera passée en perdue, sauf justification du commercial.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u04",
+      "source_id": "p07_m01",
+      "source_date": "2026-09-08",
+      "type": "commitment",
+      "statement": "Thibault s'engage à traiter les 45 opportunités inactives d'ici le vendredi 18 septembre.",
+      "speaker": "Thibault",
+      "evidence": "Je m'engage à traiter les 45 opportunités d'ici le vendredi 18 septembre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u05",
+      "source_id": "p07_m01",
+      "source_date": "2026-09-08",
+      "type": "risk",
+      "statement": "Les commerciaux risquent de mal réagir s'ils ne sont pas prévenus de la nouvelle règle.",
+      "speaker": "Jérémie",
+      "evidence": "Il faudra prévenir les commerciaux avant, sinon ils vont mal le prendre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u06",
+      "source_id": "p07_m01",
+      "source_date": "2026-09-08",
+      "type": "action",
+      "statement": "Jérémie envoie dès le lendemain un message à l'équipe commerciale pour expliquer la règle.",
+      "speaker": "Alexandra",
+      "evidence": "Jérémie, tu envoies un message à l'équipe dès demain pour expliquer la règle ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u07",
+      "source_id": "p07_m01",
+      "source_date": "2026-09-08",
+      "type": "idea",
+      "statement": "Manon suggère une alerte automatique dans le CRM pour les opportunités inactives depuis 45 jours.",
+      "speaker": "Manon",
+      "evidence": "Je pourrais aussi créer une alerte automatique dans le CRM pour les opportunités inactives depuis 45 jours.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u08",
+      "source_id": "p07_m01",
+      "source_date": "2026-09-08",
+      "type": "question",
+      "statement": "Les probabilités par stade du pipeline doivent-elles être revues ?",
+      "speaker": "Thibault",
+      "evidence": "Est-ce qu'on revoit aussi les probabilités par stade ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u09",
+      "source_id": "p07_m01",
+      "source_date": "2026-09-08",
+      "type": "answer",
+      "statement": "Manon proposera de nouvelles probabilités par stade fondées sur les taux de conversion réels de l'an dernier.",
+      "speaker": "Manon",
+      "evidence": "Oui, je proposerai de nouvelles probabilités à partir des taux de conversion réels de l'an dernier.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u10",
+      "source_id": "p07_m02",
+      "source_date": "2026-09-22",
+      "type": "fact",
+      "statement": "Sur les 45 opportunités traitées, 31 sont passées en perdues et 14 ont été justifiées.",
+      "speaker": "Thibault",
+      "evidence": "Sur les 45 opportunités, 31 sont passées en perdues et 14 ont été justifiées par les commerciaux.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u11",
+      "source_id": "p07_m02",
+      "source_date": "2026-09-22",
+      "type": "question",
+      "statement": "Quel est l'impact du nettoyage sur le forecast du quatrième trimestre ?",
+      "speaker": "Sébastien",
+      "evidence": "Ça change quoi pour le forecast du quatrième trimestre ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u12",
+      "source_id": "p07_m02",
+      "source_date": "2026-09-22",
+      "type": "answer",
+      "statement": "Le forecast pondéré passe de 2,4 millions à 1,7 million d'euros, avec une meilleure crédibilité.",
+      "speaker": "Manon",
+      "evidence": "On passe de 2,4 millions à 1,7 million d'euros pondérés, mais le chiffre est beaucoup plus crédible.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u13",
+      "source_id": "p07_m02",
+      "source_date": "2026-09-22",
+      "type": "fact",
+      "statement": "Les commerciaux ont globalement bien accueilli le message sur la règle de clôture.",
+      "speaker": "Jérémie",
+      "evidence": "Les commerciaux ont plutôt bien réagi au message, deux ou trois ont râlé mais rien de grave.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u14",
+      "source_id": "p07_m02",
+      "source_date": "2026-09-22",
+      "type": "fact",
+      "statement": "Les nouvelles probabilités par stade sont prêtes et seront partagées après la réunion.",
+      "speaker": "Manon",
+      "evidence": "J'ai préparé les nouvelles probabilités par stade, je vous les partage après la réunion.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u15",
+      "source_id": "p07_m02",
+      "source_date": "2026-09-22",
+      "type": "decision",
+      "statement": "Les nouvelles probabilités par stade s'appliquent à partir du 1er octobre.",
+      "speaker": "Alexandra",
+      "evidence": "On les applique à partir du 1er octobre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u16",
+      "source_id": "p07_m02",
+      "source_date": "2026-09-22",
+      "type": "action",
+      "statement": "Manon doit livrer le forecast recalculé à Sébastien d'ici le mardi 29 septembre.",
+      "speaker": "Alexandra",
+      "evidence": "Manon, tu peux livrer le forecast recalculé à Sébastien d'ici le mardi 29 septembre ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p07_u17",
+      "source_id": "p07_m02",
+      "source_date": "2026-09-22",
+      "type": "commitment",
+      "statement": "Manon s'engage à envoyer le forecast recalculé à Sébastien le mardi 29 septembre au matin.",
+      "speaker": "Manon",
+      "evidence": "Oui, je m'engage à lui envoyer le mardi 29 au matin.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p07_u01",
+      "to_id": "p07_u03",
+      "relation": "supports",
+      "evidence_source_id": "p07_m01"
+    },
+    {
+      "from_id": "p07_u02",
+      "to_id": "p07_u03",
+      "relation": "supports",
+      "evidence_source_id": "p07_m01"
+    },
+    {
+      "from_id": "p07_u03",
+      "to_id": "p07_u04",
+      "relation": "creates_action",
+      "evidence_source_id": "p07_m01"
+    },
+    {
+      "from_id": "p07_u05",
+      "to_id": "p07_u06",
+      "relation": "creates_action",
+      "evidence_source_id": "p07_m01"
+    },
+    {
+      "from_id": "p07_u09",
+      "to_id": "p07_u08",
+      "relation": "answers",
+      "evidence_source_id": "p07_m01"
+    },
+    {
+      "from_id": "p07_u10",
+      "to_id": "p07_u04",
+      "relation": "supports",
+      "evidence_source_id": "p07_m02"
+    },
+    {
+      "from_id": "p07_u12",
+      "to_id": "p07_u11",
+      "relation": "answers",
+      "evidence_source_id": "p07_m02"
+    },
+    {
+      "from_id": "p07_u13",
+      "to_id": "p07_u06",
+      "relation": "supports",
+      "evidence_source_id": "p07_m02"
+    },
+    {
+      "from_id": "p07_u14",
+      "to_id": "p07_u15",
+      "relation": "supports",
+      "evidence_source_id": "p07_m02"
+    },
+    {
+      "from_id": "p07_u15",
+      "to_id": "p07_u16",
+      "relation": "creates_action",
+      "evidence_source_id": "p07_m02"
+    },
+    {
+      "from_id": "p07_u17",
+      "to_id": "p07_u16",
+      "relation": "supports",
+      "evidence_source_id": "p07_m02"
+    }
+  ]
+}
