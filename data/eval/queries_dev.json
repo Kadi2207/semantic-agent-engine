@@ -1,0 +1,214 @@
+{
+  "queries": [
+    {
+      "query_id": "q_dev_001",
+      "query": "À quelle date la mise en production d'Atlas est-elle finalement prévue ?",
+      "project_id": "projet_01",
+      "relevant_unit_ids": ["p01_u20"],
+      "piege": "decision_active"
+    },
+    {
+      "query_id": "q_dev_002",
+      "query": "Quand les rappels de paiement automatisés démarrent-ils ?",
+      "project_id": "projet_10",
+      "relevant_unit_ids": ["p10_u18"],
+      "piege": "reformulation"
+    },
+    {
+      "query_id": "q_dev_003",
+      "query": "Qui doit préparer la promesse d'embauche de Sandrine Morel ?",
+      "project_id": "projet_03",
+      "relevant_unit_ids": ["p03_u17"],
+      "piege": "responsable_reel"
+    },
+    {
+      "query_id": "q_dev_004",
+      "query": "Le budget de 85 000 euros de la campagne de printemps a-t-il finalement été approuvé ?",
+      "project_id": "projet_02",
+      "relevant_unit_ids": ["p02_u08"],
+      "piege": "negation"
+    },
+    {
+      "query_id": "q_dev_005",
+      "query": "Où en est la décision sur le passage au nouveau CRM ?",
+      "project_id": "projet_04",
+      "relevant_unit_ids": ["p04_u12"],
+      "piege": "decision_active"
+    },
+    {
+      "query_id": "q_dev_006",
+      "query": "Combien de temps l'agence prévoit-elle pour monter la boutique en ligne ?",
+      "project_id": "projet_06",
+      "relevant_unit_ids": ["p06_u12"],
+      "piege": "reformulation"
+    },
+    {
+      "query_id": "q_dev_007",
+      "query": "Qui doit prévenir l'équipe commerciale de la nouvelle règle de clôture ?",
+      "project_id": "projet_07",
+      "relevant_unit_ids": ["p07_u06"],
+      "piege": "responsable_reel"
+    },
+    {
+      "query_id": "q_dev_008",
+      "query": "Les anomalies d'affichage sur les factures empêchent-elles le lancement ?",
+      "project_id": "projet_01",
+      "relevant_unit_ids": ["p01_u11"],
+      "piege": "negation"
+    },
+    {
+      "query_id": "q_dev_009",
+      "query": "Jusqu'à quand Thibault doit-il avoir traité les opportunités sans activité ?",
+      "project_id": "projet_07",
+      "relevant_unit_ids": ["p07_u04"],
+      "piege": "engagement"
+    },
+    {
+      "query_id": "q_dev_010",
+      "query": "Quelle décision a été prise pour les redirections des anciennes URL des fiches produits ?",
+      "project_id": "projet_06",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_dev_011",
+      "query": "Dans quel lieu la journée clients se tiendra-t-elle ?",
+      "project_id": "projet_05",
+      "relevant_unit_ids": ["p05_u15"],
+      "piege": "decision_active"
+    },
+    {
+      "query_id": "q_dev_012",
+      "query": "De combien le fournisseur d'emballages augmente-t-il ses prix au final ?",
+      "project_id": "projet_08",
+      "relevant_unit_ids": ["p08_u13"],
+      "piege": "reformulation"
+    },
+    {
+      "query_id": "q_dev_013",
+      "query": "Qui doit faire remonter la liste des chefs d'équipe équipés d'Android ?",
+      "project_id": "projet_09",
+      "relevant_unit_ids": ["p09_u08"],
+      "piege": "responsable_reel"
+    },
+    {
+      "query_id": "q_dev_014",
+      "query": "A-t-on perdu des fiches pendant l'essai de reprise des données ?",
+      "project_id": "projet_04",
+      "relevant_unit_ids": ["p04_u08"],
+      "piege": "negation"
+    },
+    {
+      "query_id": "q_dev_015",
+      "query": "Pour quelle date Émilie doit-elle envoyer les maquettes finales ?",
+      "project_id": "projet_06",
+      "relevant_unit_ids": ["p06_u09"],
+      "piege": "engagement"
+    },
+    {
+      "query_id": "q_dev_016",
+      "query": "Combien coûte une licence Chantio par utilisateur ?",
+      "project_id": "projet_09",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_dev_017",
+      "query": "Quand et pour qui Chantio est-il déployé ?",
+      "project_id": "projet_09",
+      "relevant_unit_ids": ["p09_u13"],
+      "piege": "decision_active"
+    },
+    {
+      "query_id": "q_dev_018",
+      "query": "Quel est le nouveau montant prévisionnel pondéré pour la fin d'année ?",
+      "project_id": "projet_07",
+      "relevant_unit_ids": ["p07_u12"],
+      "piege": "reformulation"
+    },
+    {
+      "query_id": "q_dev_019",
+      "query": "Qui doit demander des devis à plusieurs traiteurs ?",
+      "project_id": "projet_05",
+      "relevant_unit_ids": ["p05_u08"],
+      "piege": "responsable_reel"
+    },
+    {
+      "query_id": "q_dev_020",
+      "query": "L'application Chantio est-elle réservée aux iPhone ?",
+      "project_id": "projet_09",
+      "relevant_unit_ids": ["p09_u11"],
+      "piege": "negation"
+    },
+    {
+      "query_id": "q_dev_021",
+      "query": "Qui doit faire rédiger l'avenant au contrat Embaleco, et pour quand ?",
+      "project_id": "projet_08",
+      "relevant_unit_ids": ["p08_u17"],
+      "piege": "engagement"
+    },
+    {
+      "query_id": "q_dev_022",
+      "query": "Quel est le montant annuel du contrat avec Embaleco ?",
+      "project_id": "projet_08",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_dev_023",
+      "query": "Au bout de combien de jours la première relance part-elle maintenant ?",
+      "project_id": "projet_10",
+      "relevant_unit_ids": ["p10_u13"],
+      "piege": "decision_active"
+    },
+    {
+      "query_id": "q_dev_024",
+      "query": "Pour quel jour a-t-on déplacé la rencontre avec les distributeurs ?",
+      "project_id": "projet_05",
+      "relevant_unit_ids": ["p05_u12"],
+      "piege": "reformulation"
+    },
+    {
+      "query_id": "q_dev_025",
+      "query": "Qui doit organiser la formation des conseillers avant la bascule ?",
+      "project_id": "projet_04",
+      "relevant_unit_ids": ["p04_u16"],
+      "piege": "responsable_reel"
+    },
+    {
+      "query_id": "q_dev_026",
+      "query": "Franck a-t-il retrouvé le virement d'Orvane pour la facture de mars ?",
+      "project_id": "projet_10",
+      "relevant_unit_ids": ["p10_u14"],
+      "piege": "negation"
+    },
+    {
+      "query_id": "q_dev_027",
+      "query": "Qui doit signer avec le nouveau lieu, et avant quand ?",
+      "project_id": "projet_05",
+      "relevant_unit_ids": ["p05_u16"],
+      "piege": "engagement"
+    },
+    {
+      "query_id": "q_dev_028",
+      "query": "Quelle probabilité a été fixée pour le stade proposition ?",
+      "project_id": "projet_07",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_dev_029",
+      "query": "Quel montant a déjà été recouvré sur les factures échues ?",
+      "project_id": "projet_10",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_dev_030",
+      "query": "Que s'est engagé à faire Baptiste pour le salon de Lyon, et quand ?",
+      "project_id": "projet_02",
+      "relevant_unit_ids": ["p02_u06"],
+      "piege": "engagement"
+    }
+  ]
+}

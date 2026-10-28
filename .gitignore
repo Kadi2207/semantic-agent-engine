@@ -37,6 +37,7 @@ data/eval/*
 !data/raw/projet_*.json
 !data/processed/.gitkeep
 !data/eval/.gitkeep
+!data/eval/queries_*.json
 
 # IDE / OS
 .vscode/

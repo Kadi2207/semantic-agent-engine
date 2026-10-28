@@ -1,0 +1,46 @@
+{
+  "queries": [
+    {
+      "query_id": "q_test_001",
+      "query": "Quand Agnès présentera-t-elle le plan de formation au comité social ?",
+      "project_id": "projet_11",
+      "relevant_unit_ids": ["p11_u16"],
+      "piege": "engagement"
+    },
+    {
+      "query_id": "q_test_002",
+      "query": "Combien coûte la prestation de l'organisme nantais pour les formations d'urgence ?",
+      "project_id": "projet_11",
+      "relevant_unit_ids": ["p11_u11"],
+      "piege": "reformulation"
+    },
+    {
+      "query_id": "q_test_003",
+      "query": "D'ici quand le programme de formation accueil doit-il partir ?",
+      "project_id": "projet_11",
+      "relevant_unit_ids": ["p11_u14"],
+      "piege": "decision_active"
+    },
+    {
+      "query_id": "q_test_004",
+      "query": "La base de données a-t-elle été purgée depuis la migration de 2015 ?",
+      "project_id": "projet_12",
+      "relevant_unit_ids": ["p12_u02"],
+      "piege": "negation"
+    },
+    {
+      "query_id": "q_test_005",
+      "query": "Qui doit valider les critères d'inactivité avec Christophe ?",
+      "project_id": "projet_12",
+      "relevant_unit_ids": ["p12_u07"],
+      "piege": "responsable_reel"
+    },
+    {
+      "query_id": "q_test_006",
+      "query": "Combien de contacts ont répondu à la campagne de reconsentement ?",
+      "project_id": "projet_12",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    }
+  ]
+}
