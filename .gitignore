@@ -36,6 +36,7 @@ data/eval/*
 !data/raw/.gitkeep
 !data/raw/projet_*.json
 !data/processed/.gitkeep
+!data/processed/triplets_dev.jsonl
 !data/eval/.gitkeep
 !data/eval/queries_*.json
 
