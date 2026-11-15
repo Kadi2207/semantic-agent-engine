@@ -4,6 +4,7 @@ venv/
 env/
 .env
 .env.*
+!.env.example
 
 # Python
 __pycache__/
@@ -21,6 +22,7 @@ dist/
 .ipynb_checkpoints/
 
 # Modeles
+models/
 *.bin
 *.pt
 *.pth
@@ -37,6 +39,7 @@ data/eval/*
 !data/raw/projet_*.json
 !data/processed/.gitkeep
 !data/processed/triplets_dev.jsonl
+!data/processed/triplets_llm.jsonl
 !data/eval/.gitkeep
 !data/eval/queries_*.json
 
