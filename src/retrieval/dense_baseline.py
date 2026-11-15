@@ -33,7 +33,11 @@ class DenseRetriever:
         return np.ascontiguousarray(embeddings, dtype=np.float32)
 
     def search(self, query: str, k: int, project_id: str) -> list[str]:
+        return [unit_id for unit_id, _ in self.search_with_scores(query, k, project_id)]
+
+    def search_with_scores(self, query: str, k: int, project_id: str) -> list[tuple[str, float]]:
+        """Comme search, mais renvoie aussi le cosinus (embeddings normalises => produit scalaire)."""
         index = self._indexes[project_id]
         ids = self._ids[project_id]
-        _, positions = index.search(self._encode([f"query: {query}"]), min(k, len(ids)))
-        return [ids[i] for i in positions[0] if i >= 0]
+        scores, positions = index.search(self._encode([f"query: {query}"]), min(k, len(ids)))
+        return [(ids[i], float(s)) for i, s in zip(positions[0], scores[0]) if i >= 0]

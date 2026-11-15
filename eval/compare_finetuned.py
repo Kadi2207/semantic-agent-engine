@@ -1,6 +1,10 @@
-"""Compare e5-small de base et e5 fine-tune sur queries_dev (meme procedure que run_baselines.py)."""
+"""Compare e5-small de base et e5 fine-tune sur un jeu de requetes (meme procedure que run_baselines.py).
+
+Par defaut queries_dev ; --queries permet de pointer vers un autre fichier (ex. queries_test.json).
+"""
 from __future__ import annotations
 
+import argparse
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -35,6 +39,16 @@ def print_block(label: str, before: list[list[float]], after: list[list[float]])
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--queries",
+        type=Path,
+        default=QUERIES_PATH,
+        help="fichier de requetes (defaut : data/eval/queries_dev.json)",
+    )
+    args = parser.parse_args()
+    queries_path: Path = args.queries if args.queries.is_absolute() else ROOT / args.queries
+
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     if not (FINETUNED_PATH / "config.json").exists():
@@ -43,7 +57,7 @@ def main() -> None:
     # Meme filtre que run_baselines.py : requetes avec reponse, hors piege sans_reponse.
     queries = [
         query
-        for query in load_queries(QUERIES_PATH)
+        for query in load_queries(queries_path)
         if query["relevant_unit_ids"] and query["piege"] != "sans_reponse"
     ]
     corpus = load_corpus(DATA_DIR)
@@ -51,7 +65,7 @@ def main() -> None:
     before = evaluate(DenseRetriever(corpus, MODEL_NAME), queries)
     after = evaluate(DenseRetriever(corpus, FINETUNED_PATH), queries)
 
-    print(f"Requetes DEV evaluees : {len(queries)} (sans_reponse exclues)")
+    print(f"Requetes evaluees ({queries_path.name}) : {len(queries)} (sans_reponse exclues)")
     print(f"AVANT = {MODEL_NAME}")
     print(f"APRES = {FINETUNED_PATH.relative_to(ROOT)}")
     print_block("GLOBAL", before["all"], after["all"])
