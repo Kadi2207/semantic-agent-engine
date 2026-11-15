@@ -46,6 +46,10 @@ data/eval/*
 # Videos de demonstration (filet de securite local, trop lourdes pour git)
 demo/*.webm
 
+# Corpus externes (telecharges, jamais versionnes ; seule leur documentation l'est)
+data/external/*
+!data/external/README.md
+
 # IDE / OS
 .vscode/
 .idea/
