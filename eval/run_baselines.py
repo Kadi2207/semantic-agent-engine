@@ -43,6 +43,12 @@ def format_row(label: str, count: int, values: list[float], width: int) -> str:
 
 
 def main() -> None:
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Baselines BM25 et dense sur queries_dev.")
+    parser.add_argument("--out", type=Path, help="ecrit aussi les resultats en JSON (section run_baselines)")
+    parser.add_argument("--expect", nargs="*", default=[], help="valeurs publiees cle=valeur ; aucun ecart tolere avant ecriture")
+    args = parser.parse_args()
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -86,6 +92,42 @@ def main() -> None:
             rows = scores[name][piege]
             if rows:
                 print(format_row(f"{piege} / {name.split()[0]}", len(rows), mean(rows), width))
+
+    if args.out:  # ecriture apres les calculs et l'affichage, a partir des memes scores
+        from eval import results_io
+
+        keys = {"BM25": "bm25", "Dense (e5-small)": "e5_base"}
+        results = {
+            keys[name]: {
+                "global": results_io.metric_block(scores[name]["all"], METRICS),
+                "per_category": {p: results_io.metric_block(scores[name][p], METRICS) for p in TYPES if scores[name][p]},
+            }
+            for name in retrievers
+        }
+        observed = {f"{s}.{c}.{m}": v for s, r in results.items() for c, b in [("global", r["global"]), *r["per_category"].items()]
+                    for m, v in b.items() if m != "n"}
+        problems = results_io.check_expected(observed, args.expect)
+        if problems:
+            sys.exit("ECART avec les valeurs publiees, rien n'est ecrit :\n  " + "\n  ".join(problems))
+        all_queries = load_queries(QUERIES_PATH)
+        query_info = results_io.query_set_info(QUERIES_PATH, all_queries, queries)
+        results_io.write_experiment(
+            args.out,
+            "run_baselines",
+            {
+                "experiment": "baselines BM25 et e5-small de base",
+                "corpus": f"corpus interne (data/raw), projets {', '.join(query_info['projects'])}",
+                "split": "dev",
+                "script": "eval/run_baselines.py",
+                "status": "resultats de developpement (le dev a aussi servi au reglage de la generation des triplets)",
+                "queries": query_info,
+                "models": {"bm25": {"model": "rank_bm25.BM25Okapi", "training": None}, "e5_base": results_io.model_info("intfloat/multilingual-e5-small")},
+                "params": results_io.retrieval_params(TOP_K, METRICS),
+                "results": results,
+            },
+            "Resultats de recherche sur le corpus interne, enregistres par eval/results_io.py",
+        )
+        print(f"\nResultats ecrits dans {args.out}")
 
 
 if __name__ == "__main__":

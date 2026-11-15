@@ -46,6 +46,8 @@ def main() -> None:
         default=QUERIES_PATH,
         help="fichier de requetes (defaut : data/eval/queries_dev.json)",
     )
+    parser.add_argument("--out", type=Path, help="ecrit aussi les resultats en JSON (section compare_finetuned)")
+    parser.add_argument("--expect", nargs="*", default=[], help="valeurs publiees cle=valeur ; aucun ecart tolere avant ecriture")
     args = parser.parse_args()
     queries_path: Path = args.queries if args.queries.is_absolute() else ROOT / args.queries
 
@@ -72,6 +74,47 @@ def main() -> None:
     for piege in TYPES:
         if before[piege]:
             print_block(piege, before[piege], after[piege])
+
+    if args.out:  # ecriture apres les calculs et l'affichage, a partir des memes scores
+        from eval import results_io
+
+        results = {
+            name: {
+                "global": results_io.metric_block(scores["all"], METRICS),
+                "per_category": {p: results_io.metric_block(scores[p], METRICS) for p in TYPES if scores[p]},
+            }
+            for name, scores in (("e5_base", before), ("e5_finetuned", after))
+        }
+        observed = {f"{s}.{c}.{m}": v for s, r in results.items() for c, b in [("global", r["global"]), *r["per_category"].items()]
+                    for m, v in b.items() if m != "n"}
+        problems = results_io.check_expected(observed, args.expect)
+        if problems:
+            sys.exit("ECART avec les valeurs publiees, rien n'est ecrit :\n  " + "\n  ".join(problems))
+        is_test = queries_path.name == "queries_test.json"
+        all_queries = load_queries(queries_path)
+        query_info = results_io.query_set_info(queries_path, all_queries, queries)
+        results_io.write_experiment(
+            args.out,
+            "compare_finetuned",
+            {
+                "experiment": "e5-small de base contre e5 fine-tune",
+                "corpus": f"corpus interne (data/raw), projets {', '.join(query_info['projects'])}",
+                "split": "test" if is_test else "dev",
+                "script": "eval/compare_finetuned.py",
+                "status": (
+                    "re-execution d'enregistrement de resultats historiques, aucun reglage effectue ; "
+                    "ce test ne sert jamais a regler quoi que ce soit"
+                    if is_test
+                    else "resultats de developpement (le dev a aussi servi au reglage de la generation des triplets)"
+                ),
+                "queries": query_info,
+                "models": {"e5_base": results_io.model_info(MODEL_NAME), "e5_finetuned": results_io.model_info(FINETUNED_PATH)},
+                "params": results_io.retrieval_params(TOP_K, METRICS),
+                "results": results,
+            },
+            "Resultats de recherche sur le corpus interne, enregistres par eval/results_io.py",
+        )
+        print(f"\nResultats ecrits dans {args.out}")
 
 
 if __name__ == "__main__":

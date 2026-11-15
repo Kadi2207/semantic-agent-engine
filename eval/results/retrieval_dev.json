@@ -1,0 +1,368 @@
+{
+  "description": "Resultats de recherche sur le corpus interne, enregistres par eval/results_io.py",
+  "experiments": {
+    "run_baselines": {
+      "generated_on": "2026-11-16",
+      "experiment": "baselines BM25 et e5-small de base",
+      "corpus": "corpus interne (data/raw), projets projet_01, projet_02, projet_03, projet_04, projet_05, projet_06, projet_07, projet_08, projet_09, projet_10",
+      "split": "dev",
+      "script": "eval/run_baselines.py",
+      "status": "resultats de developpement (le dev a aussi servi au reglage de la generation des triplets)",
+      "queries": {
+        "file": "data/eval/queries_dev.json",
+        "sha256": "3fa152358021b63dcf431ae4b69c6d692283f0dbffaeed03757fdce6e2d39cc0",
+        "total": 30,
+        "evaluated": 25,
+        "excluded": [
+          {
+            "query_id": "q_dev_010",
+            "reason": "piege sans_reponse (aucune unite pertinente)"
+          },
+          {
+            "query_id": "q_dev_016",
+            "reason": "piege sans_reponse (aucune unite pertinente)"
+          },
+          {
+            "query_id": "q_dev_022",
+            "reason": "piege sans_reponse (aucune unite pertinente)"
+          },
+          {
+            "query_id": "q_dev_028",
+            "reason": "piege sans_reponse (aucune unite pertinente)"
+          },
+          {
+            "query_id": "q_dev_029",
+            "reason": "piege sans_reponse (aucune unite pertinente)"
+          }
+        ],
+        "projects": [
+          "projet_01",
+          "projet_02",
+          "projet_03",
+          "projet_04",
+          "projet_05",
+          "projet_06",
+          "projet_07",
+          "projet_08",
+          "projet_09",
+          "projet_10"
+        ],
+        "sha256_normalisation": "fins de ligne normalisees en LF avant calcul (CRLF et CR convertis en LF) : l'empreinte ne depend pas de core.autocrlf ni du systeme d'exploitation de la copie du depot"
+      },
+      "models": {
+        "bm25": {
+          "model": "rank_bm25.BM25Okapi",
+          "training": null
+        },
+        "e5_base": {
+          "model": "intfloat/multilingual-e5-small",
+          "huggingface_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+          "huggingface_revision_note": null,
+          "training": null
+        }
+      },
+      "params": {
+        "top_k": 5,
+        "metrics": [
+          "Recall@3",
+          "Recall@5",
+          "MRR",
+          "nDCG@5"
+        ],
+        "search_scope": "unites du projet de la requete",
+        "e5_prefixes": {
+          "query": "query: ",
+          "passage": "passage: "
+        },
+        "e5_prefixes_note": "declares ; verifies par test contre src/retrieval/dense_baseline.py",
+        "rrf_k": null,
+        "rrf_k_note": "aucune fusion RRF dans ce script",
+        "evaluation_seed": null,
+        "evaluation_seed_note": "evaluation deterministe, aucun tirage aleatoire"
+      },
+      "results": {
+        "bm25": {
+          "global": {
+            "n": 25,
+            "Recall@3": 0.8,
+            "Recall@5": 0.88,
+            "MRR": 0.6313333333333333,
+            "nDCG@5": 0.6945986957551838
+          },
+          "per_category": {
+            "decision_active": {
+              "n": 5,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 0.8,
+              "nDCG@5": 0.8523719014285831
+            },
+            "reformulation": {
+              "n": 5,
+              "Recall@3": 0.2,
+              "Recall@5": 0.4,
+              "MRR": 0.13999999999999999,
+              "nDCG@5": 0.20355651216119983
+            },
+            "responsable_reel": {
+              "n": 5,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 0.9,
+              "nDCG@5": 0.9261859507142916
+            },
+            "negation": {
+              "n": 5,
+              "Recall@3": 0.8,
+              "Recall@5": 1.0,
+              "MRR": 0.55,
+              "nDCG@5": 0.6646931637575532
+            },
+            "engagement": {
+              "n": 5,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 0.7666666666666667,
+              "nDCG@5": 0.8261859507142916
+            }
+          }
+        },
+        "e5_base": {
+          "global": {
+            "n": 25,
+            "Recall@3": 0.68,
+            "Recall@5": 0.88,
+            "MRR": 0.526,
+            "nDCG@5": 0.6140525524047203
+          },
+          "per_category": {
+            "decision_active": {
+              "n": 5,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 0.8,
+              "nDCG@5": 0.8523719014285831
+            },
+            "reformulation": {
+              "n": 5,
+              "Recall@3": 0.4,
+              "Recall@5": 1.0,
+              "MRR": 0.4066666666666666,
+              "nDCG@5": 0.5496411846762655
+            },
+            "responsable_reel": {
+              "n": 5,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 0.6666666666666667,
+              "nDCG@5": 0.752371901428583
+            },
+            "negation": {
+              "n": 5,
+              "Recall@3": 0.4,
+              "Recall@5": 0.6,
+              "MRR": 0.20666666666666664,
+              "nDCG@5": 0.30355651216119983
+            },
+            "engagement": {
+              "n": 5,
+              "Recall@3": 0.6,
+              "Recall@5": 0.8,
+              "MRR": 0.55,
+              "nDCG@5": 0.6123212623289701
+            }
+          }
+        }
+      },
+      "params_sha256": "9375dc0652aa75ff9591bf1ef2812ee23321ba6a7a4e710da8587bc2f2d4c774",
+      "params_sha256_covers": "params_sha256 = SHA-256 du JSON canonique (cles triees, sans espaces) de {'params': params, 'training': {modele: parametres d'entrainement}} ; params contient top_k, metrics, prefixes e5, portee de recherche, rrf_k et seed d'evaluation ; training contient, pour chaque modele fine-tune, les constantes lues dans scripts/train_embeddings.py (base_model, epochs, batch_size, warmup_ratio, learning_rate, seed)",
+      "metadata_updated_on": "2026-11-16"
+    },
+    "compare_finetuned": {
+      "generated_on": "2026-11-16",
+      "experiment": "e5-small de base contre e5 fine-tune",
+      "corpus": "corpus interne (data/raw), projets projet_01, projet_02, projet_03, projet_04, projet_05, projet_06, projet_07, projet_08, projet_09, projet_10",
+      "split": "dev",
+      "script": "eval/compare_finetuned.py",
+      "status": "resultats de developpement (le dev a aussi servi au reglage de la generation des triplets)",
+      "queries": {
+        "file": "data/eval/queries_dev.json",
+        "sha256": "3fa152358021b63dcf431ae4b69c6d692283f0dbffaeed03757fdce6e2d39cc0",
+        "total": 30,
+        "evaluated": 25,
+        "excluded": [
+          {
+            "query_id": "q_dev_010",
+            "reason": "piege sans_reponse (aucune unite pertinente)"
+          },
+          {
+            "query_id": "q_dev_016",
+            "reason": "piege sans_reponse (aucune unite pertinente)"
+          },
+          {
+            "query_id": "q_dev_022",
+            "reason": "piege sans_reponse (aucune unite pertinente)"
+          },
+          {
+            "query_id": "q_dev_028",
+            "reason": "piege sans_reponse (aucune unite pertinente)"
+          },
+          {
+            "query_id": "q_dev_029",
+            "reason": "piege sans_reponse (aucune unite pertinente)"
+          }
+        ],
+        "projects": [
+          "projet_01",
+          "projet_02",
+          "projet_03",
+          "projet_04",
+          "projet_05",
+          "projet_06",
+          "projet_07",
+          "projet_08",
+          "projet_09",
+          "projet_10"
+        ],
+        "sha256_normalisation": "fins de ligne normalisees en LF avant calcul (CRLF et CR convertis en LF) : l'empreinte ne depend pas de core.autocrlf ni du systeme d'exploitation de la copie du depot"
+      },
+      "models": {
+        "e5_base": {
+          "model": "intfloat/multilingual-e5-small",
+          "huggingface_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+          "huggingface_revision_note": null,
+          "training": null
+        },
+        "e5_finetuned": {
+          "model": "models/e5-finetuned",
+          "weights_sha256": "b87f48d52487225b10033892140cad97f050ad8868852616b5c7a41051e50458",
+          "training": {
+            "source": "scripts/train_embeddings.py",
+            "base_model": "intfloat/multilingual-e5-small",
+            "epochs": 3,
+            "batch_size": 16,
+            "warmup_ratio": 0.1,
+            "learning_rate": 2e-05,
+            "seed": 42
+          }
+        }
+      },
+      "params": {
+        "top_k": 5,
+        "metrics": [
+          "Recall@3",
+          "Recall@5",
+          "MRR",
+          "nDCG@5"
+        ],
+        "search_scope": "unites du projet de la requete",
+        "e5_prefixes": {
+          "query": "query: ",
+          "passage": "passage: "
+        },
+        "e5_prefixes_note": "declares ; verifies par test contre src/retrieval/dense_baseline.py",
+        "rrf_k": null,
+        "rrf_k_note": "aucune fusion RRF dans ce script",
+        "evaluation_seed": null,
+        "evaluation_seed_note": "evaluation deterministe, aucun tirage aleatoire"
+      },
+      "results": {
+        "e5_base": {
+          "global": {
+            "n": 25,
+            "Recall@3": 0.68,
+            "Recall@5": 0.88,
+            "MRR": 0.526,
+            "nDCG@5": 0.6140525524047203
+          },
+          "per_category": {
+            "decision_active": {
+              "n": 5,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 0.8,
+              "nDCG@5": 0.8523719014285831
+            },
+            "reformulation": {
+              "n": 5,
+              "Recall@3": 0.4,
+              "Recall@5": 1.0,
+              "MRR": 0.4066666666666666,
+              "nDCG@5": 0.5496411846762655
+            },
+            "responsable_reel": {
+              "n": 5,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 0.6666666666666667,
+              "nDCG@5": 0.752371901428583
+            },
+            "negation": {
+              "n": 5,
+              "Recall@3": 0.4,
+              "Recall@5": 0.6,
+              "MRR": 0.20666666666666664,
+              "nDCG@5": 0.30355651216119983
+            },
+            "engagement": {
+              "n": 5,
+              "Recall@3": 0.6,
+              "Recall@5": 0.8,
+              "MRR": 0.55,
+              "nDCG@5": 0.6123212623289701
+            }
+          }
+        },
+        "e5_finetuned": {
+          "global": {
+            "n": 25,
+            "Recall@3": 0.84,
+            "Recall@5": 1.0,
+            "MRR": 0.716,
+            "nDCG@5": 0.7863511097960679
+          },
+          "per_category": {
+            "decision_active": {
+              "n": 5,
+              "Recall@3": 0.8,
+              "Recall@5": 1.0,
+              "MRR": 0.7066666666666667,
+              "nDCG@5": 0.7773705614469083
+            },
+            "reformulation": {
+              "n": 5,
+              "Recall@3": 0.6,
+              "Recall@5": 1.0,
+              "MRR": 0.6,
+              "nDCG@5": 0.6984565739436487
+            },
+            "responsable_reel": {
+              "n": 5,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 0.7666666666666667,
+              "nDCG@5": 0.8261859507142916
+            },
+            "negation": {
+              "n": 5,
+              "Recall@3": 0.8,
+              "Recall@5": 1.0,
+              "MRR": 0.5066666666666666,
+              "nDCG@5": 0.6297424628754913
+            },
+            "engagement": {
+              "n": 5,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 1.0,
+              "nDCG@5": 1.0
+            }
+          }
+        }
+      },
+      "params_sha256": "31a52b36b2c6484bdf0983472dc7dcb74529a55d507bf0036317e8b38205424a",
+      "params_sha256_covers": "params_sha256 = SHA-256 du JSON canonique (cles triees, sans espaces) de {'params': params, 'training': {modele: parametres d'entrainement}} ; params contient top_k, metrics, prefixes e5, portee de recherche, rrf_k et seed d'evaluation ; training contient, pour chaque modele fine-tune, les constantes lues dans scripts/train_embeddings.py (base_model, epochs, batch_size, warmup_ratio, learning_rate, seed)",
+      "metadata_updated_on": "2026-11-16"
+    }
+  }
+}
