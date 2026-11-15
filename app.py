@@ -18,7 +18,8 @@ from src.agent.answer import ABSTENTION_THRESHOLD, DATA_DIR, Answer, answer, get
 from src.agent.email import Clarification, draft_email, get_participants  # noqa: E402
 from src.agent.intent import detect_intent  # noqa: E402
 from src.agent.retriever import FINETUNED_PATH, HybridRetriever  # noqa: E402
-from src.schemas import EmailDraft  # noqa: E402
+from src.agent.sources import load_transcripts, source_passage  # noqa: E402
+from src.schemas import EmailDraft, SemanticUnit  # noqa: E402
 
 st.set_page_config(page_title="Agent sémantique", page_icon="🔎", layout="centered")
 
@@ -31,6 +32,11 @@ st.markdown(
       .meta { font-size: .85rem; opacity: .75; }
       .email-body { white-space: pre-wrap; font-family: inherit; line-height: 1.5;
                     border: 1px solid rgba(128,128,128,.35); border-radius: 6px; padding: .8rem 1rem; }
+      .src { border: 1px solid rgba(128,128,128,.3); border-radius: 6px; padding: .5rem .8rem; margin: .4rem 0;
+             font-size: .92rem; line-height: 1.45; }
+      .src .ctx { opacity: .6; }
+      .src mark { background: rgba(255, 210, 0, .35); color: inherit; padding: 0 .15rem; border-radius: 3px; }
+      .old { text-decoration: line-through; opacity: .75; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -45,6 +51,7 @@ def load_agent() -> HybridRetriever:
     """Construit une seule fois retriever hybride, graphe de relations et participants."""
     get_graph()
     get_participants()
+    load_transcripts()
     return get_retriever()
 
 
@@ -59,18 +66,27 @@ def load_project_names() -> dict[str, str]:
 
 # --------------------------------------------------------------------------- scenarios
 
-SCENARIOS = [
-    ("Décision en vigueur", "projet_01", "Quelle est la date de mise en production d'Atlas ?"),
+# Parcours de demonstration en 5 temps, sur le projet Atlas (projet_01, 3 reunions) :
+# la mise en production est proposee puis validee au 14 avril, puis reportee au 5 mai.
+DEMO_PROJECT = "projet_01"
+DEMO_STEPS = [
+    ("1 · Décision en vigueur", "Quelle est la date de mise en production d'Atlas ?", False),
+    ("2 · Action : qui et quand", "Qui doit annoncer le report aux utilisateurs, et quand ?", False),
+    ("3 · Décision remplacée", "La mise en production d'Atlas est-elle toujours prévue le 14 avril ?", False),
+    ("4 · Passages sources", "Quelle est la date de mise en production d'Atlas ?", True),
+    ("5 · Hors sources", "Quel est le salaire du nouveau directeur technique ?", False),
+]
+OTHER_EXAMPLES = [
     ("Piège négation", "projet_02", "Le budget de la campagne de printemps est-il approuvé ?"),
-    ("Hors sujet", "projet_01", "Quel est le salaire annuel du nouveau directeur technique ?"),
     ("Demande d'email", "projet_02", "Écris un mail à la personne qui doit signer le devis d'Horizon"),
     ("Demande ambiguë", "projet_03", "Écris un mail à la personne qui s'occupe de la grille d'évaluation"),
 ]
 
 
-def apply_scenario(project_id: str, question: str) -> None:
+def apply_scenario(project_id: str, question: str, detail_sources: bool = False) -> None:
     st.session_state["project"] = project_id
     st.session_state["question"] = question
+    st.session_state["detail_sources"] = detail_sources
 
 
 # --------------------------------------------------------------------------- rendu
@@ -85,7 +101,29 @@ def confidence_caption(score: float, extra: str = "") -> None:
     )
 
 
-def render_answer(result: Answer) -> None:
+def render_source(unit: SemanticUnit, context: int, title: str) -> None:
+    """Prise de parole contenant l'evidence (surlignee), avec le contexte immediat du transcript."""
+    passage = source_passage(unit, context=context)
+    if not passage.found:
+        st.caption(f"{title} : passage introuvable dans le transcript de {unit.source_id}.")
+        return
+    lines = []
+    for line in passage.lines:
+        text = html.escape(line.text)
+        if line.is_evidence:
+            evidence = html.escape(unit.evidence)
+            text = text.replace(evidence, f"<mark>{evidence}</mark>", 1) if evidence in text else f"<mark>{text}</mark>"
+            lines.append(f"<div><b>{html.escape(line.speaker)}</b> : {text}</div>")
+        else:
+            lines.append(f"<div class='ctx'>{html.escape(line.speaker)} : {text}</div>")
+    st.markdown(
+        f"<div class='meta'>{title} — transcript de la réunion <b>{passage.source_id}</b> du {unit.source_date:%d/%m/%Y}</div>"
+        f"<div class='src'>{''.join(lines)}</div>",
+        unsafe_allow_html=True,
+    )
+
+
+def render_answer(result: Answer, retriever: HybridRetriever, detail_sources: bool = False) -> None:
     if result.abstained:
         st.warning(f"**{result.message}**", icon="🤷")
         st.caption("L'agent préfère ne pas répondre plutôt que d'inventer.")
@@ -102,6 +140,7 @@ def render_answer(result: Answer) -> None:
             f"(statut <b>{result.unit_status}</b>)</div>",
             unsafe_allow_html=True,
         )
+        render_source(retriever.unit(result.unit_id), context=2 if detail_sources else 1, title="Passage source")
 
     if result.resolution:
         contradicted = any("-contradicts->" in step for step in result.resolution)
@@ -112,6 +151,21 @@ def render_answer(result: Answer) -> None:
             f"l'agent a suivi les relations jusqu'à l'information en vigueur.\n\n{path}",
             icon="🔁",
         )
+
+    if result.history:
+        with st.container(border=True):
+            st.markdown("##### Historique : ce que cette information remplace")
+            for older_id, relation, newer_id in result.history:
+                older = retriever.unit(older_id)
+                verb = "contredite par" if relation == "contradicts" else "remplacée par"
+                st.markdown(
+                    f"<span class='old'>{html.escape(older.statement)}</span> "
+                    f"<span class='meta'>— {older.source_id} du {older.source_date:%d/%m/%Y}, statut <b>{older.status}</b>, "
+                    f"{verb} <code>{newer_id}</code></span>",
+                    unsafe_allow_html=True,
+                )
+                if detail_sources:
+                    render_source(older, context=1, title=f"Source de {older_id}")
     rrf = f" · score RRF {result.fused_score:.4f}" if result.fused_score is not None else ""
     confidence_caption(result.best_dense_score, rrf)
 
@@ -162,8 +216,9 @@ def render_clarification(result: Clarification) -> None:
 
 project_names = load_project_names()
 project_ids = list(project_names)
-st.session_state.setdefault("project", project_ids[0])
+st.session_state.setdefault("project", DEMO_PROJECT)
 st.session_state.setdefault("question", "")
+st.session_state.setdefault("detail_sources", False)
 
 with st.sidebar:
     st.markdown("### Conversation")
@@ -191,9 +246,16 @@ project_id = st.session_state["project"]
 st.title("Agent sémantique")
 st.caption(f"Projet actif : **{project_names[project_id]}** (`{project_id}`)")
 
-st.markdown("<div class='meta'>Scénarios d'exemple</div>", unsafe_allow_html=True)
-for col, (label, pid, question) in zip(st.columns(len(SCENARIOS)), SCENARIOS):
-    col.button(label, on_click=apply_scenario, args=(pid, question), use_container_width=True)
+st.markdown(
+    f"<div class='meta'>Parcours de démonstration — projet {project_names[DEMO_PROJECT]} "
+    f"(<code>{DEMO_PROJECT}</code>, 3 réunions)</div>",
+    unsafe_allow_html=True,
+)
+for i, (col, (label, question, detail)) in enumerate(zip(st.columns(len(DEMO_STEPS)), DEMO_STEPS)):
+    col.button(label, key=f"demo_{i}", on_click=apply_scenario, args=(DEMO_PROJECT, question, detail), use_container_width=True)
+with st.expander("Autres exemples (négation, email, clarification)"):
+    for col, (label, pid, question) in zip(st.columns(len(OTHER_EXAMPLES)), OTHER_EXAMPLES):
+        col.button(label, on_click=apply_scenario, args=(pid, question), use_container_width=True)
 
 with st.form("ask", border=False):
     question = st.text_input("Question", key="question", placeholder="Pose une question ou demande un email…")
@@ -215,4 +277,4 @@ if submitted:
         elif isinstance(result, EmailDraft):
             render_draft(result)
         else:
-            render_answer(result)
+            render_answer(result, retriever, detail_sources=st.session_state.get("detail_sources", False))

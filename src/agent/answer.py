@@ -42,6 +42,9 @@ class Answer:
     fused_score: float | None = None  # score RRF de l'unite retrouvee (avant resolution)
     # Chemin de resolution si l'unite retrouvee etait perimee, ex. ["p02_u01 -contradicts-> p02_u08"].
     resolution: tuple[str, ...] = ()
+    # Historique : unites plus anciennes que la reponse remplace ou contredit, de la plus recente a la plus
+    # ancienne, sous la forme (unite_ancienne, relation, unite_qui_la_remplace).
+    history: tuple[tuple[str, str, str], ...] = ()
     message: str | None = None
 
 
@@ -50,9 +53,26 @@ class ReplacementGraph:
 
     def __init__(self, relations: list[Relation]) -> None:
         self._replaced_by: dict[str, list[tuple[str, str]]] = {}
+        self._replaces: dict[str, list[tuple[str, str]]] = {}
         for rel in relations:
             if rel.relation in REPLACING_RELATIONS:
                 self._replaced_by.setdefault(rel.to_id, []).append((rel.from_id, rel.relation))
+                self._replaces.setdefault(rel.from_id, []).append((rel.to_id, rel.relation))
+
+    def history(self, unit_id: str) -> tuple[tuple[str, str, str], ...]:
+        """Unites que `unit_id` remplace ou contredit, en remontant la chaine (parcours en largeur)."""
+        steps: list[tuple[str, str, str]] = []
+        frontier, seen = [unit_id], {unit_id}
+        while frontier:
+            next_frontier = []
+            for newer in frontier:
+                for older, relation in self._replaces.get(newer, []):
+                    if older not in seen:
+                        seen.add(older)
+                        steps.append((older, relation, newer))
+                        next_frontier.append(older)
+            frontier = next_frontier
+        return tuple(steps)
 
     def resolve(self, start: SemanticUnit, lookup: HybridRetriever) -> tuple[SemanticUnit, tuple[str, ...]]:
         """Remonte la chaine depuis une unite perimee jusqu'a une unite active.
@@ -131,4 +151,5 @@ def answer(
         unit_status=unit.status,
         fused_score=top.score,
         resolution=resolution,
+        history=graph.history(unit.unit_id),
     )
