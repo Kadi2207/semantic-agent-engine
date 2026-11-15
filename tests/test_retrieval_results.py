@@ -144,7 +144,8 @@ def test_model_metadata_comes_from_real_sources() -> None:
 def test_published_readme_values_are_exactly_the_recorded_ones() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     for key, published in PUBLISHED.items():
-        assert f"{published:.3f}" in readme, f"{key} : {published:.3f} absent du README"
+        french = f"{published:.3f}".replace(".", ",")  # le README ecrit les decimales a la francaise
+        assert french in readme, f"{key} : {french} absent du README"
         assert f"{value(*key):.3f}" == f"{published:.3f}", key
 
 
