@@ -43,6 +43,8 @@ Le LLM (openai/gpt-oss-120b via Groq) intervient à trois endroits. En amont de 
 
 ## Structure du dépôt
 
+La chaîne complète et le rôle de chaque module sont décrits dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) ; chaque choix technique, l'alternative écartée et sa preuve chiffrée, dans [docs/DECISIONS.md](docs/DECISIONS.md).
+
     src/schemas.py               contrats de données (unité, relation, brouillon d'email)
     src/memory/corpus.py         chargement du corpus, des relations et des participants
     src/retrieval/               recherches de référence BM25 et dense (e5)
