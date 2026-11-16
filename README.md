@@ -1,5 +1,28 @@
 # Embedding Lab : de la mémoire sémantique à l'agent intelligent
 
+## Évaluer le projet en 5 minutes
+
+Un agent lit des comptes rendus de réunions et répond en citant sa preuve : il distingue une décision en vigueur d'une décision remplacée, signale un conflit qu'il ne peut pas trancher, identifie le responsable d'une action, prépare un brouillon d'email sans l'envoyer, constitue un dossier documenté et s'abstient quand les sources ne contiennent pas la réponse.
+
+Vidéo de la démonstration (parcours Atlas en sept étapes) : [demo_atlas.webm, Release v1.0-rendu](https://github.com/Kadi2207/semantic-agent-engine/releases/download/v1.0-rendu/demo_atlas.webm).
+
+Quatre chiffres clés, tirés de `eval/results` (développement, puis test scellé quand il existe) :
+
+- fine-tuning contrastif des embeddings : MRR de 0,526 à 0,716 en dev, de 0,640 à 0,750 en test scellé (`retrieval_dev.json`, `retrieval_test.json`) ;
+- réponse finale avec le RAG contrôlé : unité attendue citée pour 24 requêtes sur 25 en dev et 5 sur 5 en test scellé (`rag_dev.json`, `rag_test.json`) ;
+- abstention avec le RAG contrôlé : 4 requêtes sans réponse sur 5 en dev, 1 sur 1 en test scellé, 0 réponse à tort sur 6 sondes (`rag_dev.json`) ;
+- chaîne complète sur la mémoire produite par l'extraction automatique : 10 réponses justes sur 20, contre 13 sur 20 avec la mémoire annotée, sur les mêmes requêtes (`agent_extracted_dev.json`).
+
+Lancer la démonstration (Python 3.12 et uv ; l'entraînement du modèle prend quelques minutes sur CPU et télécharge le modèle de base) :
+
+    uv venv --python 3.12
+    uv pip install -r requirements.txt
+    uv run python scripts/train_embeddings.py
+    uv run streamlit run app.py --server.address localhost
+    uv run python scripts/verify_demo.py
+
+Aucune clé n'est nécessaire : les synthèses du RAG de la démonstration sont rejouées depuis un cache versionné, et sans réseau l'agent répond de façon extractive.
+
 ## Objectif et périmètre
 
 Ce projet construit un agent qui lit des comptes rendus de réunions et répond à des questions en citant sa preuve. L'agent distingue une décision en vigueur d'une décision remplacée ou contredite, identifie la personne qui doit réaliser une tâche, prépare un brouillon d'email sans jamais l'envoyer, constitue un dossier documenté sur un sujet ou un projet, et s'abstient quand le meilleur passage trouvé est trop éloigné de la question, selon un seuil de similarité dont les limites sont décrites plus bas.

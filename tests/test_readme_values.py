@@ -346,3 +346,31 @@ def test_abstention_threshold_quoted_from_the_code() -> None:
 def test_readme_typography() -> None:
     for char, name in (("—", "tiret long"), ("–", "tiret moyen"), ("·", "point median")):
         assert char not in README, f"{name} present dans le README"
+
+
+def test_five_minute_section_figures_come_from_the_json() -> None:
+    head = README.split("## Évaluer le projet en 5 minutes")[1].split("\n## ")[0]
+    dev = load("retrieval_dev.json")["experiments"]["compare_finetuned"]["results"]
+    test = load("retrieval_test.json")["experiments"]["compare_finetuned"]["results"]
+    assert (
+        f"MRR de {fr(dev['e5_base']['global']['MRR'])} à {fr(dev['e5_finetuned']['global']['MRR'])} en dev, de "
+        f"{fr(test['e5_base']['global']['MRR'])} à {fr(test['e5_finetuned']['global']['MRR'])} en test scellé"
+    ) in head
+    rd, rt = load("rag_dev.json")["results"], load("rag_test.json")["results"]
+    assert (
+        f"unité attendue citée pour {rd['answerable']['correct']} requêtes sur {rd['answerable']['n']} en dev et "
+        f"{rt['answerable']['correct']} sur {rt['answerable']['n']} en test scellé"
+    ) in head
+    probes = rd["abstention_probes"]
+    assert (
+        f"{rd['sans_reponse']['abstained']} requêtes sans réponse sur {rd['sans_reponse']['n']} en dev, "
+        f"{rt['sans_reponse']['abstained']} sur {rt['sans_reponse']['n']} en test scellé, "
+        f"{probes['wrongly_answered']} réponse à tort sur {probes['n']} sondes"
+    ) in head
+    ex = load("agent_extracted_dev.json")["results"]
+    assert (
+        f"{ex['extracted']['global']['correct']} réponses justes sur {ex['extracted']['global']['n']}, contre "
+        f"{ex['annotated']['global']['correct']} sur {ex['annotated']['global']['n']} avec la mémoire annotée"
+    ) in head
+    assert "releases/download/v1.0-rendu/demo_atlas.webm" in head
+    assert "uv run python scripts/train_embeddings.py" in head and "uv run streamlit run app.py" in head
