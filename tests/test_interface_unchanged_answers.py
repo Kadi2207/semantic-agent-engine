@@ -68,4 +68,9 @@ def test_fixture_covers_the_atlas_path_and_the_other_examples() -> None:
 @pytest.mark.skipif(not MODEL.exists(), reason="modele fine-tune absent (clone frais) : l'agent ne peut pas tourner")
 def test_agent_answers_are_exactly_the_same_as_before_the_interface_polish() -> None:
     for before in json.loads(FIXTURE.read_text(encoding="utf-8"))["answers"]:
-        assert snapshot(before["project_id"], before["question"]) == before, before["question"]
+        after = snapshot(before["project_id"], before["question"])
+        if "draft" in before:  # seul changement voulu depuis : l'objet d'un brouillon sur une action annulee
+            assert before["draft"]["subject"] == "Suivi : signer le devis de l'agence Horizon d'ici vendredi"
+            assert after["draft"].pop("subject") == "Point mis à jour : signer le devis de l'agence Horizon d'ici vendredi"
+            before = {**before, "draft": {k: v for k, v in before["draft"].items() if k != "subject"}}
+        assert after == before, before["question"]

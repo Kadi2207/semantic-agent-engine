@@ -54,6 +54,13 @@ def test_no_middle_dot_or_long_dash_in_the_interface_code() -> None:
             assert char not in source, (name, char)
 
 
+def test_no_emoji_in_the_interface_and_the_decoration_bar_is_hidden() -> None:
+    source = (ROOT / "app.py").read_text(encoding="utf-8")
+    assert not [ch for ch in source if ord(ch) >= 0x2190 and ch not in "…"], "emoji ou pictogramme dans app.py"
+    assert "icon=" not in source
+    assert '[data-testid="stDecoration"]' in source and "display: none" in source
+
+
 def test_streamlit_config_hides_the_toolbar_and_sets_the_theme() -> None:
     config = tomllib.loads((ROOT / ".streamlit" / "config.toml").read_text(encoding="utf-8"))
     assert config["client"]["toolbarMode"] == "viewer"
@@ -112,7 +119,7 @@ def test_email_example_shows_recipient_draft_confirmation_and_is_never_sent() ->
     fields = {t.label: t for t in at.text_input}
     assert fields["Destinataire"].value == "Karim"
     assert fields["Adresse"].value == "" and "jamais inventée" in fields["Adresse"].placeholder
-    assert fields["Objet"].value.startswith("Suivi : signer le devis")
+    assert fields["Objet"].value == "Point mis à jour : signer le devis de l'agence Horizon d'ici vendredi"  # action annulee depuis
     assert "Bonjour Karim," in page and "mise en attente" in page  # corps du brouillon et point d'attention
     assert "Confirmation requise avant tout envoi : <b>oui</b> (<code>needs_confirmation = True</code>)" in page
     assert "Email envoyé : <b>non</b> (<code>executed = False</code>)" in page

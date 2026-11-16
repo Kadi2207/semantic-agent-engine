@@ -19,6 +19,8 @@ from src.schemas import EmailDraft, Recipient, SemanticUnit
 
 TASK_TYPES = frozenset({"action", "commitment"})
 TOP_N = 3  # on ne cherche le responsable que parmi les 3 unites les plus pertinentes
+FOLLOW_UP_SUBJECT = "Suivi"  # objet d'un brouillon sur une tache en vigueur
+UPDATED_SUBJECT = "Point mis à jour"  # objet quand la tache ciblee a ete remplacee ou annulee
 TOOL_CANDIDATE = "send_email"  # outil qui enverrait le mail apres confirmation ; jamais appele ici
 
 _MONTHS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
@@ -101,7 +103,9 @@ def _build_draft(candidate: Candidate) -> EmailDraft:
             evidence_unit_ids=[unit.unit_id],
             resolution_status="email_missing",
         ),
-        subject=f"Suivi : {_task_phrase(unit.statement, person)}",
+        # Tache remplacee ou annulee depuis : l'objet le dit, le corps (qui detaille la mise a jour) ne change pas.
+        subject=f"{UPDATED_SUBJECT if candidate.updates or candidate.origin_ids else FOLLOW_UP_SUBJECT} : "
+        f"{_task_phrase(unit.statement, person)}",
         body="\n".join(lines),
         source_unit_ids=source_ids,
         needs_confirmation=True,

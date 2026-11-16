@@ -30,7 +30,7 @@ from src.agent.retriever import FINETUNED_PATH, HybridRetriever  # noqa: E402
 from src.agent.sources import load_transcripts, source_passage  # noqa: E402
 from src.schemas import EmailDraft, SemanticUnit  # noqa: E402
 
-st.set_page_config(page_title="Embedding Lab", page_icon="📘", layout="centered")
+st.set_page_config(page_title="Embedding Lab", layout="centered")
 
 st.markdown(
     """
@@ -40,7 +40,7 @@ st.markdown(
                   font-style: italic; color: inherit; opacity: .9; }
       h1 { color: #1E3A5F; }
       .subtitle { font-size: 1.05rem; color: #1E3A5F; margin: -.6rem 0 1rem 0; }
-      [data-testid="stAppDeployButton"], [data-testid="stMainMenu"] { display: none; }
+      [data-testid="stAppDeployButton"], [data-testid="stMainMenu"], [data-testid="stDecoration"] { display: none; }
       .meta { font-size: .85rem; opacity: .75; }
       .email-body { white-space: pre-wrap; font-family: inherit; line-height: 1.5;
                     border: 1px solid rgba(128,128,128,.35); border-radius: 6px; padding: .8rem 1rem; }
@@ -157,7 +157,6 @@ def render_conflict(result: Answer, retriever: HybridRetriever, detail_sources: 
     st.warning(
         "**Conflit non tranché** : les sources contiennent des affirmations contradictoires, toutes encore en "
         "vigueur. L'agent ne choisit pas entre elles.",
-        icon="⚖️",
     )
     for number, unit_id in enumerate((result.unit_id, *result.conflict_with), start=1):
         unit = retriever.unit(unit_id)
@@ -172,7 +171,7 @@ def render_conflict(result: Answer, retriever: HybridRetriever, detail_sources: 
 
 def render_answer(result: Answer, retriever: HybridRetriever, detail_sources: bool = False) -> None:
     if result.abstained:
-        st.warning(f"**{result.message}**", icon="🤷")
+        st.warning(f"**{result.message}**")
         st.caption("L'agent préfère ne pas répondre plutôt que d'inventer.")
         technical_details(result)
         return
@@ -196,7 +195,7 @@ def render_answer(result: Answer, retriever: HybridRetriever, detail_sources: bo
         contradicted = any("-contradicts->" in step for step in result.resolution)
         title = "Information contredite" if contradicted else "Information mise à jour"
         sentences = " ".join(resolution_sentences(result.resolution, retriever))
-        st.info(f"**{title}** : {sentences}", icon="🔁")
+        st.info(f"**{title}** : {sentences}")
 
     if result.history:
         with st.container(border=True):
@@ -251,7 +250,7 @@ def render_draft(draft: EmailDraft) -> None:
 
 def render_clarification(result: Clarification) -> None:
     labels = {"ambiguous": "Demande ambiguë", "no_person": "Responsable introuvable", "off_topic": "Sujet introuvable"}
-    st.warning(f"**Clarification nécessaire : {labels.get(result.reason, result.reason).lower()}**\n\n{result.question}", icon="❓")
+    st.warning(f"**Clarification nécessaire : {labels.get(result.reason, result.reason).lower()}**\n\n{result.question}")
     if result.candidates:
         st.markdown("**Candidats trouvés dans les sources**")
         for c in result.candidates:

@@ -88,6 +88,21 @@ def test_draft_email_normal_case_never_sends_and_never_invents_an_address(fixed)
     assert "mise en attente" in draft.body
 
 
+def test_subject_says_when_the_targeted_action_was_replaced_or_cancelled(fixed) -> None:  # noqa: ANN001
+    fixed(["p01_u21"])  # action en vigueur : objet de suivi habituel
+    active = draft_email("Écris un mail à la personne qui doit annoncer le report aux utilisateurs", "projet_01")
+    assert isinstance(active, EmailDraft) and UNITS["p01_u21"].status == "active"
+    assert active.subject == "Suivi : envoie un message aux utilisateurs pour annoncer le report, le jour même"
+    assert "Point d'attention" not in active.body
+
+    fixed(["p02_u04"])  # action annulee, remplacee par la decision de mise en attente
+    updated = draft_email("Écris un mail à la personne qui doit signer le devis d'Horizon", "projet_02")
+    assert isinstance(updated, EmailDraft) and UNITS["p02_u04"].status == "cancelled"
+    assert updated.subject == "Point mis à jour : signer le devis de l'agence Horizon d'ici vendredi"
+    assert "Point d'attention : ce point a depuis été remplacé" in updated.body  # corps inchange
+    assert updated.needs_confirmation is True and updated.executed is False
+
+
 def test_draft_email_ambiguous_recipient_asks_instead_of_drafting(fixed) -> None:  # noqa: ANN001
     fixed(["p03_u10", "p03_u11", "p03_u09"])
     result = draft_email("Écris un mail à la personne qui s'occupe de la grille d'évaluation", "projet_03")
