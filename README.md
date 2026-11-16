@@ -15,7 +15,7 @@ Le projet comporte quatre parties :
 
 Le corpus interne est fictif : 12 projets, 26 réunions, 225 unités et 146 relations, écrits pour le projet et contenant volontairement les cas difficiles (proposition contre décision, date ou responsable qui change, information contredite, question sans réponse). Une évaluation externe sur le jeu public QMSum complète ces mesures pour la seule recherche de passages.
 
-Le LLM (openai/gpt-oss-120b via Groq) intervient à deux endroits, toujours en amont de l'agent : il reformule des questions pour construire les triplets d'entraînement, et il extrait les unités et les relations dans le pipeline d'ingestion. Il n'intervient jamais dans la recherche ni dans les réponses de l'agent.
+Le LLM (openai/gpt-oss-120b via Groq) intervient à trois endroits. En amont de l'agent, il reformule des questions pour construire les triplets d'entraînement, et il extrait les unités et les relations dans le pipeline d'ingestion. Dans l'agent, le RAG contrôlé lui fait rédiger une synthèse à partir des seules unités retrouvées, dont chaque citation est vérifiée par le code. Il n'intervient jamais dans la recherche, la résolution des relations ni l'abstention sur le seuil, et l'agent répond sans lui quand il est indisponible.
 
 ## Structure du dépôt
 
@@ -77,7 +77,7 @@ La ligne Hybride RRF est la recherche utilisée par l'agent : BM25 et e5 fine-tu
 
 ### Réponse finale de l'agent
 
-Fichiers `agent_dev.json` et `agent_test.json`, produits par `eval/eval_agent.py`. Une réponse est comptée juste si l'agent ne s'abstient pas et si l'unité affichée après résolution des relations est une unité pertinente ; pour un conflit non tranché, il suffit qu'une unité pertinente figure parmi les affirmations affichées.
+Fichiers `agent_dev.json` et `agent_test.json`, produits par `eval/eval_agent.py`. Ces chiffres sont ceux de la réponse extractive, sans le RAG contrôlé décrit plus bas. Une réponse est comptée juste si l'agent ne s'abstient pas et si l'unité affichée après résolution des relations est une unité pertinente ; pour un conflit non tranché, il suffit qu'une unité pertinente figure parmi les affirmations affichées.
 
 | Catégorie | Dev | Test scellé |
 |---|---|---|
@@ -91,6 +91,21 @@ Fichiers `agent_dev.json` et `agent_test.json`, produits par `eval/eval_agent.py
 En dev, le compte global est de 17/25 (16/25 si le conflit non tranché de q_dev_026 n'est pas compté juste). En dev, 3 réponses passent par une résolution (l'unité retrouvée était périmée et l'agent a suivi les relations jusqu'à l'unité active), toutes justes, et 1 réponse est un conflit non tranché. La reformulation est la catégorie la plus faible. L'agent s'abstient à tort 1 fois sur ces 25 requêtes.
 
 Requêtes sans réponse (abstention attendue) : l'agent s'abstient 0 fois sur 5 en dev et 0 fois sur 1 en test scellé. Six sondes complémentaires (`data/eval/probes_abstention.json`) posent une question dont le sujet existe dans le projet mais dont la réponse est absente des sources : 6 questions, 0 abstention ; 5 réponses à tort et 1 acceptable sur le fond (`p06_u25` indique qu'aucune décision n'a été prise), selon la règle écrite dans le fichier. Ce sont des sondes exploratoires, sur les projets de développement, jamais utilisées pour régler. 5 des 6 sondes sont les requêtes sans_reponse du dev et seule la question sur le budget publicitaire d'Atlas est nouvelle : ce n'est pas une mesure indépendante.
+
+### RAG contrôlé
+
+Fichiers `rag_dev.json` et `rag_test.json`, produits par `eval/eval_rag.py` ; module `src/agent/rag.py`. Après la recherche hybride, l'abstention et la résolution (inchangées), un appel à gpt-oss-120b (Groq, température 0, sortie JSON) reçoit la question et les 5 unités en vigueur retrouvées, avec leurs identifiants. Il répond si la question est couverte et, si oui, donne une synthèse dont chaque phrase cite les unités qui la justifient. Le code vérifie que chaque identifiant cité fait partie des unités fournies et qu'aucune phrase n'est sans citation ; sinon la synthèse est rejetée et l'agent garde la réponse extractive. Si le modèle juge la question non couverte, l'agent s'abstient avec la mention « Les sources trouvées ne contiennent pas cette information ». La preuve extractive (citation exacte et passage surligné) reste affichée sous la synthèse, marquée « générée à partir des sources citées ». Un conflit non tranché n'est jamais soumis au modèle. Sans réseau ni clé, l'agent répond exactement comme sans RAG ; les réponses du modèle sont mises en cache, et le cache est versionné pour rejouer la démonstration hors ligne.
+
+Les critères d'acceptation ont été fixés avant l'exécution (`eval/eval_rag.py`) : au moins 23 des 25 requêtes avec réponse du dev répondues avec une unité attendue parmi les citations, au moins 4 des 5 requêtes sans réponse devenues des abstentions, 100 % de citations valides, parcours Atlas identique en preuve extractive. Ils sont atteints, et le mode est donc activé par défaut dans l'interface.
+
+| Mesure | Dev | Test scellé |
+|---|---|---|
+| Requêtes avec réponse, unité attendue citée | 24/25 | 5/5 |
+| Requêtes sans réponse, abstention | 4/5 | 1/1 |
+| Citations valides | 28/28 | 5/5 |
+| Synthèses rejetées par les contrôles | 0 | 0 |
+
+Par catégorie en dev : decision_active 5/5, reformulation 4/5, responsable_reel 5/5, negation 5/5, engagement 5/5. La seule requête avec réponse manquée est q_dev_002, écartée avant tout appel par le seuil de similarité (meilleur cosinus de 0,440). Sur les 6 sondes d'abstention : 5 abstentions et 1 réponse acceptable sur le fond (`p06_u25`, aucune décision prise), soit 0 réponse à tort, contre 5 sans RAG. Le test scellé provient d'une seule exécution d'enregistrement. L'ensemble de la journée a consommé 25 895 tokens Groq (40 appels).
 
 ### Extraction automatique des unités et des relations
 
@@ -173,12 +188,13 @@ Le fine-tuning sur le corpus français s'applique à l'anglais sans dégradation
 ## Limites assumées
 
 - Relations : c'est la partie la plus faible, avec un F1 strict de 0,406 en dev et 0,381 en test. L'analyse des erreurs du dev 04-10 (`eval/results/relation_errors_dev.json`) montre qu'aucune relation prédite n'est fausse à cause de son seul sens. Sur les 54 relations prédites, 28 sont justes ; parmi les erreurs, 16 relient une unité absente de l'annotation et 7 visent la mauvaise cible. Sur les 84 relations annotées, 56 sont manquées, dont 27 jamais proposées (15 supports).
-- Abstention : l'agent s'abstient quand le meilleur cosinus dense passe sous 0,45 (seuil fixé dans `src/agent/answer.py`). Ce seuil écarte bien les questions hors sujet, mais il ne sépare pas une question sur le bon sujet dont la réponse est absente des sources : dans ce cas, l'agent répond le plus souvent à tort. C'est mesuré : 0 abstention sur les 5 requêtes sans réponse du dev, 0 sur 1 en test scellé ; sur 6 sondes exploratoires, 0 abstention, 5 réponses à tort et 1 acceptable sur le fond (`agent_dev.json`, `agent_test.json`). Ces sondes ne sont pas une mesure indépendante : 5 sur 6 sont les requêtes sans_reponse du dev. À l'inverse, le seuil écarte à tort q_dev_002, dont la réponse existe (meilleur cosinus de 0,440). Un cross-encoder ou un modèle d'inférence textuelle serait la solution propre.
+- Abstention : l'agent s'abstient quand le meilleur cosinus dense passe sous 0,45 (seuil fixé dans `src/agent/answer.py`). Ce seuil écarte bien les questions hors sujet, mais il ne sépare pas une question sur le bon sujet dont la réponse est absente des sources : dans ce cas, la réponse extractive est le plus souvent fausse. C'est mesuré sans RAG : 0 abstention sur les 5 requêtes sans réponse du dev, 0 sur 1 en test scellé ; sur 6 sondes exploratoires, 0 abstention, 5 réponses à tort et 1 acceptable sur le fond (`agent_dev.json`, `agent_test.json`). Ces sondes ne sont pas une mesure indépendante : 5 sur 6 sont les requêtes sans_reponse du dev. À l'inverse, le seuil écarte à tort q_dev_002, dont la réponse existe (meilleur cosinus de 0,440). Le RAG contrôlé, activé par défaut, corrige en grande partie ce cas (4 abstentions sur 5 en dev, 1 sur 1 en test scellé, 0 réponse à tort sur les 6 sondes), mais ces mesures restent petites et non indépendantes, et le seuil de similarité écarte toujours q_dev_002 avant tout appel.
 - Recul sur les décisions en vigueur : en dev, le fine-tuning fait baisser le MRR de 0,800 à 0,707 et le Recall@3 de 1,000 à 0,800 sur cette catégorie de requêtes. La résolution par les relations de l'agent compense ce cas dans la réponse finale : en dev, les 5 requêtes de cette catégorie obtiennent une réponse juste (`agent_dev.json`), ce qui reste une mesure sur 5 requêtes.
-- Reformulation : c'est la catégorie la plus faible en réponse finale, avec 1/5 en dev. L'agent ne retient que le premier résultat de la recherche : une unité pertinente classée deuxième ou troisième ne sert à rien.
-- Réponse finale : en dev, 8 réponses sur 25 sont fausses (9 si le conflit non tranché n'est pas compté juste), dont 4 sur 5 en reformulation. La résolution ne corrige que les cas où la recherche tombe sur une unité périmée ; elle ne rattrape pas une recherche qui tombe sur une autre unité active.
+- Reformulation : c'est la catégorie la plus faible en réponse finale, avec 1/5 en dev. L'agent ne retient que le premier résultat de la recherche : une unité pertinente classée deuxième ou troisième ne sert à rien. Ce chiffre vaut pour la réponse extractive ; avec le RAG contrôlé, qui lit les 5 premières unités, la catégorie passe à 4/5.
+- Réponse finale extractive : en dev, 8 réponses sur 25 sont fausses (9 si le conflit non tranché n'est pas compté juste), dont 4 sur 5 en reformulation. La résolution ne corrige que les cas où la recherche tombe sur une unité périmée ; elle ne rattrape pas une recherche qui tombe sur une autre unité active.
 - Conflit non tranché : le corpus de développement n'en contient qu'un seul cas (projet_10). Le comportement est testé sur ce cas, pas mesuré à plus grande échelle, et il dépend d'une relation contradicts annotée entre les deux unités.
 - Recherche hybride : en dev, l'hybride est légèrement sous le e5 fine-tuné seul (MRR de 0,708 contre 0,716, et de même en nDCG@5 et en Recall@5), bien qu'il soit meilleur en Recall@3 (0,920 contre 0,840).
+- RAG contrôlé : il dépend d'un service externe (Groq) et d'un modèle qui n'est pas strictement déterministe même à température nulle ; le cache versionné rend la démonstration rejouable, pas le modèle. Les contrôles vérifient que chaque phrase cite une unité fournie, pas que la phrase dit exactement ce que dit l'unité : la preuve extractive affichée sous la synthèse reste la référence. Les critères ont été mesurés sur les 30 requêtes du dev, qui n'est pas vierge.
 - Surextraction : sur les projets 04 à 12, l'extraction produit 19 unités idea pour 4 annotées.
 - Confusion entre action et engagement : en dev, 4 engagements annotés sont extraits comme actions et 2 actions comme engagements ; sur les projets 04 à 12, le rappel des actions n'est que de 0,294. Une partie de ces écarts vient d'un désaccord de convention entre la consigne et l'annotation.
 - Jeux d'évaluation petits : en dev, 25 requêtes évaluées pour la recherche ; en test scellé, 5 requêtes évaluées pour la recherche et 34 unités appariées pour l'extraction. Les écarts sont indicatifs, pas statistiquement solides.
@@ -237,6 +253,11 @@ Recherche sur le corpus interne (l'option `--out` réécrit le JSON correspondan
 Réponse finale de l'agent et sondes d'abstention (réécrit `eval/results/agent_dev.json`) :
 
     uv run python eval/eval_agent.py --out eval/results/agent_dev.json
+
+RAG contrôlé (appels Groq mis en cache dans `data/processed/groq_rag_cache.jsonl`, versionné ; `--cache-only` rejoue sans réseau), puis préchauffage du cache pour la démonstration :
+
+    uv run python eval/eval_rag.py --out eval/results/rag_dev.json --cache-only
+    uv run python scripts/prewarm_rag.py
 
 Chaîne complète en mode extrait (mémoire reconstruite depuis le cache local, puis mesure) :
 

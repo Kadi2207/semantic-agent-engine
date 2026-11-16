@@ -40,7 +40,7 @@ def all_numbers(node: object) -> set[float]:
 
 def test_every_three_decimal_number_of_the_readme_exists_in_a_results_json() -> None:
     known = set()
-    for name in ("retrieval_dev.json", "retrieval_test.json", "extraction.json", "real_qmsum.json", "agent_dev.json", "agent_test.json", "agent_extracted_dev.json"):
+    for name in ("retrieval_dev.json", "retrieval_test.json", "extraction.json", "real_qmsum.json", "agent_dev.json", "agent_test.json", "agent_extracted_dev.json", "rag_dev.json", "rag_test.json"):
         known |= {fr(v) for v in all_numbers(load(name))}
     cited = set(re.findall(r"(?<![\d,])\d,\d{3}(?![\d])", README))
     assert cited, "aucun chiffre trouve dans le README"
@@ -295,6 +295,38 @@ def test_extracted_chain_figures_come_from_the_json() -> None:
     assert f"aucune des {s['extracted']['n']} requêtes sans réponse de ces projets" in README
     limits = README.split("## Limites assumées")[1].split("\n## ")[0]
     assert f"({ge['correct']}/{ge['n']} contre {ga['correct']}/{ga['n']} sur les mêmes requêtes)" in limits
+
+
+def test_rag_figures_come_from_the_json() -> None:
+    dev, test = load("rag_dev.json"), load("rag_test.json")
+    rd, rt = dev["results"], test["results"]
+    assert f"| Requêtes avec réponse, unité attendue citée | {rd['answerable']['correct']}/{rd['answerable']['n']} | {rt['answerable']['correct']}/{rt['answerable']['n']} |" in README
+    assert f"| Requêtes sans réponse, abstention | {rd['sans_reponse']['abstained']}/{rd['sans_reponse']['n']} | {rt['sans_reponse']['abstained']}/{rt['sans_reponse']['n']} |" in README
+    assert f"| Citations valides | {rd['citations_valid']}/{rd['citations']} | {rt['citations_valid']}/{rt['citations']} |" in README
+    assert f"| Synthèses rejetées par les contrôles | {len(rd['rejections'])} | {len(rt['rejections'])} |" in README
+    assert all(v for k, v in rd["criteria_met"].items() if k != "C4_atlas_identical") and "Ils sont atteints" in README
+    per = ", ".join(f"{p} {v['correct']}/{v['n']}" for p, v in rd["answerable"]["per_category"].items())
+    assert f"Par catégorie en dev : {per}." in README
+    missed = [x for x in rd["per_query"] if x["relevant_unit_ids"] and x["piege"] != "sans_reponse" and not x["correct"]]
+    assert [x["query_id"] for x in missed] == ["q_dev_002"] and missed[0]["status"] == "non_appelee"
+    assert f"(meilleur cosinus de {fr(missed[0]['best_dense_score'])})" in README
+    probes = rd["abstention_probes"]
+    acceptable = probes["n"] - probes["abstained"] - probes["wrongly_answered"]
+    assert f"{probes['abstained']} abstentions et {acceptable} réponse acceptable sur le fond" in README
+    assert f"soit {probes['wrongly_answered']} réponse à tort, contre 5 sans RAG" in README
+    calls, tokens = 0, 0
+    for line in (ROOT / "data/processed/groq_rag_cache.jsonl").read_text(encoding="utf-8").splitlines():
+        usage = json.loads(line).get("usage") or {}
+        calls, tokens = calls + 1, tokens + usage.get("prompt_tokens", 0) + usage.get("completion_tokens", 0)
+    assert f"{thousands(tokens)} tokens Groq ({calls} appels)" in README
+    limits = README.split("## Limites assumées")[1].split("\n## ")[0]
+    assert (
+        f"({rd['sans_reponse']['abstained']} abstentions sur {rd['sans_reponse']['n']} en dev, {rt['sans_reponse']['abstained']} sur "
+        f"{rt['sans_reponse']['n']} en test scellé, {probes['wrongly_answered']} réponse à tort sur les {probes['n']} sondes)"
+    ) in limits
+    ref = rd["answerable"]["per_category"]["reformulation"]
+    assert f"la catégorie passe à {ref['correct']}/{ref['n']}" in limits
+    assert "Il n'intervient jamais dans la recherche, la résolution des relations ni l'abstention sur le seuil" in README
 
 
 def test_demo_scope_is_stated() -> None:
