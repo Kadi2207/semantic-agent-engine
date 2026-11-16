@@ -44,6 +44,7 @@ data/eval/*
 !data/eval/.gitkeep
 !data/eval/queries_*.json
 !data/eval/probes_*.json
+!data/eval/test2_manifest.json
 
 # Videos de demonstration (filet de securite local, trop lourdes pour git)
 demo/*.webm

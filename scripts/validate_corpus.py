@@ -75,7 +75,13 @@ def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-    paths = sorted(RAW_DIR.glob("projet_*.json"))
+    # Repertoire optionnel (ex. data/test2, test scelle elargi) ; par defaut le corpus annote data/raw.
+    data_dir = Path(sys.argv[1]) if len(sys.argv) > 1 else RAW_DIR
+    data_dir = data_dir if data_dir.is_absolute() else ROOT / data_dir
+    paths = sorted(data_dir.glob("projet_*.json"))
+    if not paths:
+        print(f"aucun fichier projet_*.json dans {data_dir}")
+        return 1
     total_units = 0
     total_relations = 0
     total_problems = 0

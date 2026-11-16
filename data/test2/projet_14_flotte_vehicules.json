@@ -1,0 +1,392 @@
+{
+  "project_id": "projet_14",
+  "project_name": "Renouvellement de la flotte de véhicules",
+  "meetings": [
+    {
+      "source_id": "p14_m01",
+      "source_date": "2026-09-08",
+      "participants": [
+        "Gaëlle",
+        "Karim",
+        "Sophie",
+        "Yann",
+        "Mathis"
+      ],
+      "transcript": "Gaëlle: La flotte compte 46 véhicules thermiques, dont 18 arrivent en fin de contrat de location en janvier.\nMathis: L'objectif de la politique RSE, c'est 50 % de véhicules électriques d'ici fin 2027.\nKarim: Je propose de remplacer ces 18 véhicules par des électriques en location longue durée.\nYann: Attention, les techniciens qui font plus de 300 kilomètres par jour ne pourront pas suivre avec l'autonomie actuelle.\nSophie: On valide le passage à l'électrique pour les 18 véhicules, sauf pour les techniciens grands rouleurs, dont le cas sera tranché plus tard.\nKarim: Je lance la consultation auprès de trois loueurs d'ici fin septembre.\nGaëlle: Combien de bornes de recharge faut-il installer au dépôt ?\nYann: Il en faut au moins dix pour que tous les véhicules rechargent la nuit.\nSophie: Yann, tu peux recenser les techniciens grands rouleurs pour la semaine prochaine ?\nYann: Oui, je te fais la liste."
+    },
+    {
+      "source_id": "p14_m02",
+      "source_date": "2026-09-29",
+      "participants": [
+        "Gaëlle",
+        "Karim",
+        "Sophie",
+        "Yann",
+        "Mathis"
+      ],
+      "transcript": "Yann: J'ai recensé sept techniciens qui dépassent 300 kilomètres par jour.\nKarim: Les trois loueurs ont répondu : Leasecom propose 520 euros par mois et par véhicule, Arval Ouest 495 euros.\nSophie: On retient Arval Ouest, à 495 euros par mois.\nGaëlle: Pour les bornes, l'installateur Voltéo chiffre le chantier à 42 000 euros pour dix bornes.\nMathis: Selon le gestionnaire du dépôt, la puissance électrique du site suffit pour dix bornes.\nGaëlle: Ce n'est pas ce que dit Voltéo : d'après leur étude, le raccordement actuel ne supporte que six bornes sans renforcement.\nSophie: On a deux avis opposés, on ne tranche pas aujourd'hui.\nSophie: Mathis, tu demandes une contre-expertise au gestionnaire du réseau d'ici quinze jours ?\nMathis: Je m'en occupe.\nKarim: Je propose qu'on teste deux véhicules électriques chez les techniciens pendant un mois avant de signer.\nSophie: On verra, ce n'est pas la priorité."
+    },
+    {
+      "source_id": "p14_m03",
+      "source_date": "2026-10-20",
+      "participants": [
+        "Gaëlle",
+        "Karim",
+        "Sophie",
+        "Yann",
+        "Mathis"
+      ],
+      "transcript": "Karim: Arval Ouest a revu son offre à 510 euros par mois, à cause de la hausse du prix des batteries.\nSophie: Dans ce cas on bascule sur Leasecom, à 520 euros, mais avec l'entretien inclus.\nGaëlle: Le contrat de location doit être signé avant le 15 novembre pour une livraison en janvier.\nSophie: Karim, tu signes le contrat Leasecom avant le 15 novembre.\nMathis: La contre-expertise du gestionnaire du réseau n'est pas encore revenue.\nSophie: Les sept techniciens grands rouleurs ne passent pas à l'électrique : ils gardent leurs véhicules hybrides actuels jusqu'à fin 2027.\nGaëlle: Qui va former les conducteurs à la recharge des véhicules ?\nMathis: Il faudrait aussi prévoir une formation à l'éco-conduite pour tous les conducteurs."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p14_u01",
+      "source_id": "p14_m01",
+      "source_date": "2026-09-08",
+      "type": "fact",
+      "statement": "La flotte compte 46 véhicules thermiques, dont 18 arrivent en fin de contrat de location en janvier.",
+      "speaker": "Gaëlle",
+      "evidence": "La flotte compte 46 véhicules thermiques, dont 18 arrivent en fin de contrat de location en janvier.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u02",
+      "source_id": "p14_m01",
+      "source_date": "2026-09-08",
+      "type": "fact",
+      "statement": "La politique RSE vise 50 % de véhicules électriques d'ici fin 2027.",
+      "speaker": "Mathis",
+      "evidence": "L'objectif de la politique RSE, c'est 50 % de véhicules électriques d'ici fin 2027.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u03",
+      "source_id": "p14_m01",
+      "source_date": "2026-09-08",
+      "type": "idea",
+      "statement": "Karim propose de remplacer les 18 véhicules par des électriques en location longue durée.",
+      "speaker": "Karim",
+      "evidence": "Je propose de remplacer ces 18 véhicules par des électriques en location longue durée.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u04",
+      "source_id": "p14_m01",
+      "source_date": "2026-09-08",
+      "type": "risk",
+      "statement": "Les techniciens qui font plus de 300 kilomètres par jour ne pourront pas suivre avec l'autonomie actuelle des véhicules électriques.",
+      "speaker": "Yann",
+      "evidence": "Attention, les techniciens qui font plus de 300 kilomètres par jour ne pourront pas suivre avec l'autonomie actuelle.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u05",
+      "source_id": "p14_m01",
+      "source_date": "2026-09-08",
+      "type": "decision",
+      "statement": "Les 18 véhicules en fin de contrat passent à l'électrique, sauf ceux des techniciens grands rouleurs, dont le cas sera tranché plus tard.",
+      "speaker": "Sophie",
+      "evidence": "On valide le passage à l'électrique pour les 18 véhicules, sauf pour les techniciens grands rouleurs, dont le cas sera tranché plus tard.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u06",
+      "source_id": "p14_m01",
+      "source_date": "2026-09-08",
+      "type": "commitment",
+      "statement": "Karim lance la consultation auprès de trois loueurs d'ici fin septembre.",
+      "speaker": "Karim",
+      "evidence": "Je lance la consultation auprès de trois loueurs d'ici fin septembre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u07",
+      "source_id": "p14_m01",
+      "source_date": "2026-09-08",
+      "type": "question",
+      "statement": "Combien de bornes de recharge faut-il installer au dépôt ?",
+      "speaker": "Gaëlle",
+      "evidence": "Combien de bornes de recharge faut-il installer au dépôt ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u08",
+      "source_id": "p14_m01",
+      "source_date": "2026-09-08",
+      "type": "answer",
+      "statement": "Il faut au moins dix bornes de recharge au dépôt pour que tous les véhicules rechargent la nuit.",
+      "speaker": "Yann",
+      "evidence": "Il en faut au moins dix pour que tous les véhicules rechargent la nuit.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u09",
+      "source_id": "p14_m01",
+      "source_date": "2026-09-08",
+      "type": "action",
+      "statement": "Yann doit recenser les techniciens grands rouleurs pour la semaine suivante.",
+      "speaker": "Sophie",
+      "evidence": "Yann, tu peux recenser les techniciens grands rouleurs pour la semaine prochaine ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u10",
+      "source_id": "p14_m02",
+      "source_date": "2026-09-29",
+      "type": "fact",
+      "statement": "Sept techniciens dépassent 300 kilomètres par jour.",
+      "speaker": "Yann",
+      "evidence": "J'ai recensé sept techniciens qui dépassent 300 kilomètres par jour.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u11",
+      "source_id": "p14_m02",
+      "source_date": "2026-09-29",
+      "type": "fact",
+      "statement": "Leasecom propose 520 euros par mois et par véhicule, Arval Ouest 495 euros.",
+      "speaker": "Karim",
+      "evidence": "Les trois loueurs ont répondu : Leasecom propose 520 euros par mois et par véhicule, Arval Ouest 495 euros.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u12",
+      "source_id": "p14_m02",
+      "source_date": "2026-09-29",
+      "type": "decision",
+      "statement": "Le loueur Arval Ouest est retenu, à 495 euros par mois et par véhicule.",
+      "speaker": "Sophie",
+      "evidence": "On retient Arval Ouest, à 495 euros par mois.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p14_u13",
+      "source_id": "p14_m02",
+      "source_date": "2026-09-29",
+      "type": "fact",
+      "statement": "L'installateur Voltéo chiffre l'installation de dix bornes à 42 000 euros.",
+      "speaker": "Gaëlle",
+      "evidence": "Pour les bornes, l'installateur Voltéo chiffre le chantier à 42 000 euros pour dix bornes.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u14",
+      "source_id": "p14_m02",
+      "source_date": "2026-09-29",
+      "type": "fact",
+      "statement": "Selon le gestionnaire du dépôt, la puissance électrique du site suffit pour dix bornes.",
+      "speaker": "Mathis",
+      "evidence": "Selon le gestionnaire du dépôt, la puissance électrique du site suffit pour dix bornes.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u15",
+      "source_id": "p14_m02",
+      "source_date": "2026-09-29",
+      "type": "fact",
+      "statement": "Selon l'étude de Voltéo, le raccordement actuel du dépôt ne supporte que six bornes sans renforcement.",
+      "speaker": "Gaëlle",
+      "evidence": "Ce n'est pas ce que dit Voltéo : d'après leur étude, le raccordement actuel ne supporte que six bornes sans renforcement.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u16",
+      "source_id": "p14_m02",
+      "source_date": "2026-09-29",
+      "type": "action",
+      "statement": "Mathis doit demander une contre-expertise au gestionnaire du réseau d'ici quinze jours.",
+      "speaker": "Sophie",
+      "evidence": "Mathis, tu demandes une contre-expertise au gestionnaire du réseau d'ici quinze jours ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u17",
+      "source_id": "p14_m02",
+      "source_date": "2026-09-29",
+      "type": "idea",
+      "statement": "Karim propose de tester deux véhicules électriques chez les techniciens pendant un mois avant de signer.",
+      "speaker": "Karim",
+      "evidence": "Je propose qu'on teste deux véhicules électriques chez les techniciens pendant un mois avant de signer.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u18",
+      "source_id": "p14_m03",
+      "source_date": "2026-10-20",
+      "type": "fact",
+      "statement": "Arval Ouest a revu son offre à 510 euros par mois, à cause de la hausse du prix des batteries.",
+      "speaker": "Karim",
+      "evidence": "Arval Ouest a revu son offre à 510 euros par mois, à cause de la hausse du prix des batteries.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u19",
+      "source_id": "p14_m03",
+      "source_date": "2026-10-20",
+      "type": "decision",
+      "statement": "Le loueur Leasecom est finalement retenu, à 520 euros par mois avec l'entretien inclus.",
+      "speaker": "Sophie",
+      "evidence": "Dans ce cas on bascule sur Leasecom, à 520 euros, mais avec l'entretien inclus.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u20",
+      "source_id": "p14_m03",
+      "source_date": "2026-10-20",
+      "type": "fact",
+      "statement": "Le contrat de location doit être signé avant le 15 novembre pour une livraison en janvier.",
+      "speaker": "Gaëlle",
+      "evidence": "Le contrat de location doit être signé avant le 15 novembre pour une livraison en janvier.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u21",
+      "source_id": "p14_m03",
+      "source_date": "2026-10-20",
+      "type": "action",
+      "statement": "Karim doit signer le contrat Leasecom avant le 15 novembre.",
+      "speaker": "Sophie",
+      "evidence": "Karim, tu signes le contrat Leasecom avant le 15 novembre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u22",
+      "source_id": "p14_m03",
+      "source_date": "2026-10-20",
+      "type": "fact",
+      "statement": "La contre-expertise du gestionnaire du réseau n'est pas encore revenue.",
+      "speaker": "Mathis",
+      "evidence": "La contre-expertise du gestionnaire du réseau n'est pas encore revenue.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u23",
+      "source_id": "p14_m03",
+      "source_date": "2026-10-20",
+      "type": "decision",
+      "statement": "Les sept techniciens grands rouleurs ne passent pas à l'électrique : ils gardent leurs véhicules hybrides actuels jusqu'à fin 2027.",
+      "speaker": "Sophie",
+      "evidence": "Les sept techniciens grands rouleurs ne passent pas à l'électrique : ils gardent leurs véhicules hybrides actuels jusqu'à fin 2027.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u24",
+      "source_id": "p14_m03",
+      "source_date": "2026-10-20",
+      "type": "question",
+      "statement": "Qui va former les conducteurs à la recharge des véhicules ?",
+      "speaker": "Gaëlle",
+      "evidence": "Qui va former les conducteurs à la recharge des véhicules ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p14_u25",
+      "source_id": "p14_m03",
+      "source_date": "2026-10-20",
+      "type": "idea",
+      "statement": "Mathis propose une formation à l'éco-conduite pour tous les conducteurs.",
+      "speaker": "Mathis",
+      "evidence": "Il faudrait aussi prévoir une formation à l'éco-conduite pour tous les conducteurs.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p14_u02",
+      "to_id": "p14_u05",
+      "relation": "supports",
+      "evidence_source_id": "p14_m01"
+    },
+    {
+      "from_id": "p14_u04",
+      "to_id": "p14_u05",
+      "relation": "supports",
+      "evidence_source_id": "p14_m01"
+    },
+    {
+      "from_id": "p14_u05",
+      "to_id": "p14_u06",
+      "relation": "creates_action",
+      "evidence_source_id": "p14_m01"
+    },
+    {
+      "from_id": "p14_u08",
+      "to_id": "p14_u07",
+      "relation": "answers",
+      "evidence_source_id": "p14_m01"
+    },
+    {
+      "from_id": "p14_u05",
+      "to_id": "p14_u09",
+      "relation": "creates_action",
+      "evidence_source_id": "p14_m01"
+    },
+    {
+      "from_id": "p14_u10",
+      "to_id": "p14_u09",
+      "relation": "supports",
+      "evidence_source_id": "p14_m02"
+    },
+    {
+      "from_id": "p14_u11",
+      "to_id": "p14_u12",
+      "relation": "supports",
+      "evidence_source_id": "p14_m02"
+    },
+    {
+      "from_id": "p14_u11",
+      "to_id": "p14_u06",
+      "relation": "supports",
+      "evidence_source_id": "p14_m02"
+    },
+    {
+      "from_id": "p14_u15",
+      "to_id": "p14_u14",
+      "relation": "contradicts",
+      "evidence_source_id": "p14_m02"
+    },
+    {
+      "from_id": "p14_u15",
+      "to_id": "p14_u16",
+      "relation": "creates_action",
+      "evidence_source_id": "p14_m02"
+    },
+    {
+      "from_id": "p14_u18",
+      "to_id": "p14_u19",
+      "relation": "supports",
+      "evidence_source_id": "p14_m03"
+    },
+    {
+      "from_id": "p14_u19",
+      "to_id": "p14_u12",
+      "relation": "supersedes",
+      "evidence_source_id": "p14_m03"
+    },
+    {
+      "from_id": "p14_u19",
+      "to_id": "p14_u21",
+      "relation": "creates_action",
+      "evidence_source_id": "p14_m03"
+    },
+    {
+      "from_id": "p14_u20",
+      "to_id": "p14_u21",
+      "relation": "supports",
+      "evidence_source_id": "p14_m03"
+    },
+    {
+      "from_id": "p14_u04",
+      "to_id": "p14_u23",
+      "relation": "supports",
+      "evidence_source_id": "p14_m03"
+    },
+    {
+      "from_id": "p14_u10",
+      "to_id": "p14_u23",
+      "relation": "supports",
+      "evidence_source_id": "p14_m03"
+    }
+  ]
+}

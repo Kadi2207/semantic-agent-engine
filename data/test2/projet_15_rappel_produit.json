@@ -1,0 +1,376 @@
+{
+  "project_id": "projet_15",
+  "project_name": "Rappel du lot de sablés",
+  "meetings": [
+    {
+      "source_id": "p15_m01",
+      "source_date": "2026-10-05",
+      "participants": [
+        "Nadia",
+        "Pierre",
+        "Élodie",
+        "Romain",
+        "Sandrine"
+      ],
+      "transcript": "Nadia: Le laboratoire a détecté des traces d'arachide non déclarées dans le lot 2418 de sablés au beurre.\nSandrine: On rappelle le lot 2418 dès aujourd'hui, c'est décidé.\nPierre: Le lot 2418 représente 12 000 paquets, produits le 28 septembre.\nRomain: D'après notre distributeur, seuls 4 000 paquets du lot ont été mis en rayon.\nPierre: Ce n'est pas ce que montrent nos bons de livraison : les 12 000 paquets ont tous été expédiés en magasin.\nÉlodie: Je rédige le communiqué de rappel pour 14 heures.\nSandrine: Élodie, tu préviens aussi la DGCCRF le jour même.\nNadia: Est-ce que les autres lots produits sur la même ligne sont concernés ?\nPierre: Les lots 2417 et 2419 ont été produits sur la même ligne, il faut les analyser.\nSandrine: Nadia, tu fais analyser les lots 2417 et 2419 d'ici jeudi."
+    },
+    {
+      "source_id": "p15_m02",
+      "source_date": "2026-10-09",
+      "participants": [
+        "Nadia",
+        "Pierre",
+        "Élodie",
+        "Romain",
+        "Sandrine"
+      ],
+      "transcript": "Nadia: Les analyses des lots 2417 et 2419 sont négatives, aucune trace d'arachide.\nSandrine: Les lots 2417 et 2419 ne sont donc pas rappelés.\nRomain: J'ai revu le distributeur : les 12 000 paquets ont bien été livrés en magasin, son premier chiffre ne concernait qu'une seule enseigne.\nPierre: La cause est identifiée : un nettoyage incomplet de la ligne 3 après une production de biscuits aux arachides.\nSandrine: On impose désormais un nettoyage validé par la qualité entre deux productions sur la ligne 3.\nÉlodie: Le communiqué de rappel est paru dans la presse régionale et sur notre site.\nRomain: Je propose d'offrir un bon d'achat aux clients qui rapportent un paquet.\nSandrine: On en reparle la semaine prochaine."
+    },
+    {
+      "source_id": "p15_m03",
+      "source_date": "2026-10-16",
+      "participants": [
+        "Nadia",
+        "Pierre",
+        "Élodie",
+        "Romain",
+        "Sandrine"
+      ],
+      "transcript": "Nadia: À ce jour, 7 300 paquets du lot 2418 ont été retournés ou détruits en magasin.\nSandrine: Pour les clients, on rembourse le paquet en caisse, sans bon d'achat.\nPierre: Le nouveau protocole de nettoyage rallonge chaque changement de production sur la ligne 3 de quarante minutes.\nÉlodie: Je m'engage à publier un point d'étape sur le site vendredi.\nRomain: Il faut prévenir les enseignes que le rappel reste ouvert jusqu'au 31 octobre.\nSandrine: Oui, il faut que quelqu'un s'en charge.\nNadia: Faut-il prévenir aussi les clients à l'export ?\nPierre: Non, aucun paquet du lot 2418 n'est parti à l'export."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p15_u01",
+      "source_id": "p15_m01",
+      "source_date": "2026-10-05",
+      "type": "fact",
+      "statement": "Le laboratoire a détecté des traces d'arachide non déclarées dans le lot 2418 de sablés au beurre.",
+      "speaker": "Nadia",
+      "evidence": "Le laboratoire a détecté des traces d'arachide non déclarées dans le lot 2418 de sablés au beurre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u02",
+      "source_id": "p15_m01",
+      "source_date": "2026-10-05",
+      "type": "decision",
+      "statement": "Le lot 2418 est rappelé dès le jour même.",
+      "speaker": "Sandrine",
+      "evidence": "On rappelle le lot 2418 dès aujourd'hui, c'est décidé.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u03",
+      "source_id": "p15_m01",
+      "source_date": "2026-10-05",
+      "type": "fact",
+      "statement": "Le lot 2418 représente 12 000 paquets, produits le 28 septembre.",
+      "speaker": "Pierre",
+      "evidence": "Le lot 2418 représente 12 000 paquets, produits le 28 septembre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u04",
+      "source_id": "p15_m01",
+      "source_date": "2026-10-05",
+      "type": "fact",
+      "statement": "D'après le distributeur, seuls 4 000 paquets du lot 2418 ont été mis en rayon.",
+      "speaker": "Romain",
+      "evidence": "D'après notre distributeur, seuls 4 000 paquets du lot ont été mis en rayon.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p15_u05",
+      "source_id": "p15_m01",
+      "source_date": "2026-10-05",
+      "type": "fact",
+      "statement": "D'après les bons de livraison, les 12 000 paquets du lot 2418 ont tous été expédiés en magasin.",
+      "speaker": "Pierre",
+      "evidence": "Ce n'est pas ce que montrent nos bons de livraison : les 12 000 paquets ont tous été expédiés en magasin.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u06",
+      "source_id": "p15_m01",
+      "source_date": "2026-10-05",
+      "type": "commitment",
+      "statement": "Élodie rédige le communiqué de rappel pour 14 heures.",
+      "speaker": "Élodie",
+      "evidence": "Je rédige le communiqué de rappel pour 14 heures.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u07",
+      "source_id": "p15_m01",
+      "source_date": "2026-10-05",
+      "type": "action",
+      "statement": "Élodie doit prévenir la DGCCRF le jour même.",
+      "speaker": "Sandrine",
+      "evidence": "Élodie, tu préviens aussi la DGCCRF le jour même.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u08",
+      "source_id": "p15_m01",
+      "source_date": "2026-10-05",
+      "type": "question",
+      "statement": "Les autres lots produits sur la même ligne sont-ils concernés ?",
+      "speaker": "Nadia",
+      "evidence": "Est-ce que les autres lots produits sur la même ligne sont concernés ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u09",
+      "source_id": "p15_m01",
+      "source_date": "2026-10-05",
+      "type": "answer",
+      "statement": "Les lots 2417 et 2419 ont été produits sur la même ligne et doivent être analysés.",
+      "speaker": "Pierre",
+      "evidence": "Les lots 2417 et 2419 ont été produits sur la même ligne, il faut les analyser.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u10",
+      "source_id": "p15_m01",
+      "source_date": "2026-10-05",
+      "type": "action",
+      "statement": "Nadia doit faire analyser les lots 2417 et 2419 d'ici jeudi.",
+      "speaker": "Sandrine",
+      "evidence": "Nadia, tu fais analyser les lots 2417 et 2419 d'ici jeudi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u11",
+      "source_id": "p15_m02",
+      "source_date": "2026-10-09",
+      "type": "fact",
+      "statement": "Les analyses des lots 2417 et 2419 sont négatives : aucune trace d'arachide.",
+      "speaker": "Nadia",
+      "evidence": "Les analyses des lots 2417 et 2419 sont négatives, aucune trace d'arachide.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u12",
+      "source_id": "p15_m02",
+      "source_date": "2026-10-09",
+      "type": "decision",
+      "statement": "Les lots 2417 et 2419 ne sont pas rappelés.",
+      "speaker": "Sandrine",
+      "evidence": "Les lots 2417 et 2419 ne sont donc pas rappelés.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u13",
+      "source_id": "p15_m02",
+      "source_date": "2026-10-09",
+      "type": "fact",
+      "statement": "Selon le distributeur, les 12 000 paquets du lot 2418 ont bien été livrés en magasin ; le chiffre de 4 000 ne concernait qu'une seule enseigne.",
+      "speaker": "Romain",
+      "evidence": "J'ai revu le distributeur : les 12 000 paquets ont bien été livrés en magasin, son premier chiffre ne concernait qu'une seule enseigne.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u14",
+      "source_id": "p15_m02",
+      "source_date": "2026-10-09",
+      "type": "fact",
+      "statement": "La contamination vient d'un nettoyage incomplet de la ligne 3 après une production de biscuits aux arachides.",
+      "speaker": "Pierre",
+      "evidence": "La cause est identifiée : un nettoyage incomplet de la ligne 3 après une production de biscuits aux arachides.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u15",
+      "source_id": "p15_m02",
+      "source_date": "2026-10-09",
+      "type": "decision",
+      "statement": "Un nettoyage validé par la qualité est imposé entre deux productions sur la ligne 3.",
+      "speaker": "Sandrine",
+      "evidence": "On impose désormais un nettoyage validé par la qualité entre deux productions sur la ligne 3.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u16",
+      "source_id": "p15_m02",
+      "source_date": "2026-10-09",
+      "type": "fact",
+      "statement": "Le communiqué de rappel est paru dans la presse régionale et sur le site de l'entreprise.",
+      "speaker": "Élodie",
+      "evidence": "Le communiqué de rappel est paru dans la presse régionale et sur notre site.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u17",
+      "source_id": "p15_m02",
+      "source_date": "2026-10-09",
+      "type": "idea",
+      "statement": "Romain propose d'offrir un bon d'achat aux clients qui rapportent un paquet.",
+      "speaker": "Romain",
+      "evidence": "Je propose d'offrir un bon d'achat aux clients qui rapportent un paquet.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p15_u18",
+      "source_id": "p15_m03",
+      "source_date": "2026-10-16",
+      "type": "fact",
+      "statement": "7 300 paquets du lot 2418 ont été retournés ou détruits en magasin.",
+      "speaker": "Nadia",
+      "evidence": "À ce jour, 7 300 paquets du lot 2418 ont été retournés ou détruits en magasin.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u19",
+      "source_id": "p15_m03",
+      "source_date": "2026-10-16",
+      "type": "decision",
+      "statement": "Les clients sont remboursés du paquet en caisse, sans bon d'achat.",
+      "speaker": "Sandrine",
+      "evidence": "Pour les clients, on rembourse le paquet en caisse, sans bon d'achat.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u20",
+      "source_id": "p15_m03",
+      "source_date": "2026-10-16",
+      "type": "risk",
+      "statement": "Le nouveau protocole de nettoyage rallonge chaque changement de production sur la ligne 3 de quarante minutes.",
+      "speaker": "Pierre",
+      "evidence": "Le nouveau protocole de nettoyage rallonge chaque changement de production sur la ligne 3 de quarante minutes.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u21",
+      "source_id": "p15_m03",
+      "source_date": "2026-10-16",
+      "type": "commitment",
+      "statement": "Élodie publie un point d'étape sur le site vendredi.",
+      "speaker": "Élodie",
+      "evidence": "Je m'engage à publier un point d'étape sur le site vendredi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u22",
+      "source_id": "p15_m03",
+      "source_date": "2026-10-16",
+      "type": "action",
+      "statement": "Les enseignes doivent être prévenues que le rappel reste ouvert jusqu'au 31 octobre ; aucun responsable n'a été désigné.",
+      "speaker": "Romain",
+      "evidence": "Il faut prévenir les enseignes que le rappel reste ouvert jusqu'au 31 octobre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u23",
+      "source_id": "p15_m03",
+      "source_date": "2026-10-16",
+      "type": "question",
+      "statement": "Faut-il prévenir aussi les clients à l'export ?",
+      "speaker": "Nadia",
+      "evidence": "Faut-il prévenir aussi les clients à l'export ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p15_u24",
+      "source_id": "p15_m03",
+      "source_date": "2026-10-16",
+      "type": "answer",
+      "statement": "Aucun paquet du lot 2418 n'est parti à l'export.",
+      "speaker": "Pierre",
+      "evidence": "Non, aucun paquet du lot 2418 n'est parti à l'export.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p15_u01",
+      "to_id": "p15_u02",
+      "relation": "supports",
+      "evidence_source_id": "p15_m01"
+    },
+    {
+      "from_id": "p15_u02",
+      "to_id": "p15_u06",
+      "relation": "creates_action",
+      "evidence_source_id": "p15_m01"
+    },
+    {
+      "from_id": "p15_u02",
+      "to_id": "p15_u07",
+      "relation": "creates_action",
+      "evidence_source_id": "p15_m01"
+    },
+    {
+      "from_id": "p15_u05",
+      "to_id": "p15_u04",
+      "relation": "contradicts",
+      "evidence_source_id": "p15_m01"
+    },
+    {
+      "from_id": "p15_u09",
+      "to_id": "p15_u08",
+      "relation": "answers",
+      "evidence_source_id": "p15_m01"
+    },
+    {
+      "from_id": "p15_u09",
+      "to_id": "p15_u10",
+      "relation": "creates_action",
+      "evidence_source_id": "p15_m01"
+    },
+    {
+      "from_id": "p15_u11",
+      "to_id": "p15_u12",
+      "relation": "supports",
+      "evidence_source_id": "p15_m02"
+    },
+    {
+      "from_id": "p15_u11",
+      "to_id": "p15_u10",
+      "relation": "supports",
+      "evidence_source_id": "p15_m02"
+    },
+    {
+      "from_id": "p15_u13",
+      "to_id": "p15_u04",
+      "relation": "supersedes",
+      "evidence_source_id": "p15_m02"
+    },
+    {
+      "from_id": "p15_u14",
+      "to_id": "p15_u15",
+      "relation": "supports",
+      "evidence_source_id": "p15_m02"
+    },
+    {
+      "from_id": "p15_u16",
+      "to_id": "p15_u06",
+      "relation": "supports",
+      "evidence_source_id": "p15_m02"
+    },
+    {
+      "from_id": "p15_u19",
+      "to_id": "p15_u17",
+      "relation": "supersedes",
+      "evidence_source_id": "p15_m03"
+    },
+    {
+      "from_id": "p15_u20",
+      "to_id": "p15_u15",
+      "relation": "supports",
+      "evidence_source_id": "p15_m03"
+    },
+    {
+      "from_id": "p15_u02",
+      "to_id": "p15_u22",
+      "relation": "creates_action",
+      "evidence_source_id": "p15_m03"
+    },
+    {
+      "from_id": "p15_u24",
+      "to_id": "p15_u23",
+      "relation": "answers",
+      "evidence_source_id": "p15_m03"
+    }
+  ]
+}

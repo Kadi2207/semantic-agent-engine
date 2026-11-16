@@ -1,0 +1,406 @@
+{
+  "project_id": "projet_13",
+  "project_name": "Déménagement du siège",
+  "meetings": [
+    {
+      "source_id": "p13_m01",
+      "source_date": "2026-09-02",
+      "participants": [
+        "Hélène",
+        "Bastien",
+        "Inès",
+        "Thomas",
+        "Ludivine"
+      ],
+      "transcript": "Hélène: Le bail de la rue Garibaldi se termine fin octobre, on doit avoir quitté les lieux au plus tard le 31 octobre.\nBastien: Je propose qu'on déménage le week-end du 10 octobre, c'est la période la plus calme pour les équipes.\nInès: Pour l'informatique, il me faut au moins deux semaines entre la remise des clés et le déménagement pour câbler les salles.\nHélène: Va pour le week-end du 10 octobre, c'est acté.\nLudivine: J'ai deux devis de déménageurs : Transalp demande 38 000 euros, Demeco Rhône 31 500 euros.\nHélène: On part sur Demeco Rhône, on ne retient pas Transalp, l'écart de prix est trop important.\nThomas: Il faudra envoyer une note écrite aux salariés au moins un mois avant le déménagement.\nHélène: Oui, il faut que quelqu'un s'en charge, on verra qui.\nInès: De mon côté, je commande les nouvelles bornes wifi d'ici vendredi.\nBastien: Et pour le mobilier, est-ce qu'on garde les anciens bureaux ?\nHélène: On garde les bureaux, mais on remplace toutes les chaises."
+    },
+    {
+      "source_id": "p13_m02",
+      "source_date": "2026-09-16",
+      "participants": [
+        "Hélène",
+        "Bastien",
+        "Inès",
+        "Thomas",
+        "Ludivine"
+      ],
+      "transcript": "Bastien: Mauvaise nouvelle, le promoteur annonce dix jours de retard, la remise des clés est repoussée au 5 octobre.\nInès: Avec deux semaines de câblage, le 10 octobre ne tient plus du tout.\nHélène: Alors on décale : le déménagement aura lieu le week-end du 24 octobre.\nLudivine: Demeco Rhône confirme la nouvelle date sans surcoût.\nThomas: La note aux salariés n'est toujours pas partie, personne ne s'en est chargé.\nBastien: On pourrait aussi organiser une visite des nouveaux locaux pour les équipes avant le déménagement.\nLudivine: Côté budget, le parking des nouveaux locaux coûte 4 200 euros par an de plus que l'actuel.\nHélène: Thomas, tu peux préparer le plan d'attribution des bureaux pour la prochaine réunion ?\nThomas: Oui, je le prépare."
+    },
+    {
+      "source_id": "p13_m03",
+      "source_date": "2026-10-07",
+      "participants": [
+        "Hélène",
+        "Bastien",
+        "Inès",
+        "Thomas",
+        "Ludivine"
+      ],
+      "transcript": "Hélène: Le promoteur a encore glissé, les clés seront remises le 19 octobre.\nHélène: On n'a pas le choix : le déménagement est repoussé au week-end du 31 octobre, dernier jour du bail.\nLudivine: Le propriétaire de Garibaldi accepte une convention d'occupation de quinze jours en novembre, pour 6 000 euros.\nHélène: On signe cette convention, c'est notre filet de sécurité si le déménagement déborde.\nInès: Le câblage se fera en accéléré, en une semaine ; je m'engage à ce que le réseau soit opérationnel le 30 octobre.\nBastien: Pour la visite des locaux évoquée la dernière fois, elle n'est pas possible avant la remise des clés.\nThomas: Voici le plan d'attribution : le service client occupe le premier étage, la direction le deuxième.\nThomas: Je propose de mettre tout le monde en télétravail le lundi 2 novembre pour laisser le temps de s'installer.\nHélène: On en reparlera.\nLudivine: Est-ce qu'on prévient les clients du changement d'adresse ?"
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p13_u01",
+      "source_id": "p13_m01",
+      "source_date": "2026-09-02",
+      "type": "fact",
+      "statement": "Le bail de la rue Garibaldi se termine fin octobre : le siège doit être libéré au plus tard le 31 octobre.",
+      "speaker": "Hélène",
+      "evidence": "Le bail de la rue Garibaldi se termine fin octobre, on doit avoir quitté les lieux au plus tard le 31 octobre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u02",
+      "source_id": "p13_m01",
+      "source_date": "2026-09-02",
+      "type": "idea",
+      "statement": "Bastien propose de déménager le week-end du 10 octobre, période la plus calme pour les équipes.",
+      "speaker": "Bastien",
+      "evidence": "Je propose qu'on déménage le week-end du 10 octobre, c'est la période la plus calme pour les équipes.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u03",
+      "source_id": "p13_m01",
+      "source_date": "2026-09-02",
+      "type": "fact",
+      "statement": "L'informatique a besoin d'au moins deux semaines entre la remise des clés et le déménagement pour câbler les salles.",
+      "speaker": "Inès",
+      "evidence": "Pour l'informatique, il me faut au moins deux semaines entre la remise des clés et le déménagement pour câbler les salles.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u04",
+      "source_id": "p13_m01",
+      "source_date": "2026-09-02",
+      "type": "decision",
+      "statement": "Le déménagement est fixé au week-end du 10 octobre.",
+      "speaker": "Hélène",
+      "evidence": "Va pour le week-end du 10 octobre, c'est acté.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p13_u05",
+      "source_id": "p13_m01",
+      "source_date": "2026-09-02",
+      "type": "fact",
+      "statement": "Transalp demande 38 000 euros pour le déménagement, Demeco Rhône 31 500 euros.",
+      "speaker": "Ludivine",
+      "evidence": "J'ai deux devis de déménageurs : Transalp demande 38 000 euros, Demeco Rhône 31 500 euros.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u06",
+      "source_id": "p13_m01",
+      "source_date": "2026-09-02",
+      "type": "decision",
+      "statement": "Demeco Rhône est retenu comme déménageur ; Transalp n'est pas retenu, car trop cher.",
+      "speaker": "Hélène",
+      "evidence": "On part sur Demeco Rhône, on ne retient pas Transalp, l'écart de prix est trop important.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u07",
+      "source_id": "p13_m01",
+      "source_date": "2026-09-02",
+      "type": "action",
+      "statement": "Une note écrite doit être envoyée aux salariés au moins un mois avant le déménagement ; aucun responsable n'a été désigné.",
+      "speaker": "Thomas",
+      "evidence": "Il faudra envoyer une note écrite aux salariés au moins un mois avant le déménagement.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u08",
+      "source_id": "p13_m01",
+      "source_date": "2026-09-02",
+      "type": "commitment",
+      "statement": "Inès commande les nouvelles bornes wifi d'ici vendredi.",
+      "speaker": "Inès",
+      "evidence": "De mon côté, je commande les nouvelles bornes wifi d'ici vendredi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u09",
+      "source_id": "p13_m01",
+      "source_date": "2026-09-02",
+      "type": "question",
+      "statement": "Faut-il garder les anciens bureaux pour les nouveaux locaux ?",
+      "speaker": "Bastien",
+      "evidence": "Et pour le mobilier, est-ce qu'on garde les anciens bureaux ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u10",
+      "source_id": "p13_m01",
+      "source_date": "2026-09-02",
+      "type": "answer",
+      "statement": "Les anciens bureaux sont conservés, mais toutes les chaises sont remplacées.",
+      "speaker": "Hélène",
+      "evidence": "On garde les bureaux, mais on remplace toutes les chaises.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u11",
+      "source_id": "p13_m02",
+      "source_date": "2026-09-16",
+      "type": "fact",
+      "statement": "Le promoteur annonce dix jours de retard : la remise des clés est repoussée au 5 octobre.",
+      "speaker": "Bastien",
+      "evidence": "Mauvaise nouvelle, le promoteur annonce dix jours de retard, la remise des clés est repoussée au 5 octobre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u12",
+      "source_id": "p13_m02",
+      "source_date": "2026-09-16",
+      "type": "risk",
+      "statement": "Avec deux semaines de câblage, la date du 10 octobre n'est plus tenable.",
+      "speaker": "Inès",
+      "evidence": "Avec deux semaines de câblage, le 10 octobre ne tient plus du tout.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u13",
+      "source_id": "p13_m02",
+      "source_date": "2026-09-16",
+      "type": "decision",
+      "statement": "Le déménagement est décalé au week-end du 24 octobre.",
+      "speaker": "Hélène",
+      "evidence": "Alors on décale : le déménagement aura lieu le week-end du 24 octobre.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p13_u14",
+      "source_id": "p13_m02",
+      "source_date": "2026-09-16",
+      "type": "fact",
+      "statement": "Demeco Rhône confirme la date du 24 octobre sans surcoût.",
+      "speaker": "Ludivine",
+      "evidence": "Demeco Rhône confirme la nouvelle date sans surcoût.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u15",
+      "source_id": "p13_m02",
+      "source_date": "2026-09-16",
+      "type": "fact",
+      "statement": "La note aux salariés n'est toujours pas partie : personne ne s'en est chargé.",
+      "speaker": "Thomas",
+      "evidence": "La note aux salariés n'est toujours pas partie, personne ne s'en est chargé.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u16",
+      "source_id": "p13_m02",
+      "source_date": "2026-09-16",
+      "type": "idea",
+      "statement": "Bastien propose d'organiser une visite des nouveaux locaux pour les équipes avant le déménagement.",
+      "speaker": "Bastien",
+      "evidence": "On pourrait aussi organiser une visite des nouveaux locaux pour les équipes avant le déménagement.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u17",
+      "source_id": "p13_m02",
+      "source_date": "2026-09-16",
+      "type": "fact",
+      "statement": "Le parking des nouveaux locaux coûte 4 200 euros par an de plus que l'actuel.",
+      "speaker": "Ludivine",
+      "evidence": "Côté budget, le parking des nouveaux locaux coûte 4 200 euros par an de plus que l'actuel.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u18",
+      "source_id": "p13_m02",
+      "source_date": "2026-09-16",
+      "type": "action",
+      "statement": "Thomas doit préparer le plan d'attribution des bureaux pour la réunion suivante.",
+      "speaker": "Hélène",
+      "evidence": "Thomas, tu peux préparer le plan d'attribution des bureaux pour la prochaine réunion ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u19",
+      "source_id": "p13_m03",
+      "source_date": "2026-10-07",
+      "type": "fact",
+      "statement": "Le promoteur a de nouveau glissé : les clés seront remises le 19 octobre.",
+      "speaker": "Hélène",
+      "evidence": "Le promoteur a encore glissé, les clés seront remises le 19 octobre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u20",
+      "source_id": "p13_m03",
+      "source_date": "2026-10-07",
+      "type": "decision",
+      "statement": "Le déménagement est repoussé au week-end du 31 octobre, dernier jour du bail.",
+      "speaker": "Hélène",
+      "evidence": "On n'a pas le choix : le déménagement est repoussé au week-end du 31 octobre, dernier jour du bail.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u21",
+      "source_id": "p13_m03",
+      "source_date": "2026-10-07",
+      "type": "fact",
+      "statement": "Le propriétaire de Garibaldi accepte une convention d'occupation de quinze jours en novembre, pour 6 000 euros.",
+      "speaker": "Ludivine",
+      "evidence": "Le propriétaire de Garibaldi accepte une convention d'occupation de quinze jours en novembre, pour 6 000 euros.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u22",
+      "source_id": "p13_m03",
+      "source_date": "2026-10-07",
+      "type": "decision",
+      "statement": "La convention d'occupation de quinze jours en novembre est signée, comme filet de sécurité.",
+      "speaker": "Hélène",
+      "evidence": "On signe cette convention, c'est notre filet de sécurité si le déménagement déborde.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u23",
+      "source_id": "p13_m03",
+      "source_date": "2026-10-07",
+      "type": "commitment",
+      "statement": "Inès s'engage à ce que le réseau des nouveaux locaux soit opérationnel le 30 octobre, avec un câblage accéléré en une semaine.",
+      "speaker": "Inès",
+      "evidence": "Le câblage se fera en accéléré, en une semaine ; je m'engage à ce que le réseau soit opérationnel le 30 octobre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u24",
+      "source_id": "p13_m03",
+      "source_date": "2026-10-07",
+      "type": "fact",
+      "statement": "La visite des nouveaux locaux n'est pas possible avant la remise des clés.",
+      "speaker": "Bastien",
+      "evidence": "Pour la visite des locaux évoquée la dernière fois, elle n'est pas possible avant la remise des clés.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u25",
+      "source_id": "p13_m03",
+      "source_date": "2026-10-07",
+      "type": "fact",
+      "statement": "Selon le plan d'attribution, le service client occupe le premier étage et la direction le deuxième.",
+      "speaker": "Thomas",
+      "evidence": "Voici le plan d'attribution : le service client occupe le premier étage, la direction le deuxième.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u26",
+      "source_id": "p13_m03",
+      "source_date": "2026-10-07",
+      "type": "idea",
+      "statement": "Thomas propose de mettre tout le monde en télétravail le lundi 2 novembre pour laisser le temps de s'installer.",
+      "speaker": "Thomas",
+      "evidence": "Je propose de mettre tout le monde en télétravail le lundi 2 novembre pour laisser le temps de s'installer.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p13_u27",
+      "source_id": "p13_m03",
+      "source_date": "2026-10-07",
+      "type": "question",
+      "statement": "Faut-il prévenir les clients du changement d'adresse ?",
+      "speaker": "Ludivine",
+      "evidence": "Est-ce qu'on prévient les clients du changement d'adresse ?",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p13_u03",
+      "to_id": "p13_u04",
+      "relation": "supports",
+      "evidence_source_id": "p13_m01"
+    },
+    {
+      "from_id": "p13_u02",
+      "to_id": "p13_u04",
+      "relation": "supports",
+      "evidence_source_id": "p13_m01"
+    },
+    {
+      "from_id": "p13_u05",
+      "to_id": "p13_u06",
+      "relation": "supports",
+      "evidence_source_id": "p13_m01"
+    },
+    {
+      "from_id": "p13_u10",
+      "to_id": "p13_u09",
+      "relation": "answers",
+      "evidence_source_id": "p13_m01"
+    },
+    {
+      "from_id": "p13_u11",
+      "to_id": "p13_u12",
+      "relation": "supports",
+      "evidence_source_id": "p13_m02"
+    },
+    {
+      "from_id": "p13_u12",
+      "to_id": "p13_u13",
+      "relation": "supports",
+      "evidence_source_id": "p13_m02"
+    },
+    {
+      "from_id": "p13_u13",
+      "to_id": "p13_u04",
+      "relation": "supersedes",
+      "evidence_source_id": "p13_m02"
+    },
+    {
+      "from_id": "p13_u14",
+      "to_id": "p13_u13",
+      "relation": "supports",
+      "evidence_source_id": "p13_m02"
+    },
+    {
+      "from_id": "p13_u15",
+      "to_id": "p13_u07",
+      "relation": "supports",
+      "evidence_source_id": "p13_m02"
+    },
+    {
+      "from_id": "p13_u25",
+      "to_id": "p13_u18",
+      "relation": "supports",
+      "evidence_source_id": "p13_m03"
+    },
+    {
+      "from_id": "p13_u19",
+      "to_id": "p13_u20",
+      "relation": "supports",
+      "evidence_source_id": "p13_m03"
+    },
+    {
+      "from_id": "p13_u20",
+      "to_id": "p13_u13",
+      "relation": "supersedes",
+      "evidence_source_id": "p13_m03"
+    },
+    {
+      "from_id": "p13_u01",
+      "to_id": "p13_u20",
+      "relation": "supports",
+      "evidence_source_id": "p13_m03"
+    },
+    {
+      "from_id": "p13_u21",
+      "to_id": "p13_u22",
+      "relation": "supports",
+      "evidence_source_id": "p13_m03"
+    },
+    {
+      "from_id": "p13_u20",
+      "to_id": "p13_u23",
+      "relation": "creates_action",
+      "evidence_source_id": "p13_m03"
+    }
+  ]
+}

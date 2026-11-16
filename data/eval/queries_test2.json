@@ -1,0 +1,384 @@
+{
+  "queries": [
+    {
+      "query_id": "q_test2_001",
+      "query": "À quelle date le déménagement du siège a-t-il finalement lieu ?",
+      "project_id": "projet_13",
+      "relevant_unit_ids": [
+        "p13_u20"
+      ],
+      "piege": "decision_active"
+    },
+    {
+      "query_id": "q_test2_002",
+      "query": "Qui doit commander les nouvelles bornes wifi ?",
+      "project_id": "projet_13",
+      "relevant_unit_ids": [
+        "p13_u08"
+      ],
+      "piege": "responsable_reel"
+    },
+    {
+      "query_id": "q_test2_003",
+      "query": "Quel déménageur n'a pas été retenu ?",
+      "project_id": "projet_13",
+      "relevant_unit_ids": [
+        "p13_u06"
+      ],
+      "piege": "negation"
+    },
+    {
+      "query_id": "q_test2_004",
+      "query": "Pour quand le réseau des nouveaux locaux sera-t-il opérationnel ?",
+      "project_id": "projet_13",
+      "relevant_unit_ids": [
+        "p13_u23"
+      ],
+      "piege": "engagement"
+    },
+    {
+      "query_id": "q_test2_005",
+      "query": "Combien coûte en plus la place de stationnement dans le nouveau bâtiment ?",
+      "project_id": "projet_13",
+      "relevant_unit_ids": [
+        "p13_u17"
+      ],
+      "piege": "reformulation"
+    },
+    {
+      "query_id": "q_test2_006",
+      "query": "Quel est le loyer annuel des nouveaux locaux ?",
+      "project_id": "projet_13",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_test2_007",
+      "query": "Qui a été chargé de prévenir les clients du changement d'adresse ?",
+      "project_id": "projet_13",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_test2_008",
+      "query": "Pourquoi la date du déménagement a-t-elle changé deux fois, et quelle est la date retenue ?",
+      "project_id": "projet_13",
+      "relevant_unit_ids": [
+        "p13_u11",
+        "p13_u13",
+        "p13_u19",
+        "p13_u20"
+      ],
+      "piege": "complexe"
+    },
+    {
+      "query_id": "q_test2_009",
+      "query": "Quelles dispositions protègent le siège si le déménagement prend du retard ?",
+      "project_id": "projet_13",
+      "relevant_unit_ids": [
+        "p13_u22",
+        "p13_u21"
+      ],
+      "piege": "complexe"
+    },
+    {
+      "query_id": "q_test2_010",
+      "query": "Constitue le dossier sur la date du déménagement",
+      "project_id": "projet_13",
+      "relevant_unit_ids": [
+        "p13_u20",
+        "p13_u13",
+        "p13_u04",
+        "p13_u23",
+        "p13_u12"
+      ],
+      "piege": "dossier"
+    },
+    {
+      "query_id": "q_test2_011",
+      "query": "Quel loueur a finalement été choisi pour les véhicules électriques ?",
+      "project_id": "projet_14",
+      "relevant_unit_ids": [
+        "p14_u19"
+      ],
+      "piege": "decision_active"
+    },
+    {
+      "query_id": "q_test2_012",
+      "query": "Qui doit signer le contrat de location des véhicules ?",
+      "project_id": "projet_14",
+      "relevant_unit_ids": [
+        "p14_u21"
+      ],
+      "piege": "responsable_reel"
+    },
+    {
+      "query_id": "q_test2_013",
+      "query": "Les techniciens grands rouleurs passent-ils à l'électrique ?",
+      "project_id": "projet_14",
+      "relevant_unit_ids": [
+        "p14_u23"
+      ],
+      "piege": "negation"
+    },
+    {
+      "query_id": "q_test2_014",
+      "query": "D'ici quand la consultation des loueurs doit-elle être lancée ?",
+      "project_id": "projet_14",
+      "relevant_unit_ids": [
+        "p14_u06"
+      ],
+      "piege": "engagement"
+    },
+    {
+      "query_id": "q_test2_015",
+      "query": "Combien de points de charge sont nécessaires au dépôt pour la nuit ?",
+      "project_id": "projet_14",
+      "relevant_unit_ids": [
+        "p14_u08"
+      ],
+      "piege": "reformulation"
+    },
+    {
+      "query_id": "q_test2_016",
+      "query": "Quelle marque de véhicule électrique a été choisie ?",
+      "project_id": "projet_14",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_test2_017",
+      "query": "Combien coûterait le renforcement du raccordement électrique du dépôt ?",
+      "project_id": "projet_14",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_test2_018",
+      "query": "Le dépôt a-t-il assez de puissance électrique pour dix bornes ?",
+      "project_id": "projet_14",
+      "relevant_unit_ids": [
+        "p14_u14",
+        "p14_u15"
+      ],
+      "piege": "complexe"
+    },
+    {
+      "query_id": "q_test2_019",
+      "query": "Combien de techniciens gardent un véhicule hybride, et pourquoi ?",
+      "project_id": "projet_14",
+      "relevant_unit_ids": [
+        "p14_u10",
+        "p14_u23",
+        "p14_u04"
+      ],
+      "piege": "complexe"
+    },
+    {
+      "query_id": "q_test2_020",
+      "query": "Prépare le dossier sur le choix du loueur",
+      "project_id": "projet_14",
+      "relevant_unit_ids": [
+        "p14_u19",
+        "p14_u12",
+        "p14_u06",
+        "p14_u21"
+      ],
+      "piege": "dossier"
+    },
+    {
+      "query_id": "q_test2_021",
+      "query": "Quelle compensation est accordée aux clients qui rapportent un paquet ?",
+      "project_id": "projet_15",
+      "relevant_unit_ids": [
+        "p15_u19"
+      ],
+      "piege": "decision_active"
+    },
+    {
+      "query_id": "q_test2_022",
+      "query": "Qui doit prévenir la DGCCRF du rappel ?",
+      "project_id": "projet_15",
+      "relevant_unit_ids": [
+        "p15_u07"
+      ],
+      "piege": "responsable_reel"
+    },
+    {
+      "query_id": "q_test2_023",
+      "query": "Les lots 2417 et 2419 sont-ils rappelés ?",
+      "project_id": "projet_15",
+      "relevant_unit_ids": [
+        "p15_u12"
+      ],
+      "piege": "negation"
+    },
+    {
+      "query_id": "q_test2_024",
+      "query": "Quand le point d'étape sur le rappel sera-t-il publié sur le site ?",
+      "project_id": "projet_15",
+      "relevant_unit_ids": [
+        "p15_u21"
+      ],
+      "piege": "engagement"
+    },
+    {
+      "query_id": "q_test2_025",
+      "query": "D'où vient la présence d'arachide dans les sablés ?",
+      "project_id": "projet_15",
+      "relevant_unit_ids": [
+        "p15_u14"
+      ],
+      "piege": "reformulation"
+    },
+    {
+      "query_id": "q_test2_026",
+      "query": "Combien coûte le rappel du lot 2418 à l'entreprise ?",
+      "project_id": "projet_15",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_test2_027",
+      "query": "Quel magasin a signalé le premier cas d'allergie ?",
+      "project_id": "projet_15",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_test2_028",
+      "query": "Combien de paquets du lot 2418 ont été livrés en magasin, et combien ont été retournés ou détruits ?",
+      "project_id": "projet_15",
+      "relevant_unit_ids": [
+        "p15_u13",
+        "p15_u05",
+        "p15_u18"
+      ],
+      "piege": "complexe"
+    },
+    {
+      "query_id": "q_test2_029",
+      "query": "Quelles mesures ont été prises pour éviter qu'une contamination se reproduise sur la ligne 3, et avec quel effet ?",
+      "project_id": "projet_15",
+      "relevant_unit_ids": [
+        "p15_u14",
+        "p15_u15",
+        "p15_u20"
+      ],
+      "piege": "complexe"
+    },
+    {
+      "query_id": "q_test2_030",
+      "query": "Fais le dossier du projet Rappel du lot de sablés",
+      "project_id": "projet_15",
+      "relevant_unit_ids": [
+        "p15_u02",
+        "p15_u12",
+        "p15_u15",
+        "p15_u19",
+        "p15_u04",
+        "p15_u17",
+        "p15_u06",
+        "p15_u07",
+        "p15_u10",
+        "p15_u21",
+        "p15_u22",
+        "p15_u20"
+      ],
+      "piege": "dossier"
+    },
+    {
+      "query_id": "q_test2_031",
+      "query": "Quand le bon à tirer du rapport annuel part-il chez l'imprimeur ?",
+      "project_id": "projet_16",
+      "relevant_unit_ids": [
+        "p16_u19"
+      ],
+      "piege": "decision_active"
+    },
+    {
+      "query_id": "q_test2_032",
+      "query": "Qui doit livrer la maquette complète du rapport ?",
+      "project_id": "projet_16",
+      "relevant_unit_ids": [
+        "p16_u21"
+      ],
+      "piege": "responsable_reel"
+    },
+    {
+      "query_id": "q_test2_033",
+      "query": "Le cabinet Ecovalor a-t-il été retenu pour relire les chiffres RSE ?",
+      "project_id": "projet_16",
+      "relevant_unit_ids": [
+        "p16_u16"
+      ],
+      "piege": "negation"
+    },
+    {
+      "query_id": "q_test2_034",
+      "query": "Dans quel délai Léa livre-t-elle la maquette des pages intérieures ?",
+      "project_id": "projet_16",
+      "relevant_unit_ids": [
+        "p16_u06"
+      ],
+      "piege": "engagement"
+    },
+    {
+      "query_id": "q_test2_035",
+      "query": "Combien d'exemplaires papier du rapport seront finalement imprimés ?",
+      "project_id": "projet_16",
+      "relevant_unit_ids": [
+        "p16_u25"
+      ],
+      "piege": "reformulation"
+    },
+    {
+      "query_id": "q_test2_036",
+      "query": "Quel imprimeur a été retenu pour le rapport annuel ?",
+      "project_id": "projet_16",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_test2_037",
+      "query": "Le rapport annuel sera-t-il traduit en anglais ?",
+      "project_id": "projet_16",
+      "relevant_unit_ids": [],
+      "piege": "sans_reponse"
+    },
+    {
+      "query_id": "q_test2_038",
+      "query": "Comment ont évolué la date du bon à tirer et le nombre d'exemplaires imprimés ?",
+      "project_id": "projet_16",
+      "relevant_unit_ids": [
+        "p16_u05",
+        "p16_u12",
+        "p16_u19",
+        "p16_u04",
+        "p16_u25"
+      ],
+      "piege": "complexe"
+    },
+    {
+      "query_id": "q_test2_039",
+      "query": "Qui relit les chiffres RSE du rapport et qu'a donné cette relecture ?",
+      "project_id": "projet_16",
+      "relevant_unit_ids": [
+        "p16_u16",
+        "p16_u22"
+      ],
+      "piege": "complexe"
+    },
+    {
+      "query_id": "q_test2_040",
+      "query": "Constitue le dossier sur la version imprimée du rapport",
+      "project_id": "projet_16",
+      "relevant_unit_ids": [
+        "p16_u25",
+        "p16_u04",
+        "p16_u03"
+      ],
+      "piege": "dossier"
+    }
+  ]
+}

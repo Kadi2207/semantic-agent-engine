@@ -1,0 +1,396 @@
+{
+  "project_id": "projet_16",
+  "project_name": "Rapport annuel 2026",
+  "meetings": [
+    {
+      "source_id": "p16_m01",
+      "source_date": "2026-09-10",
+      "participants": [
+        "Margaux",
+        "Olivier",
+        "Léa",
+        "Benoît",
+        "Fatou"
+      ],
+      "transcript": "Margaux: L'assemblée générale est fixée au 4 décembre, le rapport annuel doit être prêt avant.\nMargaux: Je propose de passer au format numérique uniquement, sans version imprimée.\nOlivier: Attention, les actionnaires historiques tiennent beaucoup à la version papier.\nBenoît: On garde une version imprimée, limitée à 300 exemplaires.\nMargaux: Le bon à tirer part chez l'imprimeur le 13 novembre, c'est ce qu'on fixe.\nLéa: Je livre la maquette des pages intérieures d'ici trois semaines.\nOlivier: Les comptes définitifs ne seront arrêtés que le 30 octobre.\nFatou: Est-ce qu'on intègre le bilan carbone dans le rapport ?\nBenoît: Oui, le bilan carbone aura sa propre section.\nFatou: Il faudra faire relire les chiffres RSE par un auditeur externe.\nBenoît: Oui, c'est à organiser."
+    },
+    {
+      "source_id": "p16_m02",
+      "source_date": "2026-10-08",
+      "participants": [
+        "Margaux",
+        "Olivier",
+        "Léa",
+        "Benoît",
+        "Fatou"
+      ],
+      "transcript": "Olivier: Le commissaire aux comptes ne signera pas avant le 6 novembre, une semaine plus tard que prévu.\nBenoît: Le bon à tirer est donc décalé au 20 novembre.\nLéa: L'imprimeur demande dix jours ouvrés entre le bon à tirer et la livraison.\nMargaux: Avec un bon à tirer le 20, la livraison tomberait le 4 décembre, le jour même de l'assemblée.\nFatou: Le cabinet Ecovalor peut relire les chiffres RSE pour 3 500 euros.\nBenoît: On ne prend pas Ecovalor : les chiffres RSE seront relus en interne par le contrôle de gestion.\nLéa: Je propose une couverture en papier recyclé.\nOlivier: Le papier recyclé coûte 12 % de plus que le papier standard."
+    },
+    {
+      "source_id": "p16_m03",
+      "source_date": "2026-10-29",
+      "participants": [
+        "Margaux",
+        "Olivier",
+        "Léa",
+        "Benoît",
+        "Fatou"
+      ],
+      "transcript": "Benoît: Pour garder une marge avant l'assemblée, le bon à tirer est avancé au 18 novembre.\nOlivier: Le commissaire aux comptes confirme sa signature le 6 novembre.\nMargaux: Léa, tu peux livrer la maquette complète avant le 12 novembre ?\nLéa: Oui, ce sera prêt le 12.\nFatou: Le contrôle de gestion a relu les chiffres RSE, deux erreurs ont été corrigées.\nMargaux: L'imprimeur chiffre les 300 exemplaires à 4 800 euros.\nOlivier: Le budget voté pour l'impression n'est que de 4 000 euros.\nBenoît: On réduit le tirage à 250 exemplaires pour tenir le budget.\nMargaux: Est-ce qu'on traduit le rapport en anglais cette année ?"
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p16_u01",
+      "source_id": "p16_m01",
+      "source_date": "2026-09-10",
+      "type": "fact",
+      "statement": "L'assemblée générale est fixée au 4 décembre ; le rapport annuel doit être prêt avant.",
+      "speaker": "Margaux",
+      "evidence": "L'assemblée générale est fixée au 4 décembre, le rapport annuel doit être prêt avant.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u02",
+      "source_id": "p16_m01",
+      "source_date": "2026-09-10",
+      "type": "idea",
+      "statement": "Margaux propose de passer le rapport annuel au format numérique uniquement, sans version imprimée.",
+      "speaker": "Margaux",
+      "evidence": "Je propose de passer au format numérique uniquement, sans version imprimée.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u03",
+      "source_id": "p16_m01",
+      "source_date": "2026-09-10",
+      "type": "risk",
+      "statement": "Les actionnaires historiques tiennent beaucoup à la version papier du rapport.",
+      "speaker": "Olivier",
+      "evidence": "Attention, les actionnaires historiques tiennent beaucoup à la version papier.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u04",
+      "source_id": "p16_m01",
+      "source_date": "2026-09-10",
+      "type": "decision",
+      "statement": "Une version imprimée du rapport annuel est conservée, limitée à 300 exemplaires.",
+      "speaker": "Benoît",
+      "evidence": "On garde une version imprimée, limitée à 300 exemplaires.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p16_u05",
+      "source_id": "p16_m01",
+      "source_date": "2026-09-10",
+      "type": "decision",
+      "statement": "Le bon à tirer part chez l'imprimeur le 13 novembre.",
+      "speaker": "Margaux",
+      "evidence": "Le bon à tirer part chez l'imprimeur le 13 novembre, c'est ce qu'on fixe.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p16_u06",
+      "source_id": "p16_m01",
+      "source_date": "2026-09-10",
+      "type": "commitment",
+      "statement": "Léa livre la maquette des pages intérieures d'ici trois semaines.",
+      "speaker": "Léa",
+      "evidence": "Je livre la maquette des pages intérieures d'ici trois semaines.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u07",
+      "source_id": "p16_m01",
+      "source_date": "2026-09-10",
+      "type": "fact",
+      "statement": "Les comptes définitifs ne seront arrêtés que le 30 octobre.",
+      "speaker": "Olivier",
+      "evidence": "Les comptes définitifs ne seront arrêtés que le 30 octobre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u08",
+      "source_id": "p16_m01",
+      "source_date": "2026-09-10",
+      "type": "question",
+      "statement": "Le bilan carbone doit-il figurer dans le rapport annuel ?",
+      "speaker": "Fatou",
+      "evidence": "Est-ce qu'on intègre le bilan carbone dans le rapport ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u09",
+      "source_id": "p16_m01",
+      "source_date": "2026-09-10",
+      "type": "answer",
+      "statement": "Le bilan carbone aura sa propre section dans le rapport annuel.",
+      "speaker": "Benoît",
+      "evidence": "Oui, le bilan carbone aura sa propre section.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u10",
+      "source_id": "p16_m01",
+      "source_date": "2026-09-10",
+      "type": "action",
+      "statement": "Les chiffres RSE doivent être relus par un auditeur externe ; aucun responsable n'a été désigné.",
+      "speaker": "Fatou",
+      "evidence": "Il faudra faire relire les chiffres RSE par un auditeur externe.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p16_u11",
+      "source_id": "p16_m02",
+      "source_date": "2026-10-08",
+      "type": "fact",
+      "statement": "Le commissaire aux comptes ne signera pas avant le 6 novembre, une semaine plus tard que prévu.",
+      "speaker": "Olivier",
+      "evidence": "Le commissaire aux comptes ne signera pas avant le 6 novembre, une semaine plus tard que prévu.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u12",
+      "source_id": "p16_m02",
+      "source_date": "2026-10-08",
+      "type": "decision",
+      "statement": "Le bon à tirer est décalé au 20 novembre.",
+      "speaker": "Benoît",
+      "evidence": "Le bon à tirer est donc décalé au 20 novembre.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p16_u13",
+      "source_id": "p16_m02",
+      "source_date": "2026-10-08",
+      "type": "fact",
+      "statement": "L'imprimeur demande dix jours ouvrés entre le bon à tirer et la livraison.",
+      "speaker": "Léa",
+      "evidence": "L'imprimeur demande dix jours ouvrés entre le bon à tirer et la livraison.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u14",
+      "source_id": "p16_m02",
+      "source_date": "2026-10-08",
+      "type": "risk",
+      "statement": "Avec un bon à tirer le 20 novembre, la livraison tomberait le 4 décembre, le jour même de l'assemblée.",
+      "speaker": "Margaux",
+      "evidence": "Avec un bon à tirer le 20, la livraison tomberait le 4 décembre, le jour même de l'assemblée.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u15",
+      "source_id": "p16_m02",
+      "source_date": "2026-10-08",
+      "type": "fact",
+      "statement": "Le cabinet Ecovalor peut relire les chiffres RSE pour 3 500 euros.",
+      "speaker": "Fatou",
+      "evidence": "Le cabinet Ecovalor peut relire les chiffres RSE pour 3 500 euros.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u16",
+      "source_id": "p16_m02",
+      "source_date": "2026-10-08",
+      "type": "decision",
+      "statement": "Ecovalor n'est pas retenu : les chiffres RSE sont relus en interne par le contrôle de gestion.",
+      "speaker": "Benoît",
+      "evidence": "On ne prend pas Ecovalor : les chiffres RSE seront relus en interne par le contrôle de gestion.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u17",
+      "source_id": "p16_m02",
+      "source_date": "2026-10-08",
+      "type": "idea",
+      "statement": "Léa propose une couverture en papier recyclé.",
+      "speaker": "Léa",
+      "evidence": "Je propose une couverture en papier recyclé.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u18",
+      "source_id": "p16_m02",
+      "source_date": "2026-10-08",
+      "type": "fact",
+      "statement": "Le papier recyclé coûte 12 % de plus que le papier standard.",
+      "speaker": "Olivier",
+      "evidence": "Le papier recyclé coûte 12 % de plus que le papier standard.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u19",
+      "source_id": "p16_m03",
+      "source_date": "2026-10-29",
+      "type": "decision",
+      "statement": "Le bon à tirer est avancé au 18 novembre, pour garder une marge avant l'assemblée générale.",
+      "speaker": "Benoît",
+      "evidence": "Pour garder une marge avant l'assemblée, le bon à tirer est avancé au 18 novembre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u20",
+      "source_id": "p16_m03",
+      "source_date": "2026-10-29",
+      "type": "fact",
+      "statement": "Le commissaire aux comptes confirme sa signature le 6 novembre.",
+      "speaker": "Olivier",
+      "evidence": "Le commissaire aux comptes confirme sa signature le 6 novembre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u21",
+      "source_id": "p16_m03",
+      "source_date": "2026-10-29",
+      "type": "action",
+      "statement": "Léa doit livrer la maquette complète du rapport avant le 12 novembre.",
+      "speaker": "Margaux",
+      "evidence": "Léa, tu peux livrer la maquette complète avant le 12 novembre ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u22",
+      "source_id": "p16_m03",
+      "source_date": "2026-10-29",
+      "type": "fact",
+      "statement": "Le contrôle de gestion a relu les chiffres RSE et corrigé deux erreurs.",
+      "speaker": "Fatou",
+      "evidence": "Le contrôle de gestion a relu les chiffres RSE, deux erreurs ont été corrigées.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u23",
+      "source_id": "p16_m03",
+      "source_date": "2026-10-29",
+      "type": "fact",
+      "statement": "L'imprimeur chiffre les 300 exemplaires à 4 800 euros.",
+      "speaker": "Margaux",
+      "evidence": "L'imprimeur chiffre les 300 exemplaires à 4 800 euros.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u24",
+      "source_id": "p16_m03",
+      "source_date": "2026-10-29",
+      "type": "fact",
+      "statement": "Le budget voté pour l'impression n'est que de 4 000 euros.",
+      "speaker": "Olivier",
+      "evidence": "Le budget voté pour l'impression n'est que de 4 000 euros.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u25",
+      "source_id": "p16_m03",
+      "source_date": "2026-10-29",
+      "type": "decision",
+      "statement": "Le tirage du rapport annuel est réduit à 250 exemplaires pour tenir le budget.",
+      "speaker": "Benoît",
+      "evidence": "On réduit le tirage à 250 exemplaires pour tenir le budget.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p16_u26",
+      "source_id": "p16_m03",
+      "source_date": "2026-10-29",
+      "type": "question",
+      "statement": "Le rapport annuel doit-il être traduit en anglais cette année ?",
+      "speaker": "Margaux",
+      "evidence": "Est-ce qu'on traduit le rapport en anglais cette année ?",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p16_u03",
+      "to_id": "p16_u04",
+      "relation": "supports",
+      "evidence_source_id": "p16_m01"
+    },
+    {
+      "from_id": "p16_u01",
+      "to_id": "p16_u05",
+      "relation": "supports",
+      "evidence_source_id": "p16_m01"
+    },
+    {
+      "from_id": "p16_u09",
+      "to_id": "p16_u08",
+      "relation": "answers",
+      "evidence_source_id": "p16_m01"
+    },
+    {
+      "from_id": "p16_u11",
+      "to_id": "p16_u12",
+      "relation": "supports",
+      "evidence_source_id": "p16_m02"
+    },
+    {
+      "from_id": "p16_u12",
+      "to_id": "p16_u05",
+      "relation": "supersedes",
+      "evidence_source_id": "p16_m02"
+    },
+    {
+      "from_id": "p16_u13",
+      "to_id": "p16_u14",
+      "relation": "supports",
+      "evidence_source_id": "p16_m02"
+    },
+    {
+      "from_id": "p16_u16",
+      "to_id": "p16_u10",
+      "relation": "supersedes",
+      "evidence_source_id": "p16_m02"
+    },
+    {
+      "from_id": "p16_u15",
+      "to_id": "p16_u16",
+      "relation": "supports",
+      "evidence_source_id": "p16_m02"
+    },
+    {
+      "from_id": "p16_u14",
+      "to_id": "p16_u19",
+      "relation": "supports",
+      "evidence_source_id": "p16_m03"
+    },
+    {
+      "from_id": "p16_u19",
+      "to_id": "p16_u12",
+      "relation": "supersedes",
+      "evidence_source_id": "p16_m03"
+    },
+    {
+      "from_id": "p16_u19",
+      "to_id": "p16_u21",
+      "relation": "creates_action",
+      "evidence_source_id": "p16_m03"
+    },
+    {
+      "from_id": "p16_u22",
+      "to_id": "p16_u16",
+      "relation": "supports",
+      "evidence_source_id": "p16_m03"
+    },
+    {
+      "from_id": "p16_u23",
+      "to_id": "p16_u25",
+      "relation": "supports",
+      "evidence_source_id": "p16_m03"
+    },
+    {
+      "from_id": "p16_u24",
+      "to_id": "p16_u25",
+      "relation": "supports",
+      "evidence_source_id": "p16_m03"
+    },
+    {
+      "from_id": "p16_u25",
+      "to_id": "p16_u04",
+      "relation": "supersedes",
+      "evidence_source_id": "p16_m03"
+    }
+  ]
+}

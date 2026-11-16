@@ -1,0 +1,14 @@
+{
+  "description": "Test scelle elargi : projets 13 a 16 et requetes, geles avant toute execution d'un systeme",
+  "frozen_on": "2026-11-16",
+  "authored_by": "redige par l'assistant de developpement (Claude), avant toute execution, a la demande de l'auteure du projet",
+  "use": "jamais utilise pour un reglage ; une seule execution d'enregistrement par mesure (eval/results/test2.json)",
+  "sha256_normalisation": "fins de ligne normalisees en LF avant calcul (CRLF et CR convertis en LF) : l'empreinte ne depend pas de core.autocrlf ni du systeme d'exploitation de la copie du depot",
+  "files": {
+    "data/test2/projet_13_demenagement_siege.json": "ab1b6f10cc356e66f5bb371e0ae8434bb9822adefd4334df97ce3661d7a2a7a5",
+    "data/test2/projet_14_flotte_vehicules.json": "1c3a0fb2dd52e1b9a096ce52febc60efbfbc047199baf3960479fec683668c36",
+    "data/test2/projet_15_rappel_produit.json": "a4f169b8f6b72f09ceeb268485109f2887ca04c0e4d1cb6189a93a72dbe14235",
+    "data/test2/projet_16_rapport_annuel.json": "46203ee9254366cd77ffcf04bf511fe5ba3aa8b9b83603fd0306bf947b5f573f",
+    "data/eval/queries_test2.json": "7f86bc0bbb51af98fbb95da96b351678d15bac3d010d8b05804331e7d71a41a7"
+  }
+}
