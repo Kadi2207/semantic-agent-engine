@@ -1,3 +1,4 @@
+"""Recherches de reference BM25 et e5 de base sur les requetes de developpement (ecrit retrieval_dev.json avec --out)."""
 from __future__ import annotations
 
 import sys

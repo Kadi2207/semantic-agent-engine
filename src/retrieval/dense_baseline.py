@@ -1,3 +1,4 @@
+"""Recherche dense e5 (prefixes query: / passage:), un index FAISS par projet ; modele Hugging Face ou dossier local."""
 from __future__ import annotations
 
 from pathlib import Path

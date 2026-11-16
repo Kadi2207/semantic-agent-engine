@@ -63,10 +63,13 @@ La chaîne complète et le rôle de chaque module sont décrits dans [docs/ARCHI
     scripts/                     validation du corpus, triplets, entraînement, démo en ligne de commande,
                                  vérification et enregistrement vidéo de la démonstration
     data/raw/                    les 12 projets annotés
-    data/eval/                   requêtes de développement et de test scellé, sondes d'abstention
-    data/processed/              triplets d'entraînement
+    data/test2/                  les 4 projets du test scellé élargi (13 à 16), gelés avant toute exécution
+    data/extracted/              mémoire produite par l'extraction automatique (projets 04 à 12), sans correction
+    data/eval/                   requêtes de développement, de test scellé et de test scellé élargi, sondes d'abstention, manifeste du test élargi
+    data/processed/              triplets d'entraînement et cache versionné du RAG de la démonstration
     data/external/               documentation des corpus externes (les données ne sont pas versionnées)
-    app.py                       interface de démonstration Streamlit
+    app.py                       interface de démonstration Streamlit (thème dans .streamlit/config.toml)
+    docs/                        architecture de la chaîne et décisions techniques
     tests/                       tests pytest
     .github/workflows/tests.yml  intégration continue : pytest à chaque push (Python 3.12, torch CPU)
 
@@ -482,6 +485,16 @@ Analyse des erreurs de relations sur le dev 04-10, depuis le même cache local (
 Seconde passe de liaison des relations (rejoue l'extraction depuis le même cache local ; les réponses de liaison sont dans `data/processed/groq_link_cache.jsonl`, non versionné ; `--cache-only` rejoue sans réseau, l'option `--split test` refuse de relancer un test déjà enregistré) :
 
     uv run python eval/eval_relations_v2.py --split dev --cache-only
+
+Test scellé élargi : validation du jeu gelé, puis une exécution d'enregistrement par étape (le script vérifie les empreintes du manifeste et refuse de relancer une étape déjà enregistrée ; `--cache-only` rejoue une étape depuis les caches locaux, sans réseau) :
+
+    uv run python scripts/validate_corpus.py data/test2
+    uv run python eval/eval_test2.py --stage offline --cache-only
+    uv run python eval/eval_test2.py --stage rag --cache-only
+
+Intervalles de confiance et tests appariés (réécrit `eval/results/stats.json`) :
+
+    uv run python eval/stats.py
 
 Évaluation QMSum, après avoir cloné https://github.com/Yale-LILY/QMSum dans `data/external/qmsum` (voir `data/external/README.md`). La commande lance deux exécutions complètes, vérifie qu'elles sont identiques et réécrit `eval/results/real_qmsum.json` :
 

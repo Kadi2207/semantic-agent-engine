@@ -1,3 +1,4 @@
+"""Validation du corpus annote : schemas, identifiants uniques, preuves presentes dans le transcript, relations sans orphelin."""
 from __future__ import annotations
 
 import json

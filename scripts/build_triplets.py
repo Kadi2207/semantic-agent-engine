@@ -1,3 +1,4 @@
+"""Triplets d'entrainement construits a la main a partir des modeles de questions (projets 01 a 10) : ancre, positif, negatif mine."""
 from __future__ import annotations
 
 import argparse

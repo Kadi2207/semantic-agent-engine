@@ -1,3 +1,4 @@
+"""Chargement des unites, relations, participants et requetes d'un repertoire au format de data/raw."""
 from __future__ import annotations
 
 import json

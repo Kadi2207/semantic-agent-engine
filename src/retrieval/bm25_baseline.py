@@ -1,3 +1,4 @@
+"""Recherche lexicale BM25 (rank_bm25), un index par projet ; reference de comparaison et composante de l'hybride."""
 from __future__ import annotations
 
 import re

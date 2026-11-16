@@ -1,3 +1,4 @@
+"""Contrats de donnees pydantic : unite semantique, relation typee, destinataire et brouillon d'email."""
 from __future__ import annotations
 
 from datetime import date

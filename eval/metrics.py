@@ -1,3 +1,4 @@
+"""Metriques de recherche : Recall@k, MRR et nDCG@k sur une liste d'identifiants classes."""
 from __future__ import annotations
 
 import math
