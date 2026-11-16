@@ -13,6 +13,7 @@ Les reponses de Groq sont mises en cache (data/processed/groq_rag_cache.jsonl, v
 from __future__ import annotations
 
 import json
+import os
 import re
 from dataclasses import dataclass, field
 from functools import lru_cache
@@ -69,6 +70,16 @@ class RagResult:
     @property
     def synthesis(self) -> str:
         return " ".join(s.text for s in self.sentences)
+
+
+# Active par defaut dans l'interface seulement si les criteres d'acceptation de eval/eval_rag.py sont atteints.
+# eval/results/rag_dev.json : C1 24/25, C2 4/5, C3 100 %, C4 verifie par les tests et verify_demo -> active.
+RAG_DEFAULT = True
+
+
+def offline() -> bool:
+    """RAG_CACHE_ONLY=1 (tests, verifications) : aucun appel reseau, le cache seul."""
+    return os.environ.get("RAG_CACHE_ONLY") == "1"
 
 
 @lru_cache(maxsize=2)
@@ -158,7 +169,7 @@ def rag_answer(
         return RagResult(base, "conflit")
     units = context_units(query, project_id, base, retriever, graph)
     provided = [u.unit_id for u in units]
-    client = client or get_rag_client()
+    client = client or get_rag_client(cache_only=offline())
     before = client.snapshot()
     try:
         raw = client.complete(RAG_SYSTEM_PROMPT, build_user_prompt(query, units), label=f"rag {project_id}")

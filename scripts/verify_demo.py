@@ -15,8 +15,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
+
+os.environ.setdefault("RAG_CACHE_ONLY", "1")  # verification hors ligne : le RAG ne lit que son cache versionne
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent

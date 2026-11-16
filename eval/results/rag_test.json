@@ -1,0 +1,267 @@
+{
+  "description": "RAG controle : synthese LLM a partir des unites retrouvees, citations verifiees par le code",
+  "generated_on": "2026-11-16",
+  "split": "test",
+  "script": "eval/eval_rag.py",
+  "status": "execution unique d'enregistrement sur le test scelle, aucun reglage effectue ; ce test ne sert jamais a regler quoi que ce soit",
+  "criteria": {
+    "C1_answered_with_expected_unit": {
+      "min": 23,
+      "of": 25,
+      "text": "au moins 23 des 25 requetes avec reponse restent repondues avec une unite attendue parmi les citations"
+    },
+    "C2_unanswerable_abstained": {
+      "min": 4,
+      "of": 5,
+      "text": "au moins 4 des 5 requetes sans_reponse deviennent des abstentions"
+    },
+    "C3_citations_valid": {
+      "min_rate": 1.0,
+      "text": "100 % des citations des syntheses affichees sont des identifiants fournis au LLM"
+    },
+    "C4_atlas_identical": {
+      "text": "parcours Atlas identique en preuve extractive (answer() inchange)"
+    }
+  },
+  "queries": {
+    "file": "data/eval/queries_test.json",
+    "sha256": "7b6d37f1c5c758e970d9e67ff92f67f1e44e91e9d10feffdcb95b93f60f62061",
+    "total": 6
+  },
+  "llm": {
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0.0,
+    "json_mode": true,
+    "k_units": 5,
+    "max_completion_tokens": 1500,
+    "extra": {
+      "reasoning_effort": "low"
+    },
+    "system_prompt_sha256": "64492296d5165f8185d8fc2e51b3c402dfa7d4e480af14b81dda31d8b9667af1"
+  },
+  "groq_usage_this_run": {
+    "calls": 6,
+    "cache_hits": 0,
+    "prompt_tokens": 3281,
+    "completion_tokens": 574,
+    "cached_prompt_tokens": 0,
+    "cached_completion_tokens": 0
+  },
+  "results": {
+    "answerable": {
+      "n": 5,
+      "correct": 5,
+      "per_category": {
+        "decision_active": {
+          "n": 1,
+          "correct": 1
+        },
+        "reformulation": {
+          "n": 1,
+          "correct": 1
+        },
+        "responsable_reel": {
+          "n": 1,
+          "correct": 1
+        },
+        "negation": {
+          "n": 1,
+          "correct": 1
+        },
+        "engagement": {
+          "n": 1,
+          "correct": 1
+        }
+      },
+      "abstained": 0
+    },
+    "sans_reponse": {
+      "n": 1,
+      "abstained": 1
+    },
+    "statuses": {
+      "abstention_llm": 1,
+      "synthese": 5
+    },
+    "syntheses": 5,
+    "citations": 5,
+    "citations_valid": 5,
+    "rejections": [],
+    "per_query": [
+      {
+        "query_id": "q_test_001",
+        "piege": "engagement",
+        "relevant_unit_ids": [
+          "p11_u16"
+        ],
+        "project_id": "projet_11",
+        "query": "Quand Agnès présentera-t-elle le plan de formation au comité social ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.816564,
+        "extractive_unit_id": "p11_u16",
+        "provided_ids": [
+          "p11_u16",
+          "p11_u01",
+          "p11_u08",
+          "p11_u06",
+          "p11_u14"
+        ],
+        "cited_ids": [
+          "p11_u16"
+        ],
+        "shown_ids": [
+          "p11_u16"
+        ],
+        "synthesis": "Agnès présentera le plan de formation complet au comité social le 12 novembre.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_test_002",
+        "piege": "reformulation",
+        "relevant_unit_ids": [
+          "p11_u11"
+        ],
+        "project_id": "projet_11",
+        "query": "Combien coûte la prestation de l'organisme nantais pour les formations d'urgence ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.74634,
+        "extractive_unit_id": "p11_u09",
+        "provided_ids": [
+          "p11_u09",
+          "p11_u12",
+          "p11_u11",
+          "p11_u02",
+          "p11_u04"
+        ],
+        "cited_ids": [
+          "p11_u11"
+        ],
+        "shown_ids": [
+          "p11_u11"
+        ],
+        "synthesis": "L'organisme de Nantes propose 14 sessions pour 38 000 euros.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_test_003",
+        "piege": "decision_active",
+        "relevant_unit_ids": [
+          "p11_u14"
+        ],
+        "project_id": "projet_11",
+        "query": "D'ici quand le programme de formation accueil doit-il partir ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.453048,
+        "extractive_unit_id": "p11_u14",
+        "provided_ids": [
+          "p11_u14",
+          "p11_u05",
+          "p11_u16",
+          "p11_u01",
+          "p11_u12"
+        ],
+        "cited_ids": [
+          "p11_u14"
+        ],
+        "shown_ids": [
+          "p11_u14"
+        ],
+        "synthesis": "Le programme de formation accueil doit être envoyé avant la fin du mois.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_test_004",
+        "piege": "negation",
+        "relevant_unit_ids": [
+          "p12_u02"
+        ],
+        "project_id": "projet_12",
+        "query": "La base de données a-t-elle été purgée depuis la migration de 2015 ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.605724,
+        "extractive_unit_id": "p12_u02",
+        "provided_ids": [
+          "p12_u02",
+          "p12_u01",
+          "p12_u05",
+          "p12_u12",
+          "p12_u17"
+        ],
+        "cited_ids": [
+          "p12_u02"
+        ],
+        "shown_ids": [
+          "p12_u02"
+        ],
+        "synthesis": "Aucune purge n'a été faite dans la base depuis la migration de 2015.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_test_005",
+        "piege": "responsable_reel",
+        "relevant_unit_ids": [
+          "p12_u07"
+        ],
+        "project_id": "projet_12",
+        "query": "Qui doit valider les critères d'inactivité avec Christophe ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.756704,
+        "extractive_unit_id": "p12_u07",
+        "provided_ids": [
+          "p12_u07",
+          "p12_u11",
+          "p12_u06",
+          "p12_u15",
+          "p12_u09"
+        ],
+        "cited_ids": [
+          "p12_u07"
+        ],
+        "shown_ids": [
+          "p12_u07"
+        ],
+        "synthesis": "C'est Aurélie qui doit valider les critères d'inactivité avec Christophe.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_test_006",
+        "piege": "sans_reponse",
+        "relevant_unit_ids": [],
+        "project_id": "projet_12",
+        "query": "Combien de contacts ont répondu à la campagne de reconsentement ?",
+        "status": "abstention_llm",
+        "abstained": true,
+        "best_dense_score": 0.684356,
+        "extractive_unit_id": "p12_u09",
+        "provided_ids": [
+          "p12_u09",
+          "p12_u10",
+          "p12_u16",
+          "p12_u04",
+          "p12_u03"
+        ],
+        "cited_ids": [],
+        "shown_ids": [],
+        "synthesis": null,
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      }
+    ]
+  }
+}

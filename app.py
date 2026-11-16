@@ -27,6 +27,7 @@ from src.agent.display import (  # noqa: E402
     type_label,
 )
 from src.agent.intent import detect_intent  # noqa: E402
+from src.agent.rag import RAG_ABSTENTION_MESSAGE, RAG_DEFAULT, SYNTHESIS_MENTION, RagResult, rag_answer  # noqa: E402
 from src.agent.retriever import FINETUNED_PATH, HybridRetriever  # noqa: E402
 from src.agent.sources import load_transcripts, source_passage  # noqa: E402
 from src.memory.corpus import load_relations  # noqa: E402
@@ -235,6 +236,31 @@ def render_answer(result: Answer, retriever: HybridRetriever, detail_sources: bo
     technical_details(result)
 
 
+def render_rag(result: RagResult, retriever: HybridRetriever, detail_sources: bool = False) -> None:
+    """Synthese controlee au-dessus de la preuve extractive ; repli extractif si elle est absente ou rejetee."""
+    if result.status == "abstention_llm":
+        st.warning(f"**{RAG_ABSTENTION_MESSAGE}**")
+        st.caption("Le modèle de langage a lu les unités retrouvées et n'y trouve pas la réponse : l'agent s'abstient.")
+        technical_details(result.base)
+        with st.expander("Unités lues par le modèle de langage"):
+            for unit_id in result.provided_ids:
+                unit = retriever.unit(unit_id)
+                st.markdown(f"- {html.escape(unit.statement)} <span class='meta'>(<code>{unit_id}</code>)</span>", unsafe_allow_html=True)
+        return
+    if result.status == "synthese":
+        with st.container(border=True):
+            st.markdown("##### Synthèse")
+            for sentence in result.sentences:
+                refs = ", ".join(f"<code>{u}</code>" for u in sentence.unit_ids)
+                st.markdown(f"{html.escape(sentence.text)} <span class='meta'>({refs})</span>", unsafe_allow_html=True)
+            st.markdown(f"<div class='meta'>Synthèse {SYNTHESIS_MENTION} ; chaque phrase renvoie aux unités "
+                        "qui la justifient. La preuve exacte suit.</div>", unsafe_allow_html=True)
+    elif result.status == "rejetee":
+        st.markdown(f"<div class='meta'>Synthèse rejetée par les contrôles ({html.escape(result.rejection or '')}) : "
+                    "réponse extractive.</div>", unsafe_allow_html=True)
+    render_answer(result.base, retriever, detail_sources)
+
+
 def render_draft(draft: EmailDraft) -> None:
     recipient = draft.recipient
     with st.container(border=True):
@@ -339,6 +365,7 @@ def render_clarification(result: Clarification) -> None:
 project_names = load_project_names()
 project_ids = list(project_names)
 st.session_state.setdefault("memory", MEMORY_ANNOTATED)
+st.session_state.setdefault("rag", RAG_DEFAULT)
 st.session_state.setdefault("project", DEMO_PROJECT)
 st.session_state.setdefault("question", "")
 st.session_state.setdefault("detail_sources", False)
@@ -354,6 +381,8 @@ with st.sidebar:
     st.radio("Mémoire", [MEMORY_ANNOTATED, MEMORY_EXTRACTED], key="memory", label_visibility="collapsed")
     if extracted_mode:
         st.caption(f"Mémoire extraite : {MENTION}. Projets 04 à 12 seulement.")
+    st.toggle("Synthèse contrôlée (RAG)", key="rag", help="Synthèse par un modèle de langage à partir des seules "
+              "unités retrouvées ; chaque phrase doit citer ses sources, sinon la réponse extractive est gardée.")
     st.markdown("### Projet")
     st.radio(
         "Projet",
@@ -418,6 +447,8 @@ if submitted:
                 result = build_dossier(question, target, project_names[target], retriever=retriever, relations=relations)
             elif intent == "draft_email":
                 result = draft_email(question, project_id, retriever=retriever, graph=graph)
+            elif st.session_state.get("rag"):
+                result = rag_answer(question, project_id, retriever=retriever, graph=graph)
             else:
                 result = answer(question, project_id, retriever=retriever, graph=graph)
         if isinstance(result, Clarification):
@@ -426,5 +457,7 @@ if submitted:
             render_draft(result)
         elif isinstance(result, Dossier):
             render_dossier(result, retriever)
+        elif isinstance(result, RagResult):
+            render_rag(result, retriever, detail_sources=st.session_state.get("detail_sources", False))
         else:
             render_answer(result, retriever, detail_sources=st.session_state.get("detail_sources", False))

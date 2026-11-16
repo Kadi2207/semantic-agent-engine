@@ -1,0 +1,1111 @@
+{
+  "description": "RAG controle : synthese LLM a partir des unites retrouvees, citations verifiees par le code",
+  "generated_on": "2026-11-16",
+  "split": "dev",
+  "script": "eval/eval_rag.py",
+  "status": "resultats de developpement (le dev a aussi servi au reglage de la generation des triplets) ; criteres fixes avant l'execution, aucun reglage du prompt apres resultats",
+  "criteria": {
+    "C1_answered_with_expected_unit": {
+      "min": 23,
+      "of": 25,
+      "text": "au moins 23 des 25 requetes avec reponse restent repondues avec une unite attendue parmi les citations"
+    },
+    "C2_unanswerable_abstained": {
+      "min": 4,
+      "of": 5,
+      "text": "au moins 4 des 5 requetes sans_reponse deviennent des abstentions"
+    },
+    "C3_citations_valid": {
+      "min_rate": 1.0,
+      "text": "100 % des citations des syntheses affichees sont des identifiants fournis au LLM"
+    },
+    "C4_atlas_identical": {
+      "text": "parcours Atlas identique en preuve extractive (answer() inchange)"
+    }
+  },
+  "queries": {
+    "file": "data/eval/queries_dev.json",
+    "sha256": "3fa152358021b63dcf431ae4b69c6d692283f0dbffaeed03757fdce6e2d39cc0",
+    "total": 30
+  },
+  "llm": {
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0.0,
+    "json_mode": true,
+    "k_units": 5,
+    "max_completion_tokens": 1500,
+    "extra": {
+      "reasoning_effort": "low"
+    },
+    "system_prompt_sha256": "64492296d5165f8185d8fc2e51b3c402dfa7d4e480af14b81dda31d8b9667af1"
+  },
+  "groq_usage_this_run": {
+    "calls": 29,
+    "cache_hits": 5,
+    "prompt_tokens": 15783,
+    "completion_tokens": 3030,
+    "cached_prompt_tokens": 2712,
+    "cached_completion_tokens": 304
+  },
+  "results": {
+    "answerable": {
+      "n": 25,
+      "correct": 24,
+      "per_category": {
+        "decision_active": {
+          "n": 5,
+          "correct": 5
+        },
+        "reformulation": {
+          "n": 5,
+          "correct": 4
+        },
+        "responsable_reel": {
+          "n": 5,
+          "correct": 5
+        },
+        "negation": {
+          "n": 5,
+          "correct": 5
+        },
+        "engagement": {
+          "n": 5,
+          "correct": 5
+        }
+      },
+      "abstained": 1
+    },
+    "sans_reponse": {
+      "n": 5,
+      "abstained": 4
+    },
+    "statuses": {
+      "abstention_llm": 4,
+      "conflit": 1,
+      "non_appelee": 1,
+      "synthese": 24
+    },
+    "syntheses": 24,
+    "citations": 28,
+    "citations_valid": 28,
+    "rejections": [],
+    "per_query": [
+      {
+        "query_id": "q_dev_001",
+        "piege": "decision_active",
+        "relevant_unit_ids": [
+          "p01_u20"
+        ],
+        "project_id": "projet_01",
+        "query": "À quelle date la mise en production d'Atlas est-elle finalement prévue ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.850118,
+        "extractive_unit_id": "p01_u20",
+        "provided_ids": [
+          "p01_u20",
+          "p01_u08",
+          "p01_u19",
+          "p01_u02",
+          "p01_u07"
+        ],
+        "cited_ids": [
+          "p01_u20"
+        ],
+        "shown_ids": [
+          "p01_u20"
+        ],
+        "synthesis": "La mise en production d'Atlas est reportée au 5 mai.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_002",
+        "piege": "reformulation",
+        "relevant_unit_ids": [
+          "p10_u18"
+        ],
+        "project_id": "projet_10",
+        "query": "Quand les rappels de paiement automatisés démarrent-ils ?",
+        "status": "non_appelee",
+        "abstained": true,
+        "best_dense_score": 0.440333,
+        "extractive_unit_id": null,
+        "provided_ids": [],
+        "cited_ids": [],
+        "shown_ids": [],
+        "synthesis": null,
+        "rejection": null,
+        "citations_valid": true,
+        "correct": false
+      },
+      {
+        "query_id": "q_dev_003",
+        "piege": "responsable_reel",
+        "relevant_unit_ids": [
+          "p03_u17"
+        ],
+        "project_id": "projet_03",
+        "query": "Qui doit préparer la promesse d'embauche de Sandrine Morel ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.814727,
+        "extractive_unit_id": "p03_u17",
+        "provided_ids": [
+          "p03_u17",
+          "p03_u18",
+          "p03_u21",
+          "p03_u15",
+          "p03_u16"
+        ],
+        "cited_ids": [
+          "p03_u17"
+        ],
+        "shown_ids": [
+          "p03_u17"
+        ],
+        "synthesis": "Yannick doit préparer la promesse d'embauche de Sandrine Morel.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_004",
+        "piege": "negation",
+        "relevant_unit_ids": [
+          "p02_u08"
+        ],
+        "project_id": "projet_02",
+        "query": "Le budget de 85 000 euros de la campagne de printemps a-t-il finalement été approuvé ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.846853,
+        "extractive_unit_id": "p02_u08",
+        "provided_ids": [
+          "p02_u08",
+          "p02_u03",
+          "p02_u16",
+          "p02_u15",
+          "p02_u09"
+        ],
+        "cited_ids": [
+          "p02_u08"
+        ],
+        "shown_ids": [
+          "p02_u08"
+        ],
+        "synthesis": "Le budget de 85 000 euros de la campagne de printemps n'a pas été approuvé.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_005",
+        "piege": "decision_active",
+        "relevant_unit_ids": [
+          "p04_u12"
+        ],
+        "project_id": "projet_04",
+        "query": "Où en est la décision sur le passage au nouveau CRM ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.621216,
+        "extractive_unit_id": "p04_u12",
+        "provided_ids": [
+          "p04_u12",
+          "p04_u07",
+          "p04_u01",
+          "p04_u14",
+          "p04_u05"
+        ],
+        "cited_ids": [
+          "p04_u12"
+        ],
+        "shown_ids": [
+          "p04_u12"
+        ],
+        "synthesis": "La migration vers le nouveau CRM a été validée définitivement sans condition restante.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_006",
+        "piege": "reformulation",
+        "relevant_unit_ids": [
+          "p06_u12"
+        ],
+        "project_id": "projet_06",
+        "query": "Combien de temps l'agence prévoit-elle pour monter la boutique en ligne ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.453138,
+        "extractive_unit_id": "p06_u01",
+        "provided_ids": [
+          "p06_u01",
+          "p06_u12",
+          "p06_u04",
+          "p06_u19",
+          "p06_u15"
+        ],
+        "cited_ids": [
+          "p06_u12"
+        ],
+        "shown_ids": [
+          "p06_u12"
+        ],
+        "synthesis": "L'agence estime que l'intégration du catalogue et du tunnel de paiement nécessite six semaines.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_007",
+        "piege": "responsable_reel",
+        "relevant_unit_ids": [
+          "p07_u06"
+        ],
+        "project_id": "projet_07",
+        "query": "Qui doit prévenir l'équipe commerciale de la nouvelle règle de clôture ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.586072,
+        "extractive_unit_id": "p07_u05",
+        "provided_ids": [
+          "p07_u05",
+          "p07_u06",
+          "p07_u13",
+          "p07_u16",
+          "p07_u03"
+        ],
+        "cited_ids": [
+          "p07_u06"
+        ],
+        "shown_ids": [
+          "p07_u06"
+        ],
+        "synthesis": "Jérémie doit prévenir l'équipe commerciale de la nouvelle règle de clôture.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_008",
+        "piege": "negation",
+        "relevant_unit_ids": [
+          "p01_u11"
+        ],
+        "project_id": "projet_01",
+        "query": "Les anomalies d'affichage sur les factures empêchent-elles le lancement ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.870936,
+        "extractive_unit_id": "p01_u09",
+        "provided_ids": [
+          "p01_u09",
+          "p01_u11",
+          "p01_u15",
+          "p01_u16",
+          "p01_u13"
+        ],
+        "cited_ids": [
+          "p01_u09",
+          "p01_u11"
+        ],
+        "shown_ids": [
+          "p01_u09",
+          "p01_u11"
+        ],
+        "synthesis": "Les anomalies d'affichage des factures sont mineures et ne bloquent pas le lancement.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_009",
+        "piege": "engagement",
+        "relevant_unit_ids": [
+          "p07_u04"
+        ],
+        "project_id": "projet_07",
+        "query": "Jusqu'à quand Thibault doit-il avoir traité les opportunités sans activité ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.63473,
+        "extractive_unit_id": "p07_u04",
+        "provided_ids": [
+          "p07_u04",
+          "p07_u03",
+          "p07_u02",
+          "p07_u10",
+          "p07_u07"
+        ],
+        "cited_ids": [
+          "p07_u04"
+        ],
+        "shown_ids": [
+          "p07_u04"
+        ],
+        "synthesis": "Thibault doit traiter les opportunités inactives d'ici le vendredi 18 septembre.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_010",
+        "piege": "sans_reponse",
+        "relevant_unit_ids": [],
+        "project_id": "projet_06",
+        "query": "Quelle décision a été prise pour les redirections des anciennes URL des fiches produits ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.763217,
+        "extractive_unit_id": "p06_u25",
+        "provided_ids": [
+          "p06_u25",
+          "p06_u02",
+          "p06_u20",
+          "p06_u01",
+          "p06_u22"
+        ],
+        "cited_ids": [
+          "p06_u25"
+        ],
+        "shown_ids": [
+          "p06_u25"
+        ],
+        "synthesis": "Aucune décision n'a encore été prise sur les redirections des anciennes URL des fiches produits.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": false
+      },
+      {
+        "query_id": "q_dev_011",
+        "piege": "decision_active",
+        "relevant_unit_ids": [
+          "p05_u15"
+        ],
+        "project_id": "projet_05",
+        "query": "Dans quel lieu la journée clients se tiendra-t-elle ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.734127,
+        "extractive_unit_id": "p05_u15",
+        "provided_ids": [
+          "p05_u15",
+          "p05_u12",
+          "p05_u01",
+          "p05_u03",
+          "p05_u09"
+        ],
+        "cited_ids": [
+          "p05_u15"
+        ],
+        "shown_ids": [
+          "p05_u15"
+        ],
+        "synthesis": "La journée clients se tiendra au Domaine des Tilleuls, près de Pessac.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_012",
+        "piege": "reformulation",
+        "relevant_unit_ids": [
+          "p08_u13"
+        ],
+        "project_id": "projet_08",
+        "query": "De combien le fournisseur d'emballages augmente-t-il ses prix au final ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.520883,
+        "extractive_unit_id": "p08_u06",
+        "provided_ids": [
+          "p08_u06",
+          "p08_u13",
+          "p08_u04",
+          "p08_u03",
+          "p08_u05"
+        ],
+        "cited_ids": [
+          "p08_u13",
+          "p08_u04"
+        ],
+        "shown_ids": [
+          "p08_u13",
+          "p08_u04"
+        ],
+        "synthesis": "Le fournisseur Embaleco augmente finalement ses prix de 4 %.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_013",
+        "piege": "responsable_reel",
+        "relevant_unit_ids": [
+          "p09_u08"
+        ],
+        "project_id": "projet_09",
+        "query": "Qui doit faire remonter la liste des chefs d'équipe équipés d'Android ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.775078,
+        "extractive_unit_id": "p09_u08",
+        "provided_ids": [
+          "p09_u08",
+          "p09_u03",
+          "p09_u12",
+          "p09_u13",
+          "p09_u14"
+        ],
+        "cited_ids": [
+          "p09_u08"
+        ],
+        "shown_ids": [
+          "p09_u08"
+        ],
+        "synthesis": "Hakim doit faire remonter la liste des chefs d'équipe équipés d'Android à Sarah d'ici vendredi.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_014",
+        "piege": "negation",
+        "relevant_unit_ids": [
+          "p04_u08"
+        ],
+        "project_id": "projet_04",
+        "query": "A-t-on perdu des fiches pendant l'essai de reprise des données ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.502949,
+        "extractive_unit_id": "p04_u08",
+        "provided_ids": [
+          "p04_u08",
+          "p04_u09",
+          "p04_u04",
+          "p04_u12",
+          "p04_u02"
+        ],
+        "cited_ids": [
+          "p04_u08"
+        ],
+        "shown_ids": [
+          "p04_u08"
+        ],
+        "synthesis": "Le test de reprise a récupéré toutes les fiches des deux agences pilotes sans aucune perte.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_015",
+        "piege": "engagement",
+        "relevant_unit_ids": [
+          "p06_u09"
+        ],
+        "project_id": "projet_06",
+        "query": "Pour quelle date Émilie doit-elle envoyer les maquettes finales ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.831127,
+        "extractive_unit_id": "p06_u10",
+        "provided_ids": [
+          "p06_u10",
+          "p06_u09",
+          "p06_u08",
+          "p06_u02",
+          "p06_u01"
+        ],
+        "cited_ids": [
+          "p06_u09"
+        ],
+        "shown_ids": [
+          "p06_u09"
+        ],
+        "synthesis": "Émilie doit envoyer les maquettes finales le 4 février.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_016",
+        "piege": "sans_reponse",
+        "relevant_unit_ids": [],
+        "project_id": "projet_09",
+        "query": "Combien coûte une licence Chantio par utilisateur ?",
+        "status": "abstention_llm",
+        "abstained": true,
+        "best_dense_score": 0.549527,
+        "extractive_unit_id": "p09_u15",
+        "provided_ids": [
+          "p09_u15",
+          "p09_u11",
+          "p09_u13",
+          "p09_u01",
+          "p09_u10"
+        ],
+        "cited_ids": [],
+        "shown_ids": [],
+        "synthesis": null,
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_017",
+        "piege": "decision_active",
+        "relevant_unit_ids": [
+          "p09_u13"
+        ],
+        "project_id": "projet_09",
+        "query": "Quand et pour qui Chantio est-il déployé ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.603055,
+        "extractive_unit_id": "p09_u13",
+        "provided_ids": [
+          "p09_u13",
+          "p09_u01",
+          "p09_u11",
+          "p09_u15",
+          "p09_u12"
+        ],
+        "cited_ids": [
+          "p09_u13",
+          "p09_u12"
+        ],
+        "shown_ids": [
+          "p09_u13",
+          "p09_u12"
+        ],
+        "synthesis": "Chantio est déployé pour tous les utilisateurs, iPhone et Android, à partir du 20 avril. Il doit être équipé pour les 172 utilisateurs terrain, y compris les intérimaires de longue durée.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_018",
+        "piege": "reformulation",
+        "relevant_unit_ids": [
+          "p07_u12"
+        ],
+        "project_id": "projet_07",
+        "query": "Quel est le nouveau montant prévisionnel pondéré pour la fin d'année ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.598122,
+        "extractive_unit_id": "p07_u12",
+        "provided_ids": [
+          "p07_u12",
+          "p07_u16",
+          "p07_u01",
+          "p07_u17",
+          "p07_u04"
+        ],
+        "cited_ids": [
+          "p07_u12"
+        ],
+        "shown_ids": [
+          "p07_u12"
+        ],
+        "synthesis": "Le forecast pondéré passe de 2,4 millions à 1,7 million d'euros.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_019",
+        "piege": "responsable_reel",
+        "relevant_unit_ids": [
+          "p05_u08"
+        ],
+        "project_id": "projet_05",
+        "query": "Qui doit demander des devis à plusieurs traiteurs ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.760268,
+        "extractive_unit_id": "p05_u08",
+        "provided_ids": [
+          "p05_u08",
+          "p05_u01",
+          "p05_u15",
+          "p05_u07",
+          "p05_u16"
+        ],
+        "cited_ids": [
+          "p05_u08"
+        ],
+        "shown_ids": [
+          "p05_u08"
+        ],
+        "synthesis": "Antoine doit demander des devis à plusieurs traiteurs.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_020",
+        "piege": "negation",
+        "relevant_unit_ids": [
+          "p09_u11"
+        ],
+        "project_id": "projet_09",
+        "query": "L'application Chantio est-elle réservée aux iPhone ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.736286,
+        "extractive_unit_id": "p09_u11",
+        "provided_ids": [
+          "p09_u11",
+          "p09_u13",
+          "p09_u15",
+          "p09_u01",
+          "p09_u16"
+        ],
+        "cited_ids": [
+          "p09_u11",
+          "p09_u13"
+        ],
+        "shown_ids": [
+          "p09_u11",
+          "p09_u13"
+        ],
+        "synthesis": "L'application Chantio n'est pas réservée aux iPhone, elle fonctionne également sur Android.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_021",
+        "piege": "engagement",
+        "relevant_unit_ids": [
+          "p08_u17"
+        ],
+        "project_id": "projet_08",
+        "query": "Qui doit faire rédiger l'avenant au contrat Embaleco, et pour quand ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.675236,
+        "extractive_unit_id": "p08_u17",
+        "provided_ids": [
+          "p08_u17",
+          "p08_u08",
+          "p08_u16",
+          "p08_u04",
+          "p08_u07"
+        ],
+        "cited_ids": [
+          "p08_u17"
+        ],
+        "shown_ids": [
+          "p08_u17"
+        ],
+        "synthesis": "Bernard doit faire rédiger l'avenant au contrat par le service juridique d'ici le 15 août.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_022",
+        "piege": "sans_reponse",
+        "relevant_unit_ids": [],
+        "project_id": "projet_08",
+        "query": "Quel est le montant annuel du contrat avec Embaleco ?",
+        "status": "abstention_llm",
+        "abstained": true,
+        "best_dense_score": 0.682155,
+        "extractive_unit_id": "p08_u16",
+        "provided_ids": [
+          "p08_u16",
+          "p08_u01",
+          "p08_u04",
+          "p08_u13",
+          "p08_u09"
+        ],
+        "cited_ids": [],
+        "shown_ids": [],
+        "synthesis": null,
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_023",
+        "piege": "decision_active",
+        "relevant_unit_ids": [
+          "p10_u13"
+        ],
+        "project_id": "projet_10",
+        "query": "Au bout de combien de jours la première relance part-elle maintenant ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.676645,
+        "extractive_unit_id": "p10_u13",
+        "provided_ids": [
+          "p10_u13",
+          "p10_u02",
+          "p10_u11",
+          "p10_u18",
+          "p10_u10"
+        ],
+        "cited_ids": [
+          "p10_u13"
+        ],
+        "shown_ids": [
+          "p10_u13"
+        ],
+        "synthesis": "La première relance part désormais à 15 jours pour les PME et à 30 jours pour les grands comptes.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_024",
+        "piege": "reformulation",
+        "relevant_unit_ids": [
+          "p05_u12"
+        ],
+        "project_id": "projet_05",
+        "query": "Pour quel jour a-t-on déplacé la rencontre avec les distributeurs ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.570839,
+        "extractive_unit_id": "p05_u01",
+        "provided_ids": [
+          "p05_u01",
+          "p05_u03",
+          "p05_u09",
+          "p05_u07",
+          "p05_u12"
+        ],
+        "cited_ids": [
+          "p05_u12"
+        ],
+        "shown_ids": [
+          "p05_u12"
+        ],
+        "synthesis": "La rencontre avec les distributeurs a été déplacée au jeudi 8 octobre.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_025",
+        "piege": "responsable_reel",
+        "relevant_unit_ids": [
+          "p04_u16"
+        ],
+        "project_id": "projet_04",
+        "query": "Qui doit organiser la formation des conseillers avant la bascule ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.740987,
+        "extractive_unit_id": "p04_u15",
+        "provided_ids": [
+          "p04_u15",
+          "p04_u16",
+          "p04_u04",
+          "p04_u12",
+          "p04_u17"
+        ],
+        "cited_ids": [
+          "p04_u16"
+        ],
+        "shown_ids": [
+          "p04_u16"
+        ],
+        "synthesis": "Céline doit organiser la formation des conseillers avant la bascule.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_026",
+        "piege": "negation",
+        "relevant_unit_ids": [
+          "p10_u14"
+        ],
+        "project_id": "projet_10",
+        "query": "Franck a-t-il retrouvé le virement d'Orvane pour la facture de mars ?",
+        "status": "conflit",
+        "abstained": false,
+        "best_dense_score": 0.721466,
+        "extractive_unit_id": "p10_u15",
+        "provided_ids": [],
+        "cited_ids": [],
+        "shown_ids": [
+          "p10_u15",
+          "p10_u14"
+        ],
+        "synthesis": null,
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_027",
+        "piege": "engagement",
+        "relevant_unit_ids": [
+          "p05_u16"
+        ],
+        "project_id": "projet_05",
+        "query": "Qui doit signer avec le nouveau lieu, et avant quand ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.453879,
+        "extractive_unit_id": "p05_u16",
+        "provided_ids": [
+          "p05_u16",
+          "p05_u17",
+          "p05_u13",
+          "p05_u09",
+          "p05_u12"
+        ],
+        "cited_ids": [
+          "p05_u16"
+        ],
+        "shown_ids": [
+          "p05_u16"
+        ],
+        "synthesis": "Rachid doit signer avec le Domaine des Tilleuls avant vendredi.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_028",
+        "piege": "sans_reponse",
+        "relevant_unit_ids": [],
+        "project_id": "projet_07",
+        "query": "Quelle probabilité a été fixée pour le stade proposition ?",
+        "status": "abstention_llm",
+        "abstained": true,
+        "best_dense_score": 0.549687,
+        "extractive_unit_id": "p07_u02",
+        "provided_ids": [
+          "p07_u02",
+          "p07_u15",
+          "p07_u10",
+          "p07_u14",
+          "p07_u09"
+        ],
+        "cited_ids": [],
+        "shown_ids": [],
+        "synthesis": null,
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_029",
+        "piege": "sans_reponse",
+        "relevant_unit_ids": [],
+        "project_id": "projet_10",
+        "query": "Quel montant a déjà été recouvré sur les factures échues ?",
+        "status": "abstention_llm",
+        "abstained": true,
+        "best_dense_score": 0.7284,
+        "extractive_unit_id": "p10_u01",
+        "provided_ids": [
+          "p10_u01",
+          "p10_u14",
+          "p10_u12",
+          "p10_u06",
+          "p10_u08"
+        ],
+        "cited_ids": [],
+        "shown_ids": [],
+        "synthesis": null,
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      },
+      {
+        "query_id": "q_dev_030",
+        "piege": "engagement",
+        "relevant_unit_ids": [
+          "p02_u06"
+        ],
+        "project_id": "projet_02",
+        "query": "Que s'est engagé à faire Baptiste pour le salon de Lyon, et quand ?",
+        "status": "synthese",
+        "abstained": false,
+        "best_dense_score": 0.649224,
+        "extractive_unit_id": "p02_u06",
+        "provided_ids": [
+          "p02_u06",
+          "p02_u13",
+          "p02_u03",
+          "p02_u08",
+          "p02_u17"
+        ],
+        "cited_ids": [
+          "p02_u06"
+        ],
+        "shown_ids": [
+          "p02_u06"
+        ],
+        "synthesis": "Baptiste s'est engagé à réserver le stand du salon de Lyon et à verser l'acompte le lendemain matin.",
+        "rejection": null,
+        "citations_valid": true,
+        "correct": true
+      }
+    ],
+    "abstention_probes": {
+      "status": "sondes exploratoires, projets de developpement, jamais utilisees pour regler",
+      "n": 6,
+      "abstained": 5,
+      "wrongly_answered": 0,
+      "per_probe": [
+        {
+          "probe_id": "probe_01",
+          "project_id": "projet_01",
+          "query": "Quel est le budget publicitaire prévu pour le lancement d'Atlas ?",
+          "status": "abstention_llm",
+          "abstained": true,
+          "best_dense_score": 0.453066,
+          "extractive_unit_id": "p01_u20",
+          "provided_ids": [
+            "p01_u20",
+            "p01_u08",
+            "p01_u02",
+            "p01_u21",
+            "p01_u07"
+          ],
+          "cited_ids": [],
+          "shown_ids": [],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "wrongly_answered": false
+        },
+        {
+          "probe_id": "probe_02",
+          "project_id": "projet_06",
+          "query": "Quelle décision a été prise pour les redirections des anciennes URL des fiches produits ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.763217,
+          "extractive_unit_id": "p06_u25",
+          "provided_ids": [
+            "p06_u25",
+            "p06_u02",
+            "p06_u20",
+            "p06_u01",
+            "p06_u22"
+          ],
+          "cited_ids": [
+            "p06_u25"
+          ],
+          "shown_ids": [
+            "p06_u25"
+          ],
+          "synthesis": "Aucune décision n'a encore été prise sur les redirections des anciennes URL des fiches produits.",
+          "rejection": null,
+          "citations_valid": true,
+          "wrongly_answered": false
+        },
+        {
+          "probe_id": "probe_03",
+          "project_id": "projet_09",
+          "query": "Combien coûte une licence Chantio par utilisateur ?",
+          "status": "abstention_llm",
+          "abstained": true,
+          "best_dense_score": 0.549527,
+          "extractive_unit_id": "p09_u15",
+          "provided_ids": [
+            "p09_u15",
+            "p09_u11",
+            "p09_u13",
+            "p09_u01",
+            "p09_u10"
+          ],
+          "cited_ids": [],
+          "shown_ids": [],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "wrongly_answered": false
+        },
+        {
+          "probe_id": "probe_04",
+          "project_id": "projet_08",
+          "query": "Quel est le montant annuel du contrat avec Embaleco ?",
+          "status": "abstention_llm",
+          "abstained": true,
+          "best_dense_score": 0.682155,
+          "extractive_unit_id": "p08_u16",
+          "provided_ids": [
+            "p08_u16",
+            "p08_u01",
+            "p08_u04",
+            "p08_u13",
+            "p08_u09"
+          ],
+          "cited_ids": [],
+          "shown_ids": [],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "wrongly_answered": false
+        },
+        {
+          "probe_id": "probe_05",
+          "project_id": "projet_07",
+          "query": "Quelle probabilité a été fixée pour le stade proposition ?",
+          "status": "abstention_llm",
+          "abstained": true,
+          "best_dense_score": 0.549687,
+          "extractive_unit_id": "p07_u02",
+          "provided_ids": [
+            "p07_u02",
+            "p07_u15",
+            "p07_u10",
+            "p07_u14",
+            "p07_u09"
+          ],
+          "cited_ids": [],
+          "shown_ids": [],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "wrongly_answered": false
+        },
+        {
+          "probe_id": "probe_06",
+          "project_id": "projet_10",
+          "query": "Quel montant a déjà été recouvré sur les factures échues ?",
+          "status": "abstention_llm",
+          "abstained": true,
+          "best_dense_score": 0.7284,
+          "extractive_unit_id": "p10_u01",
+          "provided_ids": [
+            "p10_u01",
+            "p10_u14",
+            "p10_u12",
+            "p10_u06",
+            "p10_u08"
+          ],
+          "cited_ids": [],
+          "shown_ids": [],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "wrongly_answered": false
+        }
+      ]
+    },
+    "criteria_met": {
+      "C1_answered_with_expected_unit": true,
+      "C2_unanswerable_abstained": true,
+      "C3_citations_valid": true,
+      "C4_atlas_identical": null
+    },
+    "citations_valid_rate": 1.0
+  }
+}
