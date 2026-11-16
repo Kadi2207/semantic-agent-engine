@@ -1,5 +1,7 @@
 # Embedding Lab : de la mémoire sémantique à l'agent intelligent
 
+[![tests](https://github.com/Kadi2207/semantic-agent-engine/actions/workflows/tests.yml/badge.svg)](https://github.com/Kadi2207/semantic-agent-engine/actions/workflows/tests.yml)
+
 ## Évaluer le projet en 5 minutes
 
 Un agent lit des comptes rendus de réunions et répond en citant sa preuve : il distingue une décision en vigueur d'une décision remplacée, signale un conflit qu'il ne peut pas trancher, identifie le responsable d'une action, prépare un brouillon d'email sans l'envoyer, constitue un dossier documenté et s'abstient quand les sources ne contiennent pas la réponse.
@@ -14,7 +16,13 @@ Cinq chiffres clés, tirés de `eval/results` (développement, puis test scellé
 - abstention avec le RAG contrôlé : 4 requêtes sans réponse sur 5 en dev, 1 sur 1 en test scellé, 0 réponse à tort sur 6 sondes (`rag_dev.json`) ; intervalle à 95 % en dev : [0,400 ; 1,000] ; gain sur l'extractif significatif seulement sur le test scellé élargi (7 sur 8 contre 1 sur 8) ;
 - chaîne complète sur la mémoire produite par l'extraction automatique : 10 réponses justes sur 20, contre 13 sur 20 avec la mémoire annotée, sur les mêmes requêtes (`agent_extracted_dev.json`).
 
-Lancer la démonstration (Python 3.12 et uv ; l'entraînement du modèle prend quelques minutes sur CPU et télécharge le modèle de base) :
+Lancer la démonstration en une commande (vérifie l'environnement, entraîne le modèle s'il manque, lance `scripts/verify_demo.py` puis l'interface Streamlit en local) :
+
+    uv venv --python 3.12
+    uv pip install -r requirements.txt
+    uv run python scripts/run_demo.py
+
+Ou étape par étape (Python 3.12 et uv ; l'entraînement du modèle prend quelques minutes sur CPU et télécharge le modèle de base) :
 
     uv venv --python 3.12
     uv pip install -r requirements.txt
@@ -60,6 +68,7 @@ La chaîne complète et le rôle de chaque module sont décrits dans [docs/ARCHI
     data/external/               documentation des corpus externes (les données ne sont pas versionnées)
     app.py                       interface de démonstration Streamlit
     tests/                       tests pytest
+    .github/workflows/tests.yml  intégration continue : pytest à chaque push (Python 3.12, torch CPU)
 
 ## Entraînement des embeddings
 

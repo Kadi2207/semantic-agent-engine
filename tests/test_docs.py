@@ -53,3 +53,13 @@ def test_decisions_have_alternative_and_proof() -> None:
     assert len(sections) >= 10
     for s in sections:
         assert re.search(r"Alternatives? écartées? :", s) and ("Preuve" in s or "Limite chiffrée" in s), s[:60]
+
+
+def test_ci_workflow_and_single_demo_command() -> None:
+    workflow = (ROOT / ".github/workflows/tests.yml").read_text(encoding="utf-8")
+    assert 'python-version: "3.12"' in workflow and "https://download.pytorch.org/whl/cpu" in workflow
+    assert workflow.index("download.pytorch.org") < workflow.index("pip install -r requirements.txt")
+    assert "pytest" in workflow
+    head = README.split("## Évaluer le projet en 5 minutes")[0] + README.split("## Évaluer le projet en 5 minutes")[1].split("\n## ")[0]
+    assert "actions/workflows/tests.yml/badge.svg" in README.split("## ")[0]
+    assert "uv run python scripts/run_demo.py" in head and (ROOT / "scripts/run_demo.py").exists()
