@@ -1,0 +1,177 @@
+{
+  "description": "Relecture des phrases que le controle NLI ne juge pas impliquees",
+  "reviewer": "relecture faite par l'assistant de developpement (Claude), non une evaluation humaine independante",
+  "date": "2026-11-16",
+  "source": {
+    "file": "eval/results/rag_nli.json",
+    "sha256": "16a80a92bae9ceb967576c61949e8a8e522b7c6d3eada274fe07643f61064186"
+  },
+  "classes": {
+    "reformulation ou synthese fidele": "la phrase dit ce que disent les unites citees, avec d'autres mots",
+    "extrapolation legere": "la phrase ajoute un element mineur absent des unites citees (tire de la question ou d'une autre unite)",
+    "affirmation non soutenue": "la phrase affirme quelque chose que les sources ne soutiennent pas"
+  },
+  "counts": {
+    "reformulation ou synthese fidele": 9,
+    "extrapolation legere": 4,
+    "affirmation non soutenue": 0
+  },
+  "counts_per_split": {
+    "dev": {
+      "reformulation ou synthese fidele": 3,
+      "extrapolation legere": 3,
+      "affirmation non soutenue": 0
+    },
+    "test2": {
+      "reformulation ou synthese fidele": 6,
+      "extrapolation legere": 1,
+      "affirmation non soutenue": 0
+    }
+  },
+  "items": [
+    {
+      "split": "dev",
+      "query_id": "q_dev_006",
+      "nli_label": "neutral",
+      "hypothesis": "L'agence estime que l'intégration du catalogue et du tunnel de paiement nécessite six semaines.",
+      "cited_ids": [
+        "p06_u12"
+      ],
+      "class": "extrapolation legere",
+      "justification": "attribue l'estimation de six semaines a l'agence ; les unites citees donnent la duree mais pas qui l'estime"
+    },
+    {
+      "split": "dev",
+      "query_id": "q_dev_007",
+      "nli_label": "neutral",
+      "hypothesis": "Jérémie doit prévenir l'équipe commerciale de la nouvelle règle de clôture.",
+      "cited_ids": [
+        "p07_u06"
+      ],
+      "class": "reformulation ou synthese fidele",
+      "justification": "prevenir l'equipe commerciale de la regle reformule l'envoi du message expliquant la regle"
+    },
+    {
+      "split": "dev",
+      "query_id": "q_dev_008",
+      "nli_label": "neutral",
+      "hypothesis": "Les anomalies d'affichage des factures sont mineures et ne bloquent pas le lancement.",
+      "cited_ids": [
+        "p01_u09",
+        "p01_u11"
+      ],
+      "class": "reformulation ou synthese fidele",
+      "justification": "mineures et non bloquantes sont dans les unites citees ; le lancement est le sujet de la question"
+    },
+    {
+      "split": "dev",
+      "query_id": "q_dev_010",
+      "nli_label": "neutral",
+      "hypothesis": "Aucune décision n'a encore été prise sur les redirections des anciennes URL des fiches produits.",
+      "cited_ids": [
+        "p06_u25"
+      ],
+      "class": "reformulation ou synthese fidele",
+      "justification": "reprend l'absence de decision sur les redirections ; la precision des fiches produits vient de la question"
+    },
+    {
+      "split": "dev",
+      "query_id": "q_dev_024",
+      "nli_label": "neutral",
+      "hypothesis": "La rencontre avec les distributeurs a été déplacée au jeudi 8 octobre.",
+      "cited_ids": [
+        "p05_u12"
+      ],
+      "class": "extrapolation legere",
+      "justification": "les unites citees parlent de la journee clients ; l'assimiler a une rencontre avec les distributeurs repose sur une autre unite du projet, non citee"
+    },
+    {
+      "split": "dev",
+      "query_id": "q_dev_025",
+      "nli_label": "neutral",
+      "hypothesis": "Céline doit organiser la formation des conseillers avant la bascule.",
+      "cited_ids": [
+        "p04_u16"
+      ],
+      "class": "extrapolation legere",
+      "justification": "ajoute avant la bascule, tire de la question ; les unites citees donnent l'echeance du 10 juillet"
+    },
+    {
+      "split": "test2",
+      "query_id": "q_test2_001",
+      "nli_label": "neutral",
+      "hypothesis": "Le déménagement du siège a finalement lieu le week‑end du 31 octobre.",
+      "cited_ids": [
+        "p13_u20"
+      ],
+      "class": "reformulation ou synthese fidele",
+      "justification": "finalement le week-end du 31 octobre reformule le report au 31 octobre"
+    },
+    {
+      "split": "test2",
+      "query_id": "q_test2_008",
+      "nli_label": "neutral",
+      "hypothesis": "La date initiale du week‑end du 10 octobre a d’abord été abandonnée parce que les deux semaines de câblage prévues rendaient cette échéance impossible.",
+      "cited_ids": [
+        "p13_u12"
+      ],
+      "class": "reformulation ou synthese fidele",
+      "justification": "le lien de cause entre les deux semaines de cablage et l'abandon du 10 octobre est explicite dans les unites citees"
+    },
+    {
+      "split": "test2",
+      "query_id": "q_test2_009",
+      "nli_label": "neutral",
+      "hypothesis": "Le déménagement a été reporté au week‑end du 31 octobre, exactement le dernier jour du bail, garantissant ainsi que le siège reste occupé jusqu’à la fin du contrat.",
+      "cited_ids": [
+        "p13_u20"
+      ],
+      "class": "extrapolation legere",
+      "justification": "ajoute une consequence non ecrite dans les sources : le siege reste occupe jusqu'a la fin du contrat"
+    },
+    {
+      "split": "test2",
+      "query_id": "q_test2_011",
+      "nli_label": "neutral",
+      "hypothesis": "Le loueur Leasecom a été finalement retenu pour les véhicules électriques.",
+      "cited_ids": [
+        "p14_u19"
+      ],
+      "class": "reformulation ou synthese fidele",
+      "justification": "reformule la decision de retenir Leasecom ; pour les vehicules electriques vient du contexte de la question"
+    },
+    {
+      "split": "test2",
+      "query_id": "q_test2_024",
+      "nli_label": "neutral",
+      "hypothesis": "Le point d'étape sera publié sur le site vendredi.",
+      "cited_ids": [
+        "p15_u21"
+      ],
+      "class": "reformulation ou synthese fidele",
+      "justification": "reprend l'engagement d'Elodie de publier le point d'etape vendredi"
+    },
+    {
+      "split": "test2",
+      "query_id": "q_test2_025",
+      "nli_label": "neutral",
+      "hypothesis": "La présence d'arachide provient d'un nettoyage incomplet de la ligne 3 après la production de biscuits aux arachides.",
+      "cited_ids": [
+        "p15_u14"
+      ],
+      "class": "reformulation ou synthese fidele",
+      "justification": "reformulation directe de la cause identifiee"
+    },
+    {
+      "split": "test2",
+      "query_id": "q_test2_031",
+      "nli_label": "neutral",
+      "hypothesis": "Le bon à tirer du rapport annuel part chez l'imprimeur le 18 novembre.",
+      "cited_ids": [
+        "p16_u19"
+      ],
+      "class": "reformulation ou synthese fidele",
+      "justification": "reprend la date du 18 novembre"
+    }
+  ]
+}

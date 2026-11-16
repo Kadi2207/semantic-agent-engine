@@ -442,6 +442,9 @@ def test_test2_section_is_built_from_the_json() -> None:
     assert ex["projects_measured"] == ["projet_13", "projet_14", "projet_15", "projet_16"] and ex["projects_not_measured"] == []
     assert sum(run["tokens"] for run in ex["interrupted_run"]["runs"]) == ex["groq_tokens"]
     assert "reprise ensuite sur les seuls projets 15 et 16, sans modifier ni la consigne ni le jeu" in section
+    assert "une réponse pour p15_m02, construite sans les unités de p15_m01 ; cette réponse reste dans le cache mais n'est pas utilisée" in section
+    frozen = load("extraction.json")["extraction"]["system_prompt_sha256"]
+    assert f"(empreinte SHA-256 {frozen[:8]})" in section
     u, r = ex["metrics"]["units"], ex["metrics"]["relations"]
     assert f"| Unités annotées, extraites, appariées | {u['annotated']}, {u['extracted']}, {u['matched']} |" in section
     assert f"| F1 des unités | {fr(u['f1'])} |" in section and f"| Relations strictes, F1 | {fr(r['strict']['f1'])} |" in section
@@ -487,6 +490,13 @@ def test_nli_section_is_built_from_the_json() -> None:
     assert f"{excluded['dev']} en dev, {excluded['test2']} sur le test scellé élargi" in section
     assert data["protocol"]["model"] in section and data["protocol"]["revision"][:7] in section
     assert "ne remplace pas une évaluation humaine, non réalisée" in section
+    inspection = load("rag_nli_inspection.json")
+    c = inspection["counts"]
+    not_entailed = sum(len(data["splits"][sp]["not_entailed"]) for sp in ("dev", "test2"))
+    assert sum(c.values()) == not_entailed == len(inspection["items"])
+    assert (f"les {not_entailed} phrases non impliquées se répartissent en {c['reformulation ou synthese fidele']} reformulations ou "
+            f"synthèses fidèles, {c['extrapolation legere']} extrapolations légères et {c['affirmation non soutenue']} affirmation non soutenue") in section
+    assert "non une évaluation humaine indépendante" in section and "non une evaluation humaine independante" in inspection["reviewer"]
 
 
 def test_five_minute_section_figures_come_from_the_json() -> None:

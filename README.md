@@ -195,7 +195,7 @@ Fichier `rag_nli.json`, produit par `eval/nli_faithfulness.py`, sans aucun appel
 | Développement | 24 | 25 | 19 (0,760) | 6 (0,240) | 0 (0,000) |
 | Test scellé élargi | 27 | 33 | 26 (0,788) | 7 (0,212) | 0 (0,000) |
 
-Aucune phrase n'est jugée contradictoire ; environ une phrase sur quatre ou cinq n'est pas jugée impliquée par les unités qu'elle cite. La liste complète de ces phrases, avec leurs unités, figure dans le JSON pour une inspection manuelle, qui n'a pas été faite. Limite : un modèle NLI est imparfait, surtout en français et sur des phrases de synthèse ; ce contrôle complète le contrôle des citations et ne remplace pas une évaluation humaine, non réalisée.
+Aucune phrase n'est jugée contradictoire ; environ une phrase sur quatre ou cinq n'est pas jugée impliquée par les unités qu'elle cite. La liste complète de ces phrases, avec leurs unités, figure dans le JSON. Relues une à une par l'assistant de développement (une relecture, non une évaluation humaine indépendante ; `rag_nli_inspection.json`), les 13 phrases non impliquées se répartissent en 9 reformulations ou synthèses fidèles, 4 extrapolations légères et 0 affirmation non soutenue. Les 4 extrapolations ajoutent un élément absent des unités citées, tiré de la question ou d'une autre unité du projet, par exemple « avant la bascule » là où la source donne l'échéance du 10 juillet. Limite : un modèle NLI est imparfait, surtout en français et sur des phrases de synthèse ; ce contrôle complète le contrôle des citations et ne remplace pas une évaluation humaine, non réalisée.
 
 ### Extraction automatique des unités et des relations
 
@@ -358,7 +358,7 @@ Sur ce jeu, BM25 dépasse e5-small fine-tuné en MRR (0,749 contre 0,739) ; l'hy
 
 Dossiers : 20 des 24 unités attendues sont citées, et aucune unité citée n'est sans source dans son transcript. Les trois dossiers qui répondent citent toutes leurs unités attendues ; le quatrième (« Prépare le dossier sur le choix du loueur ») s'abstient, son sujet passant sous le seuil de similarité.
 
-Extraction figée, sur les 4 projets. La première exécution a été interrompue par une erreur d'appel Groq sur la première réunion du projet 15, après les projets 13 et 14 complets ; elle a été reprise ensuite sur les seuls projets 15 et 16, sans modifier ni la consigne ni le jeu (une première reprise a complété le projet 15 puis échoué deux fois sur le projet 16, une seconde a complété le projet 16). Les 4 projets sont enregistrés depuis le cache. La seconde passe de liaison n'a pas été lancée sur ce jeu.
+Extraction figée, sur les 4 projets. La première exécution a été interrompue par une erreur d'appel Groq sur la première réunion du projet 15, après les projets 13 et 14 complets ; elle a été reprise ensuite sur les seuls projets 15 et 16, sans modifier ni la consigne ni le jeu (une première reprise a complété le projet 15 puis échoué deux fois sur le projet 16, une seconde a complété le projet 16). Après l'échec sur p15_m01, cette première exécution a tout de même obtenu une réponse pour p15_m02, construite sans les unités de p15_m01 ; cette réponse reste dans le cache mais n'est pas utilisée. Les 12 réponses utilisées ont été obtenues avec la consigne gelée (empreinte SHA-256 3f757d54) et les paramètres d'origine, ce que vérifie leur rejeu depuis le cache, sans aucun appel. Les 4 projets sont enregistrés depuis le cache. La seconde passe de liaison n'a pas été lancée sur ce jeu.
 
 | Mesure | Projets 13 à 16 |
 |---|---|
