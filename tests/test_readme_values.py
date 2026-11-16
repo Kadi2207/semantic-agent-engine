@@ -170,6 +170,23 @@ def test_reintegrated_limits_are_present_once() -> None:
     assert "premier participant nommé dans l'énoncé" in README and "pas généralisable telle quelle" in README
 
 
+def test_relation_error_figures_come_from_the_analysis_json() -> None:
+    data = load("relation_errors_dev.json")
+    t = data["totals"]
+    assert t["predicted_errors"]["mauvais_sens"] == 0 and "aucune relation prédite n'est fausse à cause de son seul sens" in README
+    assert (
+        f"Sur les {t['predicted']} relations prédites, {t['correct']} sont justes ; parmi les erreurs, "
+        f"{t['predicted_errors']['extremite_non_annotee']} relient une unité absente de l'annotation et "
+        f"{t['predicted_errors']['mauvaise_cible']} visent la mauvaise cible."
+    ) in README
+    assert (
+        f"Sur les {t['annotated']} relations annotées, {t['missed_total']} sont manquées, dont "
+        f"{t['missed']['jamais_proposee']} jamais proposées ({data['by_type']['supports']['missed']['jamais_proposee']} supports)."
+    ) in README
+    assert "`eval/results/relation_errors_dev.json`" in README and "uv run python eval/analyze_relation_errors.py" in README
+    assert "non versionnée)" not in README.split("## Limites assumées")[1].split("\n- Abstention")[0]
+
+
 def test_abstention_threshold_quoted_from_the_code() -> None:
     source = (ROOT / "src/agent/answer.py").read_text(encoding="utf-8")
     threshold = float(re.search(r"^ABSTENTION_THRESHOLD = ([0-9.]+)", source, re.MULTILINE).group(1))

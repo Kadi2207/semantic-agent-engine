@@ -1,0 +1,158 @@
+{
+  "experiment": "analyse des erreurs d'extraction des relations",
+  "generated_on": "2026-11-16",
+  "script": "eval/analyze_relation_errors.py",
+  "split": "dev",
+  "projects": [
+    "projet_04",
+    "projet_05",
+    "projet_06",
+    "projet_07",
+    "projet_08",
+    "projet_09",
+    "projet_10"
+  ],
+  "status": "analyse seulement, aucun reglage ; le test scelle (projets 11-12) n'est pas utilise",
+  "source": "cache local des reponses Groq (data/processed/groq_extract_cache.jsonl, non versionne), aucun appel",
+  "replay": {
+    "api_calls": 0,
+    "cache_reads": 15,
+    "consistent_with_extraction_json_dev_04_10": true
+  },
+  "system_prompt_sha256": "3f757d54dd25e19a1614840798fa7156f130d333cb0c69b8350f4d045526a868",
+  "system_prompt_sha256_in_extraction_json": "3f757d54dd25e19a1614840798fa7156f130d333cb0c69b8350f4d045526a868",
+  "matching": "identique a eval/eval_extraction.py (recouvrement d'evidence, puis cosinus e5)",
+  "categories": {
+    "predicted_errors": [
+      "extremite_non_annotee",
+      "mauvais_sens",
+      "mauvais_type",
+      "mauvaise_cible",
+      "faux_positif_pur"
+    ],
+    "missed": [
+      "extremite_non_extraite",
+      "autre_type_ou_sens",
+      "autre_cible",
+      "jamais_proposee"
+    ],
+    "definitions": "voir la docstring de eval/analyze_relation_errors.py"
+  },
+  "by_type": {
+    "creates_action": {
+      "annotated": 25,
+      "predicted": 18,
+      "correct": 6,
+      "predicted_errors": {
+        "extremite_non_annotee": 7,
+        "mauvais_sens": 0,
+        "mauvais_type": 1,
+        "mauvaise_cible": 4,
+        "faux_positif_pur": 0
+      },
+      "found": 6,
+      "missed": {
+        "extremite_non_extraite": 4,
+        "autre_type_ou_sens": 0,
+        "autre_cible": 10,
+        "jamais_proposee": 5
+      }
+    },
+    "supports": {
+      "annotated": 35,
+      "predicted": 16,
+      "correct": 9,
+      "predicted_errors": {
+        "extremite_non_annotee": 4,
+        "mauvais_sens": 0,
+        "mauvais_type": 0,
+        "mauvaise_cible": 3,
+        "faux_positif_pur": 0
+      },
+      "found": 9,
+      "missed": {
+        "extremite_non_extraite": 6,
+        "autre_type_ou_sens": 1,
+        "autre_cible": 4,
+        "jamais_proposee": 15
+      }
+    },
+    "answers": {
+      "annotated": 16,
+      "predicted": 15,
+      "correct": 11,
+      "predicted_errors": {
+        "extremite_non_annotee": 4,
+        "mauvais_sens": 0,
+        "mauvais_type": 0,
+        "mauvaise_cible": 0,
+        "faux_positif_pur": 0
+      },
+      "found": 11,
+      "missed": {
+        "extremite_non_extraite": 0,
+        "autre_type_ou_sens": 1,
+        "autre_cible": 0,
+        "jamais_proposee": 4
+      }
+    },
+    "supersedes": {
+      "annotated": 7,
+      "predicted": 4,
+      "correct": 2,
+      "predicted_errors": {
+        "extremite_non_annotee": 1,
+        "mauvais_sens": 0,
+        "mauvais_type": 1,
+        "mauvaise_cible": 0,
+        "faux_positif_pur": 0
+      },
+      "found": 2,
+      "missed": {
+        "extremite_non_extraite": 1,
+        "autre_type_ou_sens": 1,
+        "autre_cible": 1,
+        "jamais_proposee": 2
+      }
+    },
+    "contradicts": {
+      "annotated": 1,
+      "predicted": 1,
+      "correct": 0,
+      "predicted_errors": {
+        "extremite_non_annotee": 0,
+        "mauvais_sens": 0,
+        "mauvais_type": 1,
+        "mauvaise_cible": 0,
+        "faux_positif_pur": 0
+      },
+      "found": 0,
+      "missed": {
+        "extremite_non_extraite": 0,
+        "autre_type_ou_sens": 0,
+        "autre_cible": 0,
+        "jamais_proposee": 1
+      }
+    }
+  },
+  "totals": {
+    "annotated": 84,
+    "predicted": 54,
+    "correct": 28,
+    "found": 28,
+    "predicted_errors": {
+      "extremite_non_annotee": 16,
+      "mauvais_sens": 0,
+      "mauvais_type": 3,
+      "mauvaise_cible": 7,
+      "faux_positif_pur": 0
+    },
+    "missed": {
+      "extremite_non_extraite": 11,
+      "autre_type_ou_sens": 3,
+      "autre_cible": 15,
+      "jamais_proposee": 27
+    },
+    "missed_total": 56
+  }
+}

@@ -136,7 +136,7 @@ Le fine-tuning sur le corpus français s'applique à l'anglais sans dégradation
 
 ## Limites assumées
 
-- Relations : c'est la partie la plus faible, avec un F1 strict de 0,406 en dev et 0,381 en test. Une analyse des erreurs du dev 04-10 (non versionnée) montre que le sens des relations est presque toujours juste ; les erreurs viennent surtout du choix de l'extrémité (lien vers une unité que l'annotation ne contient pas, ou vers la mauvaise cible) et de relations jamais proposées, en particulier supports.
+- Relations : c'est la partie la plus faible, avec un F1 strict de 0,406 en dev et 0,381 en test. L'analyse des erreurs du dev 04-10 (`eval/results/relation_errors_dev.json`) montre qu'aucune relation prédite n'est fausse à cause de son seul sens. Sur les 54 relations prédites, 28 sont justes ; parmi les erreurs, 16 relient une unité absente de l'annotation et 7 visent la mauvaise cible. Sur les 84 relations annotées, 56 sont manquées, dont 27 jamais proposées (15 supports).
 - Abstention : l'agent s'abstient quand le meilleur cosinus dense passe sous 0,45 (seuil fixé dans `src/agent/answer.py`). Ce seuil écarte bien les questions hors sujet, mais il ne sépare pas une question sur le bon sujet dont la réponse est absente des sources : dans ce cas, l'agent peut répondre à tort. Un cross-encoder ou un modèle d'inférence textuelle serait la solution propre.
 - Recul sur les décisions en vigueur : en dev, le fine-tuning fait baisser le MRR de 0,800 à 0,707 et le Recall@3 de 1,000 à 0,800 sur cette catégorie de requêtes. La résolution par les relations de l'agent est conçue pour compenser ce cas, sans que cela soit encore mesuré.
 - Surextraction : sur les projets 04 à 12, l'extraction produit 19 unités idea pour 4 annotées.
@@ -191,6 +191,10 @@ Recherche sur le corpus interne (l'option `--out` réécrit le JSON correspondan
 Extraction (se rejoue depuis le cache Groq local, sans aucun appel) :
 
     uv run python eval/eval_extraction.py --projects 4-12 --groups dev_04_10=4-10 test_11_12=11-12 --cache-only
+
+Analyse des erreurs de relations sur le dev 04-10, depuis le même cache local (réécrit `eval/results/relation_errors_dev.json`) :
+
+    uv run python eval/analyze_relation_errors.py
 
 Évaluation QMSum, après avoir cloné https://github.com/Yale-LILY/QMSum dans `data/external/qmsum` (voir `data/external/README.md`). La commande lance deux exécutions complètes, vérifie qu'elles sont identiques et réécrit `eval/results/real_qmsum.json` :
 
