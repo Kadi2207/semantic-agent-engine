@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.agent.answer import ABSTENTION_THRESHOLD, DATA_DIR, Answer, answer, get_graph, get_retriever  # noqa: E402
 from src.agent.email import Clarification, draft_email, get_participants  # noqa: E402
+from src.agent.display import deadline_note, type_label  # noqa: E402
 from src.agent.intent import detect_intent  # noqa: E402
 from src.agent.retriever import FINETUNED_PATH, HybridRetriever  # noqa: E402
 from src.agent.sources import load_transcripts, source_passage  # noqa: E402
@@ -137,9 +138,9 @@ def render_conflict(result: Answer, retriever: HybridRetriever, detail_sources: 
             st.markdown(f"**{html.escape(unit.statement)}**", unsafe_allow_html=True)
             st.markdown(f"<div class='evidence'>« {html.escape(unit.evidence)} »</div>", unsafe_allow_html=True)
             st.markdown(
-                f"<div class='meta'>Réunion <b>{unit.source_id}</b> du {unit.source_date:%d/%m/%Y} · "
-                f"locuteur : {unit.speaker or 'inconnu'} · unité <code>{unit.unit_id}</code> "
-                f"(statut <b>{unit.status}</b>)</div>",
+                f"<div class='meta'>Type : <b>{type_label(unit)}</b> · réunion <b>{unit.source_id}</b> du "
+                f"{unit.source_date:%d/%m/%Y} · locuteur : {unit.speaker or 'inconnu'} · unité "
+                f"<code>{unit.unit_id}</code> (statut <b>{unit.status}</b>)</div>",
                 unsafe_allow_html=True,
             )
             render_source(unit, context=2 if detail_sources else 1, title="Passage source")
@@ -162,13 +163,17 @@ def render_answer(result: Answer, retriever: HybridRetriever, detail_sources: bo
         st.markdown("##### Réponse")
         st.markdown(f"**{result.statement}**")
         st.markdown(f"<div class='evidence'>« {html.escape(result.evidence or '')} »</div>", unsafe_allow_html=True)
+        answer_unit = retriever.unit(result.unit_id)
+        note = deadline_note(answer_unit)
+        if note:
+            st.markdown(f"<div class='meta'>Échéance : <b>{note}</b></div>", unsafe_allow_html=True)
         st.markdown(
-            f"<div class='meta'>Réunion <b>{result.source_id}</b> du {result.source_date:%d/%m/%Y} · "
-            f"locuteur : {result.speaker or 'inconnu'} · unité <code>{result.unit_id}</code> "
-            f"(statut <b>{result.unit_status}</b>)</div>",
+            f"<div class='meta'>Type : <b>{type_label(answer_unit)}</b> · réunion <b>{result.source_id}</b> du "
+            f"{result.source_date:%d/%m/%Y} · locuteur : {result.speaker or 'inconnu'} · unité "
+            f"<code>{result.unit_id}</code> (statut <b>{result.unit_status}</b>)</div>",
             unsafe_allow_html=True,
         )
-        render_source(retriever.unit(result.unit_id), context=2 if detail_sources else 1, title="Passage source")
+        render_source(answer_unit, context=2 if detail_sources else 1, title="Passage source")
 
     if result.resolution:
         contradicted = any("-contradicts->" in step for step in result.resolution)
@@ -188,7 +193,8 @@ def render_answer(result: Answer, retriever: HybridRetriever, detail_sources: bo
                 verb = "contredite par" if relation == "contradicts" else "remplacée par"
                 st.markdown(
                     f"<span class='old'>{html.escape(older.statement)}</span> "
-                    f"<span class='meta'>— {older.source_id} du {older.source_date:%d/%m/%Y}, statut <b>{older.status}</b>, "
+                    f"<span class='meta'>— {type_label(older)}, {older.source_id} du {older.source_date:%d/%m/%Y}, "
+                    f"statut <b>{older.status}</b>, "
                     f"{verb} <code>{newer_id}</code></span>",
                     unsafe_allow_html=True,
                 )

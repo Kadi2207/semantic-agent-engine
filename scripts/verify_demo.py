@@ -3,7 +3,8 @@
 V1 le supersedes d'Atlas reussit, de facon reproductible (plusieurs formulations, plusieurs passages) ;
 V2 les passages sources s'affichent dans l'interface (Streamlit AppTest, rendu reel de app.py) ;
 V3 l'abstention se declenche sur une question hors sources ;
-V4 l'action a un responsable (lu dans l'enonce, pas le locuteur) et une echeance.
+V4 l'action a un responsable (lu dans l'enonce, pas le locuteur) et une echeance ;
+V5 l'affichage montre le type en francais, signale une proposition comme non validee et date l'echeance relative.
 
     uv run python scripts/verify_demo.py --out <fichier.json>
 Lancer deux fois et comparer les deux fichiers verifie la reproductibilite entre processus.
@@ -125,14 +126,41 @@ def v4_action() -> dict[str, object]:
     }
 
 
+def v5_display() -> dict[str, object]:
+    """Affichage : type en francais, proposition signalee comme non validee, echeance relative datee."""
+    from streamlit.testing.v1 import AppTest
+
+    at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=600).run()
+    expected = {
+        "1": ["Type : <b>décision</b>"],
+        "2": ["Type : <b>action</b>", "Échéance : <b>le jour même, soit le 9 avril 2026, date de la réunion</b>"],
+        "4": ["— décision, p01_m02", "— proposition, non validée, p01_m01"],
+    }
+    seen: dict[str, dict[str, bool]] = {}
+    for step, needles in expected.items():
+        at.button(key=f"demo_{int(step) - 1}").click().run()
+        next(b for b in at.button if b.label == "Envoyer").click().run()
+        page = "\n".join(m.value for m in at.markdown)
+        seen[step] = {n: n in page for n in needles}
+    shown, total = sum(sum(v.values()) for v in seen.values()), sum(len(v) for v in seen.values())
+    return {
+        "ok": not at.exception and shown == total,
+        "detail": f"elements affiches (etapes 1, 2, 4) : {shown}/{total} (type en francais, proposition non validee, "
+        f"echeance « le jour même » datee du 9 avril 2026)",
+        "rendered": seen,
+        "app_exception": [str(e) for e in at.exception],
+    }
+
+
 def main() -> None:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
-    report = {"V1_supersedes": v1_supersedes(), "V3_abstention": v3_abstention(), "V4_action": v4_action(), "V2_sources": v2_sources_displayed()}
-    for name in ("V1_supersedes", "V2_sources", "V3_abstention", "V4_action"):
+    report = {"V1_supersedes": v1_supersedes(), "V3_abstention": v3_abstention(), "V4_action": v4_action(), "V2_sources": v2_sources_displayed(),
+              "V5_affichage": v5_display()}
+    for name in ("V1_supersedes", "V2_sources", "V3_abstention", "V4_action", "V5_affichage"):
         print(f"{name:<15} {'OK ' if report[name]['ok'] else 'ECHEC'}  {report[name]['detail']}")
     if args.out:
         args.out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
