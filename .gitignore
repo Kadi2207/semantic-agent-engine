@@ -40,6 +40,7 @@ data/eval/*
 !data/processed/.gitkeep
 !data/processed/triplets_dev.jsonl
 !data/processed/triplets_llm.jsonl
+!data/processed/groq_rag_cache.jsonl
 !data/eval/.gitkeep
 !data/eval/queries_*.json
 !data/eval/probes_*.json

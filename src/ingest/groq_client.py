@@ -61,7 +61,10 @@ class CachedGroq:
         json_mode: bool = False,
         cache_only: bool = False,
         max_completion_tokens: int | None = None,
+        extra_body: dict[str, object] | None = None,
     ) -> None:
+        # Parametres supplementaires de l'API (ex. reasoning_effort) ; absents, les cles de cache sont inchangees.
+        self.extra_body = dict(extra_body or {})
         self.model = model
         self.temperature = temperature
         self.cache_path = cache_path
@@ -99,10 +102,10 @@ class CachedGroq:
 
     def key(self, system_prompt: str, user_prompt: str) -> str:
         """Depend du modele, de la temperature, de la consigne et de l'entree : tout changement invalide."""
-        material = json.dumps(
-            [self.model, self.temperature, self.json_mode, self.max_completion_tokens, system_prompt, user_prompt],
-            ensure_ascii=False,
-        )
+        parts: list[object] = [self.model, self.temperature, self.json_mode, self.max_completion_tokens, system_prompt, user_prompt]
+        if self.extra_body:  # seulement s'il y en a : les cles des caches existants (extraction) ne changent pas
+            parts.append(self.extra_body)
+        material = json.dumps(parts, ensure_ascii=False)
         return hashlib.sha256(material.encode("utf-8")).hexdigest()
 
     def complete(self, system_prompt: str, user_prompt: str, label: str = "", refresh: bool = False) -> str:
@@ -159,6 +162,7 @@ class CachedGroq:
             body["response_format"] = {"type": "json_object"}
         if self.max_completion_tokens:
             body["max_completion_tokens"] = self.max_completion_tokens
+        body.update(self.extra_body)
         payload = json.dumps(body).encode("utf-8")
         headers = {
             "Authorization": f"Bearer {self._api_key}",
