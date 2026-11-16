@@ -146,11 +146,12 @@ Le fine-tuning sur le corpus français s'applique à l'anglais sans dégradation
 - Projets 09 et 10 peu couverts : seuls 4 triplets construits à la main en proviennent, aucun triplet enrichi.
 - Règle du responsable : la personne qui doit réaliser une tâche est le premier participant nommé dans l'énoncé de l'unité. Cette heuristique est vérifiée sur le corpus, mais elle n'est pas généralisable telle quelle.
 - Routage et brouillon d'email : la détection d'intention et la préparation des brouillons sont vérifiées sur des exemples de démonstration, mais ne font encore l'objet ni d'une mesure chiffrée ni d'un test automatique.
+- Ingestion et agent non reliés : l'agent et la démonstration lisent la mémoire annotée (`data/raw`), pas les unités et relations produites par l'extraction automatique. L'extraction est évaluée séparément (`extraction.json`). Les brancher l'une sur l'autre est l'étape suivante.
 - Corpus fictif : les 12 projets ont été écrits pour le projet. Sur QMSum, la majorité des réunions Product (AMI) sont elles aussi jouées selon un scénario.
 
 ## Démonstration
 
-La démonstration porte sur le projet fictif Atlas (projet_01), dont trois comptes rendus successifs racontent une mise en production d'abord proposée puis validée pour le 14 avril, puis reportée au 5 mai. Le parcours se déroule en cinq temps :
+La démonstration porte sur le projet fictif Atlas (projet_01), dont trois comptes rendus successifs racontent une mise en production d'abord proposée puis validée pour le 14 avril, puis reportée au 5 mai. Elle s'appuie sur les unités et relations annotées du projet Atlas, et non sur celles de l'extraction automatique. Le parcours se déroule en cinq temps :
 
 1. retrouver la décision en vigueur, avec sa preuve et sa source ;
 2. identifier l'action qui en découle, avec son responsable et son échéance ;

@@ -187,6 +187,17 @@ def test_relation_error_figures_come_from_the_analysis_json() -> None:
     assert "non versionnée)" not in README.split("## Limites assumées")[1].split("\n- Abstention")[0]
 
 
+def test_demo_scope_is_stated() -> None:
+    limits = README.split("## Limites assumées")[1].split("\n## ")[0]
+    assert (
+        "Ingestion et agent non reliés : l'agent et la démonstration lisent la mémoire annotée (`data/raw`), pas les "
+        "unités et relations produites par l'extraction automatique. L'extraction est évaluée séparément "
+        "(`extraction.json`). Les brancher l'une sur l'autre est l'étape suivante."
+    ) in limits
+    demo = README.split("## Démonstration")[1].split("\n## ")[0]
+    assert "Elle s'appuie sur les unités et relations annotées du projet Atlas" in demo
+
+
 def test_abstention_threshold_quoted_from_the_code() -> None:
     source = (ROOT / "src/agent/answer.py").read_text(encoding="utf-8")
     threshold = float(re.search(r"^ABSTENTION_THRESHOLD = ([0-9.]+)", source, re.MULTILINE).group(1))
