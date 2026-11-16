@@ -120,3 +120,21 @@ def test_sealed_test_is_a_single_recording() -> None:
     assert "abstention_probes" not in data["results"] and len(data["results"]["per_query"]) == 6
     for x in data["results"]["per_query"]:
         assert set(x["cited_ids"]) <= set(x["provided_ids"])
+
+
+def test_versioned_cache_holds_no_secret_and_only_corpus_identifiers() -> None:
+    """Le cache versionne ne contient que des empreintes de requete et les reponses du modele (aucun prompt, aucune cle)."""
+    raw = (ROOT / "data/processed/groq_rag_cache.jsonl").read_text(encoding="utf-8")
+    for marker in ("gsk_", "Bearer", "Authorization", "authorization", "api_key", "API_KEY"):
+        assert marker not in raw, marker
+    corpus = set()
+    for folder in ("data/raw", "data/extracted"):
+        for path in (ROOT / folder).glob("projet_*.json"):
+            corpus |= {u["unit_id"] for u in json.loads(path.read_text(encoding="utf-8"))["units"]}
+    for line in raw.splitlines():
+        entry = json.loads(line)
+        assert set(entry) == {"key", "label", "model", "usage", "finish_reason", "raw"}
+        assert entry["model"] == "openai/gpt-oss-120b" and len(entry["key"]) == 64
+        answer = json.loads(entry["raw"])
+        cited = {i for s in answer.get("sentences", []) for i in s["unit_ids"]} | set(answer.get("used_unit_ids", []))
+        assert cited <= corpus
