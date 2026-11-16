@@ -1,0 +1,545 @@
+{
+  "description": "Intervalles de confiance a 95 % et tests apparies",
+  "script": "eval/stats.py",
+  "method": {
+    "bootstrap": "percentile, tirage avec remise",
+    "n_resamples": 10000,
+    "seed": 20261116,
+    "unit": "requete pour les metriques par requete ; projet (grappes) pour les F1 d'extraction",
+    "paired_test": "permutation par inversion de signe (requetes) ou echange avant/apres (projets), bilaterale",
+    "significant": "p < 0,05 et intervalle bootstrap de la difference qui exclut 0",
+    "retrieval_per_query": "dev et test recalcules avec le meme code et verifies contre retrieval_*.json ; test2 lu dans test2.json"
+  },
+  "intervals": {
+    "dev": {
+      "MRR bm25": {
+        "n": 25,
+        "estimate": 0.6313,
+        "ci95": [
+          0.488,
+          0.7693
+        ]
+      },
+      "Recall@5 bm25": {
+        "n": 25,
+        "estimate": 0.88,
+        "ci95": [
+          0.76,
+          1.0
+        ]
+      },
+      "MRR e5_base": {
+        "n": 25,
+        "estimate": 0.526,
+        "ci95": [
+          0.386,
+          0.6667
+        ]
+      },
+      "Recall@5 e5_base": {
+        "n": 25,
+        "estimate": 0.88,
+        "ci95": [
+          0.72,
+          1.0
+        ]
+      },
+      "MRR e5_finetuned": {
+        "n": 25,
+        "estimate": 0.716,
+        "ci95": [
+          0.586,
+          0.8413
+        ]
+      },
+      "Recall@5 e5_finetuned": {
+        "n": 25,
+        "estimate": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "MRR hybrid_rrf": {
+        "n": 25,
+        "estimate": 0.708,
+        "ci95": [
+          0.5813,
+          0.828
+        ]
+      },
+      "Recall@5 hybrid_rrf": {
+        "n": 25,
+        "estimate": 0.96,
+        "ci95": [
+          0.88,
+          1.0
+        ]
+      },
+      "reponse finale extractive": {
+        "n": 25,
+        "estimate": 0.68,
+        "ci95": [
+          0.48,
+          0.84
+        ]
+      },
+      "abstention extractive": {
+        "n": 5,
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "reponse finale RAG": {
+        "n": 25,
+        "estimate": 0.96,
+        "ci95": [
+          0.88,
+          1.0
+        ]
+      },
+      "abstention RAG": {
+        "n": 5,
+        "estimate": 0.8,
+        "ci95": [
+          0.4,
+          1.0
+        ]
+      },
+      "F1 unites": {
+        "n_projects": 7,
+        "estimate": 0.8522,
+        "ci95": [
+          0.8253,
+          0.8774
+        ]
+      },
+      "F1 relations strict": {
+        "n_projects": 7,
+        "estimate": 0.4058,
+        "ci95": [
+          0.3376,
+          0.4672
+        ]
+      }
+    },
+    "test": {
+      "MRR bm25": {
+        "n": 5,
+        "estimate": 0.7067,
+        "ci95": [
+          0.3867,
+          1.0
+        ]
+      },
+      "Recall@5 bm25": {
+        "n": 5,
+        "estimate": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "MRR e5_base": {
+        "n": 5,
+        "estimate": 0.64,
+        "ci95": [
+          0.24,
+          1.0
+        ]
+      },
+      "Recall@5 e5_base": {
+        "n": 5,
+        "estimate": 0.8,
+        "ci95": [
+          0.4,
+          1.0
+        ]
+      },
+      "MRR e5_finetuned": {
+        "n": 5,
+        "estimate": 0.75,
+        "ci95": [
+          0.45,
+          1.0
+        ]
+      },
+      "Recall@5 e5_finetuned": {
+        "n": 5,
+        "estimate": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "MRR hybrid_rrf": {
+        "n": 5,
+        "estimate": 0.85,
+        "ci95": [
+          0.55,
+          1.0
+        ]
+      },
+      "Recall@5 hybrid_rrf": {
+        "n": 5,
+        "estimate": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "reponse finale extractive": {
+        "n": 5,
+        "estimate": 0.8,
+        "ci95": [
+          0.4,
+          1.0
+        ]
+      },
+      "abstention extractive": {
+        "n": 1,
+        "estimate": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "reponse finale RAG": {
+        "n": 5,
+        "estimate": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "abstention RAG": {
+        "n": 1,
+        "estimate": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "F1 unites": {
+        "n_projects": 2,
+        "estimate": 0.8293,
+        "ci95": [
+          0.8,
+          0.8571
+        ]
+      },
+      "F1 relations strict": {
+        "n_projects": 2,
+        "estimate": 0.381,
+        "ci95": [
+          0.25,
+          0.5556
+        ]
+      }
+    },
+    "test2": {
+      "MRR bm25": {
+        "n": 28,
+        "estimate": 0.7494,
+        "ci95": [
+          0.6137,
+          0.875
+        ]
+      },
+      "Recall@5 bm25": {
+        "n": 28,
+        "estimate": 0.8565,
+        "ci95": [
+          0.7315,
+          0.9643
+        ]
+      },
+      "MRR e5_base": {
+        "n": 28,
+        "estimate": 0.6631,
+        "ci95": [
+          0.525,
+          0.794
+        ]
+      },
+      "Recall@5 e5_base": {
+        "n": 28,
+        "estimate": 0.8339,
+        "ci95": [
+          0.7,
+          0.95
+        ]
+      },
+      "MRR e5_finetuned": {
+        "n": 28,
+        "estimate": 0.7393,
+        "ci95": [
+          0.5964,
+          0.875
+        ]
+      },
+      "Recall@5 e5_finetuned": {
+        "n": 28,
+        "estimate": 0.825,
+        "ci95": [
+          0.6821,
+          0.9464
+        ]
+      },
+      "MRR hybrid_rrf": {
+        "n": 28,
+        "estimate": 0.7738,
+        "ci95": [
+          0.6488,
+          0.8869
+        ]
+      },
+      "Recall@5 hybrid_rrf": {
+        "n": 28,
+        "estimate": 0.8964,
+        "ci95": [
+          0.7857,
+          0.9857
+        ]
+      },
+      "reponse finale extractive": {
+        "n": 20,
+        "estimate": 0.8,
+        "ci95": [
+          0.6,
+          0.95
+        ]
+      },
+      "abstention extractive": {
+        "n": 8,
+        "estimate": 0.125,
+        "ci95": [
+          0.0,
+          0.375
+        ]
+      },
+      "reponse finale RAG": {
+        "n": 20,
+        "estimate": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "abstention RAG": {
+        "n": 8,
+        "estimate": 0.875,
+        "ci95": [
+          0.625,
+          1.0
+        ]
+      },
+      "F1 unites": {
+        "n_projects": 2,
+        "estimate": 0.9524,
+        "ci95": [
+          0.9412,
+          0.963
+        ]
+      },
+      "F1 relations strict": {
+        "n_projects": 2,
+        "estimate": 0.48,
+        "ci95": [
+          0.4615,
+          0.5
+        ]
+      }
+    }
+  },
+  "paired_tests": {
+    "dev": {
+      "MRR e5 fine-tune contre e5 de base": {
+        "n": 25,
+        "mean_a": 0.716,
+        "mean_b": 0.526,
+        "difference": 0.19,
+        "ci95_difference": [
+          0.0467,
+          0.342
+        ],
+        "p_value_permutation": 0.0193,
+        "significant": true,
+        "ties": 11
+      },
+      "MRR hybride contre dense fine-tune": {
+        "n": 25,
+        "mean_a": 0.708,
+        "mean_b": 0.716,
+        "difference": -0.008,
+        "ci95_difference": [
+          -0.0994,
+          0.082
+        ],
+        "p_value_permutation": 0.9276,
+        "significant": false,
+        "ties": 18
+      },
+      "reponse finale RAG contre extractive": {
+        "n": 25,
+        "mean_a": 0.96,
+        "mean_b": 0.68,
+        "difference": 0.28,
+        "ci95_difference": [
+          0.12,
+          0.48
+        ],
+        "p_value_permutation": 0.0151,
+        "significant": true,
+        "ties": 18
+      },
+      "abstention RAG contre extractive": {
+        "n": 5,
+        "mean_a": 0.8,
+        "mean_b": 0.0,
+        "difference": 0.8,
+        "ci95_difference": [
+          0.4,
+          1.0
+        ],
+        "p_value_permutation": 0.1278,
+        "significant": false,
+        "ties": 1
+      },
+      "F1 relations v2 contre v1 (extraction seule)": {
+        "n_projects": 7,
+        "f1_a": 0.4028,
+        "f1_b": 0.4058,
+        "difference": -0.003,
+        "ci95_difference": [
+          -0.0146,
+          0.0
+        ],
+        "p_value_permutation": 1.0,
+        "significant": false
+      }
+    },
+    "test": {
+      "MRR e5 fine-tune contre e5 de base": {
+        "n": 5,
+        "mean_a": 0.75,
+        "mean_b": 0.64,
+        "difference": 0.11,
+        "ci95_difference": [
+          0.0,
+          0.31
+        ],
+        "p_value_permutation": 0.5051,
+        "significant": false,
+        "ties": 3
+      },
+      "MRR hybride contre dense fine-tune": {
+        "n": 5,
+        "mean_a": 0.85,
+        "mean_b": 0.75,
+        "difference": 0.1,
+        "ci95_difference": [
+          0.0,
+          0.3
+        ],
+        "p_value_permutation": 1.0,
+        "significant": false,
+        "ties": 4
+      },
+      "reponse finale RAG contre extractive": {
+        "n": 5,
+        "mean_a": 1.0,
+        "mean_b": 0.8,
+        "difference": 0.2,
+        "ci95_difference": [
+          0.0,
+          0.6
+        ],
+        "p_value_permutation": 1.0,
+        "significant": false,
+        "ties": 4
+      },
+      "abstention RAG contre extractive": {
+        "n": 1,
+        "mean_a": 1.0,
+        "mean_b": 0.0,
+        "difference": 1.0,
+        "ci95_difference": [
+          1.0,
+          1.0
+        ],
+        "p_value_permutation": 1.0,
+        "significant": false,
+        "ties": 0
+      },
+      "F1 relations v2 contre v1 (extraction seule)": {
+        "n_projects": 2,
+        "f1_a": 0.381,
+        "f1_b": 0.381,
+        "difference": 0.0,
+        "ci95_difference": [
+          0.0,
+          0.0
+        ],
+        "p_value_permutation": 1.0,
+        "significant": false
+      }
+    },
+    "test2": {
+      "MRR e5 fine-tune contre e5 de base": {
+        "n": 28,
+        "mean_a": 0.7393,
+        "mean_b": 0.6631,
+        "difference": 0.0762,
+        "ci95_difference": [
+          -0.0083,
+          0.1667
+        ],
+        "p_value_permutation": 0.1633,
+        "significant": false,
+        "ties": 20
+      },
+      "MRR hybride contre dense fine-tune": {
+        "n": 28,
+        "mean_a": 0.7738,
+        "mean_b": 0.7393,
+        "difference": 0.0345,
+        "ci95_difference": [
+          -0.0429,
+          0.1131
+        ],
+        "p_value_permutation": 0.4784,
+        "significant": false,
+        "ties": 21
+      },
+      "reponse finale RAG contre extractive": {
+        "n": 20,
+        "mean_a": 1.0,
+        "mean_b": 0.8,
+        "difference": 0.2,
+        "ci95_difference": [
+          0.05,
+          0.4
+        ],
+        "p_value_permutation": 0.126,
+        "significant": false,
+        "ties": 16
+      },
+      "abstention RAG contre extractive": {
+        "n": 8,
+        "mean_a": 0.875,
+        "mean_b": 0.125,
+        "difference": 0.75,
+        "ci95_difference": [
+          0.375,
+          1.0
+        ],
+        "p_value_permutation": 0.0316,
+        "significant": true,
+        "ties": 2
+      }
+    }
+  }
+}

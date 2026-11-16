@@ -41,8 +41,8 @@ def all_numbers(node: object) -> set[float]:
 def test_every_three_decimal_number_of_the_readme_exists_in_a_results_json() -> None:
     known = set()
     for name in ("retrieval_dev.json", "retrieval_test.json", "extraction.json", "real_qmsum.json", "agent_dev.json", "agent_test.json", "agent_extracted_dev.json", "rag_dev.json", "rag_test.json",
-                 "architectures_dev.json", "architectures_test.json", "relations_v2.json", "test2.json"):
-        known |= {fr(v) for v in all_numbers(load(name))}
+                 "architectures_dev.json", "architectures_test.json", "relations_v2.json", "test2.json", "stats.json"):
+        known |= {fr(abs(v)) for v in all_numbers(load(name))}  # le signe est lu a part (differences des tests apparies)
     cited = set(re.findall(r"(?<![\d,])\d,\d{3}(?![\d])", README))
     assert cited, "aucun chiffre trouve dans le README"
     assert cited <= known, f"chiffres du README absents des JSON : {sorted(cited - known)}"
@@ -446,6 +446,29 @@ def test_test2_section_is_built_from_the_json() -> None:
     assert f"{thousands(ex['groq_tokens'])} tokens Groq" in section
     assert "après lecture des interfaces de l'agent, ce qui peut le rendre plus favorable au système" in section
     assert "relations" not in st  # seconde passe de liaison non lancee sur ce jeu
+
+
+def test_stats_tables_are_built_from_the_json() -> None:
+    section = README.split("### Intervalles de confiance et significativité")[1].split("\n## ")[0]
+    s = load("stats.json")
+    sg = lambda v: f"{v:+.3f}".replace(".", ",")  # noqa: E731
+    for key, label in (("MRR e5_finetuned", "MRR e5-small fine-tuné"), ("MRR hybrid_rrf", "MRR hybride RRF"),
+                       ("reponse finale extractive", "Réponse finale extractive"), ("reponse finale RAG", "Réponse finale RAG contrôlé"),
+                       ("abstention RAG", "Abstention RAG contrôlé"), ("F1 unites", "F1 des unités extraites"), ("F1 relations strict", "F1 strict des relations")):
+        cells = [f"{fr(v['estimate'])} [{fr(v['ci95'][0])} ; {fr(v['ci95'][1])}]" for v in (s["intervals"][sp][key] for sp in ("dev", "test", "test2"))]
+        assert f"| {label} | " + " | ".join(cells) + " |" in section, label
+    for key, label in (("MRR e5 fine-tune contre e5 de base", "e5 fine-tuné contre e5 de base (MRR)"),
+                       ("reponse finale RAG contre extractive", "RAG contre extractif (réponse juste)"),
+                       ("abstention RAG contre extractive", "RAG contre extractif (abstention)")):
+        cells = []
+        for sp in ("dev", "test", "test2"):
+            t = s["paired_tests"][sp][key]
+            cell = f"{sg(t['difference'])} [{sg(t['ci95_difference'][0])} ; {sg(t['ci95_difference'][1])}], p = {fr(t['p_value_permutation'])}"
+            cells.append(cell + (", significatif" if t["significant"] else ""))
+        assert f"| {label} | " + " | ".join(cells) + " |" in section, label
+    head = README.split("## Évaluer le projet en 5 minutes")[1].split("\n## ")[0]
+    ft = s["intervals"]["dev"]["MRR e5_finetuned"]["ci95"]
+    assert f"intervalle à 95 % du MRR fine-tuné : [{fr(ft[0])} ; {fr(ft[1])}] en dev" in head
 
 
 def test_five_minute_section_figures_come_from_the_json() -> None:

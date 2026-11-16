@@ -8,10 +8,10 @@ Vidéo de la démonstration (parcours Atlas en sept étapes) : [demo_atlas.webm,
 
 Cinq chiffres clés, tirés de `eval/results` (développement, puis test scellé quand il existe) :
 
-- fine-tuning contrastif des embeddings : MRR de 0,526 à 0,716 en dev, de 0,640 à 0,750 en test scellé (`retrieval_dev.json`, `retrieval_test.json`) ;
+- fine-tuning contrastif des embeddings : MRR de 0,526 à 0,716 en dev, de 0,640 à 0,750 en test scellé (`retrieval_dev.json`, `retrieval_test.json`) ; intervalle à 95 % du MRR fine-tuné : [0,586 ; 0,841] en dev ; gain significatif en dev, non significatif en test scellé et sur le test scellé élargi (`stats.json`) ;
 - comparaison d'architectures : aucun autre modèle fine-tuné ne dépasse e5-small en dev (e5-base 0,693, MiniLM-L12 0,611, contre 0,716), e5-small reste en production (`architectures_dev.json`) ;
-- réponse finale avec le RAG contrôlé : unité attendue citée pour 24 requêtes sur 25 en dev et 5 sur 5 en test scellé (`rag_dev.json`, `rag_test.json`) ;
-- abstention avec le RAG contrôlé : 4 requêtes sans réponse sur 5 en dev, 1 sur 1 en test scellé, 0 réponse à tort sur 6 sondes (`rag_dev.json`) ;
+- réponse finale avec le RAG contrôlé : unité attendue citée pour 24 requêtes sur 25 en dev et 5 sur 5 en test scellé (`rag_dev.json`, `rag_test.json`) ; intervalle à 95 % en dev : [0,880 ; 1,000] ; gain sur la réponse extractive significatif en dev seulement ;
+- abstention avec le RAG contrôlé : 4 requêtes sans réponse sur 5 en dev, 1 sur 1 en test scellé, 0 réponse à tort sur 6 sondes (`rag_dev.json`) ; intervalle à 95 % en dev : [0,400 ; 1,000] ; gain sur l'extractif significatif seulement sur le test scellé élargi (7 sur 8 contre 1 sur 8) ;
 - chaîne complète sur la mémoire produite par l'extraction automatique : 10 réponses justes sur 20, contre 13 sur 20 avec la mémoire annotée, sur les mêmes requêtes (`agent_extracted_dev.json`).
 
 Lancer la démonstration (Python 3.12 et uv ; l'entraînement du modèle prend quelques minutes sur CPU et télécharge le modèle de base) :
@@ -348,6 +348,30 @@ Extraction figée, projets 13 et 14 seulement : un appel Groq a échoué sur la 
 | Relations strictes, F1 | 0,480 |
 
 L'extraction a consommé 30 622 tokens Groq (7 appels réussis). Ces scores, plus élevés qu'au dev, portent sur deux projets seulement, aux transcripts plus courts que ceux du corpus de départ.
+
+### Intervalles de confiance et significativité
+
+Fichier `stats.json`, produit par `eval/stats.py` : intervalle de confiance à 95 % par bootstrap (10 000 tirages, graine fixe), par requête pour les métriques par requête, par projet pour les F1 d'extraction ; tests appariés (intervalle bootstrap de la différence et test de permutation bilatéral). Un écart est dit significatif si p < 0,05 et si l'intervalle de la différence exclut 0. Les valeurs par requête de la recherche en dev et en test sont recalculées par le même code, qui vérifie qu'elles redonnent exactement les moyennes publiées.
+
+| Mesure | Dev | Test scellé | Test scellé élargi |
+|---|---|---|---|
+| MRR e5-small fine-tuné | 0,716 [0,586 ; 0,841] | 0,750 [0,450 ; 1,000] | 0,739 [0,596 ; 0,875] |
+| MRR hybride RRF | 0,708 [0,581 ; 0,828] | 0,850 [0,550 ; 1,000] | 0,774 [0,649 ; 0,887] |
+| Réponse finale extractive | 0,680 [0,480 ; 0,840] | 0,800 [0,400 ; 1,000] | 0,800 [0,600 ; 0,950] |
+| Réponse finale RAG contrôlé | 0,960 [0,880 ; 1,000] | 1,000 [1,000 ; 1,000] | 1,000 [1,000 ; 1,000] |
+| Abstention RAG contrôlé | 0,800 [0,400 ; 1,000] | 1,000 [1,000 ; 1,000] | 0,875 [0,625 ; 1,000] |
+| F1 des unités extraites | 0,852 [0,825 ; 0,877] | 0,829 [0,800 ; 0,857] | 0,952 [0,941 ; 0,963] |
+| F1 strict des relations | 0,406 [0,338 ; 0,467] | 0,381 [0,250 ; 0,556] | 0,480 [0,462 ; 0,500] |
+
+| Comparaison | Dev | Test scellé | Test scellé élargi |
+|---|---|---|---|
+| e5 fine-tuné contre e5 de base (MRR) | +0,190 [+0,047 ; +0,342], p = 0,019, significatif | +0,110 [+0,000 ; +0,310], p = 0,505 | +0,076 [-0,008 ; +0,167], p = 0,163 |
+| hybride contre dense fine-tuné (MRR) | -0,008 [-0,099 ; +0,082], p = 0,928 | +0,100 [+0,000 ; +0,300], p = 1,000 | +0,035 [-0,043 ; +0,113], p = 0,478 |
+| RAG contre extractif (réponse juste) | +0,280 [+0,120 ; +0,480], p = 0,015, significatif | +0,200 [+0,000 ; +0,600], p = 1,000 | +0,200 [+0,050 ; +0,400], p = 0,126 |
+| RAG contre extractif (abstention) | +0,800 [+0,400 ; +1,000], p = 0,128 | +1,000 [+1,000 ; +1,000], p = 1,000 | +0,750 [+0,375 ; +1,000], p = 0,032, significatif |
+| relations v2 contre extraction seule (F1 strict) | -0,003 [-0,015 ; +0,000], p = 1,000 | +0,000 [+0,000 ; +0,000], p = 1,000 | non mesuré |
+
+Ce qui est significatif : le gain du fine-tuning et celui du RAG sur la réponse juste, en dev seulement (le dev a servi au réglage), et le gain du RAG sur l'abstention, sur le test scellé élargi seulement. Ce qui ne l'est pas : l'hybride contre le dense seul, partout ; tous les écarts du test scellé, qui ne compte que 5 requêtes avec réponse et 1 sans réponse, si bien qu'aucun test de permutation n'y peut conclure ; la seconde passe de liaison. Sur le test scellé élargi, le fine-tuning et le RAG vont dans le même sens qu'en dev sans que l'écart soit établi. Les intervalles par projet du test scellé (2 projets) et du test scellé élargi (2 projets mesurés) sont trop grossiers pour être interprétés. En test scellé, le BM25 n'avait jamais été mesuré : il est recalculé ici (MRR de 0,707).
 
 ## Limites assumées
 
