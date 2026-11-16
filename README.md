@@ -307,6 +307,48 @@ Les comités du Parlement gallois sont isolés, car leur licence de réutilisati
 
 Le fine-tuning sur le corpus français s'applique à l'anglais sans dégradation mesurable sur le global hors Pays de Galles : le nDCG@10 passe de 0,317 à 0,338, le MRR reste à 0,622 et le Hit@5 varie à peine (0,806 puis 0,796). Il recule en revanche sur Academic (MRR de 0,586 à 0,514). Sur ce même global, l'hybride (nDCG@10 de 0,312) reste sous le e5 fine-tuné (0,338) ; il obtient le meilleur nDCG@10 sur les comités et le meilleur Hit@10 sur Product (0,922). BM25 est le plus faible des quatre systèmes sur Product et Academic ; une explication possible, non testée ici, est que la parole transcrite (hésitations, phrases inachevées, reformulations) se prête mal à une correspondance de mots exacts, ce qui pèserait aussi sur l'hybride. Le Recall@K, présent dans le JSON, est peu lisible ici : les intervalles couvrent souvent des dizaines de tours, si bien que même un classement parfait plafonne en moyenne à 0,163 de Recall@5 sur Product.
 
+### Test scellé élargi (projets 13 à 16)
+
+Fichier `test2.json`, produit par `eval/eval_test2.py`. Quatre projets fictifs de domaines nouveaux (déménagement du siège, flotte de véhicules, rappel d'un lot de produits, rapport annuel), 3 réunions chacun, soit 12 réunions, 102 unités et 61 relations (`data/test2`), et 40 requêtes (`data/eval/queries_test2.json`) : 20 simples (4 par catégorie), 8 sans réponse, 8 questions complexes dont la réponse demande plusieurs unités, 4 demandes de dossier avec la liste attendue des unités. Ce jeu a été rédigé par l'assistant de développement avant toute exécution, et gelé avec l'empreinte SHA-256 de chaque fichier (`data/eval/test2_manifest.json`) ; il n'a jamais servi à un réglage. Il a été rédigé après lecture des interfaces de l'agent, ce qui peut le rendre plus favorable au système qu'un jeu rédigé par un tiers. Chaque mesure provient d'une seule exécution, avec la configuration actuelle et sans réentraîner le modèle.
+
+Recherche, 28 requêtes avec réponse (simples et complexes) :
+
+| Système | Recall@3 | Recall@5 | MRR | nDCG@5 |
+|---|---|---|---|---|
+| BM25 | 0,745 | 0,857 | 0,749 | 0,754 |
+| e5-small de base | 0,714 | 0,834 | 0,663 | 0,689 |
+| e5-small fine-tuné | 0,760 | 0,825 | 0,739 | 0,738 |
+| Hybride RRF (agent) | 0,860 | 0,896 | 0,774 | 0,793 |
+
+Réponse de l'agent :
+
+| Mesure | Extractive | RAG contrôlé |
+|---|---|---|
+| Requêtes simples, réponse juste | 16/20 | 20/20 |
+| Requêtes sans réponse, abstention | 1/8 | 7/8 |
+| Questions complexes, unités attendues affichées | 7/24 | 13/24 |
+| Questions complexes entièrement couvertes | 1/8 | 2/8 |
+
+Sur ce jeu, BM25 dépasse e5-small fine-tuné en MRR (0,749 contre 0,739) ; l'hybride reste le meilleur des quatre. La réponse extractive n'affiche qu'une unité : elle couvre mal les questions complexes, que le RAG contrôlé couvre mieux sans les couvrir entièrement. Les 27 synthèses du RAG ont toutes des citations valides ; il a consommé 21 681 tokens Groq (33 appels, cache local non versionné).
+
+Dossiers : 20 des 24 unités attendues sont citées, et aucune unité citée n'est sans source dans son transcript. Les trois dossiers qui répondent citent toutes leurs unités attendues ; le quatrième (« Prépare le dossier sur le choix du loueur ») s'abstient, son sujet passant sous le seuil de similarité.
+
+Extraction figée, projets 13 et 14 seulement : un appel Groq a échoué sur la première réunion du projet 15 ; selon la règle fixée avant l'exécution (ordre 13, 14, 15, 16, arrêt au dernier projet complet), les projets 15 et 16 ne sont pas mesurés, et la seconde passe de liaison n'a pas été lancée sur ce jeu.
+
+| Mesure | Projets 13 et 14 |
+|---|---|
+| Unités annotées, extraites, appariées | 52, 53, 50 |
+| Précision des unités | 0,943 |
+| Rappel des unités | 0,962 |
+| F1 des unités | 0,952 |
+| Type exact | 48/50 (0,960) |
+| Relations annotées, extraites | 31, 19 |
+| Relations strictes, précision | 0,632 |
+| Relations strictes, rappel | 0,387 |
+| Relations strictes, F1 | 0,480 |
+
+L'extraction a consommé 30 622 tokens Groq (7 appels réussis). Ces scores, plus élevés qu'au dev, portent sur deux projets seulement, aux transcripts plus courts que ceux du corpus de départ.
+
 ## Limites assumées
 
 - Relations : c'est la partie la plus faible, avec un F1 strict de 0,406 en dev et 0,381 en test. L'analyse des erreurs du dev 04-10 (`eval/results/relation_errors_dev.json`) montre qu'aucune relation prédite n'est fausse à cause de son seul sens. Sur les 54 relations prédites, 28 sont justes ; parmi les erreurs, 16 relient une unité absente de l'annotation et 7 visent la mauvaise cible. Sur les 84 relations annotées, 56 sont manquées, dont 27 jamais proposées (15 supports). Une seconde passe de liaison par LLM n'a pas amélioré ce score (F1 strict de 0,403 en dev et 0,381 en test scellé, `relations_v2.json`) : ce résultat négatif est décrit plus haut.
@@ -325,6 +367,7 @@ Le fine-tuning sur le corpus français s'applique à l'anglais sans dégradation
 - Règle du responsable : la personne qui doit réaliser une tâche est le premier participant nommé dans l'énoncé de l'unité. Cette heuristique est vérifiée sur le corpus, mais elle n'est pas généralisable telle quelle.
 - Routage et brouillon d'email : la détection d'intention et la préparation des brouillons sont couvertes par des tests automatiques sur des exemples des projets de développement (`tests/test_agent_logic.py`), mais ne font encore l'objet d'aucune mesure chiffrée.
 - Ingestion et agent reliés en partie seulement : le parcours de démonstration, les mesures de l'agent et l'évaluation de la recherche lisent la mémoire annotée (`data/raw`). La mémoire extraite n'existe que pour les projets 04 à 12, n'est mesurée que sur 20 requêtes, et la réponse finale y est moins souvent juste (10/20 contre 13/20 sur les mêmes requêtes). Avec des relations à 0,40 de F1 strict, la résolution des décisions remplacées y est nettement moins fiable.
+- Test scellé élargi : rédigé par l'assistant de développement après lecture des interfaces de l'agent, il peut être plus favorable au système qu'un jeu rédigé par un tiers ; l'extraction n'y est mesurée que sur 2 projets sur 4.
 - Corpus fictif : les 12 projets ont été écrits pour le projet. Sur QMSum, la majorité des réunions Product (AMI) sont elles aussi jouées selon un scénario.
 
 ## Démonstration

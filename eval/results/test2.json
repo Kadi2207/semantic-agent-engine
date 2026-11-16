@@ -1,0 +1,3555 @@
+{
+  "description": "Test scelle elargi : projets 13 a 16, redige par l'assistant de developpement avant toute execution",
+  "script": "eval/eval_test2.py",
+  "frozen_files": {
+    "data/test2/projet_13_demenagement_siege.json": "ab1b6f10cc356e66f5bb371e0ae8434bb9822adefd4334df97ce3661d7a2a7a5",
+    "data/test2/projet_14_flotte_vehicules.json": "1c3a0fb2dd52e1b9a096ce52febc60efbfbc047199baf3960479fec683668c36",
+    "data/test2/projet_15_rappel_produit.json": "a4f169b8f6b72f09ceeb268485109f2887ca04c0e4d1cb6189a93a72dbe14235",
+    "data/test2/projet_16_rapport_annuel.json": "46203ee9254366cd77ffcf04bf511fe5ba3aa8b9b83603fd0306bf947b5f573f",
+    "data/eval/queries_test2.json": "7f86bc0bbb51af98fbb95da96b351678d15bac3d010d8b05804331e7d71a41a7"
+  },
+  "queries": {
+    "file": "data/eval/queries_test2.json",
+    "total": 40,
+    "by_type": {
+      "decision_active": 4,
+      "reformulation": 4,
+      "responsable_reel": 4,
+      "negation": 4,
+      "engagement": 4,
+      "sans_reponse": 8,
+      "complexe": 8,
+      "dossier": 4
+    }
+  },
+  "models": {
+    "e5_finetuned": {
+      "model": "models/e5-finetuned",
+      "weights_sha256": "b87f48d52487225b10033892140cad97f050ad8868852616b5c7a41051e50458",
+      "training": {
+        "source": "scripts/train_embeddings.py",
+        "base_model": "intfloat/multilingual-e5-small",
+        "epochs": 3,
+        "batch_size": 16,
+        "warmup_ratio": 0.1,
+        "learning_rate": 2e-05,
+        "seed": 42
+      }
+    },
+    "retrained": false
+  },
+  "quota": {
+    "limit_tokens_per_day": 200000,
+    "baseline_today_before_test2": 97283,
+    "test2_tokens": {
+      "offline": 0,
+      "rag": 21681,
+      "extraction": 30622
+    },
+    "total_today_after_test2": 149586
+  },
+  "stages": {
+    "offline": {
+      "status": "execution unique d'enregistrement sur le test scelle elargi, configuration actuelle, aucun reglage",
+      "retrieval": {
+        "queries": 28,
+        "top_k": 5,
+        "metrics": [
+          "Recall@3",
+          "Recall@5",
+          "MRR",
+          "nDCG@5"
+        ],
+        "results": {
+          "bm25": {
+            "global": {
+              "n": 28,
+              "Recall@3": 0.7452380952380953,
+              "Recall@5": 0.8565476190476191,
+              "MRR": 0.7494047619047619,
+              "nDCG@5": 0.7536566469206754
+            },
+            "simples": {
+              "n": 20,
+              "Recall@3": 0.9,
+              "Recall@5": 0.95,
+              "MRR": 0.8016666666666667,
+              "nDCG@5": 0.8389821033974456
+            },
+            "complexe": {
+              "n": 8,
+              "Recall@3": 0.35833333333333334,
+              "Recall@5": 0.6229166666666667,
+              "MRR": 0.61875,
+              "nDCG@5": 0.5403430057287494
+            },
+            "per_category": {
+              "decision_active": {
+                "n": 4,
+                "Recall@3": 0.5,
+                "Recall@5": 0.75,
+                "MRR": 0.425,
+                "nDCG@5": 0.5044456402014998
+              },
+              "reformulation": {
+                "n": 4,
+                "Recall@3": 1.0,
+                "Recall@5": 1.0,
+                "MRR": 0.7083333333333334,
+                "nDCG@5": 0.7827324383928644
+              },
+              "responsable_reel": {
+                "n": 4,
+                "Recall@3": 1.0,
+                "Recall@5": 1.0,
+                "MRR": 1.0,
+                "nDCG@5": 1.0
+              },
+              "negation": {
+                "n": 4,
+                "Recall@3": 1.0,
+                "Recall@5": 1.0,
+                "MRR": 0.875,
+                "nDCG@5": 0.9077324383928644
+              },
+              "engagement": {
+                "n": 4,
+                "Recall@3": 1.0,
+                "Recall@5": 1.0,
+                "MRR": 1.0,
+                "nDCG@5": 1.0
+              }
+            }
+          },
+          "e5_base": {
+            "global": {
+              "n": 28,
+              "Recall@3": 0.7136904761904762,
+              "Recall@5": 0.8339285714285715,
+              "MRR": 0.6630952380952381,
+              "nDCG@5": 0.689456098230367
+            },
+            "simples": {
+              "n": 20,
+              "Recall@3": 0.8,
+              "Recall@5": 0.85,
+              "MRR": 0.6433333333333333,
+              "nDCG@5": 0.6955285910760185
+            },
+            "complexe": {
+              "n": 8,
+              "Recall@3": 0.4979166666666667,
+              "Recall@5": 0.79375,
+              "MRR": 0.7125,
+              "nDCG@5": 0.6742748661162383
+            },
+            "per_category": {
+              "decision_active": {
+                "n": 4,
+                "Recall@3": 0.5,
+                "Recall@5": 0.5,
+                "MRR": 0.20833333333333331,
+                "nDCG@5": 0.2827324383928644
+              },
+              "reformulation": {
+                "n": 4,
+                "Recall@3": 0.75,
+                "Recall@5": 0.75,
+                "MRR": 0.5,
+                "nDCG@5": 0.5654648767857288
+              },
+              "responsable_reel": {
+                "n": 4,
+                "Recall@3": 0.75,
+                "Recall@5": 1.0,
+                "MRR": 0.8,
+                "nDCG@5": 0.8467132018086354
+              },
+              "negation": {
+                "n": 4,
+                "Recall@3": 1.0,
+                "Recall@5": 1.0,
+                "MRR": 0.875,
+                "nDCG@5": 0.9077324383928644
+              },
+              "engagement": {
+                "n": 4,
+                "Recall@3": 1.0,
+                "Recall@5": 1.0,
+                "MRR": 0.8333333333333334,
+                "nDCG@5": 0.875
+              }
+            }
+          },
+          "e5_finetuned": {
+            "global": {
+              "n": 28,
+              "Recall@3": 0.7595238095238095,
+              "Recall@5": 0.8250000000000001,
+              "MRR": 0.7392857142857142,
+              "nDCG@5": 0.7380469526587506
+            },
+            "simples": {
+              "n": 20,
+              "Recall@3": 0.8,
+              "Recall@5": 0.85,
+              "MRR": 0.6849999999999999,
+              "nDCG@5": 0.7270750787545914
+            },
+            "complexe": {
+              "n": 8,
+              "Recall@3": 0.6583333333333333,
+              "Recall@5": 0.7625,
+              "MRR": 0.875,
+              "nDCG@5": 0.7654766374191487
+            },
+            "per_category": {
+              "decision_active": {
+                "n": 4,
+                "Recall@3": 0.5,
+                "Recall@5": 0.5,
+                "MRR": 0.25,
+                "nDCG@5": 0.31546487678572877
+              },
+              "reformulation": {
+                "n": 4,
+                "Recall@3": 0.75,
+                "Recall@5": 0.75,
+                "MRR": 0.625,
+                "nDCG@5": 0.6577324383928644
+              },
+              "responsable_reel": {
+                "n": 4,
+                "Recall@3": 0.75,
+                "Recall@5": 1.0,
+                "MRR": 0.8,
+                "nDCG@5": 0.8467132018086354
+              },
+              "negation": {
+                "n": 4,
+                "Recall@3": 1.0,
+                "Recall@5": 1.0,
+                "MRR": 0.875,
+                "nDCG@5": 0.9077324383928644
+              },
+              "engagement": {
+                "n": 4,
+                "Recall@3": 1.0,
+                "Recall@5": 1.0,
+                "MRR": 0.875,
+                "nDCG@5": 0.9077324383928644
+              }
+            }
+          },
+          "hybrid_rrf": {
+            "global": {
+              "n": 28,
+              "Recall@3": 0.8595238095238095,
+              "Recall@5": 0.8964285714285715,
+              "MRR": 0.7738095238095238,
+              "nDCG@5": 0.7933315214409582
+            },
+            "simples": {
+              "n": 20,
+              "Recall@3": 0.95,
+              "Recall@5": 0.95,
+              "MRR": 0.7833333333333333,
+              "nDCG@5": 0.8261859507142916
+            },
+            "complexe": {
+              "n": 8,
+              "Recall@3": 0.6333333333333333,
+              "Recall@5": 0.7625,
+              "MRR": 0.75,
+              "nDCG@5": 0.7111954482576248
+            },
+            "per_category": {
+              "decision_active": {
+                "n": 4,
+                "Recall@3": 0.75,
+                "Recall@5": 0.75,
+                "MRR": 0.4583333333333333,
+                "nDCG@5": 0.5327324383928644
+              },
+              "reformulation": {
+                "n": 4,
+                "Recall@3": 1.0,
+                "Recall@5": 1.0,
+                "MRR": 0.7083333333333334,
+                "nDCG@5": 0.7827324383928644
+              },
+              "responsable_reel": {
+                "n": 4,
+                "Recall@3": 1.0,
+                "Recall@5": 1.0,
+                "MRR": 0.875,
+                "nDCG@5": 0.9077324383928644
+              },
+              "negation": {
+                "n": 4,
+                "Recall@3": 1.0,
+                "Recall@5": 1.0,
+                "MRR": 0.875,
+                "nDCG@5": 0.9077324383928644
+              },
+              "engagement": {
+                "n": 4,
+                "Recall@3": 1.0,
+                "Recall@5": 1.0,
+                "MRR": 1.0,
+                "nDCG@5": 1.0
+              }
+            }
+          },
+          "per_query": {
+            "bm25": {
+              "q_test2_001": [
+                0.0,
+                1.0,
+                0.2,
+                0.38685280723454163
+              ],
+              "q_test2_002": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_003": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_004": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_005": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_008": [
+                0.0,
+                0.25,
+                0.25,
+                0.16812753627111746
+              ],
+              "q_test2_009": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "q_test2_011": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_012": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_013": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_014": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_015": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_018": [
+                0.5,
+                1.0,
+                1.0,
+                0.8772153153380493
+              ],
+              "q_test2_019": [
+                0.0,
+                0.3333333333333333,
+                0.2,
+                0.18154179253735267
+              ],
+              "q_test2_021": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_022": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_023": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_024": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_025": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_028": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_029": [
+                0.6666666666666666,
+                1.0,
+                1.0,
+                0.8854598815714874
+              ],
+              "q_test2_031": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "q_test2_032": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_033": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_034": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_035": [
+                1.0,
+                1.0,
+                0.3333333333333333,
+                0.5
+              ],
+              "q_test2_038": [
+                0.2,
+                0.4,
+                0.5,
+                0.36005461457723403
+              ],
+              "q_test2_039": [
+                0.5,
+                1.0,
+                1.0,
+                0.8503449055347546
+              ]
+            },
+            "e5_base": {
+              "q_test2_001": [
+                1.0,
+                1.0,
+                0.3333333333333333,
+                0.5
+              ],
+              "q_test2_002": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_003": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_004": [
+                1.0,
+                1.0,
+                0.3333333333333333,
+                0.5
+              ],
+              "q_test2_005": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_008": [
+                0.25,
+                0.25,
+                0.5,
+                0.24630238874073
+              ],
+              "q_test2_009": [
+                0.0,
+                0.5,
+                0.2,
+                0.23719771276929622
+              ],
+              "q_test2_011": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "q_test2_012": [
+                0.0,
+                1.0,
+                0.2,
+                0.38685280723454163
+              ],
+              "q_test2_013": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_014": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_015": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_018": [
+                0.5,
+                1.0,
+                1.0,
+                0.8772153153380493
+              ],
+              "q_test2_019": [
+                0.6666666666666666,
+                1.0,
+                1.0,
+                0.8854598815714874
+              ],
+              "q_test2_021": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_022": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_023": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_024": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_025": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_028": [
+                0.6666666666666666,
+                1.0,
+                1.0,
+                0.9674679834891693
+              ],
+              "q_test2_029": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_031": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "q_test2_032": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_033": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_034": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_035": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "q_test2_038": [
+                0.4,
+                0.6,
+                0.5,
+                0.5296347172140421
+              ],
+              "q_test2_039": [
+                0.5,
+                1.0,
+                0.5,
+                0.6509209298071326
+              ]
+            },
+            "e5_finetuned": {
+              "q_test2_001": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_002": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_003": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_004": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_005": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_008": [
+                0.5,
+                0.5,
+                1.0,
+                0.6366824387328317
+              ],
+              "q_test2_009": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "q_test2_011": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "q_test2_012": [
+                0.0,
+                1.0,
+                0.2,
+                0.38685280723454163
+              ],
+              "q_test2_013": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_014": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_015": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_018": [
+                1.0,
+                1.0,
+                1.0,
+                0.9197207891481876
+              ],
+              "q_test2_019": [
+                0.6666666666666666,
+                1.0,
+                1.0,
+                0.9674679834891693
+              ],
+              "q_test2_021": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_022": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_023": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_024": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_025": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_028": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_029": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_031": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "q_test2_032": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_033": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_034": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_035": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "q_test2_038": [
+                0.6,
+                0.6,
+                1.0,
+                0.7227265726449519
+              ],
+              "q_test2_039": [
+                0.5,
+                1.0,
+                1.0,
+                0.8772153153380493
+              ]
+            },
+            "hybrid_rrf": {
+              "q_test2_001": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_002": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_003": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_004": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_005": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_008": [
+                0.5,
+                0.5,
+                1.0,
+                0.6366824387328317
+              ],
+              "q_test2_009": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "q_test2_011": [
+                1.0,
+                1.0,
+                0.3333333333333333,
+                0.5
+              ],
+              "q_test2_012": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_013": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_014": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_015": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_018": [
+                0.5,
+                1.0,
+                1.0,
+                0.8772153153380493
+              ],
+              "q_test2_019": [
+                0.6666666666666666,
+                1.0,
+                1.0,
+                0.9674679834891693
+              ],
+              "q_test2_021": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_022": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_023": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_024": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_025": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_028": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_029": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_031": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "q_test2_032": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_033": [
+                1.0,
+                1.0,
+                0.5,
+                0.6309297535714575
+              ],
+              "q_test2_034": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "q_test2_035": [
+                1.0,
+                1.0,
+                0.3333333333333333,
+                0.5
+              ],
+              "q_test2_038": [
+                0.4,
+                0.6,
+                0.5,
+                0.5147714448836774
+              ],
+              "q_test2_039": [
+                1.0,
+                1.0,
+                0.5,
+                0.6934264036172708
+              ]
+            }
+          }
+        }
+      },
+      "final_answer": {
+        "global": {
+          "n": 20,
+          "correct": 16,
+          "abstained": 0,
+          "resolved": 3,
+          "unresolved_conflict": 0
+        },
+        "per_category": {
+          "decision_active": {
+            "n": 4,
+            "correct": 3,
+            "abstained": 0,
+            "resolved": 2,
+            "unresolved_conflict": 0
+          },
+          "reformulation": {
+            "n": 4,
+            "correct": 3,
+            "abstained": 0,
+            "resolved": 1,
+            "unresolved_conflict": 0
+          },
+          "responsable_reel": {
+            "n": 4,
+            "correct": 3,
+            "abstained": 0,
+            "resolved": 0,
+            "unresolved_conflict": 0
+          },
+          "negation": {
+            "n": 4,
+            "correct": 3,
+            "abstained": 0,
+            "resolved": 0,
+            "unresolved_conflict": 0
+          },
+          "engagement": {
+            "n": 4,
+            "correct": 4,
+            "abstained": 0,
+            "resolved": 0,
+            "unresolved_conflict": 0
+          }
+        },
+        "per_query": [
+          {
+            "query_id": "q_test2_001",
+            "project_id": "projet_13",
+            "piege": "decision_active",
+            "relevant_unit_ids": [
+              "p13_u20"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.647286,
+            "retrieved_unit_id": "p13_u20",
+            "final_unit_id": "p13_u20",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Le déménagement est repoussé au week-end du 31 octobre, dernier jour du bail.",
+            "shown_ids": [
+              "p13_u20"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_002",
+            "project_id": "projet_13",
+            "piege": "responsable_reel",
+            "relevant_unit_ids": [
+              "p13_u08"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.725106,
+            "retrieved_unit_id": "p13_u08",
+            "final_unit_id": "p13_u08",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Inès commande les nouvelles bornes wifi d'ici vendredi.",
+            "shown_ids": [
+              "p13_u08"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_003",
+            "project_id": "projet_13",
+            "piege": "negation",
+            "relevant_unit_ids": [
+              "p13_u06"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.614578,
+            "retrieved_unit_id": "p13_u06",
+            "final_unit_id": "p13_u06",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Demeco Rhône est retenu comme déménageur ; Transalp n'est pas retenu, car trop cher.",
+            "shown_ids": [
+              "p13_u06"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_004",
+            "project_id": "projet_13",
+            "piege": "engagement",
+            "relevant_unit_ids": [
+              "p13_u23"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.724373,
+            "retrieved_unit_id": "p13_u23",
+            "final_unit_id": "p13_u23",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Inès s'engage à ce que le réseau des nouveaux locaux soit opérationnel le 30 octobre, avec un câblage accéléré en une semaine.",
+            "shown_ids": [
+              "p13_u23"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_005",
+            "project_id": "projet_13",
+            "piege": "reformulation",
+            "relevant_unit_ids": [
+              "p13_u17"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.589514,
+            "retrieved_unit_id": "p13_u17",
+            "final_unit_id": "p13_u17",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Le parking des nouveaux locaux coûte 4 200 euros par an de plus que l'actuel.",
+            "shown_ids": [
+              "p13_u17"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_011",
+            "project_id": "projet_14",
+            "piege": "decision_active",
+            "relevant_unit_ids": [
+              "p14_u19"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.57508,
+            "retrieved_unit_id": "p14_u03",
+            "final_unit_id": "p14_u03",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Karim propose de remplacer les 18 véhicules par des électriques en location longue durée.",
+            "shown_ids": [
+              "p14_u03"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_012",
+            "project_id": "projet_14",
+            "piege": "responsable_reel",
+            "relevant_unit_ids": [
+              "p14_u21"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.629534,
+            "retrieved_unit_id": "p14_u20",
+            "final_unit_id": "p14_u20",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Le contrat de location doit être signé avant le 15 novembre pour une livraison en janvier.",
+            "shown_ids": [
+              "p14_u20"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_013",
+            "project_id": "projet_14",
+            "piege": "negation",
+            "relevant_unit_ids": [
+              "p14_u23"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.757256,
+            "retrieved_unit_id": "p14_u23",
+            "final_unit_id": "p14_u23",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Les sept techniciens grands rouleurs ne passent pas à l'électrique : ils gardent leurs véhicules hybrides actuels jusqu'à fin 2027.",
+            "shown_ids": [
+              "p14_u23"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_014",
+            "project_id": "projet_14",
+            "piege": "engagement",
+            "relevant_unit_ids": [
+              "p14_u06"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.699231,
+            "retrieved_unit_id": "p14_u06",
+            "final_unit_id": "p14_u06",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Karim lance la consultation auprès de trois loueurs d'ici fin septembre.",
+            "shown_ids": [
+              "p14_u06"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_015",
+            "project_id": "projet_14",
+            "piege": "reformulation",
+            "relevant_unit_ids": [
+              "p14_u08"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.649294,
+            "retrieved_unit_id": "p14_u08",
+            "final_unit_id": "p14_u08",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Il faut au moins dix bornes de recharge au dépôt pour que tous les véhicules rechargent la nuit.",
+            "shown_ids": [
+              "p14_u08"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_021",
+            "project_id": "projet_15",
+            "piege": "decision_active",
+            "relevant_unit_ids": [
+              "p15_u19"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.597542,
+            "retrieved_unit_id": "p15_u17",
+            "final_unit_id": "p15_u19",
+            "final_unit_status": "active",
+            "resolved": true,
+            "conflict_with": [],
+            "statement": "Les clients sont remboursés du paquet en caisse, sans bon d'achat.",
+            "shown_ids": [
+              "p15_u19"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_022",
+            "project_id": "projet_15",
+            "piege": "responsable_reel",
+            "relevant_unit_ids": [
+              "p15_u07"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.627348,
+            "retrieved_unit_id": "p15_u07",
+            "final_unit_id": "p15_u07",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Élodie doit prévenir la DGCCRF le jour même.",
+            "shown_ids": [
+              "p15_u07"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_023",
+            "project_id": "projet_15",
+            "piege": "negation",
+            "relevant_unit_ids": [
+              "p15_u12"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.821151,
+            "retrieved_unit_id": "p15_u12",
+            "final_unit_id": "p15_u12",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Les lots 2417 et 2419 ne sont pas rappelés.",
+            "shown_ids": [
+              "p15_u12"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_024",
+            "project_id": "projet_15",
+            "piege": "engagement",
+            "relevant_unit_ids": [
+              "p15_u21"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.600677,
+            "retrieved_unit_id": "p15_u21",
+            "final_unit_id": "p15_u21",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Élodie publie un point d'étape sur le site vendredi.",
+            "shown_ids": [
+              "p15_u21"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_025",
+            "project_id": "projet_15",
+            "piege": "reformulation",
+            "relevant_unit_ids": [
+              "p15_u14"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.676615,
+            "retrieved_unit_id": "p15_u01",
+            "final_unit_id": "p15_u01",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Le laboratoire a détecté des traces d'arachide non déclarées dans le lot 2418 de sablés au beurre.",
+            "shown_ids": [
+              "p15_u01"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_031",
+            "project_id": "projet_16",
+            "piege": "decision_active",
+            "relevant_unit_ids": [
+              "p16_u19"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.574982,
+            "retrieved_unit_id": "p16_u05",
+            "final_unit_id": "p16_u19",
+            "final_unit_status": "active",
+            "resolved": true,
+            "conflict_with": [],
+            "statement": "Le bon à tirer est avancé au 18 novembre, pour garder une marge avant l'assemblée générale.",
+            "shown_ids": [
+              "p16_u19"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_032",
+            "project_id": "projet_16",
+            "piege": "responsable_reel",
+            "relevant_unit_ids": [
+              "p16_u21"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.755949,
+            "retrieved_unit_id": "p16_u21",
+            "final_unit_id": "p16_u21",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Léa doit livrer la maquette complète du rapport avant le 12 novembre.",
+            "shown_ids": [
+              "p16_u21"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_033",
+            "project_id": "projet_16",
+            "piege": "negation",
+            "relevant_unit_ids": [
+              "p16_u16"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.79162,
+            "retrieved_unit_id": "p16_u15",
+            "final_unit_id": "p16_u15",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Le cabinet Ecovalor peut relire les chiffres RSE pour 3 500 euros.",
+            "shown_ids": [
+              "p16_u15"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_034",
+            "project_id": "projet_16",
+            "piege": "engagement",
+            "relevant_unit_ids": [
+              "p16_u06"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.881626,
+            "retrieved_unit_id": "p16_u06",
+            "final_unit_id": "p16_u06",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Léa livre la maquette des pages intérieures d'ici trois semaines.",
+            "shown_ids": [
+              "p16_u06"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_035",
+            "project_id": "projet_16",
+            "piege": "reformulation",
+            "relevant_unit_ids": [
+              "p16_u25"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.600837,
+            "retrieved_unit_id": "p16_u04",
+            "final_unit_id": "p16_u25",
+            "final_unit_status": "active",
+            "resolved": true,
+            "conflict_with": [],
+            "statement": "Le tirage du rapport annuel est réduit à 250 exemplaires pour tenir le budget.",
+            "shown_ids": [
+              "p16_u25"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          }
+        ]
+      },
+      "abstention": {
+        "n": 8,
+        "abstained": 1,
+        "per_query": [
+          {
+            "query_id": "q_test2_006",
+            "project_id": "projet_13",
+            "piege": "sans_reponse",
+            "relevant_unit_ids": [],
+            "abstained": false,
+            "best_dense_score": 0.560621,
+            "retrieved_unit_id": "p13_u17",
+            "final_unit_id": "p13_u17",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Le parking des nouveaux locaux coûte 4 200 euros par an de plus que l'actuel.",
+            "shown_ids": [
+              "p13_u17"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_007",
+            "project_id": "projet_13",
+            "piege": "sans_reponse",
+            "relevant_unit_ids": [],
+            "abstained": false,
+            "best_dense_score": 0.763973,
+            "retrieved_unit_id": "p13_u07",
+            "final_unit_id": "p13_u07",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Une note écrite doit être envoyée aux salariés au moins un mois avant le déménagement ; aucun responsable n'a été désigné.",
+            "shown_ids": [
+              "p13_u07"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_016",
+            "project_id": "projet_14",
+            "piege": "sans_reponse",
+            "relevant_unit_ids": [],
+            "abstained": false,
+            "best_dense_score": 0.548659,
+            "retrieved_unit_id": "p14_u05",
+            "final_unit_id": "p14_u05",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Les 18 véhicules en fin de contrat passent à l'électrique, sauf ceux des techniciens grands rouleurs, dont le cas sera tranché plus tard.",
+            "shown_ids": [
+              "p14_u05"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_017",
+            "project_id": "projet_14",
+            "piege": "sans_reponse",
+            "relevant_unit_ids": [],
+            "abstained": false,
+            "best_dense_score": 0.563868,
+            "retrieved_unit_id": "p14_u15",
+            "final_unit_id": "p14_u15",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [
+              "p14_u14"
+            ],
+            "statement": "Selon l'étude de Voltéo, le raccordement actuel du dépôt ne supporte que six bornes sans renforcement.",
+            "shown_ids": [
+              "p14_u15",
+              "p14_u14"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_026",
+            "project_id": "projet_15",
+            "piege": "sans_reponse",
+            "relevant_unit_ids": [],
+            "abstained": false,
+            "best_dense_score": 0.604571,
+            "retrieved_unit_id": "p15_u18",
+            "final_unit_id": "p15_u18",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "7 300 paquets du lot 2418 ont été retournés ou détruits en magasin.",
+            "shown_ids": [
+              "p15_u18"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_027",
+            "project_id": "projet_15",
+            "piege": "sans_reponse",
+            "relevant_unit_ids": [],
+            "abstained": true,
+            "best_dense_score": 0.398419,
+            "retrieved_unit_id": null,
+            "final_unit_id": null,
+            "final_unit_status": null,
+            "resolved": false,
+            "conflict_with": [],
+            "statement": null,
+            "shown_ids": [],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_036",
+            "project_id": "projet_16",
+            "piege": "sans_reponse",
+            "relevant_unit_ids": [],
+            "abstained": false,
+            "best_dense_score": 0.454434,
+            "retrieved_unit_id": "p16_u05",
+            "final_unit_id": "p16_u19",
+            "final_unit_status": "active",
+            "resolved": true,
+            "conflict_with": [],
+            "statement": "Le bon à tirer est avancé au 18 novembre, pour garder une marge avant l'assemblée générale.",
+            "shown_ids": [
+              "p16_u19"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_037",
+            "project_id": "projet_16",
+            "piege": "sans_reponse",
+            "relevant_unit_ids": [],
+            "abstained": false,
+            "best_dense_score": 0.870567,
+            "retrieved_unit_id": "p16_u09",
+            "final_unit_id": "p16_u09",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Le bilan carbone aura sa propre section dans le rapport annuel.",
+            "shown_ids": [
+              "p16_u09"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          }
+        ]
+      },
+      "complex": {
+        "n": 8,
+        "expected_units": 24,
+        "expected_units_shown": 7,
+        "share_expected_shown": 0.2917,
+        "queries_with_all_expected_shown": 1,
+        "definition": "reponse extractive : unite affichee (et unites en conflit) ; part = unites attendues affichees / unites attendues",
+        "per_query": [
+          {
+            "query_id": "q_test2_008",
+            "project_id": "projet_13",
+            "piege": "complexe",
+            "relevant_unit_ids": [
+              "p13_u11",
+              "p13_u13",
+              "p13_u19",
+              "p13_u20"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.671615,
+            "retrieved_unit_id": "p13_u20",
+            "final_unit_id": "p13_u20",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Le déménagement est repoussé au week-end du 31 octobre, dernier jour du bail.",
+            "shown_ids": [
+              "p13_u20"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_009",
+            "project_id": "projet_13",
+            "piege": "complexe",
+            "relevant_unit_ids": [
+              "p13_u21",
+              "p13_u22"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.501443,
+            "retrieved_unit_id": "p13_u01",
+            "final_unit_id": "p13_u01",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Le bail de la rue Garibaldi se termine fin octobre : le siège doit être libéré au plus tard le 31 octobre.",
+            "shown_ids": [
+              "p13_u01"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_018",
+            "project_id": "projet_14",
+            "piege": "complexe",
+            "relevant_unit_ids": [
+              "p14_u14",
+              "p14_u15"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.823053,
+            "retrieved_unit_id": "p14_u14",
+            "final_unit_id": "p14_u14",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [
+              "p14_u15"
+            ],
+            "statement": "Selon le gestionnaire du dépôt, la puissance électrique du site suffit pour dix bornes.",
+            "shown_ids": [
+              "p14_u14",
+              "p14_u15"
+            ],
+            "correct": true,
+            "expected_shown": 2
+          },
+          {
+            "query_id": "q_test2_019",
+            "project_id": "projet_14",
+            "piege": "complexe",
+            "relevant_unit_ids": [
+              "p14_u04",
+              "p14_u10",
+              "p14_u23"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.719367,
+            "retrieved_unit_id": "p14_u23",
+            "final_unit_id": "p14_u23",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Les sept techniciens grands rouleurs ne passent pas à l'électrique : ils gardent leurs véhicules hybrides actuels jusqu'à fin 2027.",
+            "shown_ids": [
+              "p14_u23"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_028",
+            "project_id": "projet_15",
+            "piege": "complexe",
+            "relevant_unit_ids": [
+              "p15_u05",
+              "p15_u13",
+              "p15_u18"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.891918,
+            "retrieved_unit_id": "p15_u18",
+            "final_unit_id": "p15_u18",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "7 300 paquets du lot 2418 ont été retournés ou détruits en magasin.",
+            "shown_ids": [
+              "p15_u18"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_029",
+            "project_id": "projet_15",
+            "piege": "complexe",
+            "relevant_unit_ids": [
+              "p15_u14",
+              "p15_u15",
+              "p15_u20"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.594481,
+            "retrieved_unit_id": "p15_u14",
+            "final_unit_id": "p15_u14",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "La contamination vient d'un nettoyage incomplet de la ligne 3 après une production de biscuits aux arachides.",
+            "shown_ids": [
+              "p15_u14"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          },
+          {
+            "query_id": "q_test2_038",
+            "project_id": "projet_16",
+            "piege": "complexe",
+            "relevant_unit_ids": [
+              "p16_u04",
+              "p16_u05",
+              "p16_u12",
+              "p16_u19",
+              "p16_u25"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.538002,
+            "retrieved_unit_id": "p16_u13",
+            "final_unit_id": "p16_u13",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "L'imprimeur demande dix jours ouvrés entre le bon à tirer et la livraison.",
+            "shown_ids": [
+              "p16_u13"
+            ],
+            "correct": false,
+            "expected_shown": 0
+          },
+          {
+            "query_id": "q_test2_039",
+            "project_id": "projet_16",
+            "piege": "complexe",
+            "relevant_unit_ids": [
+              "p16_u16",
+              "p16_u22"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.596371,
+            "retrieved_unit_id": "p16_u10",
+            "final_unit_id": "p16_u16",
+            "final_unit_status": "active",
+            "resolved": true,
+            "conflict_with": [],
+            "statement": "Ecovalor n'est pas retenu : les chiffres RSE sont relus en interne par le contrôle de gestion.",
+            "shown_ids": [
+              "p16_u16"
+            ],
+            "correct": true,
+            "expected_shown": 1
+          }
+        ]
+      },
+      "dossiers": {
+        "n": 4,
+        "expected_units": 24,
+        "expected_units_cited": 20,
+        "micro_recall": 0.8333,
+        "units_without_source": 0,
+        "definition": "unites attendues = rubriques documentees du dossier (decisions en vigueur, historique, conflits, actions et engagements, risques, questions ouvertes), fixees avant toute execution ; source = preuve retrouvee dans le transcript",
+        "per_query": [
+          {
+            "query_id": "q_test2_010",
+            "project_id": "projet_13",
+            "query": "Constitue le dossier sur la date du déménagement",
+            "scope": "sujet",
+            "abstained": false,
+            "expected": [
+              "p13_u04",
+              "p13_u12",
+              "p13_u13",
+              "p13_u20",
+              "p13_u23"
+            ],
+            "cited": [
+              "p13_u04",
+              "p13_u12",
+              "p13_u13",
+              "p13_u20",
+              "p13_u23"
+            ],
+            "expected_cited": 5,
+            "recall": 1.0,
+            "cited_not_expected": [],
+            "units_without_source": []
+          },
+          {
+            "query_id": "q_test2_020",
+            "project_id": "projet_14",
+            "query": "Prépare le dossier sur le choix du loueur",
+            "scope": "sujet",
+            "abstained": true,
+            "expected": [
+              "p14_u06",
+              "p14_u12",
+              "p14_u19",
+              "p14_u21"
+            ],
+            "cited": [],
+            "expected_cited": 0,
+            "recall": 0.0,
+            "cited_not_expected": [],
+            "units_without_source": []
+          },
+          {
+            "query_id": "q_test2_030",
+            "project_id": "projet_15",
+            "query": "Fais le dossier du projet Rappel du lot de sablés",
+            "scope": "projet",
+            "abstained": false,
+            "expected": [
+              "p15_u02",
+              "p15_u04",
+              "p15_u06",
+              "p15_u07",
+              "p15_u10",
+              "p15_u12",
+              "p15_u15",
+              "p15_u17",
+              "p15_u19",
+              "p15_u20",
+              "p15_u21",
+              "p15_u22"
+            ],
+            "cited": [
+              "p15_u02",
+              "p15_u04",
+              "p15_u06",
+              "p15_u07",
+              "p15_u10",
+              "p15_u12",
+              "p15_u15",
+              "p15_u17",
+              "p15_u19",
+              "p15_u20",
+              "p15_u21",
+              "p15_u22"
+            ],
+            "expected_cited": 12,
+            "recall": 1.0,
+            "cited_not_expected": [],
+            "units_without_source": []
+          },
+          {
+            "query_id": "q_test2_040",
+            "project_id": "projet_16",
+            "query": "Constitue le dossier sur la version imprimée du rapport",
+            "scope": "sujet",
+            "abstained": false,
+            "expected": [
+              "p16_u03",
+              "p16_u04",
+              "p16_u25"
+            ],
+            "cited": [
+              "p16_u03",
+              "p16_u04",
+              "p16_u25"
+            ],
+            "expected_cited": 3,
+            "recall": 1.0,
+            "cited_not_expected": [],
+            "units_without_source": []
+          }
+        ]
+      },
+      "groq_tokens": 0,
+      "executed_on": "2026-11-16"
+    },
+    "rag": {
+      "status": "execution unique d'enregistrement sur le test scelle elargi, configuration actuelle, aucun reglage",
+      "cache": "data/processed/groq_rag_test2_cache.jsonl (non versionne)",
+      "answerable": {
+        "n": 20,
+        "correct": 20,
+        "per_category": {
+          "decision_active": {
+            "n": 4,
+            "correct": 4
+          },
+          "reformulation": {
+            "n": 4,
+            "correct": 4
+          },
+          "responsable_reel": {
+            "n": 4,
+            "correct": 4
+          },
+          "negation": {
+            "n": 4,
+            "correct": 4
+          },
+          "engagement": {
+            "n": 4,
+            "correct": 4
+          }
+        }
+      },
+      "sans_reponse": {
+        "n": 8,
+        "abstained": 7
+      },
+      "complex": {
+        "n": 8,
+        "expected_units": 24,
+        "expected_units_shown": 13,
+        "share_expected_shown": 0.5417,
+        "queries_with_all_expected_shown": 2
+      },
+      "citations": {
+        "total": 34,
+        "valid": 27,
+        "syntheses": 27
+      },
+      "statuses": {
+        "abstention_llm": 6,
+        "conflit": 2,
+        "non_appelee": 1,
+        "synthese": 27
+      },
+      "groq_calls": 33,
+      "api_calls_this_run": 33,
+      "groq_tokens": 21681,
+      "per_query": [
+        {
+          "query_id": "q_test2_001",
+          "piege": "decision_active",
+          "relevant_unit_ids": [
+            "p13_u20"
+          ],
+          "project_id": "projet_13",
+          "query": "À quelle date le déménagement du siège a-t-il finalement lieu ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.647286,
+          "extractive_unit_id": "p13_u20",
+          "provided_ids": [
+            "p13_u20",
+            "p13_u01",
+            "p13_u14",
+            "p13_u02",
+            "p13_u12"
+          ],
+          "cited_ids": [
+            "p13_u20"
+          ],
+          "shown_ids": [
+            "p13_u20"
+          ],
+          "synthesis": "Le déménagement du siège a finalement lieu le week‑end du 31 octobre.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_002",
+          "piege": "responsable_reel",
+          "relevant_unit_ids": [
+            "p13_u08"
+          ],
+          "project_id": "projet_13",
+          "query": "Qui doit commander les nouvelles bornes wifi ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.725106,
+          "extractive_unit_id": "p13_u08",
+          "provided_ids": [
+            "p13_u08",
+            "p13_u19",
+            "p13_u10",
+            "p13_u03",
+            "p13_u18"
+          ],
+          "cited_ids": [
+            "p13_u08"
+          ],
+          "shown_ids": [
+            "p13_u08"
+          ],
+          "synthesis": "Inès doit commander les nouvelles bornes wifi d'ici vendredi.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_003",
+          "piege": "negation",
+          "relevant_unit_ids": [
+            "p13_u06"
+          ],
+          "project_id": "projet_13",
+          "query": "Quel déménageur n'a pas été retenu ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.614578,
+          "extractive_unit_id": "p13_u06",
+          "provided_ids": [
+            "p13_u06",
+            "p13_u07",
+            "p13_u20",
+            "p13_u02",
+            "p13_u01"
+          ],
+          "cited_ids": [
+            "p13_u06"
+          ],
+          "shown_ids": [
+            "p13_u06"
+          ],
+          "synthesis": "Le déménageur Transalp n'a pas été retenu.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_004",
+          "piege": "engagement",
+          "relevant_unit_ids": [
+            "p13_u23"
+          ],
+          "project_id": "projet_13",
+          "query": "Pour quand le réseau des nouveaux locaux sera-t-il opérationnel ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.724373,
+          "extractive_unit_id": "p13_u23",
+          "provided_ids": [
+            "p13_u23",
+            "p13_u24",
+            "p13_u16",
+            "p13_u17",
+            "p13_u03"
+          ],
+          "cited_ids": [
+            "p13_u23"
+          ],
+          "shown_ids": [
+            "p13_u23"
+          ],
+          "synthesis": "Le réseau des nouveaux locaux sera opérationnel le 30 octobre.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_005",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p13_u17"
+          ],
+          "project_id": "projet_13",
+          "query": "Combien coûte en plus la place de stationnement dans le nouveau bâtiment ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.589514,
+          "extractive_unit_id": "p13_u17",
+          "provided_ids": [
+            "p13_u17",
+            "p13_u01",
+            "p13_u21",
+            "p13_u25",
+            "p13_u23"
+          ],
+          "cited_ids": [
+            "p13_u17"
+          ],
+          "shown_ids": [
+            "p13_u17"
+          ],
+          "synthesis": "Le parking des nouveaux locaux coûte 4 200 euros par an de plus que l'actuel.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_006",
+          "piege": "sans_reponse",
+          "relevant_unit_ids": [],
+          "project_id": "projet_13",
+          "query": "Quel est le loyer annuel des nouveaux locaux ?",
+          "status": "abstention_llm",
+          "abstained": true,
+          "best_dense_score": 0.560621,
+          "extractive_unit_id": "p13_u17",
+          "provided_ids": [
+            "p13_u17",
+            "p13_u24",
+            "p13_u16",
+            "p13_u23",
+            "p13_u20"
+          ],
+          "cited_ids": [],
+          "shown_ids": [],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "correct": false,
+          "expected_shown": 0
+        },
+        {
+          "query_id": "q_test2_007",
+          "piege": "sans_reponse",
+          "relevant_unit_ids": [],
+          "project_id": "projet_13",
+          "query": "Qui a été chargé de prévenir les clients du changement d'adresse ?",
+          "status": "abstention_llm",
+          "abstained": true,
+          "best_dense_score": 0.763973,
+          "extractive_unit_id": "p13_u07",
+          "provided_ids": [
+            "p13_u07",
+            "p13_u19",
+            "p13_u16",
+            "p13_u02",
+            "p13_u22"
+          ],
+          "cited_ids": [],
+          "shown_ids": [],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "correct": false,
+          "expected_shown": 0
+        },
+        {
+          "query_id": "q_test2_008",
+          "piege": "complexe",
+          "relevant_unit_ids": [
+            "p13_u11",
+            "p13_u13",
+            "p13_u19",
+            "p13_u20"
+          ],
+          "project_id": "projet_13",
+          "query": "Pourquoi la date du déménagement a-t-elle changé deux fois, et quelle est la date retenue ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.671615,
+          "extractive_unit_id": "p13_u20",
+          "provided_ids": [
+            "p13_u20",
+            "p13_u12",
+            "p13_u14",
+            "p13_u07",
+            "p13_u02"
+          ],
+          "cited_ids": [
+            "p13_u12",
+            "p13_u20"
+          ],
+          "shown_ids": [
+            "p13_u12",
+            "p13_u20"
+          ],
+          "synthesis": "La date initiale du week‑end du 10 octobre a d’abord été abandonnée parce que les deux semaines de câblage prévues rendaient cette échéance impossible. Le déménagement a ensuite été repoussé au week‑end du 31 octobre, dernier jour du bail, comme décision finale.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_009",
+          "piege": "complexe",
+          "relevant_unit_ids": [
+            "p13_u22",
+            "p13_u21"
+          ],
+          "project_id": "projet_13",
+          "query": "Quelles dispositions protègent le siège si le déménagement prend du retard ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.501443,
+          "extractive_unit_id": "p13_u01",
+          "provided_ids": [
+            "p13_u01",
+            "p13_u20",
+            "p13_u11",
+            "p13_u02",
+            "p13_u05"
+          ],
+          "cited_ids": [
+            "p13_u01",
+            "p13_u20"
+          ],
+          "shown_ids": [
+            "p13_u01",
+            "p13_u20"
+          ],
+          "synthesis": "Le bail se termine le 31 octobre, ce qui oblige à libérer le siège au plus tard à cette date. Le déménagement a été reporté au week‑end du 31 octobre, exactement le dernier jour du bail, garantissant ainsi que le siège reste occupé jusqu’à la fin du contrat.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": false,
+          "expected_shown": 0
+        },
+        {
+          "query_id": "q_test2_011",
+          "piege": "decision_active",
+          "relevant_unit_ids": [
+            "p14_u19"
+          ],
+          "project_id": "projet_14",
+          "query": "Quel loueur a finalement été choisi pour les véhicules électriques ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.57508,
+          "extractive_unit_id": "p14_u03",
+          "provided_ids": [
+            "p14_u03",
+            "p14_u17",
+            "p14_u19",
+            "p14_u02",
+            "p14_u04"
+          ],
+          "cited_ids": [
+            "p14_u19"
+          ],
+          "shown_ids": [
+            "p14_u19"
+          ],
+          "synthesis": "Le loueur Leasecom a été finalement retenu pour les véhicules électriques.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_012",
+          "piege": "responsable_reel",
+          "relevant_unit_ids": [
+            "p14_u21"
+          ],
+          "project_id": "projet_14",
+          "query": "Qui doit signer le contrat de location des véhicules ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.629534,
+          "extractive_unit_id": "p14_u20",
+          "provided_ids": [
+            "p14_u20",
+            "p14_u21",
+            "p14_u01",
+            "p14_u03",
+            "p14_u05"
+          ],
+          "cited_ids": [
+            "p14_u21"
+          ],
+          "shown_ids": [
+            "p14_u21"
+          ],
+          "synthesis": "Karim doit signer le contrat de location des véhicules.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_013",
+          "piege": "negation",
+          "relevant_unit_ids": [
+            "p14_u23"
+          ],
+          "project_id": "projet_14",
+          "query": "Les techniciens grands rouleurs passent-ils à l'électrique ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.757256,
+          "extractive_unit_id": "p14_u23",
+          "provided_ids": [
+            "p14_u23",
+            "p14_u05",
+            "p14_u09",
+            "p14_u04",
+            "p14_u25"
+          ],
+          "cited_ids": [
+            "p14_u23"
+          ],
+          "shown_ids": [
+            "p14_u23"
+          ],
+          "synthesis": "Les techniciens grands rouleurs ne passent pas à l'électrique et conservent leurs véhicules hybrides jusqu'à fin 2027.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_014",
+          "piege": "engagement",
+          "relevant_unit_ids": [
+            "p14_u06"
+          ],
+          "project_id": "projet_14",
+          "query": "D'ici quand la consultation des loueurs doit-elle être lancée ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.699231,
+          "extractive_unit_id": "p14_u06",
+          "provided_ids": [
+            "p14_u06",
+            "p14_u20",
+            "p14_u16",
+            "p14_u09",
+            "p14_u03"
+          ],
+          "cited_ids": [
+            "p14_u06"
+          ],
+          "shown_ids": [
+            "p14_u06"
+          ],
+          "synthesis": "La consultation des loueurs doit être lancée d'ici fin septembre.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_015",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p14_u08"
+          ],
+          "project_id": "projet_14",
+          "query": "Combien de points de charge sont nécessaires au dépôt pour la nuit ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.649294,
+          "extractive_unit_id": "p14_u08",
+          "provided_ids": [
+            "p14_u08",
+            "p14_u14",
+            "p14_u15",
+            "p14_u01",
+            "p14_u20"
+          ],
+          "cited_ids": [
+            "p14_u08"
+          ],
+          "shown_ids": [
+            "p14_u08"
+          ],
+          "synthesis": "Il faut au moins dix bornes de recharge au dépôt pour que tous les véhicules rechargent la nuit.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_016",
+          "piege": "sans_reponse",
+          "relevant_unit_ids": [],
+          "project_id": "projet_14",
+          "query": "Quelle marque de véhicule électrique a été choisie ?",
+          "status": "abstention_llm",
+          "abstained": true,
+          "best_dense_score": 0.548659,
+          "extractive_unit_id": "p14_u05",
+          "provided_ids": [
+            "p14_u05",
+            "p14_u23",
+            "p14_u18",
+            "p14_u02",
+            "p14_u11"
+          ],
+          "cited_ids": [],
+          "shown_ids": [],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "correct": false,
+          "expected_shown": 0
+        },
+        {
+          "query_id": "q_test2_017",
+          "piege": "sans_reponse",
+          "relevant_unit_ids": [],
+          "project_id": "projet_14",
+          "query": "Combien coûterait le renforcement du raccordement électrique du dépôt ?",
+          "status": "conflit",
+          "abstained": false,
+          "best_dense_score": 0.563868,
+          "extractive_unit_id": "p14_u15",
+          "provided_ids": [],
+          "cited_ids": [],
+          "shown_ids": [
+            "p14_u15",
+            "p14_u14"
+          ],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "correct": false,
+          "expected_shown": 0
+        },
+        {
+          "query_id": "q_test2_018",
+          "piege": "complexe",
+          "relevant_unit_ids": [
+            "p14_u14",
+            "p14_u15"
+          ],
+          "project_id": "projet_14",
+          "query": "Le dépôt a-t-il assez de puissance électrique pour dix bornes ?",
+          "status": "conflit",
+          "abstained": false,
+          "best_dense_score": 0.823053,
+          "extractive_unit_id": "p14_u14",
+          "provided_ids": [],
+          "cited_ids": [],
+          "shown_ids": [
+            "p14_u14",
+            "p14_u15"
+          ],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 2
+        },
+        {
+          "query_id": "q_test2_019",
+          "piege": "complexe",
+          "relevant_unit_ids": [
+            "p14_u10",
+            "p14_u23",
+            "p14_u04"
+          ],
+          "project_id": "projet_14",
+          "query": "Combien de techniciens gardent un véhicule hybride, et pourquoi ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.719367,
+          "extractive_unit_id": "p14_u23",
+          "provided_ids": [
+            "p14_u23",
+            "p14_u04",
+            "p14_u17",
+            "p14_u10",
+            "p14_u05"
+          ],
+          "cited_ids": [
+            "p14_u23",
+            "p14_u10"
+          ],
+          "shown_ids": [
+            "p14_u23",
+            "p14_u10"
+          ],
+          "synthesis": "Sept techniciens gardent un véhicule hybride. Ils sont des grands rouleurs dont l'autonomie actuelle des véhicules électriques ne suffit pas pour leurs déplacements quotidiens.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 2
+        },
+        {
+          "query_id": "q_test2_021",
+          "piege": "decision_active",
+          "relevant_unit_ids": [
+            "p15_u19"
+          ],
+          "project_id": "projet_15",
+          "query": "Quelle compensation est accordée aux clients qui rapportent un paquet ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.597542,
+          "extractive_unit_id": "p15_u19",
+          "provided_ids": [
+            "p15_u19",
+            "p15_u03",
+            "p15_u24",
+            "p15_u05",
+            "p15_u14"
+          ],
+          "cited_ids": [
+            "p15_u19"
+          ],
+          "shown_ids": [
+            "p15_u19"
+          ],
+          "synthesis": "Les clients sont remboursés du paquet en caisse, sans bon d'achat.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_022",
+          "piege": "responsable_reel",
+          "relevant_unit_ids": [
+            "p15_u07"
+          ],
+          "project_id": "projet_15",
+          "query": "Qui doit prévenir la DGCCRF du rappel ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.627348,
+          "extractive_unit_id": "p15_u07",
+          "provided_ids": [
+            "p15_u07",
+            "p15_u16",
+            "p15_u22",
+            "p15_u06",
+            "p15_u10"
+          ],
+          "cited_ids": [
+            "p15_u07"
+          ],
+          "shown_ids": [
+            "p15_u07"
+          ],
+          "synthesis": "Élodie doit prévenir la DGCCRF le jour même.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_023",
+          "piege": "negation",
+          "relevant_unit_ids": [
+            "p15_u12"
+          ],
+          "project_id": "projet_15",
+          "query": "Les lots 2417 et 2419 sont-ils rappelés ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.821151,
+          "extractive_unit_id": "p15_u12",
+          "provided_ids": [
+            "p15_u12",
+            "p15_u09",
+            "p15_u10",
+            "p15_u11",
+            "p15_u02"
+          ],
+          "cited_ids": [
+            "p15_u12"
+          ],
+          "shown_ids": [
+            "p15_u12"
+          ],
+          "synthesis": "Les lots 2417 et 2419 ne sont pas rappelés.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_024",
+          "piege": "engagement",
+          "relevant_unit_ids": [
+            "p15_u21"
+          ],
+          "project_id": "projet_15",
+          "query": "Quand le point d'étape sur le rappel sera-t-il publié sur le site ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.600677,
+          "extractive_unit_id": "p15_u21",
+          "provided_ids": [
+            "p15_u21",
+            "p15_u16",
+            "p15_u06",
+            "p15_u22",
+            "p15_u20"
+          ],
+          "cited_ids": [
+            "p15_u21"
+          ],
+          "shown_ids": [
+            "p15_u21"
+          ],
+          "synthesis": "Le point d'étape sera publié sur le site vendredi.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_025",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p15_u14"
+          ],
+          "project_id": "projet_15",
+          "query": "D'où vient la présence d'arachide dans les sablés ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.676615,
+          "extractive_unit_id": "p15_u01",
+          "provided_ids": [
+            "p15_u01",
+            "p15_u14",
+            "p15_u11",
+            "p15_u16",
+            "p15_u05"
+          ],
+          "cited_ids": [
+            "p15_u14"
+          ],
+          "shown_ids": [
+            "p15_u14"
+          ],
+          "synthesis": "La présence d'arachide provient d'un nettoyage incomplet de la ligne 3 après la production de biscuits aux arachides.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_026",
+          "piege": "sans_reponse",
+          "relevant_unit_ids": [],
+          "project_id": "projet_15",
+          "query": "Combien coûte le rappel du lot 2418 à l'entreprise ?",
+          "status": "abstention_llm",
+          "abstained": true,
+          "best_dense_score": 0.604571,
+          "extractive_unit_id": "p15_u18",
+          "provided_ids": [
+            "p15_u18",
+            "p15_u24",
+            "p15_u02",
+            "p15_u16",
+            "p15_u13"
+          ],
+          "cited_ids": [],
+          "shown_ids": [],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "correct": false,
+          "expected_shown": 0
+        },
+        {
+          "query_id": "q_test2_027",
+          "piege": "sans_reponse",
+          "relevant_unit_ids": [],
+          "project_id": "projet_15",
+          "query": "Quel magasin a signalé le premier cas d'allergie ?",
+          "status": "non_appelee",
+          "abstained": true,
+          "best_dense_score": 0.398419,
+          "extractive_unit_id": null,
+          "provided_ids": [],
+          "cited_ids": [],
+          "shown_ids": [],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "correct": false,
+          "expected_shown": 0
+        },
+        {
+          "query_id": "q_test2_028",
+          "piege": "complexe",
+          "relevant_unit_ids": [
+            "p15_u13",
+            "p15_u05",
+            "p15_u18"
+          ],
+          "project_id": "projet_15",
+          "query": "Combien de paquets du lot 2418 ont été livrés en magasin, et combien ont été retournés ou détruits ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.891918,
+          "extractive_unit_id": "p15_u18",
+          "provided_ids": [
+            "p15_u18",
+            "p15_u13",
+            "p15_u05",
+            "p15_u03",
+            "p15_u24"
+          ],
+          "cited_ids": [
+            "p15_u13",
+            "p15_u18"
+          ],
+          "shown_ids": [
+            "p15_u13",
+            "p15_u18"
+          ],
+          "synthesis": "12 000 paquets du lot 2418 ont été livrés en magasin. 7 300 paquets du même lot ont été retournés ou détruits en magasin.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 2
+        },
+        {
+          "query_id": "q_test2_029",
+          "piege": "complexe",
+          "relevant_unit_ids": [
+            "p15_u14",
+            "p15_u15",
+            "p15_u20"
+          ],
+          "project_id": "projet_15",
+          "query": "Quelles mesures ont été prises pour éviter qu'une contamination se reproduise sur la ligne 3, et avec quel effet ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.594481,
+          "extractive_unit_id": "p15_u14",
+          "provided_ids": [
+            "p15_u14",
+            "p15_u15",
+            "p15_u20",
+            "p15_u09",
+            "p15_u11"
+          ],
+          "cited_ids": [
+            "p15_u15",
+            "p15_u20"
+          ],
+          "shown_ids": [
+            "p15_u15",
+            "p15_u20"
+          ],
+          "synthesis": "Un nettoyage validé par la qualité est imposé entre deux productions sur la ligne 3. Le nouveau protocole de nettoyage rallonge chaque changement de production sur la ligne 3 de quarante minutes.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 2
+        },
+        {
+          "query_id": "q_test2_031",
+          "piege": "decision_active",
+          "relevant_unit_ids": [
+            "p16_u19"
+          ],
+          "project_id": "projet_16",
+          "query": "Quand le bon à tirer du rapport annuel part-il chez l'imprimeur ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.574982,
+          "extractive_unit_id": "p16_u19",
+          "provided_ids": [
+            "p16_u19",
+            "p16_u13",
+            "p16_u25",
+            "p16_u02",
+            "p16_u01"
+          ],
+          "cited_ids": [
+            "p16_u19"
+          ],
+          "shown_ids": [
+            "p16_u19"
+          ],
+          "synthesis": "Le bon à tirer du rapport annuel part chez l'imprimeur le 18 novembre.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_032",
+          "piege": "responsable_reel",
+          "relevant_unit_ids": [
+            "p16_u21"
+          ],
+          "project_id": "projet_16",
+          "query": "Qui doit livrer la maquette complète du rapport ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.755949,
+          "extractive_unit_id": "p16_u21",
+          "provided_ids": [
+            "p16_u21",
+            "p16_u06",
+            "p16_u03",
+            "p16_u25",
+            "p16_u01"
+          ],
+          "cited_ids": [
+            "p16_u21"
+          ],
+          "shown_ids": [
+            "p16_u21"
+          ],
+          "synthesis": "Léa doit livrer la maquette complète du rapport.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_033",
+          "piege": "negation",
+          "relevant_unit_ids": [
+            "p16_u16"
+          ],
+          "project_id": "projet_16",
+          "query": "Le cabinet Ecovalor a-t-il été retenu pour relire les chiffres RSE ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.79162,
+          "extractive_unit_id": "p16_u15",
+          "provided_ids": [
+            "p16_u15",
+            "p16_u16",
+            "p16_u22",
+            "p16_u25",
+            "p16_u09"
+          ],
+          "cited_ids": [
+            "p16_u16"
+          ],
+          "shown_ids": [
+            "p16_u16"
+          ],
+          "synthesis": "Le cabinet Ecovalor n'a pas été retenu pour relire les chiffres RSE.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_034",
+          "piege": "engagement",
+          "relevant_unit_ids": [
+            "p16_u06"
+          ],
+          "project_id": "projet_16",
+          "query": "Dans quel délai Léa livre-t-elle la maquette des pages intérieures ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.881626,
+          "extractive_unit_id": "p16_u06",
+          "provided_ids": [
+            "p16_u06",
+            "p16_u21",
+            "p16_u17",
+            "p16_u19",
+            "p16_u25"
+          ],
+          "cited_ids": [
+            "p16_u06"
+          ],
+          "shown_ids": [
+            "p16_u06"
+          ],
+          "synthesis": "Léa livre la maquette des pages intérieures d'ici trois semaines.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_035",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p16_u25"
+          ],
+          "project_id": "projet_16",
+          "query": "Combien d'exemplaires papier du rapport seront finalement imprimés ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.600837,
+          "extractive_unit_id": "p16_u25",
+          "provided_ids": [
+            "p16_u25",
+            "p16_u03",
+            "p16_u23",
+            "p16_u21",
+            "p16_u18"
+          ],
+          "cited_ids": [
+            "p16_u25"
+          ],
+          "shown_ids": [
+            "p16_u25"
+          ],
+          "synthesis": "Le tirage du rapport annuel sera de 250 exemplaires papier.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 1
+        },
+        {
+          "query_id": "q_test2_036",
+          "piege": "sans_reponse",
+          "relevant_unit_ids": [],
+          "project_id": "projet_16",
+          "query": "Quel imprimeur a été retenu pour le rapport annuel ?",
+          "status": "abstention_llm",
+          "abstained": true,
+          "best_dense_score": 0.454434,
+          "extractive_unit_id": "p16_u19",
+          "provided_ids": [
+            "p16_u19",
+            "p16_u25",
+            "p16_u16",
+            "p16_u02",
+            "p16_u09"
+          ],
+          "cited_ids": [],
+          "shown_ids": [],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "correct": false,
+          "expected_shown": 0
+        },
+        {
+          "query_id": "q_test2_037",
+          "piege": "sans_reponse",
+          "relevant_unit_ids": [],
+          "project_id": "projet_16",
+          "query": "Le rapport annuel sera-t-il traduit en anglais ?",
+          "status": "abstention_llm",
+          "abstained": true,
+          "best_dense_score": 0.870567,
+          "extractive_unit_id": "p16_u09",
+          "provided_ids": [
+            "p16_u09",
+            "p16_u25",
+            "p16_u02",
+            "p16_u01",
+            "p16_u16"
+          ],
+          "cited_ids": [],
+          "shown_ids": [],
+          "synthesis": null,
+          "rejection": null,
+          "citations_valid": true,
+          "correct": false,
+          "expected_shown": 0
+        },
+        {
+          "query_id": "q_test2_038",
+          "piege": "complexe",
+          "relevant_unit_ids": [
+            "p16_u05",
+            "p16_u12",
+            "p16_u19",
+            "p16_u04",
+            "p16_u25"
+          ],
+          "project_id": "projet_16",
+          "query": "Comment ont évolué la date du bon à tirer et le nombre d'exemplaires imprimés ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.538002,
+          "extractive_unit_id": "p16_u13",
+          "provided_ids": [
+            "p16_u13",
+            "p16_u19",
+            "p16_u14",
+            "p16_u25",
+            "p16_u06"
+          ],
+          "cited_ids": [
+            "p16_u19",
+            "p16_u25"
+          ],
+          "shown_ids": [
+            "p16_u19",
+            "p16_u25"
+          ],
+          "synthesis": "Le bon à tirer a été avancé au 18 novembre. Le tirage du rapport annuel a été réduit à 250 exemplaires.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 2
+        },
+        {
+          "query_id": "q_test2_039",
+          "piege": "complexe",
+          "relevant_unit_ids": [
+            "p16_u16",
+            "p16_u22"
+          ],
+          "project_id": "projet_16",
+          "query": "Qui relit les chiffres RSE du rapport et qu'a donné cette relecture ?",
+          "status": "synthese",
+          "abstained": false,
+          "best_dense_score": 0.596371,
+          "extractive_unit_id": "p16_u16",
+          "provided_ids": [
+            "p16_u16",
+            "p16_u22",
+            "p16_u15",
+            "p16_u03",
+            "p16_u25"
+          ],
+          "cited_ids": [
+            "p16_u16",
+            "p16_u22"
+          ],
+          "shown_ids": [
+            "p16_u16",
+            "p16_u22"
+          ],
+          "synthesis": "Le contrôle de gestion relit les chiffres RSE du rapport et a corrigé deux erreurs.",
+          "rejection": null,
+          "citations_valid": true,
+          "correct": true,
+          "expected_shown": 2
+        }
+      ],
+      "executed_on": "2026-11-16"
+    },
+    "extraction": {
+      "status": "execution unique d'enregistrement sur le test scelle elargi, configuration actuelle, aucun reglage",
+      "projects_measured": [
+        "projet_13",
+        "projet_14"
+      ],
+      "projects_not_measured": [
+        "projet_15",
+        "projet_16"
+      ],
+      "order": "ordre fixe 13, 14, 15, 16 ; arret au dernier projet complet si le quota restant ne suffit pas",
+      "metrics": {
+        "projects": [
+          "projet_13",
+          "projet_14"
+        ],
+        "units": {
+          "annotated": 52,
+          "extracted": 53,
+          "matched": 50,
+          "precision": 0.9434,
+          "recall": 0.9615,
+          "f1": 0.9524,
+          "type_correct": 48,
+          "status_correct": 45,
+          "accuracy_denominator": 50,
+          "type_accuracy": 0.96,
+          "status_accuracy": 0.9,
+          "per_type": {
+            "decision": {
+              "annotated": 9,
+              "extracted": 11,
+              "correct": 9,
+              "precision": 0.8182,
+              "recall": 1.0,
+              "f1": 0.9
+            },
+            "action": {
+              "annotated": 5,
+              "extracted": 3,
+              "correct": 3,
+              "precision": 1.0,
+              "recall": 0.6,
+              "f1": 0.75
+            },
+            "commitment": {
+              "annotated": 3,
+              "extracted": 2,
+              "correct": 2,
+              "precision": 1.0,
+              "recall": 0.6667,
+              "f1": 0.8
+            },
+            "question": {
+              "annotated": 4,
+              "extracted": 4,
+              "correct": 4,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "answer": {
+              "annotated": 2,
+              "extracted": 2,
+              "correct": 2,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "fact": {
+              "annotated": 21,
+              "extracted": 24,
+              "correct": 21,
+              "precision": 0.875,
+              "recall": 1.0,
+              "f1": 0.9333
+            },
+            "risk": {
+              "annotated": 2,
+              "extracted": 1,
+              "correct": 1,
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6667
+            },
+            "idea": {
+              "annotated": 6,
+              "extracted": 6,
+              "correct": 6,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            }
+          },
+          "type_confusions": {
+            "action->fact": 1,
+            "risk->fact": 1
+          },
+          "status_errors": {
+            "active->superseded": 4,
+            "superseded->active": 1
+          }
+        },
+        "relations": {
+          "annotated": 31,
+          "extracted": 19,
+          "strict": {
+            "correct": 12,
+            "precision": 0.6316,
+            "recall": 0.3871,
+            "f1": 0.48
+          },
+          "loose_endpoints_only": {
+            "correct": 12,
+            "precision": 0.6316,
+            "recall": 0.3871,
+            "f1": 0.48
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 2,
+              "extracted": 2,
+              "correct": 2,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "creates_action": {
+              "annotated": 5,
+              "extracted": 2,
+              "correct": 2,
+              "precision": 1.0,
+              "recall": 0.4,
+              "f1": 0.5714
+            },
+            "supports": {
+              "annotated": 20,
+              "extracted": 8,
+              "correct": 6,
+              "precision": 0.75,
+              "recall": 0.3,
+              "f1": 0.4286
+            },
+            "supersedes": {
+              "annotated": 3,
+              "extracted": 4,
+              "correct": 2,
+              "precision": 0.5,
+              "recall": 0.6667,
+              "f1": 0.5714
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 3,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        "validation": {
+          "proposed_units": 54,
+          "accepted_units": 53,
+          "proposed_relations": 19,
+          "accepted_relations": 19,
+          "rejections": {
+            "evidence_absente_du_transcript": 1
+          },
+          "notes": {
+            "evidence_typographie_normalisee": 1
+          },
+          "annotated_evidence_not_found": 0
+        },
+        "cost": {
+          "groq_calls": 6,
+          "prompt_tokens": 12340,
+          "completion_tokens": 15217,
+          "api_calls_this_run": 0,
+          "cache_reads_this_run": 6,
+          "total_tokens": 27557
+        }
+      },
+      "per_project": {
+        "projet_13": {
+          "units": {
+            "annotated": 27,
+            "extracted": 27,
+            "matched": 26,
+            "precision": 0.963,
+            "recall": 0.963,
+            "f1": 0.963,
+            "type_correct": 24,
+            "status_correct": 25,
+            "accuracy_denominator": 26,
+            "type_accuracy": 0.9231,
+            "status_accuracy": 0.9615,
+            "per_type": {
+              "decision": {
+                "annotated": 5,
+                "extracted": 5,
+                "correct": 5,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "action": {
+                "annotated": 2,
+                "extracted": 1,
+                "correct": 1,
+                "precision": 1.0,
+                "recall": 0.5,
+                "f1": 0.6667
+              },
+              "commitment": {
+                "annotated": 2,
+                "extracted": 1,
+                "correct": 1,
+                "precision": 1.0,
+                "recall": 0.5,
+                "f1": 0.6667
+              },
+              "question": {
+                "annotated": 2,
+                "extracted": 2,
+                "correct": 2,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "answer": {
+                "annotated": 1,
+                "extracted": 1,
+                "correct": 1,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "fact": {
+                "annotated": 11,
+                "extracted": 14,
+                "correct": 11,
+                "precision": 0.7857,
+                "recall": 1.0,
+                "f1": 0.88
+              },
+              "risk": {
+                "annotated": 1,
+                "extracted": 0,
+                "correct": 0,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              },
+              "idea": {
+                "annotated": 3,
+                "extracted": 3,
+                "correct": 3,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            },
+            "type_confusions": {
+              "action->fact": 1,
+              "risk->fact": 1
+            },
+            "status_errors": {
+              "active->superseded": 1
+            }
+          },
+          "relations": {
+            "annotated": 15,
+            "extracted": 11,
+            "strict": {
+              "correct": 6,
+              "precision": 0.5455,
+              "recall": 0.4,
+              "f1": 0.4615
+            },
+            "loose_endpoints_only": {
+              "correct": 6,
+              "precision": 0.5455,
+              "recall": 0.4,
+              "f1": 0.4615
+            },
+            "per_type": {
+              "answers": {
+                "annotated": 1,
+                "extracted": 1,
+                "correct": 1,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "creates_action": {
+                "annotated": 1,
+                "extracted": 0,
+                "correct": 0,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              },
+              "supports": {
+                "annotated": 11,
+                "extracted": 5,
+                "correct": 3,
+                "precision": 0.6,
+                "recall": 0.2727,
+                "f1": 0.375
+              },
+              "supersedes": {
+                "annotated": 2,
+                "extracted": 4,
+                "correct": 2,
+                "precision": 0.5,
+                "recall": 1.0,
+                "f1": 0.6667
+              },
+              "contradicts": {
+                "annotated": 0,
+                "extracted": 1,
+                "correct": 0,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          }
+        },
+        "projet_14": {
+          "units": {
+            "annotated": 25,
+            "extracted": 26,
+            "matched": 24,
+            "precision": 0.9231,
+            "recall": 0.96,
+            "f1": 0.9412,
+            "type_correct": 24,
+            "status_correct": 20,
+            "accuracy_denominator": 24,
+            "type_accuracy": 1.0,
+            "status_accuracy": 0.8333,
+            "per_type": {
+              "decision": {
+                "annotated": 4,
+                "extracted": 6,
+                "correct": 4,
+                "precision": 0.6667,
+                "recall": 1.0,
+                "f1": 0.8
+              },
+              "action": {
+                "annotated": 3,
+                "extracted": 2,
+                "correct": 2,
+                "precision": 1.0,
+                "recall": 0.6667,
+                "f1": 0.8
+              },
+              "commitment": {
+                "annotated": 1,
+                "extracted": 1,
+                "correct": 1,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "question": {
+                "annotated": 2,
+                "extracted": 2,
+                "correct": 2,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "answer": {
+                "annotated": 1,
+                "extracted": 1,
+                "correct": 1,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "fact": {
+                "annotated": 10,
+                "extracted": 10,
+                "correct": 10,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "risk": {
+                "annotated": 1,
+                "extracted": 1,
+                "correct": 1,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "idea": {
+                "annotated": 3,
+                "extracted": 3,
+                "correct": 3,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            },
+            "type_confusions": {},
+            "status_errors": {
+              "active->superseded": 3,
+              "superseded->active": 1
+            }
+          },
+          "relations": {
+            "annotated": 16,
+            "extracted": 8,
+            "strict": {
+              "correct": 6,
+              "precision": 0.75,
+              "recall": 0.375,
+              "f1": 0.5
+            },
+            "loose_endpoints_only": {
+              "correct": 6,
+              "precision": 0.75,
+              "recall": 0.375,
+              "f1": 0.5
+            },
+            "per_type": {
+              "answers": {
+                "annotated": 1,
+                "extracted": 1,
+                "correct": 1,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "creates_action": {
+                "annotated": 4,
+                "extracted": 2,
+                "correct": 2,
+                "precision": 1.0,
+                "recall": 0.5,
+                "f1": 0.6667
+              },
+              "supports": {
+                "annotated": 9,
+                "extracted": 3,
+                "correct": 3,
+                "precision": 1.0,
+                "recall": 0.3333,
+                "f1": 0.5
+              },
+              "supersedes": {
+                "annotated": 1,
+                "extracted": 0,
+                "correct": 0,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              },
+              "contradicts": {
+                "annotated": 1,
+                "extracted": 2,
+                "correct": 0,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          }
+        }
+      },
+      "groq_tokens": 30622,
+      "production_tokens_of_used_responses": 27557,
+      "api_calls_this_run": 0,
+      "interrupted_run": {
+        "tokens": 30622,
+        "api_calls": 7,
+        "note": "execution du 2026-11-16 interrompue : un appel a echoue sur la reunion p15_m01 (erreur Groq non conservee, le message brut pouvant contenir des identifiants de compte) ; 7 appels reussis (projets 13 et 14 complets, p15_m02 non utilise) ; projets 13 et 14 enregistres depuis le cache sans nouvel appel ; projets 15 et 16 non mesures, aucun nouvel appel lance"
+      },
+      "executed_on": "2026-11-16"
+    }
+  },
+  "authorship_caveat": "jeu redige par l'assistant de developpement apres lecture des interfaces de l'agent, ce qui peut le rendre plus favorable au systeme qu'un jeu redige par un tiers"
+}

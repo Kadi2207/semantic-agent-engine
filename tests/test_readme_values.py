@@ -41,7 +41,7 @@ def all_numbers(node: object) -> set[float]:
 def test_every_three_decimal_number_of_the_readme_exists_in_a_results_json() -> None:
     known = set()
     for name in ("retrieval_dev.json", "retrieval_test.json", "extraction.json", "real_qmsum.json", "agent_dev.json", "agent_test.json", "agent_extracted_dev.json", "rag_dev.json", "rag_test.json",
-                 "architectures_dev.json", "architectures_test.json", "relations_v2.json"):
+                 "architectures_dev.json", "architectures_test.json", "relations_v2.json", "test2.json"):
         known |= {fr(v) for v in all_numbers(load(name))}
     cited = set(re.findall(r"(?<![\d,])\d,\d{3}(?![\d])", README))
     assert cited, "aucun chiffre trouve dans le README"
@@ -421,6 +421,31 @@ def test_relations_v2_section_is_built_from_the_json() -> None:
     assert (f"{totals['predicted_errors']['extremite_non_annotee']} relations prédites dont une extrémité n'est pas annotée, "
             f"{totals['predicted_errors']['mauvaise_cible']} mauvaises cibles et {totals['predicted_errors']['mauvais_type']} mauvais types") in section
     assert f"{totals['missed']['jamais_proposee']} ne sont jamais proposées" in section
+
+
+def test_test2_section_is_built_from_the_json() -> None:
+    section = README.split("### Test scellé élargi (projets 13 à 16)")[1].split("\n## ")[0]
+    data = load("test2.json")
+    st = data["stages"]
+    for key, label in (("bm25", "BM25"), ("e5_base", "e5-small de base"), ("e5_finetuned", "e5-small fine-tuné"), ("hybrid_rrf", "Hybride RRF (agent)")):
+        g = st["offline"]["retrieval"]["results"][key]["global"]
+        assert f"| {label} | " + " | ".join(fr(g[m]) for m in ("Recall@3", "Recall@5", "MRR", "nDCG@5")) + " |" in section, key
+    fa, ab, cx, rag = st["offline"]["final_answer"]["global"], st["offline"]["abstention"], st["offline"]["complex"], st["rag"]
+    assert f"| Requêtes simples, réponse juste | {fa['correct']}/{fa['n']} | {rag['answerable']['correct']}/{rag['answerable']['n']} |" in section
+    assert f"| Requêtes sans réponse, abstention | {ab['abstained']}/{ab['n']} | {rag['sans_reponse']['abstained']}/{rag['sans_reponse']['n']} |" in section
+    assert (f"| Questions complexes, unités attendues affichées | {cx['expected_units_shown']}/{cx['expected_units']} | "
+            f"{rag['complex']['expected_units_shown']}/{rag['complex']['expected_units']} |") in section
+    do = st["offline"]["dossiers"]
+    assert f"{do['expected_units_cited']} des {do['expected_units']} unités attendues sont citées" in section and do["units_without_source"] == 0
+    assert f"{thousands(rag['groq_tokens'])} tokens Groq ({rag['groq_calls']} appels" in section
+    ex = st["extraction"]
+    assert ex["projects_measured"] == ["projet_13", "projet_14"] and ex["projects_not_measured"] == ["projet_15", "projet_16"]
+    u, r = ex["metrics"]["units"], ex["metrics"]["relations"]
+    assert f"| Unités annotées, extraites, appariées | {u['annotated']}, {u['extracted']}, {u['matched']} |" in section
+    assert f"| F1 des unités | {fr(u['f1'])} |" in section and f"| Relations strictes, F1 | {fr(r['strict']['f1'])} |" in section
+    assert f"{thousands(ex['groq_tokens'])} tokens Groq" in section
+    assert "après lecture des interfaces de l'agent, ce qui peut le rendre plus favorable au système" in section
+    assert "relations" not in st  # seconde passe de liaison non lancee sur ce jeu
 
 
 def test_five_minute_section_figures_come_from_the_json() -> None:
