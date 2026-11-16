@@ -654,14 +654,25 @@
             "statement": "Les factures échues atteignent 312 000 euros au dernier pointage."
           }
         ]
+      },
+      "resolution_breakdown": {
+        "resolved": 3,
+        "resolved_correct": 3,
+        "unresolved_conflict_counted_correct": 1,
+        "unresolved_conflict_query_ids": [
+          "q_dev_026"
+        ],
+        "correct": 17,
+        "correct_if_unresolved_conflict_not_counted": 16,
+        "note": "le compteur results.global.correct_thanks_to_resolution additionne les resolutions proprement dites (unite perimee remplacee par l'unite active) et les conflits non tranches comptes justes ; ce bloc les separe"
       }
     },
     "abstention_probes": {
       "experiment": "sondes d'abstention : sujet present dans le projet, reponse absente des sources",
       "status": "sondes exploratoires, projets de developpement, jamais utilisees pour regler",
       "file": "data/eval/probes_abstention.json",
-      "sha256": "156944ea3bd2a9f809d7795507c4a6fb4543220c943fecb7e8597b7eb726827e",
-      "rule": "une reponse est comptee 'a tort' si l'agent ne s'abstient pas et que l'unite renvoyee n'est pas dans acceptable_unit_ids (unite qui dit explicitement que l'information n'existe pas)",
+      "sha256": "a0a30d533cf0beebe3fe18eea7647df5106d6bafaff692f24fe16288d31251d8",
+      "rule": "une reponse est comptee 'a tort' si l'agent ne s'abstient pas et que l'unite renvoyee n'est pas dans acceptable_unit_ids ; une reponse non abstenue dont l'unite est dans acceptable_unit_ids est comptee 'acceptable sur le fond' (l'unite dit explicitement que l'information n'existe pas)",
       "results": {
         "n": 6,
         "abstained": 0,
@@ -752,7 +763,22 @@
             "wrongly_answered": true
           }
         ]
-      }
+      },
+      "summary": {
+        "n": 6,
+        "abstained": 0,
+        "wrongly_answered": 5,
+        "acceptable_on_substance": 1,
+        "acceptable_probe_ids": [
+          "probe_02"
+        ],
+        "acceptable_notes": {
+          "probe_02": "p06_u25 indique qu'aucune décision n'a été prise : réponse acceptable sur le fond"
+        }
+      },
+      "independence_note": "5 des 6 sondes sont les requetes sans_reponse du dev (champ same_as_dev_query) ; seule la question sur le budget publicitaire d'Atlas (probe_01) est nouvelle : ce n'est pas une mesure independante"
     }
-  }
+  },
+  "metadata_updated_on": "2026-11-16",
+  "metadata_note": "metadonnees mises a jour sans nouvelle execution, valeurs de resultats inchangees"
 }

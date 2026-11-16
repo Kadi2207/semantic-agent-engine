@@ -218,21 +218,52 @@ def test_hybrid_and_final_answer_figures_come_from_the_json() -> None:
     sd, st = final_dev["sans_reponse"], final_test["sans_reponse"]
     assert f"l'agent s'abstient {sd['abstained']} fois sur {sd['n']} en dev et {st['abstained']} fois sur {st['n']} en test scellé" in README
     probes = dev["experiments"]["abstention_probes"]["results"]
-    assert f"{probes['wrongly_answered']} réponses à tort sur {probes['n']}, {probes['abstained']} abstention" in README
+    summary = dev["experiments"]["abstention_probes"]["summary"]
+    assert {k: summary[k] for k in ("n", "abstained", "wrongly_answered")} == {k: probes[k] for k in ("n", "abstained", "wrongly_answered")}
+    assert summary["acceptable_probe_ids"] == ["probe_02"] and "p06_u25" in summary["acceptable_notes"]["probe_02"]
+    assert (
+        f"{summary['n']} questions, {summary['abstained']} abstention ; {summary['wrongly_answered']} réponses à tort et "
+        f"{summary['acceptable_on_substance']} acceptable sur le fond (`p06_u25` indique qu'aucune décision n'a été prise)"
+    ) in README
     assert "sondes exploratoires, sur les projets de développement, jamais utilisées pour régler" in README
+    same = sum("same_as_dev_query" in p for p in json.loads((ROOT / "data/eval/probes_abstention.json").read_text(encoding="utf-8"))["probes"])
+    assert f"{same} des {summary['n']} sondes sont les requêtes sans_reponse du dev" in README
+    assert "seule la question sur le budget publicitaire d'Atlas est nouvelle : ce n'est pas une mesure indépendante" in README
+    breakdown = final_dev["resolution_breakdown"]
+    assert (breakdown["resolved"], breakdown["resolved_correct"]) == (len(resolved), len(resolved))
+    assert breakdown["unresolved_conflict_counted_correct"] == gd["unresolved_conflict"]
+    assert breakdown["resolved_correct"] + breakdown["unresolved_conflict_counted_correct"] == gd["correct_thanks_to_resolution"]
+    strict = breakdown["correct_if_unresolved_conflict_not_counted"]
+    assert (
+        f"{gd['correct']}/{gd['n']} ({strict}/{gd['n']} si le conflit non tranché de "
+        f"{breakdown['unresolved_conflict_query_ids'][0]} n'est pas compté juste)"
+    ) in README
     recorded_once = "execution unique d'enregistrement sur le test scelle"
     assert recorded_once in test["status"] and recorded_once in load("retrieval_test.json")["experiments"]["hybrid_rrf"]["status"]
     assert "d'une seule exécution d'enregistrement, sans aucun réglage" in README
 
     limits = README.split("## Limites assumées")[1].split("\n## ")[0]
     assert (
-        f"{sd['abstained']} abstention sur les {sd['n']} requêtes sans réponse du dev, {st['abstained']} sur {st['n']} en test scellé, "
-        f"et {probes['wrongly_answered']} réponses à tort sur {probes['n']} sondes exploratoires"
+        f"{sd['abstained']} abstention sur les {sd['n']} requêtes sans réponse du dev, {st['abstained']} sur {st['n']} en test scellé ; "
+        f"sur {summary['n']} sondes exploratoires, {summary['abstained']} abstention, {summary['wrongly_answered']} réponses à tort et "
+        f"{summary['acceptable_on_substance']} acceptable sur le fond"
     ) in limits
+    assert f"{same} sur {summary['n']} sont les requêtes sans_reponse du dev" in limits
+    wrongly_abstained = [r for r in final_dev["results"]["per_query"] if r["abstained"]]
+    assert [r["query_id"] for r in wrongly_abstained] == ["q_dev_002"]
+    assert f"le seuil écarte à tort q_dev_002, dont la réponse existe (meilleur cosinus de {fr(wrongly_abstained[0]['best_dense_score'])})" in limits
     active = categories["decision_active"]
     assert active["correct"] == active["n"] and f"les {active['n']} requêtes de cette catégorie obtiennent une réponse juste" in limits
     ref = categories["reformulation"]
-    assert f"{gd['n'] - gd['correct']} réponses sur {gd['n']} sont fausses, dont {ref['n'] - ref['correct']} sur {ref['n']} en reformulation" in limits
+    assert (
+        f"{gd['n'] - gd['correct']} réponses sur {gd['n']} sont fausses ({gd['n'] - strict} si le conflit non tranché n'est pas compté juste), "
+        f"dont {ref['n'] - ref['correct']} sur {ref['n']} en reformulation"
+    ) in limits
+    assert f"la catégorie la plus faible en réponse finale, avec {ref['correct']}/{ref['n']} en dev. L'agent ne retient que le premier résultat" in limits
+    assert (
+        f"l'hybride est légèrement sous le e5 fine-tuné seul (MRR de {fr(g['MRR'])} contre {fr(finetuned['MRR'])}, et de même en nDCG@5 "
+        f"et en Recall@5), bien qu'il soit meilleur en Recall@3 ({fr(g['Recall@3'])} contre {fr(finetuned['Recall@3'])})"
+    ) in limits
     assert "Conflit non tranché : le corpus de développement n'en contient qu'un seul cas (projet_10)" in limits
     assert "conflit non tranché, avec les deux affirmations et leurs sources, sans en barrer aucune et sans conclure" in README
     assert "« proposition, non validée »" in README and "ajoute la date de la réunion sans rien calculer d'autre" in README

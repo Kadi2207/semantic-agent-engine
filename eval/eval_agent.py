@@ -68,11 +68,89 @@ def accuracy_block(rows: list[dict[str, object]]) -> dict[str, object]:
     }
 
 
+def resolution_breakdown(rows: list[dict[str, object]]) -> dict[str, object]:
+    """Distingue les resolutions proprement dites du conflit non tranche (derive des lignes par requete)."""
+    correct = sum(bool(r["correct"]) for r in rows)
+    conflicts = [r for r in rows if r["conflict_with"] and r["correct"]]
+    return {
+        "resolved": sum(bool(r["resolved"]) for r in rows),
+        "resolved_correct": sum(bool(r["resolved"]) and bool(r["correct"]) for r in rows),
+        "unresolved_conflict_counted_correct": len(conflicts),
+        "unresolved_conflict_query_ids": [r["query_id"] for r in conflicts],
+        "correct": correct,
+        "correct_if_unresolved_conflict_not_counted": correct - len(conflicts),
+        "note": "le compteur results.global.correct_thanks_to_resolution additionne les resolutions proprement dites "
+        "(unite perimee remplacee par l'unite active) et les conflits non tranches comptes justes ; ce bloc les separe",
+    }
+
+
+def probes_summary(spec: dict[str, object], probe_rows: list[dict[str, object]]) -> dict[str, object]:
+    """Trois issues par sonde : abstention, reponse a tort, reponse acceptable sur le fond."""
+    acceptable = [r["probe_id"] for r in probe_rows if not r["abstained"] and not r["wrongly_answered"]]
+    notes = {p["probe_id"]: p.get("acceptable_note") for p in spec["probes"]}  # type: ignore[union-attr]
+    return {
+        "n": len(probe_rows),
+        "abstained": sum(bool(r["abstained"]) for r in probe_rows),
+        "wrongly_answered": sum(bool(r["wrongly_answered"]) for r in probe_rows),
+        "acceptable_on_substance": len(acceptable),
+        "acceptable_probe_ids": acceptable,
+        "acceptable_notes": {probe_id: notes[probe_id] for probe_id in acceptable},
+    }
+
+
+METADATA_ONLY_MENTION = "metadonnees mises a jour sans nouvelle execution, valeurs de resultats inchangees"
+
+
+def _results_bytes(data: dict[str, object]) -> bytes:
+    experiments = data["experiments"]
+    kept = {name: exp["results"] for name, exp in experiments.items()}  # type: ignore[union-attr]
+    kept["sans_reponse"] = experiments["final_answer"]["sans_reponse"]  # type: ignore[index]
+    return json.dumps(kept, ensure_ascii=False, indent=2).encode("utf-8")
+
+
+def refresh_metadata(path: Path) -> int:
+    """Ajoute les blocs derives (resolution_breakdown, resume des sondes) SANS aucune evaluation.
+
+    Les sections results et sans_reponse sont relues puis reecrites telles quelles ; leur serialisation est
+    comparee octet pour octet avant et apres. Renvoie le nombre d'octets compares.
+    """
+    data = json.loads(path.read_text(encoding="utf-8"))
+    before = _results_bytes(data)
+    final = data["experiments"]["final_answer"]
+    final["resolution_breakdown"] = resolution_breakdown(final["results"]["per_query"])
+    probes = data["experiments"].get("abstention_probes")
+    if probes:
+        spec = json.loads(PROBES_PATH.read_text(encoding="utf-8"))
+        by_id = {p["probe_id"]: p for p in spec["probes"]}
+        for row in probes["results"]["per_probe"]:  # la regle du fichier redonne bien les valeurs enregistrees
+            probe = by_id[row["probe_id"]]
+            assert row["wrongly_answered"] == (not row["abstained"] and row["final_unit_id"] not in probe["acceptable_unit_ids"])
+        probes.update(
+            status=spec["status"],
+            sha256=results_io.sha256_text_file(PROBES_PATH),
+            rule=spec["rule"],
+            summary=probes_summary(spec, probes["results"]["per_probe"]),
+            independence_note=spec["independence_note"],
+        )
+    data["metadata_updated_on"] = date.today().isoformat()
+    data["metadata_note"] = METADATA_ONLY_MENTION
+    if before != _results_bytes(data):
+        raise RuntimeError("une section de resultats a change : rien n'est ecrit")
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    return len(before)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--queries", type=Path, default=QUERIES_PATH)
-    parser.add_argument("--out", type=Path, required=True)
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--out", type=Path)
+    group.add_argument("--refresh-metadata", type=Path, nargs="+", help="blocs derives seulement, aucune evaluation")
     args = parser.parse_args()
+    if args.refresh_metadata:
+        for path in args.refresh_metadata:
+            print(f"{path} : resultats identiques octet pour octet ({refresh_metadata(path)} octets compares)")
+        return
     queries_path: Path = args.queries if args.queries.is_absolute() else ROOT / args.queries
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -108,6 +186,7 @@ def main() -> None:
             "pour un conflit non tranche, une unite pertinente figure parmi les affirmations affichees",
             "results": final,
             "sans_reponse": no_answer,
+            "resolution_breakdown": resolution_breakdown(rows),
         }
     }
     if not is_test:
@@ -129,6 +208,8 @@ def main() -> None:
                 "wrongly_answered": sum(bool(r["wrongly_answered"]) for r in probe_rows),
                 "per_probe": probe_rows,
             },
+            "summary": probes_summary(spec, probe_rows),
+            "independence_note": spec["independence_note"],
         }
 
     data = {

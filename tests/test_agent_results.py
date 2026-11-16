@@ -56,6 +56,29 @@ def test_probes_are_exploratory_development_only_and_match_the_recorded_result()
         assert row["wrongly_answered"] == (not row["abstained"] and row["final_unit_id"] not in probe["acceptable_unit_ids"])
     assert results["wrongly_answered"] == sum(r["wrongly_answered"] for r in results["per_probe"])
     assert (results["wrongly_answered"], results["n"], results["abstained"]) == (5, 6, 0)  # limite mesuree, non corrigee
+    summary = section["summary"]  # trois issues : abstention, reponse a tort, reponse acceptable sur le fond
+    assert summary["abstained"] + summary["wrongly_answered"] + summary["acceptable_on_substance"] == summary["n"] == 6
+    assert summary["acceptable_probe_ids"] == [p["probe_id"] for p in PROBES["probes"] if p["acceptable_unit_ids"]] == ["probe_02"]
+    assert section["rule"] == PROBES["rule"] and section["independence_note"] == PROBES["independence_note"]
+    dev_unanswerable = {q["query_id"] for q in QUERIES if q["piege"] == "sans_reponse"}
+    assert {p["same_as_dev_query"] for p in PROBES["probes"] if "same_as_dev_query" in p} == dev_unanswerable
+    assert "ce n'est pas une mesure independante" in PROBES["independence_note"]
+
+
+def test_resolution_breakdown_separates_real_resolutions_from_the_conflict() -> None:
+    for name in ("agent_dev.json", "agent_test.json"):
+        final = json.loads((ROOT / "eval/results" / name).read_text(encoding="utf-8"))["experiments"]["final_answer"]
+        rows, block, g = final["results"]["per_query"], final["resolution_breakdown"], final["results"]["global"]
+        assert block["resolved"] == g["resolved"] == sum(r["resolved"] for r in rows)
+        assert block["resolved_correct"] == sum(r["resolved"] and r["correct"] for r in rows)
+        conflicts = [r["query_id"] for r in rows if r["conflict_with"] and r["correct"]]
+        assert block["unresolved_conflict_query_ids"] == conflicts
+        assert block["unresolved_conflict_counted_correct"] == len(conflicts)
+        assert block["correct"] == g["correct"]
+        assert block["correct_if_unresolved_conflict_not_counted"] == g["correct"] - len(conflicts)
+        assert block["resolved_correct"] + len(conflicts) == g["correct_thanks_to_resolution"]
+    dev = AGENT["experiments"]["final_answer"]["resolution_breakdown"]
+    assert (dev["resolved_correct"], dev["unresolved_conflict_query_ids"], dev["correct_if_unresolved_conflict_not_counted"]) == (3, ["q_dev_026"], 16)
 
 
 def test_metadata_come_from_the_code_and_the_query_file() -> None:

@@ -1,7 +1,8 @@
 {
   "description": "Sondes exploratoires, projets de developpement, jamais utilisees pour regler. Six questions de la revue produit : le sujet existe dans le projet, mais les sources ne contiennent pas la reponse. Comportement attendu : abstention.",
   "status": "sondes exploratoires, projets de developpement, jamais utilisees pour regler",
-  "rule": "une reponse est comptee 'a tort' si l'agent ne s'abstient pas et que l'unite renvoyee n'est pas dans acceptable_unit_ids (unite qui dit explicitement que l'information n'existe pas)",
+  "rule": "une reponse est comptee 'a tort' si l'agent ne s'abstient pas et que l'unite renvoyee n'est pas dans acceptable_unit_ids ; une reponse non abstenue dont l'unite est dans acceptable_unit_ids est comptee 'acceptable sur le fond' (l'unite dit explicitement que l'information n'existe pas)",
+  "independence_note": "5 des 6 sondes sont les requetes sans_reponse du dev (champ same_as_dev_query) ; seule la question sur le budget publicitaire d'Atlas (probe_01) est nouvelle : ce n'est pas une mesure independante",
   "probes": [
     {
       "probe_id": "probe_01",
@@ -15,8 +16,10 @@
       "project_id": "projet_06",
       "query": "Quelle décision a été prise pour les redirections des anciennes URL des fiches produits ?",
       "expected": "abstention",
-      "acceptable_unit_ids": ["p06_u25"],
-      "acceptable_note": "p06_u25 dit explicitement qu'aucune décision n'a encore été prise : la renvoyer n'est pas une réponse à tort",
+      "acceptable_unit_ids": [
+        "p06_u25"
+      ],
+      "acceptable_note": "p06_u25 indique qu'aucune décision n'a été prise : réponse acceptable sur le fond",
       "same_as_dev_query": "q_dev_010"
     },
     {

@@ -220,7 +220,18 @@
             "statement": "Une dernière campagne de reconsentement est envoyée aux contacts inactifs, ceux qui ne répondent pas sont supprimés."
           }
         ]
+      },
+      "resolution_breakdown": {
+        "resolved": 0,
+        "resolved_correct": 0,
+        "unresolved_conflict_counted_correct": 0,
+        "unresolved_conflict_query_ids": [],
+        "correct": 4,
+        "correct_if_unresolved_conflict_not_counted": 4,
+        "note": "le compteur results.global.correct_thanks_to_resolution additionne les resolutions proprement dites (unite perimee remplacee par l'unite active) et les conflits non tranches comptes justes ; ce bloc les separe"
       }
     }
-  }
+  },
+  "metadata_updated_on": "2026-11-16",
+  "metadata_note": "metadonnees mises a jour sans nouvelle execution, valeurs de resultats inchangees"
 }
