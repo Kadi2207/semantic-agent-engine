@@ -113,7 +113,7 @@ def _build_draft(candidate: Candidate) -> EmailDraft:
     )
 
 
-def _task_candidate(unit: SemanticUnit, people: list[str]) -> Candidate:
+def _task_candidate(unit: SemanticUnit, people: list[str], retriever=None, graph=None) -> Candidate:  # noqa: ANN001
     """Tache a jour + son responsable.
 
     - tache active : son responsable ;
@@ -122,7 +122,7 @@ def _task_candidate(unit: SemanticUnit, people: list[str]) -> Candidate:
     - tache perimee remplacee par autre chose (ex. decision "signature mise en attente") : la personne
       reste la meme, mais la mise a jour est signalee dans le mail.
     """
-    resolved, path = get_graph().resolve(unit, get_retriever())
+    resolved, path = (graph or get_graph()).resolve(unit, retriever or get_retriever())
     if resolved.unit_id == unit.unit_id:
         return Candidate(responsible_person(unit.statement, people), unit)
     relation = "contradicts" if "-contradicts->" in path[-1] else "supersedes"
@@ -131,8 +131,15 @@ def _task_candidate(unit: SemanticUnit, people: list[str]) -> Candidate:
     return Candidate(responsible_person(unit.statement, people), unit, updates=((resolved, relation),))
 
 
-def draft_email(query: str, project_id: str, threshold: float = ABSTENTION_THRESHOLD) -> EmailDraft | Clarification:
-    retriever = get_retriever()
+def draft_email(
+    query: str,
+    project_id: str,
+    threshold: float = ABSTENTION_THRESHOLD,
+    retriever=None,  # noqa: ANN001
+    graph=None,  # noqa: ANN001
+) -> EmailDraft | Clarification:
+    """`retriever` et `graph` : memoire a interroger (par defaut la memoire annotee, comme answer())."""
+    retriever = retriever or get_retriever()
     people = get_participants().get(project_id, [])
     topic = strip_instruction(query)
 
@@ -147,7 +154,7 @@ def draft_email(query: str, project_id: str, threshold: float = ABSTENTION_THRES
     seen: set[str] = set()
     for hit in hits:
         if hit.unit.type in TASK_TYPES:
-            candidate = _task_candidate(hit.unit, people)
+            candidate = _task_candidate(hit.unit, people, retriever, graph)
             if candidate.unit.unit_id not in seen:  # deux hits peuvent mener a la meme tache a jour
                 seen.add(candidate.unit.unit_id)
                 tasks.append(candidate)

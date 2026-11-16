@@ -40,7 +40,7 @@ def all_numbers(node: object) -> set[float]:
 
 def test_every_three_decimal_number_of_the_readme_exists_in_a_results_json() -> None:
     known = set()
-    for name in ("retrieval_dev.json", "retrieval_test.json", "extraction.json", "real_qmsum.json", "agent_dev.json", "agent_test.json"):
+    for name in ("retrieval_dev.json", "retrieval_test.json", "extraction.json", "real_qmsum.json", "agent_dev.json", "agent_test.json", "agent_extracted_dev.json"):
         known |= {fr(v) for v in all_numbers(load(name))}
     cited = set(re.findall(r"(?<![\d,])\d,\d{3}(?![\d])", README))
     assert cited, "aucun chiffre trouve dans le README"
@@ -269,13 +269,38 @@ def test_hybrid_and_final_answer_figures_come_from_the_json() -> None:
     assert "« proposition, non validée »" in README and "ajoute la date de la réunion sans rien calculer d'autre" in README
 
 
+def test_extracted_chain_figures_come_from_the_json() -> None:
+    data = load("agent_extracted_dev.json")
+    r, mem = data["results"], data["extracted_memory"]
+    ge, ga = r["extracted"]["global"], r["annotated"]["global"]
+    assert f"| Global | {ge['correct']}/{ge['n']} ({fr(ge['accuracy'])}) | {ga['correct']}/{ga['n']} ({fr(ga['accuracy'])}) |" in README
+    for piege, be in r["extracted"]["per_category"].items():
+        ba = r["annotated"]["per_category"][piege]
+        assert f"| {piege} | {be['correct']}/{be['n']} | {ba['correct']}/{ba['n']} |" in README, piege
+    assert f"La mesure porte sur les {data['queries']['evaluated']} requêtes avec réponse du dev" in README
+    assert mem["expected_units_with_extracted_match"] == mem["expected_units"]
+    assert f"Les {mem['expected_units']} unités attendues ont toutes un équivalent dans la mémoire extraite" in README
+    c = r["comparison"]
+    assert (
+        f"{c['correct_in_both']} requêtes sont justes dans les deux mémoires, {len(c['correct_only_annotated'])} seulement en "
+        f"mémoire annotée et {len(c['correct_only_extracted'])} seulement en mémoire extraite"
+    ) in README
+    da, de = r["annotated"]["per_category"]["decision_active"], r["extracted"]["per_category"]["decision_active"]
+    assert f"({de['correct']}/{de['n']} contre {da['correct']}/{da['n']})" in README
+    glob_f1 = load("extraction.json")["groups"]["global_04_12"]["relations"]["strict"]["f1"]
+    assert f"dont le F1 strict n'est que de {glob_f1:.2f}".replace(".", ",") + " sur les projets 04 à 12" in README
+    assert f"L'agent s'abstient à tort {ge['abstained']} fois en mémoire extraite ({ga['abstained']} fois en mémoire annotée)" in README
+    s = data["sans_reponse"]
+    assert s["extracted"]["abstained"] == s["annotated"]["abstained"] == 0
+    assert f"aucune des {s['extracted']['n']} requêtes sans réponse de ces projets" in README
+    limits = README.split("## Limites assumées")[1].split("\n## ")[0]
+    assert f"({ge['correct']}/{ge['n']} contre {ga['correct']}/{ga['n']} sur les mêmes requêtes)" in limits
+
+
 def test_demo_scope_is_stated() -> None:
     limits = README.split("## Limites assumées")[1].split("\n## ")[0]
-    assert (
-        "Ingestion et agent non reliés : l'agent et la démonstration lisent la mémoire annotée (`data/raw`), pas les "
-        "unités et relations produites par l'extraction automatique. L'extraction est évaluée séparément "
-        "(`extraction.json`). Les brancher l'une sur l'autre est l'étape suivante."
-    ) in limits
+    assert "Ingestion et agent non reliés" not in limits  # plus vrai depuis la chaine complete
+    assert "Ingestion et agent reliés en partie seulement : le parcours de démonstration" in limits
     demo = README.split("## Démonstration")[1].split("\n## ")[0]
     assert "Elle s'appuie sur les unités et relations annotées du projet Atlas" in demo
 

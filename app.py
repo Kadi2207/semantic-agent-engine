@@ -28,6 +28,7 @@ from src.agent.display import (  # noqa: E402
 from src.agent.intent import detect_intent  # noqa: E402
 from src.agent.retriever import FINETUNED_PATH, HybridRetriever  # noqa: E402
 from src.agent.sources import load_transcripts, source_passage  # noqa: E402
+from src.memory.extracted import EXTRACTED_PROJECTS, MENTION, get_extracted_graph, get_extracted_retriever  # noqa: E402
 from src.schemas import EmailDraft, SemanticUnit  # noqa: E402
 
 st.set_page_config(page_title="Embedding Lab", layout="centered")
@@ -67,6 +68,12 @@ def load_agent() -> HybridRetriever:
     return get_retriever()
 
 
+@st.cache_resource(show_spinner="Chargement de la mémoire extraite…")
+def load_extracted_memory():  # noqa: ANN201
+    """Meme agent, autre memoire : unites et relations produites par l'extraction (projets 04 a 12)."""
+    return get_extracted_retriever(), get_extracted_graph()
+
+
 @st.cache_data
 def load_project_names() -> dict[str, str]:
     names = {}
@@ -96,7 +103,13 @@ OTHER_EXAMPLES = [
 ]
 
 
+MEMORY_ANNOTATED = "annotée (référence)"
+MEMORY_EXTRACTED = "extraite automatiquement"
+EXTRACTED_IDS = [f"projet_{n:02d}" for n in EXTRACTED_PROJECTS]
+
+
 def apply_scenario(project_id: str, question: str, detail_sources: bool = False) -> None:
+    st.session_state["memory"] = MEMORY_ANNOTATED  # le parcours et les exemples restent sur la memoire annotee
     st.session_state["project"] = project_id
     st.session_state["question"] = question
     st.session_state["detail_sources"] = detail_sources
@@ -267,11 +280,22 @@ def render_clarification(result: Clarification) -> None:
 
 project_names = load_project_names()
 project_ids = list(project_names)
+st.session_state.setdefault("memory", MEMORY_ANNOTATED)
 st.session_state.setdefault("project", DEMO_PROJECT)
 st.session_state.setdefault("question", "")
 st.session_state.setdefault("detail_sources", False)
 
+extracted_mode = st.session_state["memory"] == MEMORY_EXTRACTED
+if extracted_mode:  # seuls les projets 04 a 12 ont une memoire extraite
+    project_ids = [pid for pid in project_ids if pid in EXTRACTED_IDS]
+    if st.session_state["project"] not in project_ids:
+        st.session_state["project"] = project_ids[0]
+
 with st.sidebar:
+    st.markdown("### Mémoire")
+    st.radio("Mémoire", [MEMORY_ANNOTATED, MEMORY_EXTRACTED], key="memory", label_visibility="collapsed")
+    if extracted_mode:
+        st.caption(f"Mémoire extraite : {MENTION}. Projets 04 à 12 seulement.")
     st.markdown("### Projet")
     st.radio(
         "Projet",
@@ -293,10 +317,17 @@ except FileNotFoundError as exc:
     st.error(str(exc))
     st.stop()
 
+graph = get_graph()
+if extracted_mode:
+    retriever, graph = load_extracted_memory()
+
 project_id = st.session_state["project"]
 st.title("Embedding Lab")
 st.markdown("<div class='subtitle'>Mémoire de réunions : décisions, actions et sources</div>", unsafe_allow_html=True)
 st.caption(f"Projet actif : **{project_names[project_id]}** (`{project_id}`)")
+
+if extracted_mode:
+    st.info(f"**Mémoire extraite automatiquement** : {MENTION}.")
 
 st.markdown(
     f"<div class='meta'>Parcours de démonstration : projet {project_names[DEMO_PROJECT]} "
@@ -321,9 +352,9 @@ if submitted:
         st.markdown(f"<div class='meta'>Intention détectée : <b>{intent_label(intent)}</b></div>", unsafe_allow_html=True)
         with st.spinner("Recherche dans les sources…"):
             if intent == "draft_email":
-                result = draft_email(question, project_id)
+                result = draft_email(question, project_id, retriever=retriever, graph=graph)
             else:
-                result = answer(question, project_id, retriever=retriever)
+                result = answer(question, project_id, retriever=retriever, graph=graph)
         if isinstance(result, Clarification):
             render_clarification(result)
         elif isinstance(result, EmailDraft):

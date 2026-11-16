@@ -1,0 +1,1166 @@
+{
+  "description": "Chaine complete : reponse finale de l'agent sur la memoire extraite, comparee a la memoire annotee",
+  "generated_on": "2026-11-16",
+  "split": "dev",
+  "script": "eval/eval_agent_extracted.py",
+  "status": "mesure sans aucun reglage, projets de developpement 04 a 10 ; les projets 11 et 12 (test scelle) ne sont pas utilises",
+  "queries": {
+    "file": "data/eval/queries_dev.json",
+    "sha256": "3fa152358021b63dcf431ae4b69c6d692283f0dbffaeed03757fdce6e2d39cc0",
+    "total_in_file": 30,
+    "projects": [
+      "projet_04",
+      "projet_05",
+      "projet_06",
+      "projet_07",
+      "projet_08",
+      "projet_09",
+      "projet_10"
+    ],
+    "in_scope": 25,
+    "evaluated": 20,
+    "evaluated_query_ids": [
+      "q_dev_002",
+      "q_dev_005",
+      "q_dev_006",
+      "q_dev_007",
+      "q_dev_009",
+      "q_dev_011",
+      "q_dev_012",
+      "q_dev_013",
+      "q_dev_014",
+      "q_dev_015",
+      "q_dev_017",
+      "q_dev_018",
+      "q_dev_019",
+      "q_dev_020",
+      "q_dev_021",
+      "q_dev_023",
+      "q_dev_024",
+      "q_dev_025",
+      "q_dev_026",
+      "q_dev_027"
+    ],
+    "sans_reponse_query_ids": [
+      "q_dev_010",
+      "q_dev_016",
+      "q_dev_022",
+      "q_dev_028",
+      "q_dev_029"
+    ],
+    "excluded": "requetes des projets 01 a 03 (projets ayant servi a regler la consigne d'extraction)"
+  },
+  "extracted_memory": {
+    "directory": "data/extracted",
+    "mention": "unités et relations produites par le pipeline d'extraction, sans correction manuelle",
+    "built_by": "scripts/build_extracted_memory.py (rejeu du cache Groq local, aucun appel)",
+    "units": 160,
+    "relations": 54,
+    "units_matched_to_annotation": 124,
+    "expected_units_with_extracted_match": 20,
+    "expected_units": 20
+  },
+  "matching": {
+    "method": "Matcher de eval/eval_extraction.py : recouvrement de preuve dans le transcript, a defaut cosinus e5 des enonces",
+    "min_overlap": 0.5,
+    "cos_threshold": 0.93
+  },
+  "models": {
+    "bm25": {
+      "model": "rank_bm25.BM25Okapi",
+      "training": null
+    },
+    "e5_finetuned": {
+      "model": "models/e5-finetuned",
+      "weights_sha256": "b87f48d52487225b10033892140cad97f050ad8868852616b5c7a41051e50458",
+      "training": {
+        "source": "scripts/train_embeddings.py",
+        "base_model": "intfloat/multilingual-e5-small",
+        "epochs": 3,
+        "batch_size": 16,
+        "warmup_ratio": 0.1,
+        "learning_rate": 2e-05,
+        "seed": 42
+      }
+    }
+  },
+  "params": {
+    "abstention_threshold": 0.45,
+    "rrf_k": 60,
+    "search_scope": "unites du projet de la requete"
+  },
+  "definition": "juste = l'agent ne s'abstient pas et l'unite affichee est (memoire annotee) une unite attendue, ou (memoire extraite) appariee a une unite attendue ; pour un conflit non tranche, une des unites affichees suffit",
+  "results": {
+    "extracted": {
+      "global": {
+        "n": 20,
+        "correct": 10,
+        "accuracy": 0.5,
+        "abstained": 2,
+        "resolved": 1,
+        "correct_thanks_to_resolution": 1,
+        "unresolved_conflict": 0
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 4,
+          "correct": 2,
+          "accuracy": 0.5,
+          "abstained": 0,
+          "resolved": 0,
+          "correct_thanks_to_resolution": 0,
+          "unresolved_conflict": 0
+        },
+        "reformulation": {
+          "n": 5,
+          "correct": 2,
+          "accuracy": 0.4,
+          "abstained": 2,
+          "resolved": 0,
+          "correct_thanks_to_resolution": 0,
+          "unresolved_conflict": 0
+        },
+        "responsable_reel": {
+          "n": 4,
+          "correct": 1,
+          "accuracy": 0.25,
+          "abstained": 0,
+          "resolved": 0,
+          "correct_thanks_to_resolution": 0,
+          "unresolved_conflict": 0
+        },
+        "negation": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0,
+          "abstained": 0,
+          "resolved": 1,
+          "correct_thanks_to_resolution": 1,
+          "unresolved_conflict": 0
+        },
+        "engagement": {
+          "n": 4,
+          "correct": 2,
+          "accuracy": 0.5,
+          "abstained": 0,
+          "resolved": 0,
+          "correct_thanks_to_resolution": 0,
+          "unresolved_conflict": 0
+        }
+      },
+      "resolution_breakdown": {
+        "resolved": 1,
+        "resolved_correct": 1,
+        "unresolved_conflict_counted_correct": 0,
+        "unresolved_conflict_query_ids": [],
+        "correct": 10,
+        "correct_if_unresolved_conflict_not_counted": 10,
+        "note": "le compteur results.global.correct_thanks_to_resolution additionne les resolutions proprement dites (unite perimee remplacee par l'unite active) et les conflits non tranches comptes justes ; ce bloc les separe"
+      },
+      "per_query": [
+        {
+          "query_id": "q_dev_002",
+          "project_id": "projet_10",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p10_u18"
+          ],
+          "abstained": true,
+          "best_dense_score": 0.444051,
+          "retrieved_unit_id": null,
+          "final_unit_id": null,
+          "final_unit_status": null,
+          "resolved": false,
+          "conflict_with": [],
+          "statement": null,
+          "matched_annotated_unit_ids": [],
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_005",
+          "project_id": "projet_04",
+          "piege": "decision_active",
+          "relevant_unit_ids": [
+            "p04_u12"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.622194,
+          "retrieved_unit_id": "p04_m02_x06",
+          "final_unit_id": "p04_m02_x06",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "La migration vers le nouveau CRM est validée définitivement.",
+          "matched_annotated_unit_ids": [
+            "p04_u12"
+          ],
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_006",
+          "project_id": "projet_06",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p06_u12"
+          ],
+          "abstained": true,
+          "best_dense_score": 0.262638,
+          "retrieved_unit_id": null,
+          "final_unit_id": null,
+          "final_unit_status": null,
+          "resolved": false,
+          "conflict_with": [],
+          "statement": null,
+          "matched_annotated_unit_ids": [],
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_007",
+          "project_id": "projet_07",
+          "piege": "responsable_reel",
+          "relevant_unit_ids": [
+            "p07_u06"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.47957,
+          "retrieved_unit_id": "p07_m01_x06",
+          "final_unit_id": "p07_m01_x06",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Il faut prévenir les commerciaux avant, sinon ils vont mal le prendre.",
+          "matched_annotated_unit_ids": [
+            "p07_u05"
+          ],
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_009",
+          "project_id": "projet_07",
+          "piege": "engagement",
+          "relevant_unit_ids": [
+            "p07_u04"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.531244,
+          "retrieved_unit_id": "p07_m01_x04",
+          "final_unit_id": "p07_m01_x04",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Toute opportunité sans activité depuis 60 jours sera passée en perdue, sauf justification du commercial.",
+          "matched_annotated_unit_ids": [
+            "p07_u03"
+          ],
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_011",
+          "project_id": "projet_05",
+          "piege": "decision_active",
+          "relevant_unit_ids": [
+            "p05_u15"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.708551,
+          "retrieved_unit_id": "p05_m01_x07",
+          "final_unit_id": "p05_m01_x07",
+          "final_unit_status": "superseded",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "La journée clients aura lieu le jeudi 1er octobre au Pavillon des Berges.",
+          "matched_annotated_unit_ids": [
+            "p05_u04"
+          ],
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_012",
+          "project_id": "projet_08",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p08_u13"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.507612,
+          "retrieved_unit_id": "p08_m02_x03",
+          "final_unit_id": "p08_m02_x03",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Embaleco propose une hausse de 4 % au lieu de 8 % avec des pénalités en cas de retard de livraison.",
+          "matched_annotated_unit_ids": [
+            "p08_u13"
+          ],
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_013",
+          "project_id": "projet_09",
+          "piege": "responsable_reel",
+          "relevant_unit_ids": [
+            "p09_u08"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.728108,
+          "retrieved_unit_id": "p09_m01_x03",
+          "final_unit_id": "p09_m01_x03",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "La moitié des chefs d'équipe de Hakim ont des téléphones Android.",
+          "matched_annotated_unit_ids": [
+            "p09_u03"
+          ],
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_014",
+          "project_id": "projet_04",
+          "piege": "negation",
+          "relevant_unit_ids": [
+            "p04_u08"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.492468,
+          "retrieved_unit_id": "p04_m02_x02",
+          "final_unit_id": "p04_m02_x02",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Le test de reprise a été réalisé la semaine du 15 comme prévu et toutes les fiches des deux agences pilotes ont été reprises sans perte.",
+          "matched_annotated_unit_ids": [
+            "p04_u08"
+          ],
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_015",
+          "project_id": "projet_06",
+          "piege": "engagement",
+          "relevant_unit_ids": [
+            "p06_u09"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.663504,
+          "retrieved_unit_id": "p06_m02_x02",
+          "final_unit_id": "p06_m02_x02",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Les maquettes envoyées par Émilie sont tout à fait intégrables.",
+          "matched_annotated_unit_ids": [
+            "p06_u10"
+          ],
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_017",
+          "project_id": "projet_09",
+          "piege": "decision_active",
+          "relevant_unit_ids": [
+            "p09_u13"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.534161,
+          "retrieved_unit_id": "p09_m02_x05",
+          "final_unit_id": "p09_m02_x05",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Le déploiement de Chantio pour tous les utilisateurs, iPhone et Android, est prévu à partir du 20 avril.",
+          "matched_annotated_unit_ids": [
+            "p09_u13"
+          ],
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_018",
+          "project_id": "projet_07",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p07_u12"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.568386,
+          "retrieved_unit_id": "p07_m02_x04",
+          "final_unit_id": "p07_m02_x04",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Manon indique que le forecast passe de 2,4 millions à 1,7 million d'euros pondérés, chiffre jugé plus crédible.",
+          "matched_annotated_unit_ids": [
+            "p07_u12"
+          ],
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_019",
+          "project_id": "projet_05",
+          "piege": "responsable_reel",
+          "relevant_unit_ids": [
+            "p05_u08"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.75042,
+          "retrieved_unit_id": "p05_m01_x11",
+          "final_unit_id": "p05_m01_x11",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Antoine demande trois devis à des traiteurs différents.",
+          "matched_annotated_unit_ids": [
+            "p05_u08"
+          ],
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_020",
+          "project_id": "projet_09",
+          "piege": "negation",
+          "relevant_unit_ids": [
+            "p09_u11"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.681407,
+          "retrieved_unit_id": "p09_m01_x02",
+          "final_unit_id": "p09_m02_x02",
+          "final_unit_status": "active",
+          "resolved": true,
+          "conflict_with": [],
+          "statement": "L'application fonctionne aussi sur Android depuis la version 4.1 sortie la semaine dernière.",
+          "matched_annotated_unit_ids": [
+            "p09_u11"
+          ],
+          "correct": true,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_021",
+          "project_id": "projet_08",
+          "piege": "engagement",
+          "relevant_unit_ids": [
+            "p08_u17"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.647975,
+          "retrieved_unit_id": "p08_m02_x07",
+          "final_unit_id": "p08_m02_x07",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Bernard fait rédiger l'avenant par le juridique d'ici le 15 août.",
+          "matched_annotated_unit_ids": [
+            "p08_u17"
+          ],
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_023",
+          "project_id": "projet_10",
+          "piege": "decision_active",
+          "relevant_unit_ids": [
+            "p10_u13"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.794629,
+          "retrieved_unit_id": "p10_m01_x03",
+          "final_unit_id": "p10_m01_x03",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "La première relance part 30 jours après l'échéance.",
+          "matched_annotated_unit_ids": [
+            null
+          ],
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_024",
+          "project_id": "projet_05",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p05_u12"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.567553,
+          "retrieved_unit_id": "p05_m01_x01",
+          "final_unit_id": "p05_m01_x01",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Margaux lance l'organisation de la journée clients de l'automne et propose d'inviter les 80 meilleurs distributeurs.",
+          "matched_annotated_unit_ids": [
+            "p05_u01"
+          ],
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_025",
+          "project_id": "projet_04",
+          "piege": "responsable_reel",
+          "relevant_unit_ids": [
+            "p04_u16"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.638468,
+          "retrieved_unit_id": "p04_m02_x09",
+          "final_unit_id": "p04_m02_x09",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Céline signale qu'il faut former les conseillers avant, sinon le lundi sera compliqué.",
+          "matched_annotated_unit_ids": [
+            "p04_u15"
+          ],
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_026",
+          "project_id": "projet_10",
+          "piege": "negation",
+          "relevant_unit_ids": [
+            "p10_u14"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.70928,
+          "retrieved_unit_id": "p10_m02_x06",
+          "final_unit_id": "p10_m02_x06",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "La facture de mars d'Orvane n'est pas réglée, il n'y a aucun virement sur le relevé.",
+          "matched_annotated_unit_ids": [
+            "p10_u14"
+          ],
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_027",
+          "project_id": "projet_05",
+          "piege": "engagement",
+          "relevant_unit_ids": [
+            "p05_u16"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.464223,
+          "retrieved_unit_id": "p05_m02_x09",
+          "final_unit_id": "p05_m02_x09",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Rachid libère l'option au Pavillon et signe avec le domaine d'ici vendredi.",
+          "matched_annotated_unit_ids": [
+            "p05_u16"
+          ],
+          "correct": true,
+          "retrieved_was_relevant": true
+        }
+      ]
+    },
+    "annotated": {
+      "global": {
+        "n": 20,
+        "correct": 13,
+        "accuracy": 0.65,
+        "abstained": 1,
+        "resolved": 2,
+        "correct_thanks_to_resolution": 3,
+        "unresolved_conflict": 1
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0,
+          "abstained": 0,
+          "resolved": 1,
+          "correct_thanks_to_resolution": 1,
+          "unresolved_conflict": 0
+        },
+        "reformulation": {
+          "n": 5,
+          "correct": 1,
+          "accuracy": 0.2,
+          "abstained": 1,
+          "resolved": 0,
+          "correct_thanks_to_resolution": 0,
+          "unresolved_conflict": 0
+        },
+        "responsable_reel": {
+          "n": 4,
+          "correct": 2,
+          "accuracy": 0.5,
+          "abstained": 0,
+          "resolved": 0,
+          "correct_thanks_to_resolution": 0,
+          "unresolved_conflict": 0
+        },
+        "negation": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0,
+          "abstained": 0,
+          "resolved": 1,
+          "correct_thanks_to_resolution": 2,
+          "unresolved_conflict": 1
+        },
+        "engagement": {
+          "n": 4,
+          "correct": 3,
+          "accuracy": 0.75,
+          "abstained": 0,
+          "resolved": 0,
+          "correct_thanks_to_resolution": 0,
+          "unresolved_conflict": 0
+        }
+      },
+      "resolution_breakdown": {
+        "resolved": 2,
+        "resolved_correct": 2,
+        "unresolved_conflict_counted_correct": 1,
+        "unresolved_conflict_query_ids": [
+          "q_dev_026"
+        ],
+        "correct": 13,
+        "correct_if_unresolved_conflict_not_counted": 12,
+        "note": "le compteur results.global.correct_thanks_to_resolution additionne les resolutions proprement dites (unite perimee remplacee par l'unite active) et les conflits non tranches comptes justes ; ce bloc les separe"
+      },
+      "per_query": [
+        {
+          "query_id": "q_dev_002",
+          "project_id": "projet_10",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p10_u18"
+          ],
+          "abstained": true,
+          "best_dense_score": 0.440333,
+          "retrieved_unit_id": null,
+          "final_unit_id": null,
+          "final_unit_status": null,
+          "resolved": false,
+          "conflict_with": [],
+          "statement": null,
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_005",
+          "project_id": "projet_04",
+          "piege": "decision_active",
+          "relevant_unit_ids": [
+            "p04_u12"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.621216,
+          "retrieved_unit_id": "p04_u12",
+          "final_unit_id": "p04_u12",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "La migration vers le nouveau CRM est validée définitivement, sans condition restante.",
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_006",
+          "project_id": "projet_06",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p06_u12"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.453138,
+          "retrieved_unit_id": "p06_u01",
+          "final_unit_id": "p06_u01",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Le nouveau site doit être en ligne avant les soldes d'été.",
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_007",
+          "project_id": "projet_07",
+          "piege": "responsable_reel",
+          "relevant_unit_ids": [
+            "p07_u06"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.586072,
+          "retrieved_unit_id": "p07_u05",
+          "final_unit_id": "p07_u05",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Les commerciaux risquent de mal réagir s'ils ne sont pas prévenus de la nouvelle règle.",
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_009",
+          "project_id": "projet_07",
+          "piege": "engagement",
+          "relevant_unit_ids": [
+            "p07_u04"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.63473,
+          "retrieved_unit_id": "p07_u04",
+          "final_unit_id": "p07_u04",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Thibault s'engage à traiter les 45 opportunités inactives d'ici le vendredi 18 septembre.",
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_011",
+          "project_id": "projet_05",
+          "piege": "decision_active",
+          "relevant_unit_ids": [
+            "p05_u15"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.734127,
+          "retrieved_unit_id": "p05_u05",
+          "final_unit_id": "p05_u15",
+          "final_unit_status": "active",
+          "resolved": true,
+          "conflict_with": [],
+          "statement": "La journée clients se tiendra au Domaine des Tilleuls, près de Pessac.",
+          "correct": true,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_012",
+          "project_id": "projet_08",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p08_u13"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.520883,
+          "retrieved_unit_id": "p08_u06",
+          "final_unit_id": "p08_u06",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "L'homologation d'un nouveau fournisseur prend au moins trois mois.",
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_013",
+          "project_id": "projet_09",
+          "piege": "responsable_reel",
+          "relevant_unit_ids": [
+            "p09_u08"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.775078,
+          "retrieved_unit_id": "p09_u08",
+          "final_unit_id": "p09_u08",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Hakim envoie à Sarah d'ici vendredi la liste de ses chefs d'équipe équipés en Android.",
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_014",
+          "project_id": "projet_04",
+          "piege": "negation",
+          "relevant_unit_ids": [
+            "p04_u08"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.502949,
+          "retrieved_unit_id": "p04_u08",
+          "final_unit_id": "p04_u08",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Le test de reprise a repris toutes les fiches des deux agences pilotes sans aucune perte.",
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_015",
+          "project_id": "projet_06",
+          "piege": "engagement",
+          "relevant_unit_ids": [
+            "p06_u09"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.831127,
+          "retrieved_unit_id": "p06_u10",
+          "final_unit_id": "p06_u10",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Les maquettes envoyées par Émilie sont intégrables sur Shopify.",
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_017",
+          "project_id": "projet_09",
+          "piege": "decision_active",
+          "relevant_unit_ids": [
+            "p09_u13"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.603055,
+          "retrieved_unit_id": "p09_u13",
+          "final_unit_id": "p09_u13",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Chantio est déployé pour tous les utilisateurs, iPhone et Android, dès le 20 avril.",
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_018",
+          "project_id": "projet_07",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p07_u12"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.598122,
+          "retrieved_unit_id": "p07_u12",
+          "final_unit_id": "p07_u12",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Le forecast pondéré passe de 2,4 millions à 1,7 million d'euros, avec une meilleure crédibilité.",
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_019",
+          "project_id": "projet_05",
+          "piege": "responsable_reel",
+          "relevant_unit_ids": [
+            "p05_u08"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.760268,
+          "retrieved_unit_id": "p05_u08",
+          "final_unit_id": "p05_u08",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Antoine doit demander trois devis à des traiteurs différents.",
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_020",
+          "project_id": "projet_09",
+          "piege": "negation",
+          "relevant_unit_ids": [
+            "p09_u11"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.736286,
+          "retrieved_unit_id": "p09_u02",
+          "final_unit_id": "p09_u11",
+          "final_unit_status": "active",
+          "resolved": true,
+          "conflict_with": [],
+          "statement": "Depuis la version 4.1, l'application Chantio fonctionne aussi sur Android.",
+          "correct": true,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_021",
+          "project_id": "projet_08",
+          "piege": "engagement",
+          "relevant_unit_ids": [
+            "p08_u17"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.675236,
+          "retrieved_unit_id": "p08_u17",
+          "final_unit_id": "p08_u17",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Bernard fait rédiger l'avenant au contrat par le service juridique d'ici le 15 août.",
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_023",
+          "project_id": "projet_10",
+          "piege": "decision_active",
+          "relevant_unit_ids": [
+            "p10_u13"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.676645,
+          "retrieved_unit_id": "p10_u13",
+          "final_unit_id": "p10_u13",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "La première relance part désormais à 15 jours pour les PME et à 30 jours pour les grands comptes.",
+          "correct": true,
+          "retrieved_was_relevant": true
+        },
+        {
+          "query_id": "q_dev_024",
+          "project_id": "projet_05",
+          "piege": "reformulation",
+          "relevant_unit_ids": [
+            "p05_u12"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.570839,
+          "retrieved_unit_id": "p05_u01",
+          "final_unit_id": "p05_u01",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "La journée clients de l'automne vise à inviter les 80 meilleurs distributeurs.",
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_025",
+          "project_id": "projet_04",
+          "piege": "responsable_reel",
+          "relevant_unit_ids": [
+            "p04_u16"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.740987,
+          "retrieved_unit_id": "p04_u15",
+          "final_unit_id": "p04_u15",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Sans formation préalable des conseillers, le premier jour après la bascule sera difficile.",
+          "correct": false,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_026",
+          "project_id": "projet_10",
+          "piege": "negation",
+          "relevant_unit_ids": [
+            "p10_u14"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.721466,
+          "retrieved_unit_id": "p10_u15",
+          "final_unit_id": "p10_u15",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [
+            "p10_u14"
+          ],
+          "statement": "Selon le comptable d'Orvane, la facture de mars d'Orvane est réglée, avec une référence de virement.",
+          "correct": true,
+          "retrieved_was_relevant": false
+        },
+        {
+          "query_id": "q_dev_027",
+          "project_id": "projet_05",
+          "piege": "engagement",
+          "relevant_unit_ids": [
+            "p05_u16"
+          ],
+          "abstained": false,
+          "best_dense_score": 0.453879,
+          "retrieved_unit_id": "p05_u16",
+          "final_unit_id": "p05_u16",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Rachid libère l'option au Pavillon des Berges et signe avec le Domaine des Tilleuls d'ici vendredi.",
+          "correct": true,
+          "retrieved_was_relevant": true
+        }
+      ]
+    },
+    "comparison": {
+      "n": 20,
+      "correct_extracted": 10,
+      "correct_annotated": 13,
+      "correct_in_both": 9,
+      "correct_only_annotated": [
+        "q_dev_009",
+        "q_dev_011",
+        "q_dev_013",
+        "q_dev_023"
+      ],
+      "correct_only_extracted": [
+        "q_dev_012"
+      ]
+    }
+  },
+  "sans_reponse": {
+    "extracted": {
+      "n": 5,
+      "expected": "abstention",
+      "abstained": 0,
+      "answered": 5,
+      "per_query": [
+        {
+          "query_id": "q_dev_010",
+          "project_id": "projet_06",
+          "abstained": false,
+          "best_dense_score": 0.691369,
+          "retrieved_unit_id": "p06_m03_x09",
+          "final_unit_id": "p06_m03_x09",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Il n'y a toujours aucune décision sur les redirections des anciennes URL."
+        },
+        {
+          "query_id": "q_dev_016",
+          "project_id": "projet_09",
+          "abstained": false,
+          "best_dense_score": 0.506514,
+          "retrieved_unit_id": "p09_m02_x05",
+          "final_unit_id": "p09_m02_x05",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Le déploiement de Chantio pour tous les utilisateurs, iPhone et Android, est prévu à partir du 20 avril."
+        },
+        {
+          "query_id": "q_dev_022",
+          "project_id": "projet_08",
+          "abstained": false,
+          "best_dense_score": 0.682155,
+          "retrieved_unit_id": "p08_m02_x06",
+          "final_unit_id": "p08_m02_x06",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Le contrat avec Embaleco est renouvelé pour deux ans aux conditions négociées."
+        },
+        {
+          "query_id": "q_dev_028",
+          "project_id": "projet_07",
+          "abstained": false,
+          "best_dense_score": 0.596777,
+          "retrieved_unit_id": "p07_m01_x02",
+          "final_unit_id": "p07_m01_x02",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Il y a 45 opportunités au stade proposition sans aucune activité depuis plus de 60 jours."
+        },
+        {
+          "query_id": "q_dev_029",
+          "project_id": "projet_10",
+          "abstained": false,
+          "best_dense_score": 0.636423,
+          "retrieved_unit_id": "p10_m01_x01",
+          "final_unit_id": "p10_m01_x01",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Il y a 312 000 euros de factures échues au dernier pointage."
+        }
+      ]
+    },
+    "annotated": {
+      "n": 5,
+      "expected": "abstention",
+      "abstained": 0,
+      "answered": 5,
+      "per_query": [
+        {
+          "query_id": "q_dev_010",
+          "project_id": "projet_06",
+          "abstained": false,
+          "best_dense_score": 0.763217,
+          "retrieved_unit_id": "p06_u25",
+          "final_unit_id": "p06_u25",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Aucune décision n'a encore été prise sur les redirections des anciennes URL."
+        },
+        {
+          "query_id": "q_dev_016",
+          "project_id": "projet_09",
+          "abstained": false,
+          "best_dense_score": 0.549527,
+          "retrieved_unit_id": "p09_u15",
+          "final_unit_id": "p09_u15",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Les comptes iPhone sont créés et une trentaine de compagnons utilisent déjà Chantio à Villeurbanne."
+        },
+        {
+          "query_id": "q_dev_022",
+          "project_id": "projet_08",
+          "abstained": false,
+          "best_dense_score": 0.682155,
+          "retrieved_unit_id": "p08_u16",
+          "final_unit_id": "p08_u16",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Le contrat avec Embaleco est renouvelé pour deux ans aux conditions négociées."
+        },
+        {
+          "query_id": "q_dev_028",
+          "project_id": "projet_07",
+          "abstained": false,
+          "best_dense_score": 0.549687,
+          "retrieved_unit_id": "p07_u02",
+          "final_unit_id": "p07_u02",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "45 opportunités au stade proposition n'ont eu aucune activité depuis plus de 60 jours."
+        },
+        {
+          "query_id": "q_dev_029",
+          "project_id": "projet_10",
+          "abstained": false,
+          "best_dense_score": 0.7284,
+          "retrieved_unit_id": "p10_u01",
+          "final_unit_id": "p10_u01",
+          "final_unit_status": "active",
+          "resolved": false,
+          "conflict_with": [],
+          "statement": "Les factures échues atteignent 312 000 euros au dernier pointage."
+        }
+      ]
+    }
+  }
+}

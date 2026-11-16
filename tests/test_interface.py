@@ -95,7 +95,7 @@ def test_atlas_replaced_decision_screen() -> None:
     inside = "\n".join(m.value for m in details.markdown)
     assert "p01_u12 (superseded) -supersedes-&gt; p01_u20 (active)" in inside
     assert "Meilleur cosinus dense : 0," in inside and "(seuil d'abstention : 0,45)" in inside and "Score RRF : 0," in inside
-    assert at.sidebar.markdown[0].value == "### Projet"
+    assert [m.value for m in at.sidebar.markdown][:2] == ["### Mémoire", "### Projet"]
     assert "s'abstient quand le meilleur passage trouvé est trop éloigné de la question" in at.sidebar.caption[0].value
     for element in [*at.markdown, *at.info, *at.caption, *at.sidebar.caption]:
         assert not set("·—–") & set(element.value), element.value

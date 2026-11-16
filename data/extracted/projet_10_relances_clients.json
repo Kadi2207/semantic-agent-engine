@@ -1,0 +1,303 @@
+{
+  "project_id": "projet_10",
+  "project_name": "Relances clients et recouvrement",
+  "memory": "extraite",
+  "mention": "unités et relations produites par le pipeline d'extraction, sans correction manuelle",
+  "source": "rejeu de l'extraction depuis le cache Groq local (scripts/build_extracted_memory.py), consigne figee",
+  "system_prompt_sha256": "3f757d54dd25e19a1614840798fa7156f130d333cb0c69b8350f4d045526a868",
+  "meetings": [
+    {
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "participants": [
+        "Julie",
+        "Franck",
+        "Maxime",
+        "Ophélie"
+      ],
+      "transcript": "Julie: On a 312 000 euros de factures échues au dernier pointage, il faut qu'on structure les relances.\nFranck: Aujourd'hui, la première relance part 30 jours après l'échéance. C'est beaucoup trop tard.\nMaxime: Attention quand même, certains clients grands comptes n'apprécient pas d'être relancés trop tôt.\nJulie: Pour l'instant, on maintient la première relance à 30 jours après l'échéance, le temps d'analyser les retards par segment.\nOphélie: Je peux sortir l'historique de paiement par segment client pour la prochaine réunion.\nJulie: Oui, fais-le, ça nous permettra de trancher.\nFranck: Sur les plus gros retards, il y a Orvane avec 48 000 euros, dont la facture de mars.\nMaxime: Orvane, je les ai eus la semaine dernière, ils m'ont dit que le paiement était en cours de validation chez eux.\nFranck: Je ferai un point sur Orvane la prochaine fois, avec le relevé bancaire.\nJulie: Et on met en place une séquence de relance automatique dans l'outil ?\nFranck: Oui, on en a besoin. Je peux la paramétrer dans l'outil de facturation d'ici fin juin.\nJulie: Parfait, merci à tous."
+    },
+    {
+      "source_id": "p10_m02",
+      "source_date": "2026-06-23",
+      "participants": [
+        "Julie",
+        "Ophélie",
+        "Clément",
+        "Maxime",
+        "Franck"
+      ],
+      "transcript": "Julie: Ophélie, tu nous présentes l'analyse par segment ?\nOphélie: Oui. Les PME paient en moyenne avec 22 jours de retard, les grands comptes avec 41 jours.\nClément: Donc une règle unique n'a pas beaucoup de sens.\nJulie: Je propose qu'on change la règle. La première relance part désormais à 15 jours pour les PME et à 30 jours pour les grands comptes.\nClément: Validé pour moi.\nMaxime: Ça me va aussi, les grands comptes gardent leur délai.\nJulie: Franck, tu as pu vérifier pour Orvane ?\nFranck: Oui, et c'est clair. La facture de mars d'Orvane n'est pas réglée, il n'y a aucun virement sur le relevé.\nOphélie: C'est bizarre, leur comptable m'a écrit lundi que la facture de mars d'Orvane est réglée, avec une référence de virement.\nFranck: Je n'ai rien reçu avec cette référence, en tout cas.\nJulie: Bon, on a deux versions qui ne collent pas. Ophélie, tu peux transférer le mail du comptable à Franck aujourd'hui ?\nOphélie: Je lui transfère juste après la réunion.\nFranck: Dernier point, la séquence automatique est paramétrée, elle sera active dès le 1er juillet avec les nouveaux délais."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p10_m01_x01",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "fact",
+      "statement": "Il y a 312 000 euros de factures échues au dernier pointage.",
+      "speaker": "Julie",
+      "evidence": "On a 312 000 euros de factures échues au dernier pointage, il faut qu'on structure les relances.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m01_x02",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "idea",
+      "statement": "Il faut structurer les relances.",
+      "speaker": "Julie",
+      "evidence": "On a 312 000 euros de factures échues au dernier pointage, il faut qu'on structure les relances.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m01_x03",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "fact",
+      "statement": "La première relance part 30 jours après l'échéance.",
+      "speaker": "Franck",
+      "evidence": "Aujourd'hui, la première relance part 30 jours après l'échéance. C'est beaucoup trop tard.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m01_x04",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "risk",
+      "statement": "La première relance à 30 jours après l'échéance est trop tard, ce qui constitue un risque pour le recouvrement.",
+      "speaker": "Franck",
+      "evidence": "C'est beaucoup trop tard.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m01_x05",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "risk",
+      "statement": "Certains clients grands comptes n'apprécient pas d'être relancés trop tôt.",
+      "speaker": "Maxime",
+      "evidence": "Attention quand même, certains clients grands comptes n'apprécient pas d'être relancés trop tôt.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m01_x06",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "decision",
+      "statement": "On maintient la première relance à 30 jours après l'échéance, le temps d'analyser les retards par segment.",
+      "speaker": "Julie",
+      "evidence": "Pour l'instant, on maintient la première relance à 30 jours après l'échéance, le temps d'analyser les retards par segment.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p10_m01_x07",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "action",
+      "statement": "Ophélie sort l'historique de paiement par segment client pour la prochaine réunion.",
+      "speaker": "Julie",
+      "evidence": "Oui, fais-le, ça nous permettra de trancher.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m01_x08",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "fact",
+      "statement": "Orvane représente 48 000 euros de retards, dont la facture de mars.",
+      "speaker": "Franck",
+      "evidence": "Sur les plus gros retards, il y a Orvane avec 48 000 euros, dont la facture de mars.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m01_x09",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "fact",
+      "statement": "Le paiement d'Orvane est en cours de validation chez le client.",
+      "speaker": "Maxime",
+      "evidence": "Orvane, je les ai eus la semaine dernière, ils m'ont dit que le paiement était en cours de validation chez eux.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m01_x10",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "commitment",
+      "statement": "Franck fera un point sur Orvane la prochaine fois, avec le relevé bancaire.",
+      "speaker": "Franck",
+      "evidence": "Je ferai un point sur Orvane la prochaine fois, avec le relevé bancaire.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m01_x11",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "question",
+      "statement": "Doit-on mettre en place une séquence de relance automatique dans l'outil ?",
+      "speaker": "Julie",
+      "evidence": "Et on met en place une séquence de relance automatique dans l'outil ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m01_x12",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "answer",
+      "statement": "La séquence de relance automatique sera paramétrée dans l'outil de facturation d'ici fin juin.",
+      "speaker": "Franck",
+      "evidence": "Oui, on en a besoin. Je peux la paramétrer dans l'outil de facturation d'ici fin juin.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m01_x13",
+      "source_id": "p10_m01",
+      "source_date": "2026-06-09",
+      "type": "commitment",
+      "statement": "Franck paramétrera la séquence de relance automatique dans l'outil de facturation d'ici fin juin.",
+      "speaker": "Franck",
+      "evidence": "Oui, on en a besoin. Je peux la paramétrer dans l'outil de facturation d'ici fin juin.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p10_m02_x01",
+      "source_id": "p10_m02",
+      "source_date": "2026-06-23",
+      "type": "fact",
+      "statement": "Les PME paient en moyenne avec 22 jours de retard, les grands comptes avec 41 jours.",
+      "speaker": "Ophélie",
+      "evidence": "Oui. Les PME paient en moyenne avec 22 jours de retard, les grands comptes avec 41 jours.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m02_x02",
+      "source_id": "p10_m02",
+      "source_date": "2026-06-23",
+      "type": "fact",
+      "statement": "Clément estime qu'une règle unique n'a pas beaucoup de sens.",
+      "speaker": "Clément",
+      "evidence": "Donc une règle unique n'a pas beaucoup de sens.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m02_x03",
+      "source_id": "p10_m02",
+      "source_date": "2026-06-23",
+      "type": "idea",
+      "statement": "Julie propose de changer la règle : la première relance part désormais à 15 jours pour les PME et à 30 jours pour les grands comptes.",
+      "speaker": "Julie",
+      "evidence": "Je propose qu'on change la règle. La première relance part désormais à 15 jours pour les PME et à 30 jours pour les grands comptes.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m02_x04",
+      "source_id": "p10_m02",
+      "source_date": "2026-06-23",
+      "type": "decision",
+      "statement": "La première relance part désormais à 15 jours pour les PME et à 30 jours pour les grands comptes.",
+      "speaker": "Clément",
+      "evidence": "Validé pour moi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m02_x05",
+      "source_id": "p10_m02",
+      "source_date": "2026-06-23",
+      "type": "question",
+      "statement": "Julie demande à Franck s'il a pu vérifier pour Orvane.",
+      "speaker": "Julie",
+      "evidence": "Franck, tu as pu vérifier pour Orvane ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m02_x06",
+      "source_id": "p10_m02",
+      "source_date": "2026-06-23",
+      "type": "fact",
+      "statement": "La facture de mars d'Orvane n'est pas réglée, il n'y a aucun virement sur le relevé.",
+      "speaker": "Franck",
+      "evidence": "Oui, et c'est clair. La facture de mars d'Orvane n'est pas réglée, il n'y a aucun virement sur le relevé.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m02_x07",
+      "source_id": "p10_m02",
+      "source_date": "2026-06-23",
+      "type": "fact",
+      "statement": "Le comptable d'Orvane a indiqué que la facture de mars d'Orvane est réglée, avec une référence de virement.",
+      "speaker": "Ophélie",
+      "evidence": "C'est bizarre, leur comptable m'a écrit lundi que la facture de mars d'Orvane est réglée, avec une référence de virement.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m02_x08",
+      "source_id": "p10_m02",
+      "source_date": "2026-06-23",
+      "type": "fact",
+      "statement": "Franck n'a rien reçu avec cette référence.",
+      "speaker": "Franck",
+      "evidence": "Je n'ai rien reçu avec cette référence, en tout cas.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m02_x09",
+      "source_id": "p10_m02",
+      "source_date": "2026-06-23",
+      "type": "action",
+      "statement": "Ophélie transfère le mail du comptable à Franck juste après la réunion.",
+      "speaker": "Ophélie",
+      "evidence": "Je lui transfère juste après la réunion.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p10_m02_x10",
+      "source_id": "p10_m02",
+      "source_date": "2026-06-23",
+      "type": "fact",
+      "statement": "La séquence automatique est paramétrée et sera active dès le 1er juillet avec les nouveaux délais.",
+      "speaker": "Franck",
+      "evidence": "Dernier point, la séquence automatique est paramétrée, elle sera active dès le 1er juillet avec les nouveaux délais.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p10_m01_x12",
+      "to_id": "p10_m01_x11",
+      "relation": "answers",
+      "evidence_source_id": "p10_m01"
+    },
+    {
+      "from_id": "p10_m01_x12",
+      "to_id": "p10_m01_x13",
+      "relation": "creates_action",
+      "evidence_source_id": "p10_m01"
+    },
+    {
+      "from_id": "p10_m02_x03",
+      "to_id": "p10_m02_x04",
+      "relation": "supports",
+      "evidence_source_id": "p10_m02"
+    },
+    {
+      "from_id": "p10_m02_x06",
+      "to_id": "p10_m02_x05",
+      "relation": "answers",
+      "evidence_source_id": "p10_m02"
+    },
+    {
+      "from_id": "p10_m02_x04",
+      "to_id": "p10_m01_x06",
+      "relation": "supersedes",
+      "evidence_source_id": "p10_m02"
+    },
+    {
+      "from_id": "p10_m02_x10",
+      "to_id": "p10_m01_x13",
+      "relation": "supersedes",
+      "evidence_source_id": "p10_m02"
+    }
+  ]
+}

@@ -1,0 +1,288 @@
+{
+  "project_id": "projet_05",
+  "project_name": "Journée clients d'automne",
+  "memory": "extraite",
+  "mention": "unités et relations produites par le pipeline d'extraction, sans correction manuelle",
+  "source": "rejeu de l'extraction depuis le cache Groq local (scripts/build_extracted_memory.py), consigne figee",
+  "system_prompt_sha256": "3f757d54dd25e19a1614840798fa7156f130d333cb0c69b8350f4d045526a868",
+  "meetings": [
+    {
+      "source_id": "p05_m01",
+      "source_date": "2026-04-14",
+      "participants": [
+        "Margaux",
+        "Antoine",
+        "Chloé",
+        "Rachid"
+      ],
+      "transcript": "Margaux: On lance l'organisation de la journée clients de l'automne. L'idée, c'est d'inviter nos 80 meilleurs distributeurs.\nAntoine: On garde le même format que l'an dernier ? Une matinée de conférences et un déjeuner ?\nMargaux: Oui, ça avait bien marché.\nRachid: Pour le lieu, je pensais au Pavillon des Berges à Bordeaux, on y était déjà en 2024 et ils nous font un bon tarif.\nChloé: Et pour la date ?\nMargaux: On part sur le jeudi 1er octobre, c'est avant le rush de fin d'année des distributeurs.\nAntoine: Ça me va. Et le Pavillon des Berges aussi, l'équipe là-bas est très pro.\nMargaux: Donc c'est acté, la journée clients aura lieu le jeudi 1er octobre. Pour le lieu, on retient le Pavillon des Berges.\nRachid: Je pose une option chez eux dès demain.\nChloé: Je m'occupe du fichier des invités, je vous l'envoie d'ici fin avril.\nAntoine: Il faudra aussi penser au traiteur, on avait eu des retours mitigés l'an dernier.\nMargaux: Bonne remarque. Antoine, tu peux demander trois devis à des traiteurs différents ?\nAntoine: Pas de problème."
+    },
+    {
+      "source_id": "p05_m02",
+      "source_date": "2026-05-19",
+      "participants": [
+        "Margaux",
+        "Élodie",
+        "Chloé",
+        "Rachid"
+      ],
+      "transcript": "Margaux: Petit changement de programme, Élodie a des informations importantes.\nÉlodie: Oui. Le salon professionnel de Lyon a été avancé au 1er octobre, et la moitié de nos distributeurs y seront.\nChloé: Ah, ça tombe très mal. On a déjà envoyé les save the date ?\nMargaux: Non, heureusement, ils devaient partir la semaine prochaine.\nÉlodie: Je pense qu'il faut décaler d'une semaine.\nMargaux: D'accord. La journée clients est décalée au jeudi 8 octobre.\nRachid: Problème, le Pavillon des Berges est déjà réservé le 8 octobre, j'ai appelé ce matin pour vérifier.\nÉlodie: Et le Domaine des Tilleuls, à côté de Pessac ? Je les ai eus au téléphone, ils sont libres ce jour-là.\nRachid: Ils ont une salle de 120 places, ça suffit largement.\nMargaux: Alors on change aussi de lieu. La journée clients se tiendra au Domaine des Tilleuls.\nRachid: Je libère l'option au Pavillon et je signe avec le domaine d'ici vendredi.\nChloé: Je mets à jour le save the date avec la nouvelle date et la nouvelle adresse."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p05_m01_x01",
+      "source_id": "p05_m01",
+      "source_date": "2026-04-14",
+      "type": "idea",
+      "statement": "Margaux lance l'organisation de la journée clients de l'automne et propose d'inviter les 80 meilleurs distributeurs.",
+      "speaker": "Margaux",
+      "evidence": "On lance l'organisation de la journée clients de l'automne. L'idée, c'est d'inviter nos 80 meilleurs distributeurs.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m01_x02",
+      "source_id": "p05_m01",
+      "source_date": "2026-04-14",
+      "type": "question",
+      "statement": "Antoine demande si le même format que l'an dernier, à savoir une matinée de conférences et un déjeuner, sera conservé.",
+      "speaker": "Antoine",
+      "evidence": "On garde le même format que l'an dernier ? Une matinée de conférences et un déjeuner ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m01_x03",
+      "source_id": "p05_m01",
+      "source_date": "2026-04-14",
+      "type": "fact",
+      "statement": "Le format de l'an dernier, une matinée de conférences et un déjeuner, avait bien marché.",
+      "speaker": "Margaux",
+      "evidence": "Oui, ça avait bien marché.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m01_x04",
+      "source_id": "p05_m01",
+      "source_date": "2026-04-14",
+      "type": "idea",
+      "statement": "Rachid propose le Pavillon des Berges à Bordeaux comme lieu, rappelant qu'ils y étaient en 2024 et qu'ils offrent un bon tarif.",
+      "speaker": "Rachid",
+      "evidence": "Pour le lieu, je pensais au Pavillon des Berges à Bordeaux, on y était déjà en 2024 et ils nous font un bon tarif.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p05_m01_x05",
+      "source_id": "p05_m01",
+      "source_date": "2026-04-14",
+      "type": "question",
+      "statement": "Chloé demande quelle sera la date de la journée clients.",
+      "speaker": "Chloé",
+      "evidence": "Et pour la date ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m01_x06",
+      "source_id": "p05_m01",
+      "source_date": "2026-04-14",
+      "type": "idea",
+      "statement": "Margaux propose le jeudi 1er octobre comme date de la journée clients.",
+      "speaker": "Margaux",
+      "evidence": "On part sur le jeudi 1er octobre, c'est avant le rush de fin d'année des distributeurs.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p05_m01_x07",
+      "source_id": "p05_m01",
+      "source_date": "2026-04-14",
+      "type": "decision",
+      "statement": "La journée clients aura lieu le jeudi 1er octobre au Pavillon des Berges.",
+      "speaker": "Margaux",
+      "evidence": "Donc c'est acté, la journée clients aura lieu le jeudi 1er octobre. Pour le lieu, on retient le Pavillon des Berges.",
+      "status": "superseded"
+    },
+    {
+      "unit_id": "p05_m01_x08",
+      "source_id": "p05_m01",
+      "source_date": "2026-04-14",
+      "type": "commitment",
+      "statement": "Rachid pose une option au Pavillon des Berges dès demain.",
+      "speaker": "Rachid",
+      "evidence": "Je pose une option chez eux dès demain.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m01_x09",
+      "source_id": "p05_m01",
+      "source_date": "2026-04-14",
+      "type": "commitment",
+      "statement": "Chloé prépare le fichier des invités et l'envoie d'ici fin avril.",
+      "speaker": "Chloé",
+      "evidence": "Je m'occupe du fichier des invités, je vous l'envoie d'ici fin avril.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m01_x10",
+      "source_id": "p05_m01",
+      "source_date": "2026-04-14",
+      "type": "idea",
+      "statement": "Antoine souligne qu'il faut penser au traiteur, rappelant des retours mitigés l'an dernier.",
+      "speaker": "Antoine",
+      "evidence": "Il faudra aussi penser au traiteur, on avait eu des retours mitigés l'an dernier.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m01_x11",
+      "source_id": "p05_m01",
+      "source_date": "2026-04-14",
+      "type": "action",
+      "statement": "Antoine demande trois devis à des traiteurs différents.",
+      "speaker": "Antoine",
+      "evidence": "Pas de problème.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m02_x01",
+      "source_id": "p05_m02",
+      "source_date": "2026-05-19",
+      "type": "fact",
+      "statement": "Le salon professionnel de Lyon a été avancé au 1er octobre, et la moitié des distributeurs y seront.",
+      "speaker": "Élodie",
+      "evidence": "Le salon professionnel de Lyon a été avancé au 1er octobre, et la moitié de nos distributeurs y seront.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m02_x02",
+      "source_id": "p05_m02",
+      "source_date": "2026-05-19",
+      "type": "question",
+      "statement": "On a déjà envoyé les save the date ?",
+      "speaker": "Chloé",
+      "evidence": "On a déjà envoyé les save the date ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m02_x03",
+      "source_id": "p05_m02",
+      "source_date": "2026-05-19",
+      "type": "answer",
+      "statement": "Les save the date n'ont pas encore été envoyés ; ils devaient partir la semaine prochaine.",
+      "speaker": "Margaux",
+      "evidence": "Non, heureusement, ils devaient partir la semaine prochaine.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m02_x04",
+      "source_id": "p05_m02",
+      "source_date": "2026-05-19",
+      "type": "idea",
+      "statement": "Il faut décaler la journée clients d'une semaine.",
+      "speaker": "Élodie",
+      "evidence": "Je pense qu'il faut décaler d'une semaine.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m02_x05",
+      "source_id": "p05_m02",
+      "source_date": "2026-05-19",
+      "type": "decision",
+      "statement": "La journée clients est décalée au jeudi 8 octobre.",
+      "speaker": "Margaux",
+      "evidence": "La journée clients est décalée au jeudi 8 octobre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m02_x06",
+      "source_id": "p05_m02",
+      "source_date": "2026-05-19",
+      "type": "fact",
+      "statement": "Le Domaine des Tilleuls est libre le 8 octobre.",
+      "speaker": "Élodie",
+      "evidence": "Et le Domaine des Tilleuls, à côté de Pessac ? Je les ai eus au téléphone, ils sont libres ce jour-là.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m02_x07",
+      "source_id": "p05_m02",
+      "source_date": "2026-05-19",
+      "type": "fact",
+      "statement": "Le Domaine des Tilleuls dispose d'une salle de 120 places, ce qui suffit largement.",
+      "speaker": "Rachid",
+      "evidence": "Ils ont une salle de 120 places, ça suffit largement.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m02_x08",
+      "source_id": "p05_m02",
+      "source_date": "2026-05-19",
+      "type": "decision",
+      "statement": "La journée clients se tiendra au Domaine des Tilleuls.",
+      "speaker": "Margaux",
+      "evidence": "La journée clients se tiendra au Domaine des Tilleuls.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m02_x09",
+      "source_id": "p05_m02",
+      "source_date": "2026-05-19",
+      "type": "commitment",
+      "statement": "Rachid libère l'option au Pavillon et signe avec le domaine d'ici vendredi.",
+      "speaker": "Rachid",
+      "evidence": "Je libère l'option au Pavillon et je signe avec le domaine d'ici vendredi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p05_m02_x10",
+      "source_id": "p05_m02",
+      "source_date": "2026-05-19",
+      "type": "commitment",
+      "statement": "Chloé met à jour le save the date avec la nouvelle date et la nouvelle adresse.",
+      "speaker": "Chloé",
+      "evidence": "Je mets à jour le save the date avec la nouvelle date et la nouvelle adresse.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p05_m01_x07",
+      "to_id": "p05_m01_x08",
+      "relation": "creates_action",
+      "evidence_source_id": "p05_m01"
+    },
+    {
+      "from_id": "p05_m01_x10",
+      "to_id": "p05_m01_x11",
+      "relation": "creates_action",
+      "evidence_source_id": "p05_m01"
+    },
+    {
+      "from_id": "p05_m02_x03",
+      "to_id": "p05_m02_x02",
+      "relation": "answers",
+      "evidence_source_id": "p05_m02"
+    },
+    {
+      "from_id": "p05_m02_x06",
+      "to_id": "p05_m02_x08",
+      "relation": "supports",
+      "evidence_source_id": "p05_m02"
+    },
+    {
+      "from_id": "p05_m02_x08",
+      "to_id": "p05_m02_x09",
+      "relation": "creates_action",
+      "evidence_source_id": "p05_m02"
+    },
+    {
+      "from_id": "p05_m02_x08",
+      "to_id": "p05_m02_x10",
+      "relation": "creates_action",
+      "evidence_source_id": "p05_m02"
+    },
+    {
+      "from_id": "p05_m02_x05",
+      "to_id": "p05_m02_x10",
+      "relation": "creates_action",
+      "evidence_source_id": "p05_m02"
+    }
+  ]
+}

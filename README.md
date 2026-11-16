@@ -121,6 +121,21 @@ Une relation est comptée juste seulement si ses deux extrémités, son sens et 
 
 La relation creates_action est la plus faible. L'extraction des projets 04 à 12 a demandé 19 appels Groq, pour 37 815 tokens en entrée et 60 327 en sortie.
 
+### Chaîne complète en mode extrait
+
+Fichier `agent_extracted_dev.json`, produit par `eval/eval_agent_extracted.py`. Le même agent interroge une autre mémoire : les unités et relations produites par le pipeline d'extraction pour les projets 04 à 12, sans correction manuelle (`data/extracted`, reconstruite depuis le cache Groq local par `scripts/build_extracted_memory.py`, sans aucun appel). Seul le chargeur de mémoire change ; l'interface propose ce mode à côté de la mémoire annotée, qui reste le mode par défaut. La mesure porte sur les 20 requêtes avec réponse du dev qui concernent les projets 04 à 10, sans aucun réglage ; une réponse en mémoire extraite est juste si l'unité affichée est appariée (même appariement que pour l'extraction) à une unité attendue.
+
+| Catégorie | Mémoire extraite | Mémoire annotée |
+|---|---|---|
+| Global | 10/20 (0,500) | 13/20 (0,650) |
+| decision_active | 2/4 | 4/4 |
+| reformulation | 2/5 | 1/5 |
+| responsable_reel | 1/4 | 2/4 |
+| negation | 3/3 | 3/3 |
+| engagement | 2/4 | 3/4 |
+
+Les 20 unités attendues ont toutes un équivalent dans la mémoire extraite : l'écart vient du classement et de la résolution, pas d'unités manquantes. 9 requêtes sont justes dans les deux mémoires, 4 seulement en mémoire annotée et 1 seulement en mémoire extraite. Les décisions en vigueur reculent le plus (2/4 contre 4/4) : la résolution s'appuie sur les relations, dont le F1 strict n'est que de 0,40 sur les projets 04 à 12. L'agent s'abstient à tort 2 fois en mémoire extraite (1 fois en mémoire annotée) et ne s'abstient sur aucune des 5 requêtes sans réponse de ces projets, quelle que soit la mémoire.
+
 ### Évaluation externe sur QMSum
 
 Fichier `real_qmsum.json`. Cette évaluation mesure uniquement la recherche de passages dans des réunions en anglais : elle ne mesure ni la détection des décisions, ni celle des engagements, des contradictions ou des responsabilités. Chaque tour de parole est un passage, et un passage est pertinent s'il tombe dans un intervalle annoté par QMSum. Les quatre systèmes sont comparés sur exactement les mêmes requêtes du split test, et deux exécutions complètes donnent des valeurs identiques.
@@ -171,7 +186,7 @@ Le fine-tuning sur le corpus français s'applique à l'anglais sans dégradation
 - Projets 09 et 10 peu couverts : seuls 4 triplets construits à la main en proviennent, aucun triplet enrichi.
 - Règle du responsable : la personne qui doit réaliser une tâche est le premier participant nommé dans l'énoncé de l'unité. Cette heuristique est vérifiée sur le corpus, mais elle n'est pas généralisable telle quelle.
 - Routage et brouillon d'email : la détection d'intention et la préparation des brouillons sont couvertes par des tests automatiques sur des exemples des projets de développement (`tests/test_agent_logic.py`), mais ne font encore l'objet d'aucune mesure chiffrée.
-- Ingestion et agent non reliés : l'agent et la démonstration lisent la mémoire annotée (`data/raw`), pas les unités et relations produites par l'extraction automatique. L'extraction est évaluée séparément (`extraction.json`). Les brancher l'une sur l'autre est l'étape suivante.
+- Ingestion et agent reliés en partie seulement : le parcours de démonstration, les mesures de l'agent et l'évaluation de la recherche lisent la mémoire annotée (`data/raw`). La mémoire extraite n'existe que pour les projets 04 à 12, n'est mesurée que sur 20 requêtes, et la réponse finale y est moins souvent juste (10/20 contre 13/20 sur les mêmes requêtes). Avec des relations à 0,40 de F1 strict, la résolution des décisions remplacées y est nettement moins fiable.
 - Corpus fictif : les 12 projets ont été écrits pour le projet. Sur QMSum, la majorité des réunions Product (AMI) sont elles aussi jouées selon un scénario.
 
 ## Démonstration
@@ -218,6 +233,11 @@ Recherche sur le corpus interne (l'option `--out` réécrit le JSON correspondan
 Réponse finale de l'agent et sondes d'abstention (réécrit `eval/results/agent_dev.json`) :
 
     uv run python eval/eval_agent.py --out eval/results/agent_dev.json
+
+Chaîne complète en mode extrait (mémoire reconstruite depuis le cache local, puis mesure) :
+
+    uv run python scripts/build_extracted_memory.py
+    uv run python eval/eval_agent_extracted.py --out eval/results/agent_extracted_dev.json
 
 Extraction (se rejoue depuis le cache Groq local, sans aucun appel) :
 

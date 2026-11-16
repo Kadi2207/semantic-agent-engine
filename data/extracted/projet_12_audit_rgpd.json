@@ -1,0 +1,343 @@
+{
+  "project_id": "projet_12",
+  "project_name": "Audit RGPD",
+  "memory": "extraite",
+  "mention": "unités et relations produites par le pipeline d'extraction, sans correction manuelle",
+  "source": "rejeu de l'extraction depuis le cache Groq local (scripts/build_extracted_memory.py), consigne figee",
+  "system_prompt_sha256": "3f757d54dd25e19a1614840798fa7156f130d333cb0c69b8350f4d045526a868",
+  "meetings": [
+    {
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "participants": [
+        "Martine",
+        "Aurélie",
+        "Christophe",
+        "Yann"
+      ],
+      "transcript": "Martine: Aurélie, tu as terminé le premier état des lieux RGPD ?\nAurélie: Oui. Le point le plus grave, c'est qu'on conserve les données des clients inactifs depuis plus de dix ans.\nChristophe: Techniquement, rien n'est purgé dans la base depuis la migration de 2015.\nYann: Attention, le marketing utilise encore une partie de ces contacts pour les newsletters.\nAurélie: Justement, sans consentement récent, c'est illégal de les prospecter.\nMartine: Alors c'est décidé, on supprime les données des clients inactifs depuis plus de trois ans.\nChristophe: Je peux écrire le script de purge, mais il faut que quelqu'un valide les critères d'inactivité avant.\nMartine: Aurélie, tu valides les critères avec Christophe d'ici le 20 février ?\nAurélie: Oui, on se cale une session de travail jeudi.\nYann: Et pour la newsletter, on fait quoi des contacts inactifs ?\nAurélie: On leur envoie une dernière campagne de reconsentement, et ceux qui ne répondent pas sont supprimés.\nMartine: Yann, tu prépares cette campagne de reconsentement pour début mars.\nYann: D'accord, je m'en occupe."
+    },
+    {
+      "source_id": "p12_m02",
+      "source_date": "2026-03-03",
+      "participants": [
+        "Martine",
+        "Aurélie",
+        "Christophe",
+        "Pauline",
+        "Yann"
+      ],
+      "transcript": "Martine: On fait le point sur l'audit. Les critères d'inactivité sont validés ?\nAurélie: Oui, on les a validés avec Christophe le 19. Est inactif tout client sans réservation ni connexion depuis trois ans.\nChristophe: Le script de purge est prêt, je l'ai testé sur une copie de la base. Ça représente environ 210 000 comptes.\nPauline: Côté juridique, il faut garder les factures dix ans, même pour les clients supprimés.\nChristophe: Dans ce cas, je dois anonymiser les factures au lieu de les supprimer.\nMartine: D'accord. On anonymise les factures des clients inactifs plutôt que de les supprimer.\nChristophe: Je modifie le script et je lance la purge en production le 17 mars.\nYann: La campagne de reconsentement part le 5 mars, j'ai prévu une relance une semaine après.\nPauline: Il faut aussi mettre à jour la politique de confidentialité sur le site pour indiquer la nouvelle durée de conservation.\nMartine: On met à jour la politique de confidentialité avant la purge.\nAurélie: Je rédige la nouvelle version et je la fais relire par Pauline d'ici le 12 mars.\nPauline: Ça me va."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p12_m01_x01",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "question",
+      "statement": "Aurélie a-t-elle terminé le premier état des lieux RGPD ?",
+      "speaker": "Martine",
+      "evidence": "Aurélie, tu as terminé le premier état des lieux RGPD ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m01_x02",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "answer",
+      "statement": "Aurélie a terminé le premier état des lieux RGPD.",
+      "speaker": "Aurélie",
+      "evidence": "Oui.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m01_x03",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "fact",
+      "statement": "On conserve les données des clients inactifs depuis plus de dix ans.",
+      "speaker": "Aurélie",
+      "evidence": "Le point le plus grave, c'est qu'on conserve les données des clients inactifs depuis plus de dix ans.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m01_x04",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "fact",
+      "statement": "Rien n'est purgé dans la base depuis la migration de 2015.",
+      "speaker": "Christophe",
+      "evidence": "Techniquement, rien n'est purgé dans la base depuis la migration de 2015.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m01_x05",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "fact",
+      "statement": "Le marketing utilise encore une partie de ces contacts pour les newsletters.",
+      "speaker": "Yann",
+      "evidence": "Attention, le marketing utilise encore une partie de ces contacts pour les newsletters.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m01_x06",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "fact",
+      "statement": "Sans consentement récent, il est illégal de prospecter ces contacts.",
+      "speaker": "Aurélie",
+      "evidence": "Justement, sans consentement récent, c'est illégal de les prospecter.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m01_x07",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "decision",
+      "statement": "Les données des clients inactifs depuis plus de trois ans seront supprimées.",
+      "speaker": "Martine",
+      "evidence": "Alors c'est décidé, on supprime les données des clients inactifs depuis plus de trois ans.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m01_x08",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "idea",
+      "statement": "Christophe peut écrire le script de purge.",
+      "speaker": "Christophe",
+      "evidence": "Je peux écrire le script de purge, mais il faut que quelqu'un valide les critères d'inactivité avant.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m01_x09",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "question",
+      "statement": "Aurélie validera-t-elle les critères avec Christophe d'ici le 20 février ?",
+      "speaker": "Martine",
+      "evidence": "Aurélie, tu valides les critères avec Christophe d'ici le 20 février ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m01_x10",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "action",
+      "statement": "Aurélie valide les critères avec Christophe d'ici le 20 février, lors d'une session de travail jeudi.",
+      "speaker": "Aurélie",
+      "evidence": "Oui, on se cale une session de travail jeudi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m01_x11",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "question",
+      "statement": "Que faire des contacts inactifs pour la newsletter ?",
+      "speaker": "Yann",
+      "evidence": "Et pour la newsletter, on fait quoi des contacts inactifs ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m01_x12",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "idea",
+      "statement": "Une dernière campagne de reconsentement sera envoyée aux contacts inactifs, et ceux qui ne répondent pas seront supprimés.",
+      "speaker": "Aurélie",
+      "evidence": "On leur envoie une dernière campagne de reconsentement, et ceux qui ne répondent pas sont supprimés.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m01_x13",
+      "source_id": "p12_m01",
+      "source_date": "2026-02-10",
+      "type": "action",
+      "statement": "Yann prépare la campagne de reconsentement pour début mars.",
+      "speaker": "Yann",
+      "evidence": "D'accord, je m'en occupe.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m02_x01",
+      "source_id": "p12_m02",
+      "source_date": "2026-03-03",
+      "type": "question",
+      "statement": "Les critères d'inactivité sont validés.",
+      "speaker": "Martine",
+      "evidence": "On fait le point sur l'audit. Les critères d'inactivité sont validés ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m02_x02",
+      "source_id": "p12_m02",
+      "source_date": "2026-03-03",
+      "type": "answer",
+      "statement": "Les critères d'inactivité ont été validés avec Christophe le 19, et un client est considéré inactif s'il n'a aucune réservation ni connexion depuis trois ans.",
+      "speaker": "Aurélie",
+      "evidence": "Oui, on les a validés avec Christophe le 19. Est inactif tout client sans réservation ni connexion depuis trois ans.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m02_x03",
+      "source_id": "p12_m02",
+      "source_date": "2026-03-03",
+      "type": "fact",
+      "statement": "Le script de purge est prêt, testé sur une copie de la base, et il concerne environ 210 000 comptes.",
+      "speaker": "Christophe",
+      "evidence": "Le script de purge est prêt, je l'ai testé sur une copie de la base. Ça représente environ 210 000 comptes.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m02_x04",
+      "source_id": "p12_m02",
+      "source_date": "2026-03-03",
+      "type": "fact",
+      "statement": "Il faut garder les factures dix ans, même pour les clients supprimés.",
+      "speaker": "Pauline",
+      "evidence": "Côté juridique, il faut garder les factures dix ans, même pour les clients supprimés.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m02_x05",
+      "source_id": "p12_m02",
+      "source_date": "2026-03-03",
+      "type": "commitment",
+      "statement": "Christophe anonymisera les factures au lieu de les supprimer.",
+      "speaker": "Christophe",
+      "evidence": "Dans ce cas, je dois anonymiser les factures au lieu de les supprimer.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m02_x06",
+      "source_id": "p12_m02",
+      "source_date": "2026-03-03",
+      "type": "decision",
+      "statement": "Les factures des clients inactifs seront anonymisées plutôt que supprimées.",
+      "speaker": "Martine",
+      "evidence": "D'accord. On anonymise les factures des clients inactifs plutôt que de les supprimer.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m02_x07",
+      "source_id": "p12_m02",
+      "source_date": "2026-03-03",
+      "type": "commitment",
+      "statement": "Christophe modifiera le script et lancera la purge en production le 17 mars.",
+      "speaker": "Christophe",
+      "evidence": "Je modifie le script et je lance la purge en production le 17 mars.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m02_x08",
+      "source_id": "p12_m02",
+      "source_date": "2026-03-03",
+      "type": "commitment",
+      "statement": "Yann lancera la campagne de reconsentement le 5 mars et prévoit une relance une semaine après.",
+      "speaker": "Yann",
+      "evidence": "La campagne de reconsentement part le 5 mars, j'ai prévu une relance une semaine après.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m02_x09",
+      "source_id": "p12_m02",
+      "source_date": "2026-03-03",
+      "type": "idea",
+      "statement": "Mettre à jour la politique de confidentialité sur le site pour indiquer la nouvelle durée de conservation.",
+      "speaker": "Pauline",
+      "evidence": "Il faut aussi mettre à jour la politique de confidentialité sur le site pour indiquer la nouvelle durée de conservation.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m02_x10",
+      "source_id": "p12_m02",
+      "source_date": "2026-03-03",
+      "type": "decision",
+      "statement": "La politique de confidentialité sera mise à jour avant la purge.",
+      "speaker": "Martine",
+      "evidence": "On met à jour la politique de confidentialité avant la purge.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p12_m02_x11",
+      "source_id": "p12_m02",
+      "source_date": "2026-03-03",
+      "type": "commitment",
+      "statement": "Aurélie rédigera la nouvelle version de la politique de confidentialité et la fera relire par Pauline d'ici le 12 mars.",
+      "speaker": "Aurélie",
+      "evidence": "Je rédige la nouvelle version et je la fais relire par Pauline d'ici le 12 mars.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p12_m01_x02",
+      "to_id": "p12_m01_x01",
+      "relation": "answers",
+      "evidence_source_id": "p12_m01"
+    },
+    {
+      "from_id": "p12_m01_x02",
+      "to_id": "p12_m01_x10",
+      "relation": "creates_action",
+      "evidence_source_id": "p12_m01"
+    },
+    {
+      "from_id": "p12_m01_x03",
+      "to_id": "p12_m01_x07",
+      "relation": "supports",
+      "evidence_source_id": "p12_m01"
+    },
+    {
+      "from_id": "p12_m01_x04",
+      "to_id": "p12_m01_x07",
+      "relation": "supports",
+      "evidence_source_id": "p12_m01"
+    },
+    {
+      "from_id": "p12_m01_x05",
+      "to_id": "p12_m01_x12",
+      "relation": "supports",
+      "evidence_source_id": "p12_m01"
+    },
+    {
+      "from_id": "p12_m01_x06",
+      "to_id": "p12_m01_x12",
+      "relation": "supports",
+      "evidence_source_id": "p12_m01"
+    },
+    {
+      "from_id": "p12_m02_x02",
+      "to_id": "p12_m02_x01",
+      "relation": "answers",
+      "evidence_source_id": "p12_m02"
+    },
+    {
+      "from_id": "p12_m02_x04",
+      "to_id": "p12_m02_x06",
+      "relation": "supports",
+      "evidence_source_id": "p12_m02"
+    },
+    {
+      "from_id": "p12_m02_x09",
+      "to_id": "p12_m02_x10",
+      "relation": "supports",
+      "evidence_source_id": "p12_m02"
+    },
+    {
+      "from_id": "p12_m02_x06",
+      "to_id": "p12_m02_x05",
+      "relation": "creates_action",
+      "evidence_source_id": "p12_m02"
+    },
+    {
+      "from_id": "p12_m02_x10",
+      "to_id": "p12_m02_x11",
+      "relation": "creates_action",
+      "evidence_source_id": "p12_m02"
+    }
+  ]
+}

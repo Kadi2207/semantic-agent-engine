@@ -1,0 +1,324 @@
+{
+  "project_id": "projet_11",
+  "project_name": "Plan de formation 2027",
+  "memory": "extraite",
+  "mention": "unités et relations produites par le pipeline d'extraction, sans correction manuelle",
+  "source": "rejeu de l'extraction depuis le cache Groq local (scripts/build_extracted_memory.py), consigne figee",
+  "system_prompt_sha256": "3f757d54dd25e19a1614840798fa7156f130d333cb0c69b8350f4d045526a868",
+  "meetings": [
+    {
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "participants": [
+        "Frédéric",
+        "Valérie",
+        "Agnès",
+        "Kevin"
+      ],
+      "transcript": "Frédéric: On doit boucler le plan de formation 2027 avant le comité social de novembre.\nValérie: J'ai recensé les demandes des sites. La priorité qui ressort, c'est la formation aux urgences pour les auxiliaires vétérinaires.\nAgnès: Combien de personnes sont concernées ?\nValérie: Une soixantaine d'auxiliaires sur les douze cliniques.\nKevin: Il y a aussi une forte demande sur la gestion des clients difficiles, surtout à l'accueil.\nFrédéric: On retient ces deux thèmes comme priorités du plan 2027.\nAgnès: Quel budget on peut y consacrer ?\nFrédéric: L'enveloppe est de 92 000 euros, comme cette année.\nValérie: Pour les urgences, j'ai un organisme à Nantes qui intervient directement en clinique. Je leur demande un devis.\nKevin: Il faudrait aussi en parler à Camille, elle avait des contacts pour la formation accueil.\nFrédéric: Bonne idée. Valérie, tu peux envoyer le projet de programme à Camille cette semaine ?\nValérie: Oui, je lui envoie d'ici vendredi.\nAgnès: On se revoit début octobre avec les devis."
+    },
+    {
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "participants": [
+        "Frédéric",
+        "Valérie",
+        "Agnès",
+        "Kevin"
+      ],
+      "transcript": "Frédéric: Valérie, on a les devis ?\nValérie: Oui, l'organisme de Nantes propose 14 sessions pour 38 000 euros, avec le formateur sur place.\nAgnès: C'est raisonnable pour une soixantaine de personnes.\nFrédéric: On valide le devis de l'organisme de Nantes pour la formation aux urgences.\nValérie: Par contre, pour le programme accueil, je ne l'ai pas encore envoyé à Camille. On a deux Camille, Camille Roux à la clinique de Rezé et Camille Petit au siège, et je ne sais pas laquelle avait les contacts.\nKevin: Franchement, je ne suis plus sûr. Il me semble que c'était celle qui a organisé le séminaire l'an dernier.\nAgnès: Le séminaire, elles l'avaient monté toutes les deux, non ?\nKevin: C'est possible, oui.\nFrédéric: Bon, on ne va pas y passer la matinée. Il faut que le programme parte à la bonne Camille avant la fin du mois.\nValérie: Il faudra aussi réserver les salles de formation dans les cliniques pour janvier.\nFrédéric: Oui, que quelqu'un s'en occupe, les directeurs de site ou l'équipe RH, peu importe, mais il faut que ce soit fait avant les vacances.\nAgnès: Je présenterai le plan complet au comité social du 12 novembre."
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "p11_m01_x01",
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "type": "fact",
+      "statement": "Le plan de formation 2027 doit être bouclé avant le comité social de novembre.",
+      "speaker": "Frédéric",
+      "evidence": "On doit boucler le plan de formation 2027 avant le comité social de novembre.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m01_x02",
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "type": "fact",
+      "statement": "La priorité ressortante est la formation aux urgences pour les auxiliaires vétérinaires.",
+      "speaker": "Valérie",
+      "evidence": "La priorité qui ressort, c'est la formation aux urgences pour les auxiliaires vétérinaires.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m01_x03",
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "type": "question",
+      "statement": "Combien de personnes sont concernées ?",
+      "speaker": "Agnès",
+      "evidence": "Combien de personnes sont concernées ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m01_x04",
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "type": "answer",
+      "statement": "Une soixantaine d'auxiliaires sur les douze cliniques sont concernées.",
+      "speaker": "Valérie",
+      "evidence": "Une soixantaine d'auxiliaires sur les douze cliniques.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m01_x05",
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "type": "fact",
+      "statement": "Il y a une forte demande sur la gestion des clients difficiles, surtout à l'accueil.",
+      "speaker": "Kevin",
+      "evidence": "Il y a aussi une forte demande sur la gestion des clients difficiles, surtout à l'accueil.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m01_x06",
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "type": "decision",
+      "statement": "Les deux thèmes, formation aux urgences et gestion des clients difficiles, sont retenus comme priorités du plan 2027.",
+      "speaker": "Frédéric",
+      "evidence": "On retient ces deux thèmes comme priorités du plan 2027.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m01_x07",
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "type": "question",
+      "statement": "Quel budget peut-on y consacrer ?",
+      "speaker": "Agnès",
+      "evidence": "Quel budget on peut y consacrer ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m01_x08",
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "type": "answer",
+      "statement": "L'enveloppe budgétaire est de 92 000 euros, comme cette année.",
+      "speaker": "Frédéric",
+      "evidence": "L'enveloppe est de 92 000 euros, comme cette année.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m01_x09",
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "type": "commitment",
+      "statement": "Valérie demande un devis à l'organisme de Nantes pour la formation aux urgences.",
+      "speaker": "Valérie",
+      "evidence": "Je leur demande un devis.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m01_x10",
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "type": "idea",
+      "statement": "Il faudrait parler à Camille, qui a des contacts pour la formation accueil.",
+      "speaker": "Kevin",
+      "evidence": "Il faudrait aussi en parler à Camille, elle avait des contacts pour la formation accueil.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m01_x11",
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "type": "action",
+      "statement": "Valérie envoie le projet de programme à Camille d'ici vendredi.",
+      "speaker": "Valérie",
+      "evidence": "Oui, je lui envoie d'ici vendredi.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m01_x12",
+      "source_id": "p11_m01",
+      "source_date": "2026-09-15",
+      "type": "decision",
+      "statement": "Une nouvelle réunion est prévue début octobre avec les devis.",
+      "speaker": "Agnès",
+      "evidence": "On se revoit début octobre avec les devis.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m02_x01",
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "type": "question",
+      "statement": "Frédéric demande si les devis sont disponibles.",
+      "speaker": "Frédéric",
+      "evidence": "Valérie, on a les devis ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m02_x02",
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "type": "answer",
+      "statement": "L'organisme de Nantes propose 14 sessions pour 38 000 euros, avec le formateur sur place.",
+      "speaker": "Valérie",
+      "evidence": "Oui, l'organisme de Nantes propose 14 sessions pour 38 000 euros, avec le formateur sur place.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m02_x03",
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "type": "fact",
+      "statement": "Le devis est raisonnable pour une soixantaine de personnes.",
+      "speaker": "Agnès",
+      "evidence": "C'est raisonnable pour une soixantaine de personnes.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m02_x04",
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "type": "decision",
+      "statement": "Le devis de l'organisme de Nantes pour la formation aux urgences est validé.",
+      "speaker": "Frédéric",
+      "evidence": "On valide le devis de l'organisme de Nantes pour la formation aux urgences.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m02_x05",
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "type": "fact",
+      "statement": "Le programme accueil n'a pas encore été envoyé à Camille, et il y a deux Camilles (Camille Roux à la clinique de Rezé et Camille Petit au siège), dont on ignore laquelle possède les contacts.",
+      "speaker": "Valérie",
+      "evidence": "Par contre, pour le programme accueil, je ne l'ai pas encore envoyé à Camille. On a deux Camille, Camille Roux à la clinique de Rezé et Camille Petit au siège, et je ne sais pas laquelle avait les contacts.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m02_x06",
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "type": "fact",
+      "statement": "Il semble que la Camille qui a organisé le séminaire l'an dernier soit celle qui possède les contacts.",
+      "speaker": "Kevin",
+      "evidence": "Il me semble que c'était celle qui a organisé le séminaire l'an dernier.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m02_x07",
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "type": "question",
+      "statement": "Agnès demande si les deux Camilles ont monté le séminaire.",
+      "speaker": "Agnès",
+      "evidence": "Le séminaire, elles l'avaient monté toutes les deux, non ?",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m02_x08",
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "type": "answer",
+      "statement": "Il est possible que les deux Camilles aient monté le séminaire.",
+      "speaker": "Kevin",
+      "evidence": "C'est possible, oui.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m02_x09",
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "type": "decision",
+      "statement": "Le programme doit être envoyé à la bonne Camille avant la fin du mois.",
+      "speaker": "Frédéric",
+      "evidence": "Il faut que le programme parte à la bonne Camille avant la fin du mois.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m02_x10",
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "type": "decision",
+      "statement": "Les salles de formation dans les cliniques seront réservées pour janvier.",
+      "speaker": "Valérie",
+      "evidence": "Il faudra aussi réserver les salles de formation dans les cliniques pour janvier.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m02_x11",
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "type": "decision",
+      "statement": "Les salles de formation seront réservées avant les vacances, la responsabilité étant confiée aux directeurs de site ou à l'équipe RH.",
+      "speaker": "Frédéric",
+      "evidence": "Oui, que quelqu'un s'en occupe, les directeurs de site ou l'équipe RH, peu importe, mais il faut que ce soit fait avant les vacances.",
+      "status": "active"
+    },
+    {
+      "unit_id": "p11_m02_x12",
+      "source_id": "p11_m02",
+      "source_date": "2026-10-06",
+      "type": "commitment",
+      "statement": "Agnès présentera le plan complet au comité social du 12 novembre.",
+      "speaker": "Agnès",
+      "evidence": "Je présenterai le plan complet au comité social du 12 novembre.",
+      "status": "active"
+    }
+  ],
+  "relations": [
+    {
+      "from_id": "p11_m01_x04",
+      "to_id": "p11_m01_x03",
+      "relation": "answers",
+      "evidence_source_id": "p11_m01"
+    },
+    {
+      "from_id": "p11_m01_x08",
+      "to_id": "p11_m01_x07",
+      "relation": "answers",
+      "evidence_source_id": "p11_m01"
+    },
+    {
+      "from_id": "p11_m01_x02",
+      "to_id": "p11_m01_x06",
+      "relation": "supports",
+      "evidence_source_id": "p11_m01"
+    },
+    {
+      "from_id": "p11_m01_x05",
+      "to_id": "p11_m01_x06",
+      "relation": "supports",
+      "evidence_source_id": "p11_m01"
+    },
+    {
+      "from_id": "p11_m02_x02",
+      "to_id": "p11_m02_x01",
+      "relation": "answers",
+      "evidence_source_id": "p11_m02"
+    },
+    {
+      "from_id": "p11_m02_x08",
+      "to_id": "p11_m02_x07",
+      "relation": "answers",
+      "evidence_source_id": "p11_m02"
+    },
+    {
+      "from_id": "p11_m02_x03",
+      "to_id": "p11_m02_x04",
+      "relation": "supports",
+      "evidence_source_id": "p11_m02"
+    },
+    {
+      "from_id": "p11_m02_x05",
+      "to_id": "p11_m02_x09",
+      "relation": "supports",
+      "evidence_source_id": "p11_m02"
+    }
+  ]
+}
