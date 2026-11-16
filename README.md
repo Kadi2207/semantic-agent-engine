@@ -528,3 +528,7 @@ Points d'attention :
 ## Sécurité
 
 La clé Groq se place uniquement dans un fichier `.env` à la racine (`GROQ_API_KEY=...`), ignoré par git. Elle sert à générer les triplets enrichis et à extraire les unités et relations ; elle n'est nécessaire ni pour entraîner le modèle, ni pour faire tourner l'agent, ni pour rejouer les évaluations depuis les caches. Le fichier `.env.example` versionné ne contient aucune valeur, et l'historique git ne contient aucune clé.
+
+## Licence
+
+Le code est distribué sous licence MIT (voir [LICENSE](LICENSE)). Les données tierces (QMSum) ne sont pas redistribuées dans le dépôt : `eval/results/real_qmsum.json` ne contient que des identifiants de réunions et des scores, et le jeu se clone à part (voir `data/external/README.md`). Les 16 projets du corpus (12 dans `data/raw`, 4 dans `data/test2`) sont des jeux fictifs écrits pour ce projet.

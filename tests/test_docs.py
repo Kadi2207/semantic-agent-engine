@@ -55,6 +55,15 @@ def test_decisions_have_alternative_and_proof() -> None:
         assert re.search(r"Alternatives? écartées? :", s) and ("Preuve" in s or "Limite chiffrée" in s), s[:60]
 
 
+def test_mit_license_and_data_note() -> None:
+    license_text = (ROOT / "LICENSE").read_text(encoding="utf-8")
+    assert license_text.startswith("MIT License") and "Copyright (c) 2026 Kadidiatou Ibrahima Bagayoko" in license_text
+    section = README.split("\n## Licence\n")[1].split("\n## ")[0]
+    assert "(LICENSE)" in section and "QMSum" in section and "ne sont pas redistribuées" in section
+    projects = sorted(ROOT.glob("data/raw/projet_*.json")) + sorted(ROOT.glob("data/test2/projet_*.json"))
+    assert len(projects) == 16 and "Les 16 projets du corpus" in section and "fictifs" in section
+
+
 def test_ci_workflow_and_single_demo_command() -> None:
     workflow = (ROOT / ".github/workflows/tests.yml").read_text(encoding="utf-8")
     assert 'python-version: "3.12"' in workflow and "https://download.pytorch.org/whl/cpu" in workflow
