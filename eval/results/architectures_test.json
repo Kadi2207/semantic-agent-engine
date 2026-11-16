@@ -1,0 +1,522 @@
+{
+  "description": "Comparaison d'architectures d'embeddings (zero-shot et fine-tunees), recherche dense",
+  "generated_on": "2026-11-16",
+  "split": "test",
+  "script": "eval/eval_architectures.py",
+  "status": "execution unique d'enregistrement sur le test scelle, aucun reglage effectue ; ce test ne sert jamais a regler quoi que ce soit",
+  "queries": {
+    "file": "data/eval/queries_test.json",
+    "sha256": "7b6d37f1c5c758e970d9e67ff92f67f1e44e91e9d10feffdcb95b93f60f62061",
+    "sha256_normalisation": "fins de ligne normalisees en LF avant calcul (CRLF et CR convertis en LF) : l'empreinte ne depend pas de core.autocrlf ni du systeme d'exploitation de la copie du depot",
+    "total": 6,
+    "evaluated": 5,
+    "excluded": [
+      {
+        "query_id": "q_test_006",
+        "reason": "piege sans_reponse (aucune unite pertinente)"
+      }
+    ],
+    "projects": [
+      "projet_11",
+      "projet_12"
+    ]
+  },
+  "protocol": {
+    "training": "scripts/train_architectures.py (meme protocole que scripts/train_embeddings.py)",
+    "configs": {
+      "e5_small_sans_negatifs_durs": {
+        "base": "intfloat/multilingual-e5-small",
+        "hard_negatives": false
+      },
+      "minilm_l12": {
+        "base": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+        "hard_negatives": true
+      },
+      "e5_base": {
+        "base": "intfloat/multilingual-e5-base",
+        "hard_negatives": true
+      }
+    },
+    "top_k": 5,
+    "metrics": [
+      "Recall@3",
+      "Recall@5",
+      "MRR",
+      "nDCG@5"
+    ],
+    "search": "dense seule, unites du projet de la requete",
+    "latency": "encodage d'une requete a la fois, CPU, moyenne sur les requetes evaluees"
+  },
+  "results": {
+    "e5_small_base": {
+      "model": "intfloat/multilingual-e5-small",
+      "prefixes": {
+        "query": "query: ",
+        "passage": "passage: "
+      },
+      "fine_tuned": false,
+      "training": null,
+      "size": {
+        "parameters": 117653760,
+        "weights_mb": 448.8
+      },
+      "encode_latency_ms_per_query": 26.6,
+      "global": {
+        "n": 5,
+        "Recall@3": 0.6,
+        "Recall@5": 0.8,
+        "MRR": 0.64,
+        "nDCG@5": 0.6773705614469083
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 1,
+          "Recall@3": 0.0,
+          "Recall@5": 0.0,
+          "MRR": 0.0,
+          "nDCG@5": 0.0
+        },
+        "reformulation": {
+          "n": 1,
+          "Recall@3": 0.0,
+          "Recall@5": 1.0,
+          "MRR": 0.2,
+          "nDCG@5": 0.38685280723454163
+        },
+        "responsable_reel": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        },
+        "negation": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        },
+        "engagement": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        }
+      }
+    },
+    "e5_small_finetuned": {
+      "model": "models/e5-finetuned",
+      "prefixes": {
+        "query": "query: ",
+        "passage": "passage: "
+      },
+      "fine_tuned": true,
+      "training": {
+        "source": "scripts/train_embeddings.py",
+        "base_model": "intfloat/multilingual-e5-small",
+        "epochs": 3,
+        "batch_size": 16,
+        "warmup_ratio": 0.1,
+        "learning_rate": 2e-05,
+        "seed": 42,
+        "train_seconds": null,
+        "train_seconds_note": "duree non enregistree lors de l'entrainement d'origine"
+      },
+      "size": {
+        "parameters": 117653760,
+        "weights_mb": 448.8
+      },
+      "encode_latency_ms_per_query": 45.65,
+      "global": {
+        "n": 5,
+        "Recall@3": 0.8,
+        "Recall@5": 1.0,
+        "MRR": 0.75,
+        "nDCG@5": 0.8123212623289702
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.5,
+          "nDCG@5": 0.6309297535714575
+        },
+        "reformulation": {
+          "n": 1,
+          "Recall@3": 0.0,
+          "Recall@5": 1.0,
+          "MRR": 0.25,
+          "nDCG@5": 0.43067655807339306
+        },
+        "responsable_reel": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        },
+        "negation": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        },
+        "engagement": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        }
+      }
+    },
+    "e5_small_sans_negatifs_durs": {
+      "model": "models/arch/e5_small_sans_negatifs_durs",
+      "prefixes": {
+        "query": "query: ",
+        "passage": "passage: "
+      },
+      "fine_tuned": true,
+      "training": {
+        "config": "e5_small_sans_negatifs_durs",
+        "base_model": "intfloat/multilingual-e5-small",
+        "prefixes": {
+          "query": "query: ",
+          "passage": "passage: "
+        },
+        "hard_negatives": false,
+        "examples": 371,
+        "epochs": 3,
+        "batch_size": 16,
+        "learning_rate": 2e-05,
+        "warmup_ratio": 0.1,
+        "warmup_steps": 7,
+        "total_steps": 69,
+        "seed": 42,
+        "loss": "MultipleNegativesRankingLoss",
+        "train_seconds": 217.1
+      },
+      "size": {
+        "parameters": 117653760,
+        "weights_mb": 448.8
+      },
+      "encode_latency_ms_per_query": 47.94,
+      "global": {
+        "n": 5,
+        "Recall@3": 0.8,
+        "Recall@5": 1.0,
+        "MRR": 0.7166666666666667,
+        "nDCG@5": 0.7861353116146785
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.3333333333333333,
+          "nDCG@5": 0.5
+        },
+        "reformulation": {
+          "n": 1,
+          "Recall@3": 0.0,
+          "Recall@5": 1.0,
+          "MRR": 0.25,
+          "nDCG@5": 0.43067655807339306
+        },
+        "responsable_reel": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        },
+        "negation": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        },
+        "engagement": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        }
+      }
+    },
+    "e5_base_base": {
+      "model": "intfloat/multilingual-e5-base",
+      "prefixes": {
+        "query": "query: ",
+        "passage": "passage: "
+      },
+      "fine_tuned": false,
+      "training": null,
+      "size": {
+        "parameters": 278043648,
+        "weights_mb": 1060.7
+      },
+      "encode_latency_ms_per_query": 81.89,
+      "global": {
+        "n": 5,
+        "Recall@3": 0.8,
+        "Recall@5": 1.0,
+        "MRR": 0.6166666666666667,
+        "nDCG@5": 0.7123212623289701
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.3333333333333333,
+          "nDCG@5": 0.5
+        },
+        "reformulation": {
+          "n": 1,
+          "Recall@3": 0.0,
+          "Recall@5": 1.0,
+          "MRR": 0.25,
+          "nDCG@5": 0.43067655807339306
+        },
+        "responsable_reel": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.5,
+          "nDCG@5": 0.6309297535714575
+        },
+        "negation": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        },
+        "engagement": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        }
+      }
+    },
+    "e5_base_finetuned": {
+      "model": "models/arch/e5_base",
+      "prefixes": {
+        "query": "query: ",
+        "passage": "passage: "
+      },
+      "fine_tuned": true,
+      "training": {
+        "config": "e5_base",
+        "base_model": "intfloat/multilingual-e5-base",
+        "prefixes": {
+          "query": "query: ",
+          "passage": "passage: "
+        },
+        "hard_negatives": true,
+        "examples": 371,
+        "epochs": 3,
+        "batch_size": 16,
+        "learning_rate": 2e-05,
+        "warmup_ratio": 0.1,
+        "warmup_steps": 7,
+        "total_steps": 69,
+        "seed": 42,
+        "loss": "MultipleNegativesRankingLoss",
+        "train_seconds": 1435.0
+      },
+      "size": {
+        "parameters": 278043648,
+        "weights_mb": 1060.7
+      },
+      "encode_latency_ms_per_query": 61.06,
+      "global": {
+        "n": 5,
+        "Recall@3": 1.0,
+        "Recall@5": 1.0,
+        "MRR": 0.7666666666666667,
+        "nDCG@5": 0.8261859507142916
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.5,
+          "nDCG@5": 0.6309297535714575
+        },
+        "reformulation": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.3333333333333333,
+          "nDCG@5": 0.5
+        },
+        "responsable_reel": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        },
+        "negation": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        },
+        "engagement": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        }
+      }
+    },
+    "minilm_l12_base": {
+      "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "prefixes": {
+        "query": "",
+        "passage": ""
+      },
+      "fine_tuned": false,
+      "training": null,
+      "size": {
+        "parameters": 117653760,
+        "weights_mb": 448.8
+      },
+      "encode_latency_ms_per_query": 40.2,
+      "global": {
+        "n": 5,
+        "Recall@3": 0.6,
+        "Recall@5": 0.6,
+        "MRR": 0.36666666666666664,
+        "nDCG@5": 0.42618595071429155
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 1,
+          "Recall@3": 0.0,
+          "Recall@5": 0.0,
+          "MRR": 0.0,
+          "nDCG@5": 0.0
+        },
+        "reformulation": {
+          "n": 1,
+          "Recall@3": 0.0,
+          "Recall@5": 0.0,
+          "MRR": 0.0,
+          "nDCG@5": 0.0
+        },
+        "responsable_reel": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.3333333333333333,
+          "nDCG@5": 0.5
+        },
+        "negation": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.5,
+          "nDCG@5": 0.6309297535714575
+        },
+        "engagement": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        }
+      }
+    },
+    "minilm_l12_finetuned": {
+      "model": "models/arch/minilm_l12",
+      "prefixes": {
+        "query": "",
+        "passage": ""
+      },
+      "fine_tuned": true,
+      "training": {
+        "config": "minilm_l12",
+        "base_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+        "prefixes": {
+          "query": "",
+          "passage": ""
+        },
+        "hard_negatives": true,
+        "examples": 371,
+        "epochs": 3,
+        "batch_size": 16,
+        "learning_rate": 2e-05,
+        "warmup_ratio": 0.1,
+        "warmup_steps": 7,
+        "total_steps": 69,
+        "seed": 42,
+        "loss": "MultipleNegativesRankingLoss",
+        "train_seconds": 231.5
+      },
+      "size": {
+        "parameters": 117653760,
+        "weights_mb": 448.8
+      },
+      "encode_latency_ms_per_query": 37.62,
+      "global": {
+        "n": 5,
+        "Recall@3": 0.8,
+        "Recall@5": 0.8,
+        "MRR": 0.5666666666666667,
+        "nDCG@5": 0.6261859507142915
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.3333333333333333,
+          "nDCG@5": 0.5
+        },
+        "reformulation": {
+          "n": 1,
+          "Recall@3": 0.0,
+          "Recall@5": 0.0,
+          "MRR": 0.0,
+          "nDCG@5": 0.0
+        },
+        "responsable_reel": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        },
+        "negation": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.5,
+          "nDCG@5": 0.6309297535714575
+        },
+        "engagement": {
+          "n": 1,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        }
+      }
+    }
+  }
+}

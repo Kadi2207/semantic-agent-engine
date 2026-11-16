@@ -6,9 +6,10 @@ Un agent lit des comptes rendus de réunions et répond en citant sa preuve : il
 
 Vidéo de la démonstration (parcours Atlas en sept étapes) : [demo_atlas.webm, Release v1.0-rendu](https://github.com/Kadi2207/semantic-agent-engine/releases/download/v1.0-rendu/demo_atlas.webm).
 
-Quatre chiffres clés, tirés de `eval/results` (développement, puis test scellé quand il existe) :
+Cinq chiffres clés, tirés de `eval/results` (développement, puis test scellé quand il existe) :
 
 - fine-tuning contrastif des embeddings : MRR de 0,526 à 0,716 en dev, de 0,640 à 0,750 en test scellé (`retrieval_dev.json`, `retrieval_test.json`) ;
+- comparaison d'architectures : aucun autre modèle fine-tuné ne dépasse e5-small en dev (e5-base 0,693, MiniLM-L12 0,611, contre 0,716), e5-small reste en production (`architectures_dev.json`) ;
 - réponse finale avec le RAG contrôlé : unité attendue citée pour 24 requêtes sur 25 en dev et 5 sur 5 en test scellé (`rag_dev.json`, `rag_test.json`) ;
 - abstention avec le RAG contrôlé : 4 requêtes sans réponse sur 5 en dev, 1 sur 1 en test scellé, 0 réponse à tort sur 6 sondes (`rag_dev.json`) ;
 - chaîne complète sur la mémoire produite par l'extraction automatique : 10 réponses justes sur 20, contre 13 sur 20 avec la mémoire annotée, sur les mêmes requêtes (`agent_extracted_dev.json`).
@@ -97,6 +98,47 @@ Test scellé, 5 requêtes évaluées sur 6 :
 Avec seulement 5 requêtes, ce résultat est un signal fragile et non une preuve : une seule requête qui change de rang suffit à modifier fortement les moyennes.
 
 La ligne Hybride RRF est la recherche utilisée par l'agent : BM25 et e5 fine-tuné fusionnés par RRF avec k = 60, mesurés par `eval/eval_hybrid.py` sur le classement de `HybridRetriever`. En dev, l'hybride obtient le meilleur Recall@3 (0,920) mais reste légèrement sous le e5 fine-tuné seul sur les trois autres métriques (MRR de 0,708 contre 0,716) : la fusion n'apporte pas de gain net sur ce corpus. Sur les décisions en vigueur, son MRR est de 0,840. Sur le test scellé, l'hybride et la réponse finale ci-dessous proviennent d'une seule exécution d'enregistrement, sans aucun réglage.
+
+### Comparaison d'architectures
+
+Fichiers `architectures_dev.json` et `architectures_test.json`, produits par `eval/eval_architectures.py` ; entraînements par `scripts/train_architectures.py`, avec exactement le protocole de `scripts/train_embeddings.py` (371 triplets, 3 époques, lot de 16, taux d'apprentissage 2e-5, graine 42, MultipleNegativesRankingLoss). Seuls changent le modèle de base et ses conventions d'entrée : préfixes « query: » et « passage: » pour e5, aucun préfixe pour paraphrase-multilingual-MiniLM-L12-v2. Recherche dense seule, mêmes requêtes et mêmes métriques que ci-dessus.
+
+Développement, 25 requêtes évaluées sur 30 :
+
+| Modèle | Recall@3 | Recall@5 | MRR | nDCG@5 |
+|---|---|---|---|---|
+| e5-small de base | 0,680 | 0,880 | 0,526 | 0,614 |
+| e5-small fine-tuné (production) | 0,840 | 1,000 | 0,716 | 0,786 |
+| e5-small fine-tuné sans négatifs difficiles | 0,840 | 0,920 | 0,689 | 0,747 |
+| e5-base de base | 0,720 | 0,840 | 0,475 | 0,567 |
+| e5-base fine-tuné | 0,880 | 0,960 | 0,693 | 0,761 |
+| MiniLM-L12 de base | 0,680 | 0,840 | 0,431 | 0,533 |
+| MiniLM-L12 fine-tuné | 0,840 | 1,000 | 0,611 | 0,708 |
+
+Test scellé, 5 requêtes évaluées sur 6, une seule exécution d'enregistrement :
+
+| Modèle | Recall@3 | Recall@5 | MRR | nDCG@5 |
+|---|---|---|---|---|
+| e5-small de base | 0,600 | 0,800 | 0,640 | 0,677 |
+| e5-small fine-tuné (production) | 0,800 | 1,000 | 0,750 | 0,812 |
+| e5-small fine-tuné sans négatifs difficiles | 0,800 | 1,000 | 0,717 | 0,786 |
+| e5-base de base | 0,800 | 1,000 | 0,617 | 0,712 |
+| e5-base fine-tuné | 1,000 | 1,000 | 0,767 | 0,826 |
+| MiniLM-L12 de base | 0,600 | 0,600 | 0,367 | 0,426 |
+| MiniLM-L12 fine-tuné | 0,800 | 0,800 | 0,567 | 0,626 |
+
+Coût de chaque modèle (CPU ; latence = encodage d'une requête, moyenne sur le dev) :
+
+| Modèle | Paramètres | Poids | Entraînement | Latence |
+|---|---|---|---|---|
+| e5-small | 117 653 760 | 448,8 Mo | durée non enregistrée | 48,23 ms |
+| e5-small sans négatifs difficiles | 117 653 760 | 448,8 Mo | 217,1 s | 47,51 ms |
+| e5-base | 278 043 648 | 1060,7 Mo | 1435,0 s | 79,15 ms |
+| MiniLM-L12 | 117 653 760 | 448,8 Mo | 231,5 s | 40,94 ms |
+
+Ablation : sans les négatifs difficiles (paires seules, les négatifs sont les autres exemples du lot), le MRR dev de e5-small fine-tuné passe de 0,716 à 0,689 ; le recul porte sur la reformulation (MRR de 0,600 à 0,507) et la négation (de 0,507 à 0,467). Les négatifs difficiles minés dans le même projet apportent donc un gain, modeste, sur 25 requêtes.
+
+Choix : la règle, fixée avant les résultats et appliquée au seul dev, ne remplace e5-small que si un candidat fine-tuné bat son MRR dev sans recul de plus de 0,1 du MRR sur aucune catégorie, et si `verify_demo` et le parcours Atlas restent identiques. Aucun candidat ne bat le MRR dev de e5-small (0,716) : e5-base fine-tuné atteint 0,693, avec en plus un recul de 0,140 sur les décisions en vigueur, et MiniLM-L12 fine-tuné 0,611. e5-small reste en production. Sur le test scellé, e5-base fine-tuné obtient un MRR un peu plus élevé (0,767 contre 0,750) ; avec 5 requêtes, cet écart tient à une seule requête et ne sert pas au choix. e5-base coûte en outre 2,4 fois plus de paramètres et environ 1,6 fois la latence de e5-small.
 
 ### Réponse finale de l'agent
 
@@ -251,7 +293,7 @@ Le second script vérifie automatiquement sept points du parcours (remplacement 
 
 ## Audit qualitatif sur AMI
 
-Un audit exploratoire applique l'extraction figée à trois réunions AMI du split test de QMSum, découpées en segments de 40 tours de parole. Il est partiel : 6 segments sur 23 ont été traités avant que le quota quotidien de Groq soit atteint. Il ne constitue pas une validation statistique, et son script n'est pas versionné tant qu'il n'est pas terminé.
+Un audit exploratoire applique l'extraction figée à trois réunions AMI du split test de QMSum, découpées en segments de 40 tours de parole. Il est partiel : 6 segments sur 23 ont été traités avant que le quota quotidien de Groq soit atteint. Il ne constitue pas une validation statistique. Son script (`eval/audit_real_extraction.py`) est versionné ; ses résultats ne le sont pas, puisque l'audit n'est pas terminé.
 
 ## Reproductibilité
 
@@ -272,6 +314,12 @@ Recherche sur le corpus interne (l'option `--out` réécrit le JSON correspondan
     uv run python eval/compare_finetuned.py --out eval/results/retrieval_dev.json
     uv run python eval/compare_finetuned.py --queries data/eval/queries_test.json
     uv run python eval/eval_hybrid.py --out eval/results/retrieval_dev.json
+
+Comparaison d'architectures (entraîne les trois autres modèles dans `models/arch/`, puis les évalue ; environ 30 minutes sur CPU, dont 24 pour e5-base) :
+
+    uv run python scripts/train_architectures.py e5_small_sans_negatifs_durs minilm_l12 e5_base
+    uv run python eval/eval_architectures.py --out eval/results/architectures_dev.json
+    uv run python eval/eval_architectures.py --queries data/eval/queries_test.json --out eval/results/architectures_test.json
 
 Réponse finale de l'agent et sondes d'abstention (réécrit `eval/results/agent_dev.json`) :
 

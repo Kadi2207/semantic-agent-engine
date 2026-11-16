@@ -40,7 +40,8 @@ def all_numbers(node: object) -> set[float]:
 
 def test_every_three_decimal_number_of_the_readme_exists_in_a_results_json() -> None:
     known = set()
-    for name in ("retrieval_dev.json", "retrieval_test.json", "extraction.json", "real_qmsum.json", "agent_dev.json", "agent_test.json", "agent_extracted_dev.json", "rag_dev.json", "rag_test.json"):
+    for name in ("retrieval_dev.json", "retrieval_test.json", "extraction.json", "real_qmsum.json", "agent_dev.json", "agent_test.json", "agent_extracted_dev.json", "rag_dev.json", "rag_test.json",
+                 "architectures_dev.json", "architectures_test.json"):
         known |= {fr(v) for v in all_numbers(load(name))}
     cited = set(re.findall(r"(?<![\d,])\d,\d{3}(?![\d])", README))
     assert cited, "aucun chiffre trouve dans le README"
@@ -346,6 +347,40 @@ def test_abstention_threshold_quoted_from_the_code() -> None:
 def test_readme_typography() -> None:
     for char, name in (("—", "tiret long"), ("–", "tiret moyen"), ("·", "point median")):
         assert char not in README, f"{name} present dans le README"
+
+
+def test_architecture_section_is_built_from_the_json() -> None:
+    section = README.split("### Comparaison d'architectures")[1].split("\n### ")[0]
+    dev, test = load("architectures_dev.json"), load("architectures_test.json")
+    labels = {
+        "e5_small_base": "e5-small de base", "e5_small_finetuned": "e5-small fine-tuné (production)",
+        "e5_small_sans_negatifs_durs": "e5-small fine-tuné sans négatifs difficiles", "e5_base_base": "e5-base de base",
+        "e5_base_finetuned": "e5-base fine-tuné", "minilm_l12_base": "MiniLM-L12 de base", "minilm_l12_finetuned": "MiniLM-L12 fine-tuné",
+    }
+    for data in (dev, test):
+        for name, label in labels.items():
+            g = data["results"][name]["global"]
+            row = f"| {label} | " + " | ".join(fr(g[m]) for m in ("Recall@3", "Recall@5", "MRR", "nDCG@5")) + " |"
+            assert row in section, row
+    assert f"{dev['queries']['evaluated']} requêtes évaluées sur {dev['queries']['total']}" in section
+    assert f"{test['queries']['evaluated']} requêtes évaluées sur {test['queries']['total']}" in section
+    for name, label in (("e5_small_finetuned", "e5-small"), ("e5_small_sans_negatifs_durs", "e5-small sans négatifs difficiles"),
+                        ("e5_base_finetuned", "e5-base"), ("minilm_l12_finetuned", "MiniLM-L12")):
+        r = dev["results"][name]
+        seconds = r["training"]["train_seconds"]
+        cells = [label, thousands(r["size"]["parameters"]), f"{r['size']['weights_mb']:.1f} Mo".replace(".", ","),
+                 "durée non enregistrée" if seconds is None else f"{seconds:.1f} s".replace(".", ","),
+                 f"{r['encode_latency_ms_per_query']:.2f} ms".replace(".", ",")]
+        assert "| " + " | ".join(cells) + " |" in section, cells
+    choice = dev["choice"]
+    assert choice["eligible_architectures"] == [] and "e5-small reste en production" in section
+    for name, verdict in choice["candidates"].items():
+        assert fr(verdict["mrr"]) in section, name
+    assert fr(choice["candidates"]["e5_base_finetuned"]["max_category_mrr_drop"]) in section
+    head = README.split("## Évaluer le projet en 5 minutes")[1].split("\n## ")[0]
+    c = choice["candidates"]
+    assert (f"(e5-base {fr(c['e5_base_finetuned']['mrr'])}, MiniLM-L12 {fr(c['minilm_l12_finetuned']['mrr'])}, "
+            f"contre {fr(choice['reference']['mrr'])}), e5-small reste en production") in head
 
 
 def test_five_minute_section_figures_come_from_the_json() -> None:

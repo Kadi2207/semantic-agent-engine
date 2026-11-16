@@ -1,0 +1,574 @@
+{
+  "description": "Comparaison d'architectures d'embeddings (zero-shot et fine-tunees), recherche dense",
+  "generated_on": "2026-11-16",
+  "split": "dev",
+  "script": "eval/eval_architectures.py",
+  "status": "resultats de developpement (le dev a aussi servi au reglage de la generation des triplets) ; regle de choix fixee avant les resultats",
+  "queries": {
+    "file": "data/eval/queries_dev.json",
+    "sha256": "3fa152358021b63dcf431ae4b69c6d692283f0dbffaeed03757fdce6e2d39cc0",
+    "sha256_normalisation": "fins de ligne normalisees en LF avant calcul (CRLF et CR convertis en LF) : l'empreinte ne depend pas de core.autocrlf ni du systeme d'exploitation de la copie du depot",
+    "total": 30,
+    "evaluated": 25,
+    "excluded": [
+      {
+        "query_id": "q_dev_010",
+        "reason": "piege sans_reponse (aucune unite pertinente)"
+      },
+      {
+        "query_id": "q_dev_016",
+        "reason": "piege sans_reponse (aucune unite pertinente)"
+      },
+      {
+        "query_id": "q_dev_022",
+        "reason": "piege sans_reponse (aucune unite pertinente)"
+      },
+      {
+        "query_id": "q_dev_028",
+        "reason": "piege sans_reponse (aucune unite pertinente)"
+      },
+      {
+        "query_id": "q_dev_029",
+        "reason": "piege sans_reponse (aucune unite pertinente)"
+      }
+    ],
+    "projects": [
+      "projet_01",
+      "projet_02",
+      "projet_03",
+      "projet_04",
+      "projet_05",
+      "projet_06",
+      "projet_07",
+      "projet_08",
+      "projet_09",
+      "projet_10"
+    ]
+  },
+  "protocol": {
+    "training": "scripts/train_architectures.py (meme protocole que scripts/train_embeddings.py)",
+    "configs": {
+      "e5_small_sans_negatifs_durs": {
+        "base": "intfloat/multilingual-e5-small",
+        "hard_negatives": false
+      },
+      "minilm_l12": {
+        "base": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+        "hard_negatives": true
+      },
+      "e5_base": {
+        "base": "intfloat/multilingual-e5-base",
+        "hard_negatives": true
+      }
+    },
+    "top_k": 5,
+    "metrics": [
+      "Recall@3",
+      "Recall@5",
+      "MRR",
+      "nDCG@5"
+    ],
+    "search": "dense seule, unites du projet de la requete",
+    "latency": "encodage d'une requete a la fois, CPU, moyenne sur les requetes evaluees"
+  },
+  "results": {
+    "e5_small_base": {
+      "model": "intfloat/multilingual-e5-small",
+      "prefixes": {
+        "query": "query: ",
+        "passage": "passage: "
+      },
+      "fine_tuned": false,
+      "training": null,
+      "size": {
+        "parameters": 117653760,
+        "weights_mb": 448.8
+      },
+      "encode_latency_ms_per_query": 49.18,
+      "global": {
+        "n": 25,
+        "Recall@3": 0.68,
+        "Recall@5": 0.88,
+        "MRR": 0.526,
+        "nDCG@5": 0.6140525524047203
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.8,
+          "nDCG@5": 0.8523719014285831
+        },
+        "reformulation": {
+          "n": 5,
+          "Recall@3": 0.4,
+          "Recall@5": 1.0,
+          "MRR": 0.4066666666666666,
+          "nDCG@5": 0.5496411846762655
+        },
+        "responsable_reel": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.6666666666666667,
+          "nDCG@5": 0.752371901428583
+        },
+        "negation": {
+          "n": 5,
+          "Recall@3": 0.4,
+          "Recall@5": 0.6,
+          "MRR": 0.20666666666666664,
+          "nDCG@5": 0.30355651216119983
+        },
+        "engagement": {
+          "n": 5,
+          "Recall@3": 0.6,
+          "Recall@5": 0.8,
+          "MRR": 0.55,
+          "nDCG@5": 0.6123212623289701
+        }
+      }
+    },
+    "e5_small_finetuned": {
+      "model": "models/e5-finetuned",
+      "prefixes": {
+        "query": "query: ",
+        "passage": "passage: "
+      },
+      "fine_tuned": true,
+      "training": {
+        "source": "scripts/train_embeddings.py",
+        "base_model": "intfloat/multilingual-e5-small",
+        "epochs": 3,
+        "batch_size": 16,
+        "warmup_ratio": 0.1,
+        "learning_rate": 2e-05,
+        "seed": 42,
+        "train_seconds": null,
+        "train_seconds_note": "duree non enregistree lors de l'entrainement d'origine"
+      },
+      "size": {
+        "parameters": 117653760,
+        "weights_mb": 448.8
+      },
+      "encode_latency_ms_per_query": 48.23,
+      "global": {
+        "n": 25,
+        "Recall@3": 0.84,
+        "Recall@5": 1.0,
+        "MRR": 0.716,
+        "nDCG@5": 0.7863511097960679
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 5,
+          "Recall@3": 0.8,
+          "Recall@5": 1.0,
+          "MRR": 0.7066666666666667,
+          "nDCG@5": 0.7773705614469083
+        },
+        "reformulation": {
+          "n": 5,
+          "Recall@3": 0.6,
+          "Recall@5": 1.0,
+          "MRR": 0.6,
+          "nDCG@5": 0.6984565739436487
+        },
+        "responsable_reel": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.7666666666666667,
+          "nDCG@5": 0.8261859507142916
+        },
+        "negation": {
+          "n": 5,
+          "Recall@3": 0.8,
+          "Recall@5": 1.0,
+          "MRR": 0.5066666666666666,
+          "nDCG@5": 0.6297424628754913
+        },
+        "engagement": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        }
+      }
+    },
+    "e5_small_sans_negatifs_durs": {
+      "model": "models/arch/e5_small_sans_negatifs_durs",
+      "prefixes": {
+        "query": "query: ",
+        "passage": "passage: "
+      },
+      "fine_tuned": true,
+      "training": {
+        "config": "e5_small_sans_negatifs_durs",
+        "base_model": "intfloat/multilingual-e5-small",
+        "prefixes": {
+          "query": "query: ",
+          "passage": "passage: "
+        },
+        "hard_negatives": false,
+        "examples": 371,
+        "epochs": 3,
+        "batch_size": 16,
+        "learning_rate": 2e-05,
+        "warmup_ratio": 0.1,
+        "warmup_steps": 7,
+        "total_steps": 69,
+        "seed": 42,
+        "loss": "MultipleNegativesRankingLoss",
+        "train_seconds": 217.1
+      },
+      "size": {
+        "parameters": 117653760,
+        "weights_mb": 448.8
+      },
+      "encode_latency_ms_per_query": 47.51,
+      "global": {
+        "n": 25,
+        "Recall@3": 0.84,
+        "Recall@5": 0.92,
+        "MRR": 0.6893333333333334,
+        "nDCG@5": 0.7466597950073383
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 5,
+          "Recall@3": 0.8,
+          "Recall@5": 1.0,
+          "MRR": 0.7066666666666667,
+          "nDCG@5": 0.7773705614469083
+        },
+        "reformulation": {
+          "n": 5,
+          "Recall@3": 0.6,
+          "Recall@5": 0.8,
+          "MRR": 0.5066666666666666,
+          "nDCG@5": 0.5773705614469083
+        },
+        "responsable_reel": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.7666666666666667,
+          "nDCG@5": 0.8261859507142916
+        },
+        "negation": {
+          "n": 5,
+          "Recall@3": 0.8,
+          "Recall@5": 0.8,
+          "MRR": 0.4666666666666667,
+          "nDCG@5": 0.5523719014285831
+        },
+        "engagement": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 1.0,
+          "nDCG@5": 1.0
+        }
+      }
+    },
+    "e5_base_base": {
+      "model": "intfloat/multilingual-e5-base",
+      "prefixes": {
+        "query": "query: ",
+        "passage": "passage: "
+      },
+      "fine_tuned": false,
+      "training": null,
+      "size": {
+        "parameters": 278043648,
+        "weights_mb": 1060.7
+      },
+      "encode_latency_ms_per_query": 89.56,
+      "global": {
+        "n": 25,
+        "Recall@3": 0.72,
+        "Recall@5": 0.84,
+        "MRR": 0.4746666666666667,
+        "nDCG@5": 0.5665885679352612
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 5,
+          "Recall@3": 0.8,
+          "Recall@5": 1.0,
+          "MRR": 0.55,
+          "nDCG@5": 0.6646931637575532
+        },
+        "reformulation": {
+          "n": 5,
+          "Recall@3": 0.6,
+          "Recall@5": 0.8,
+          "MRR": 0.2733333333333333,
+          "nDCG@5": 0.40355651216119987
+        },
+        "responsable_reel": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.6666666666666667,
+          "nDCG@5": 0.752371901428583
+        },
+        "negation": {
+          "n": 5,
+          "Recall@3": 0.4,
+          "Recall@5": 0.6,
+          "MRR": 0.21666666666666665,
+          "nDCG@5": 0.3123212623289701
+        },
+        "engagement": {
+          "n": 5,
+          "Recall@3": 0.8,
+          "Recall@5": 0.8,
+          "MRR": 0.6666666666666667,
+          "nDCG@5": 0.7
+        }
+      }
+    },
+    "e5_base_finetuned": {
+      "model": "models/arch/e5_base",
+      "prefixes": {
+        "query": "query: ",
+        "passage": "passage: "
+      },
+      "fine_tuned": true,
+      "training": {
+        "config": "e5_base",
+        "base_model": "intfloat/multilingual-e5-base",
+        "prefixes": {
+          "query": "query: ",
+          "passage": "passage: "
+        },
+        "hard_negatives": true,
+        "examples": 371,
+        "epochs": 3,
+        "batch_size": 16,
+        "learning_rate": 2e-05,
+        "warmup_ratio": 0.1,
+        "warmup_steps": 7,
+        "total_steps": 69,
+        "seed": 42,
+        "loss": "MultipleNegativesRankingLoss",
+        "train_seconds": 1435.0
+      },
+      "size": {
+        "parameters": 278043648,
+        "weights_mb": 1060.7
+      },
+      "encode_latency_ms_per_query": 79.15,
+      "global": {
+        "n": 25,
+        "Recall@3": 0.88,
+        "Recall@5": 0.96,
+        "MRR": 0.6933333333333332,
+        "nDCG@5": 0.7606400753601629
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 5,
+          "Recall@3": 0.6,
+          "Recall@5": 1.0,
+          "MRR": 0.5666666666666667,
+          "nDCG@5": 0.6722706232293573
+        },
+        "reformulation": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.6333333333333333,
+          "nDCG@5": 0.7261859507142916
+        },
+        "responsable_reel": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.9,
+          "nDCG@5": 0.9261859507142916
+        },
+        "negation": {
+          "n": 5,
+          "Recall@3": 0.8,
+          "Recall@5": 0.8,
+          "MRR": 0.4666666666666667,
+          "nDCG@5": 0.5523719014285831
+        },
+        "engagement": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.9,
+          "nDCG@5": 0.9261859507142916
+        }
+      }
+    },
+    "minilm_l12_base": {
+      "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "prefixes": {
+        "query": "",
+        "passage": ""
+      },
+      "fine_tuned": false,
+      "training": null,
+      "size": {
+        "parameters": 117653760,
+        "weights_mb": 448.8
+      },
+      "encode_latency_ms_per_query": 46.72,
+      "global": {
+        "n": 25,
+        "Recall@3": 0.68,
+        "Recall@5": 0.84,
+        "MRR": 0.43133333333333335,
+        "nDCG@5": 0.5333412499724803
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 5,
+          "Recall@3": 0.8,
+          "Recall@5": 1.0,
+          "MRR": 0.3833333333333333,
+          "nDCG@5": 0.5385072130432615
+        },
+        "reformulation": {
+          "n": 5,
+          "Recall@3": 0.6,
+          "Recall@5": 0.8,
+          "MRR": 0.31666666666666665,
+          "nDCG@5": 0.43850721304326157
+        },
+        "responsable_reel": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.6333333333333333,
+          "nDCG@5": 0.7261859507142916
+        },
+        "negation": {
+          "n": 5,
+          "Recall@3": 0.4,
+          "Recall@5": 0.6,
+          "MRR": 0.18333333333333332,
+          "nDCG@5": 0.28613531161467864
+        },
+        "engagement": {
+          "n": 5,
+          "Recall@3": 0.6,
+          "Recall@5": 0.8,
+          "MRR": 0.64,
+          "nDCG@5": 0.6773705614469083
+        }
+      }
+    },
+    "minilm_l12_finetuned": {
+      "model": "models/arch/minilm_l12",
+      "prefixes": {
+        "query": "",
+        "passage": ""
+      },
+      "fine_tuned": true,
+      "training": {
+        "config": "minilm_l12",
+        "base_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+        "prefixes": {
+          "query": "",
+          "passage": ""
+        },
+        "hard_negatives": true,
+        "examples": 371,
+        "epochs": 3,
+        "batch_size": 16,
+        "learning_rate": 2e-05,
+        "warmup_ratio": 0.1,
+        "warmup_steps": 7,
+        "total_steps": 69,
+        "seed": 42,
+        "loss": "MultipleNegativesRankingLoss",
+        "train_seconds": 231.5
+      },
+      "size": {
+        "parameters": 117653760,
+        "weights_mb": 448.8
+      },
+      "encode_latency_ms_per_query": 40.94,
+      "global": {
+        "n": 25,
+        "Recall@3": 0.84,
+        "Recall@5": 1.0,
+        "MRR": 0.6113333333333333,
+        "nDCG@5": 0.7081040598296221
+      },
+      "per_category": {
+        "decision_active": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.4,
+          "nDCG@5": 0.5523719014285831
+        },
+        "reformulation": {
+          "n": 5,
+          "Recall@3": 0.6,
+          "Recall@5": 1.0,
+          "MRR": 0.45666666666666667,
+          "nDCG@5": 0.5896918237758785
+        },
+        "responsable_reel": {
+          "n": 5,
+          "Recall@3": 1.0,
+          "Recall@5": 1.0,
+          "MRR": 0.8666666666666666,
+          "nDCG@5": 0.9
+        },
+        "negation": {
+          "n": 5,
+          "Recall@3": 0.8,
+          "Recall@5": 1.0,
+          "MRR": 0.4833333333333333,
+          "nDCG@5": 0.6123212623289701
+        },
+        "engagement": {
+          "n": 5,
+          "Recall@3": 0.8,
+          "Recall@5": 1.0,
+          "MRR": 0.85,
+          "nDCG@5": 0.8861353116146786
+        }
+      }
+    }
+  },
+  "choice": {
+    "rule": "un candidat fine-tune remplace e5-small seulement s'il bat son MRR dev sans recul de plus de 0,1 du MRR sur aucune categorie, et si verify_demo et le parcours Atlas restent identiques",
+    "reference": {
+      "name": "e5_small_finetuned",
+      "mrr": 0.716
+    },
+    "candidates": {
+      "e5_small_sans_negatifs_durs": {
+        "mrr": 0.6893333333333334,
+        "beats_production_mrr": false,
+        "max_category_mrr_drop": 0.0933,
+        "eligible": false
+      },
+      "e5_base_finetuned": {
+        "mrr": 0.6933333333333332,
+        "beats_production_mrr": false,
+        "max_category_mrr_drop": 0.14,
+        "eligible": false
+      },
+      "minilm_l12_finetuned": {
+        "mrr": 0.6113333333333333,
+        "beats_production_mrr": false,
+        "max_category_mrr_drop": 0.3067,
+        "eligible": false
+      }
+    },
+    "eligible_architectures": []
+  }
+}
