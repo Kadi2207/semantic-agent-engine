@@ -44,9 +44,9 @@
     "test2_tokens": {
       "offline": 0,
       "rag": 21681,
-      "extraction": 30622
+      "extraction": 56435
     },
-    "total_today_after_test2": 149586
+    "total_today_after_test2": 175399
   },
   "stages": {
     "offline": {
@@ -3069,130 +3069,81 @@
       "status": "execution unique d'enregistrement sur le test scelle elargi, configuration actuelle, aucun reglage",
       "projects_measured": [
         "projet_13",
-        "projet_14"
-      ],
-      "projects_not_measured": [
+        "projet_14",
         "projet_15",
         "projet_16"
       ],
+      "projects_not_measured": [],
       "order": "ordre fixe 13, 14, 15, 16 ; arret au dernier projet complet si le quota restant ne suffit pas",
       "metrics": {
         "projects": [
           "projet_13",
-          "projet_14"
+          "projet_14",
+          "projet_15",
+          "projet_16"
         ],
         "units": {
-          "annotated": 52,
-          "extracted": 53,
-          "matched": 50,
-          "precision": 0.9434,
-          "recall": 0.9615,
-          "f1": 0.9524,
-          "type_correct": 48,
-          "status_correct": 45,
-          "accuracy_denominator": 50,
-          "type_accuracy": 0.96,
-          "status_accuracy": 0.9,
+          "annotated": 102,
+          "extracted": 107,
+          "matched": 100,
+          "precision": 0.9346,
+          "recall": 0.9804,
+          "f1": 0.9569,
+          "type_correct": 92,
+          "status_correct": 92,
+          "accuracy_denominator": 100,
+          "type_accuracy": 0.92,
+          "status_accuracy": 0.92,
           "per_type": {
             "decision": {
-              "annotated": 9,
-              "extracted": 11,
-              "correct": 9,
+              "annotated": 19,
+              "extracted": 22,
+              "correct": 18,
               "precision": 0.8182,
-              "recall": 1.0,
-              "f1": 0.9
+              "recall": 0.9474,
+              "f1": 0.878
             },
             "action": {
-              "annotated": 5,
-              "extracted": 3,
-              "correct": 3,
+              "annotated": 10,
+              "extracted": 6,
+              "correct": 6,
               "precision": 1.0,
               "recall": 0.6,
               "f1": 0.75
             },
             "commitment": {
-              "annotated": 3,
-              "extracted": 2,
-              "correct": 2,
-              "precision": 1.0,
-              "recall": 0.6667,
-              "f1": 0.8
+              "annotated": 6,
+              "extracted": 6,
+              "correct": 5,
+              "precision": 0.8333,
+              "recall": 0.8333,
+              "f1": 0.8333
             },
             "question": {
-              "annotated": 4,
-              "extracted": 4,
-              "correct": 4,
+              "annotated": 8,
+              "extracted": 8,
+              "correct": 8,
               "precision": 1.0,
               "recall": 1.0,
               "f1": 1.0
             },
             "answer": {
-              "annotated": 2,
-              "extracted": 2,
-              "correct": 2,
+              "annotated": 5,
+              "extracted": 5,
+              "correct": 5,
               "precision": 1.0,
               "recall": 1.0,
               "f1": 1.0
             },
             "fact": {
-              "annotated": 21,
-              "extracted": 24,
-              "correct": 21,
-              "precision": 0.875,
-              "recall": 1.0,
-              "f1": 0.9333
+              "annotated": 40,
+              "extracted": 45,
+              "correct": 39,
+              "precision": 0.8667,
+              "recall": 0.975,
+              "f1": 0.9176
             },
             "risk": {
-              "annotated": 2,
-              "extracted": 1,
-              "correct": 1,
-              "precision": 1.0,
-              "recall": 0.5,
-              "f1": 0.6667
-            },
-            "idea": {
-              "annotated": 6,
-              "extracted": 6,
-              "correct": 6,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
-            }
-          },
-          "type_confusions": {
-            "action->fact": 1,
-            "risk->fact": 1
-          },
-          "status_errors": {
-            "active->superseded": 4,
-            "superseded->active": 1
-          }
-        },
-        "relations": {
-          "annotated": 31,
-          "extracted": 19,
-          "strict": {
-            "correct": 12,
-            "precision": 0.6316,
-            "recall": 0.3871,
-            "f1": 0.48
-          },
-          "loose_endpoints_only": {
-            "correct": 12,
-            "precision": 0.6316,
-            "recall": 0.3871,
-            "f1": 0.48
-          },
-          "per_type": {
-            "answers": {
-              "annotated": 2,
-              "extracted": 2,
-              "correct": 2,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
-            },
-            "creates_action": {
               "annotated": 5,
               "extracted": 2,
               "correct": 2,
@@ -3200,24 +3151,77 @@
               "recall": 0.4,
               "f1": 0.5714
             },
+            "idea": {
+              "annotated": 9,
+              "extracted": 13,
+              "correct": 9,
+              "precision": 0.6923,
+              "recall": 1.0,
+              "f1": 0.8182
+            }
+          },
+          "type_confusions": {
+            "risk->fact": 3,
+            "action->idea": 2,
+            "action->fact": 1,
+            "decision->fact": 1,
+            "fact->decision": 1
+          },
+          "status_errors": {
+            "active->superseded": 4,
+            "superseded->active": 4
+          }
+        },
+        "relations": {
+          "annotated": 61,
+          "extracted": 33,
+          "strict": {
+            "correct": 23,
+            "precision": 0.697,
+            "recall": 0.377,
+            "f1": 0.4894
+          },
+          "loose_endpoints_only": {
+            "correct": 23,
+            "precision": 0.697,
+            "recall": 0.377,
+            "f1": 0.4894
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 5,
+              "extracted": 5,
+              "correct": 5,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0
+            },
+            "creates_action": {
+              "annotated": 10,
+              "extracted": 6,
+              "correct": 4,
+              "precision": 0.6667,
+              "recall": 0.4,
+              "f1": 0.5
+            },
             "supports": {
-              "annotated": 20,
-              "extracted": 8,
-              "correct": 6,
-              "precision": 0.75,
-              "recall": 0.3,
-              "f1": 0.4286
+              "annotated": 35,
+              "extracted": 15,
+              "correct": 12,
+              "precision": 0.8,
+              "recall": 0.3429,
+              "f1": 0.48
             },
             "supersedes": {
-              "annotated": 3,
+              "annotated": 9,
               "extracted": 4,
               "correct": 2,
               "precision": 0.5,
-              "recall": 0.6667,
-              "f1": 0.5714
+              "recall": 0.2222,
+              "f1": 0.3077
             },
             "contradicts": {
-              "annotated": 1,
+              "annotated": 2,
               "extracted": 3,
               "correct": 0,
               "precision": 0.0,
@@ -3227,12 +3231,13 @@
           }
         },
         "validation": {
-          "proposed_units": 54,
-          "accepted_units": 53,
-          "proposed_relations": 19,
-          "accepted_relations": 19,
+          "proposed_units": 109,
+          "accepted_units": 107,
+          "proposed_relations": 33,
+          "accepted_relations": 33,
           "rejections": {
-            "evidence_absente_du_transcript": 1
+            "evidence_absente_du_transcript": 1,
+            "doublon_meme_type_meme_evidence": 1
           },
           "notes": {
             "evidence_typographie_normalisee": 1
@@ -3240,12 +3245,12 @@
           "annotated_evidence_not_found": 0
         },
         "cost": {
-          "groq_calls": 6,
-          "prompt_tokens": 12340,
-          "completion_tokens": 15217,
+          "groq_calls": 12,
+          "prompt_tokens": 24460,
+          "completion_tokens": 28910,
           "api_calls_this_run": 0,
-          "cache_reads_this_run": 6,
-          "total_tokens": 27557
+          "cache_reads_this_run": 12,
+          "total_tokens": 53370
         }
       },
       "per_project": {
@@ -3538,15 +3543,333 @@
               }
             }
           }
+        },
+        "projet_15": {
+          "units": {
+            "annotated": 24,
+            "extracted": 27,
+            "matched": 24,
+            "precision": 0.8889,
+            "recall": 1.0,
+            "f1": 0.9412,
+            "type_correct": 21,
+            "status_correct": 22,
+            "accuracy_denominator": 24,
+            "type_accuracy": 0.875,
+            "status_accuracy": 0.9167,
+            "per_type": {
+              "decision": {
+                "annotated": 4,
+                "extracted": 4,
+                "correct": 3,
+                "precision": 0.75,
+                "recall": 0.75,
+                "f1": 0.75
+              },
+              "action": {
+                "annotated": 3,
+                "extracted": 2,
+                "correct": 2,
+                "precision": 1.0,
+                "recall": 0.6667,
+                "f1": 0.8
+              },
+              "commitment": {
+                "annotated": 2,
+                "extracted": 2,
+                "correct": 2,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "question": {
+                "annotated": 2,
+                "extracted": 2,
+                "correct": 2,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "answer": {
+                "annotated": 2,
+                "extracted": 2,
+                "correct": 2,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "fact": {
+                "annotated": 9,
+                "extracted": 11,
+                "correct": 9,
+                "precision": 0.8182,
+                "recall": 1.0,
+                "f1": 0.9
+              },
+              "risk": {
+                "annotated": 1,
+                "extracted": 0,
+                "correct": 0,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              },
+              "idea": {
+                "annotated": 1,
+                "extracted": 4,
+                "correct": 1,
+                "precision": 0.25,
+                "recall": 1.0,
+                "f1": 0.4
+              }
+            },
+            "type_confusions": {
+              "decision->fact": 1,
+              "risk->fact": 1,
+              "action->idea": 1
+            },
+            "status_errors": {
+              "superseded->active": 2
+            }
+          },
+          "relations": {
+            "annotated": 15,
+            "extracted": 8,
+            "strict": {
+              "correct": 6,
+              "precision": 0.75,
+              "recall": 0.4,
+              "f1": 0.5217
+            },
+            "loose_endpoints_only": {
+              "correct": 6,
+              "precision": 0.75,
+              "recall": 0.4,
+              "f1": 0.5217
+            },
+            "per_type": {
+              "answers": {
+                "annotated": 2,
+                "extracted": 2,
+                "correct": 2,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "creates_action": {
+                "annotated": 4,
+                "extracted": 3,
+                "correct": 2,
+                "precision": 0.6667,
+                "recall": 0.5,
+                "f1": 0.5714
+              },
+              "supports": {
+                "annotated": 6,
+                "extracted": 3,
+                "correct": 2,
+                "precision": 0.6667,
+                "recall": 0.3333,
+                "f1": 0.4444
+              },
+              "supersedes": {
+                "annotated": 2,
+                "extracted": 0,
+                "correct": 0,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              },
+              "contradicts": {
+                "annotated": 1,
+                "extracted": 0,
+                "correct": 0,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          }
+        },
+        "projet_16": {
+          "units": {
+            "annotated": 26,
+            "extracted": 27,
+            "matched": 26,
+            "precision": 0.963,
+            "recall": 1.0,
+            "f1": 0.9811,
+            "type_correct": 23,
+            "status_correct": 25,
+            "accuracy_denominator": 26,
+            "type_accuracy": 0.8846,
+            "status_accuracy": 0.9615,
+            "per_type": {
+              "decision": {
+                "annotated": 6,
+                "extracted": 7,
+                "correct": 6,
+                "precision": 0.8571,
+                "recall": 1.0,
+                "f1": 0.9231
+              },
+              "action": {
+                "annotated": 2,
+                "extracted": 1,
+                "correct": 1,
+                "precision": 1.0,
+                "recall": 0.5,
+                "f1": 0.6667
+              },
+              "commitment": {
+                "annotated": 1,
+                "extracted": 2,
+                "correct": 1,
+                "precision": 0.5,
+                "recall": 1.0,
+                "f1": 0.6667
+              },
+              "question": {
+                "annotated": 2,
+                "extracted": 2,
+                "correct": 2,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "answer": {
+                "annotated": 1,
+                "extracted": 1,
+                "correct": 1,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "fact": {
+                "annotated": 10,
+                "extracted": 10,
+                "correct": 9,
+                "precision": 0.9,
+                "recall": 0.9,
+                "f1": 0.9
+              },
+              "risk": {
+                "annotated": 2,
+                "extracted": 1,
+                "correct": 1,
+                "precision": 1.0,
+                "recall": 0.5,
+                "f1": 0.6667
+              },
+              "idea": {
+                "annotated": 2,
+                "extracted": 3,
+                "correct": 2,
+                "precision": 0.6667,
+                "recall": 1.0,
+                "f1": 0.8
+              }
+            },
+            "type_confusions": {
+              "fact->decision": 1,
+              "action->idea": 1,
+              "risk->fact": 1
+            },
+            "status_errors": {
+              "superseded->active": 1
+            }
+          },
+          "relations": {
+            "annotated": 15,
+            "extracted": 6,
+            "strict": {
+              "correct": 5,
+              "precision": 0.8333,
+              "recall": 0.3333,
+              "f1": 0.4762
+            },
+            "loose_endpoints_only": {
+              "correct": 5,
+              "precision": 0.8333,
+              "recall": 0.3333,
+              "f1": 0.4762
+            },
+            "per_type": {
+              "answers": {
+                "annotated": 1,
+                "extracted": 1,
+                "correct": 1,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "creates_action": {
+                "annotated": 1,
+                "extracted": 1,
+                "correct": 0,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              },
+              "supports": {
+                "annotated": 9,
+                "extracted": 4,
+                "correct": 4,
+                "precision": 1.0,
+                "recall": 0.4444,
+                "f1": 0.6154
+              },
+              "supersedes": {
+                "annotated": 4,
+                "extracted": 0,
+                "correct": 0,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              },
+              "contradicts": {
+                "annotated": 0,
+                "extracted": 0,
+                "correct": 0,
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            }
+          }
         }
       },
-      "groq_tokens": 30622,
-      "production_tokens_of_used_responses": 27557,
+      "groq_tokens": 56435,
+      "production_tokens_of_used_responses": 53370,
       "api_calls_this_run": 0,
       "interrupted_run": {
-        "tokens": 30622,
-        "api_calls": 7,
-        "note": "execution du 2026-11-16 interrompue : un appel a echoue sur la reunion p15_m01 (erreur Groq non conservee, le message brut pouvant contenir des identifiants de compte) ; 7 appels reussis (projets 13 et 14 complets, p15_m02 non utilise) ; projets 13 et 14 enregistres depuis le cache sans nouvel appel ; projets 15 et 16 non mesures, aucun nouvel appel lance"
+        "tokens": 56435,
+        "api_calls": 13,
+        "note": "premiere execution (2026-11-16) interrompue par une erreur d appel Groq sur la reunion p15_m01, apres les projets 13 et 14 complets (30 622 tokens, 7 appels) ; reprise sur les seuls projets 15 et 16, sans modifier la consigne ni le jeu : une premiere reprise a complete le projet 15 (13 256 tokens, 3 appels) puis echoue deux fois sur p16_m01 ; une seconde reprise a complete le projet 16 (12 557 tokens, 3 appels) ; les 4 projets sont enregistres depuis le cache, sans nouvel appel",
+        "runs": [
+          {
+            "projects_completed": [
+              "projet_13",
+              "projet_14"
+            ],
+            "tokens": 30622,
+            "api_calls": 7
+          },
+          {
+            "projects_completed": [
+              "projet_15"
+            ],
+            "tokens": 13256,
+            "api_calls": 3
+          },
+          {
+            "projects_completed": [
+              "projet_16"
+            ],
+            "tokens": 12557,
+            "api_calls": 3
+          }
+        ]
       },
       "executed_on": "2026-11-16"
     }

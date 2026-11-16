@@ -439,7 +439,9 @@ def test_test2_section_is_built_from_the_json() -> None:
     assert f"{do['expected_units_cited']} des {do['expected_units']} unités attendues sont citées" in section and do["units_without_source"] == 0
     assert f"{thousands(rag['groq_tokens'])} tokens Groq ({rag['groq_calls']} appels" in section
     ex = st["extraction"]
-    assert ex["projects_measured"] == ["projet_13", "projet_14"] and ex["projects_not_measured"] == ["projet_15", "projet_16"]
+    assert ex["projects_measured"] == ["projet_13", "projet_14", "projet_15", "projet_16"] and ex["projects_not_measured"] == []
+    assert sum(run["tokens"] for run in ex["interrupted_run"]["runs"]) == ex["groq_tokens"]
+    assert "reprise ensuite sur les seuls projets 15 et 16, sans modifier ni la consigne ni le jeu" in section
     u, r = ex["metrics"]["units"], ex["metrics"]["relations"]
     assert f"| Unités annotées, extraites, appariées | {u['annotated']}, {u['extracted']}, {u['matched']} |" in section
     assert f"| F1 des unités | {fr(u['f1'])} |" in section and f"| Relations strictes, F1 | {fr(r['strict']['f1'])} |" in section

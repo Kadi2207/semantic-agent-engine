@@ -337,19 +337,19 @@
         ]
       },
       "F1 unites": {
-        "n_projects": 2,
-        "estimate": 0.9524,
+        "n_projects": 4,
+        "estimate": 0.9569,
         "ci95": [
           0.9412,
-          0.963
+          0.972
         ]
       },
       "F1 relations strict": {
-        "n_projects": 2,
-        "estimate": 0.48,
+        "n_projects": 4,
+        "estimate": 0.4894,
         "ci95": [
-          0.4615,
-          0.5
+          0.4681,
+          0.5111
         ]
       }
     }

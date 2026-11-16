@@ -375,7 +375,7 @@ def main() -> None:
     else:
         section = stage_relations(args.cache_only, data)
     old = stages.get(args.stage, {})
-    if args.cache_only and old:  # rejeu : on garde la consommation et la date de l'execution d'origine
+    if args.cache_only and old and not args.interrupted_run:  # rejeu : consommation et date de l'execution d'origine
         for key in ("groq_tokens", "api_calls_this_run"):
             if key in old:
                 section[key] = old[key]

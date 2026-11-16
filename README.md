@@ -347,21 +347,21 @@ Sur ce jeu, BM25 dépasse e5-small fine-tuné en MRR (0,749 contre 0,739) ; l'hy
 
 Dossiers : 20 des 24 unités attendues sont citées, et aucune unité citée n'est sans source dans son transcript. Les trois dossiers qui répondent citent toutes leurs unités attendues ; le quatrième (« Prépare le dossier sur le choix du loueur ») s'abstient, son sujet passant sous le seuil de similarité.
 
-Extraction figée, projets 13 et 14 seulement : un appel Groq a échoué sur la première réunion du projet 15 ; selon la règle fixée avant l'exécution (ordre 13, 14, 15, 16, arrêt au dernier projet complet), les projets 15 et 16 ne sont pas mesurés, et la seconde passe de liaison n'a pas été lancée sur ce jeu.
+Extraction figée, sur les 4 projets. La première exécution a été interrompue par une erreur d'appel Groq sur la première réunion du projet 15, après les projets 13 et 14 complets ; elle a été reprise ensuite sur les seuls projets 15 et 16, sans modifier ni la consigne ni le jeu (une première reprise a complété le projet 15 puis échoué deux fois sur le projet 16, une seconde a complété le projet 16). Les 4 projets sont enregistrés depuis le cache. La seconde passe de liaison n'a pas été lancée sur ce jeu.
 
-| Mesure | Projets 13 et 14 |
+| Mesure | Projets 13 à 16 |
 |---|---|
-| Unités annotées, extraites, appariées | 52, 53, 50 |
-| Précision des unités | 0,943 |
-| Rappel des unités | 0,962 |
-| F1 des unités | 0,952 |
-| Type exact | 48/50 (0,960) |
-| Relations annotées, extraites | 31, 19 |
-| Relations strictes, précision | 0,632 |
-| Relations strictes, rappel | 0,387 |
-| Relations strictes, F1 | 0,480 |
+| Unités annotées, extraites, appariées | 102, 107, 100 |
+| Précision des unités | 0,935 |
+| Rappel des unités | 0,980 |
+| F1 des unités | 0,957 |
+| Type exact | 92/100 (0,920) |
+| Relations annotées, extraites | 61, 33 |
+| Relations strictes, précision | 0,697 |
+| Relations strictes, rappel | 0,377 |
+| Relations strictes, F1 | 0,489 |
 
-L'extraction a consommé 30 622 tokens Groq (7 appels réussis). Ces scores, plus élevés qu'au dev, portent sur deux projets seulement, aux transcripts plus courts que ceux du corpus de départ.
+L'extraction a consommé 56 435 tokens Groq sur les trois exécutions (13 appels réussis). Ces scores, plus élevés qu'au dev, portent sur des transcripts plus courts que ceux du corpus de départ.
 
 ### Intervalles de confiance et significativité
 
@@ -374,8 +374,8 @@ Fichier `stats.json`, produit par `eval/stats.py` : intervalle de confiance à 9
 | Réponse finale extractive | 0,680 [0,480 ; 0,840] | 0,800 [0,400 ; 1,000] | 0,800 [0,600 ; 0,950] |
 | Réponse finale RAG contrôlé | 0,960 [0,880 ; 1,000] | 1,000 [1,000 ; 1,000] | 1,000 [1,000 ; 1,000] |
 | Abstention RAG contrôlé | 0,800 [0,400 ; 1,000] | 1,000 [1,000 ; 1,000] | 0,875 [0,625 ; 1,000] |
-| F1 des unités extraites | 0,852 [0,825 ; 0,877] | 0,829 [0,800 ; 0,857] | 0,952 [0,941 ; 0,963] |
-| F1 strict des relations | 0,406 [0,338 ; 0,467] | 0,381 [0,250 ; 0,556] | 0,480 [0,462 ; 0,500] |
+| F1 des unités extraites | 0,852 [0,825 ; 0,877] | 0,829 [0,800 ; 0,857] | 0,957 [0,941 ; 0,972] |
+| F1 strict des relations | 0,406 [0,338 ; 0,467] | 0,381 [0,250 ; 0,556] | 0,489 [0,468 ; 0,511] |
 
 | Comparaison | Dev | Test scellé | Test scellé élargi |
 |---|---|---|---|
@@ -385,7 +385,7 @@ Fichier `stats.json`, produit par `eval/stats.py` : intervalle de confiance à 9
 | RAG contre extractif (abstention) | +0,800 [+0,400 ; +1,000], p = 0,128 | +1,000 [+1,000 ; +1,000], p = 1,000 | +0,750 [+0,375 ; +1,000], p = 0,032, significatif |
 | relations v2 contre extraction seule (F1 strict) | -0,003 [-0,015 ; +0,000], p = 1,000 | +0,000 [+0,000 ; +0,000], p = 1,000 | non mesuré |
 
-Ce qui est significatif : le gain du fine-tuning et celui du RAG sur la réponse juste, en dev seulement (le dev a servi au réglage), et le gain du RAG sur l'abstention, sur le test scellé élargi seulement. Ce qui ne l'est pas : l'hybride contre le dense seul, partout ; tous les écarts du test scellé, qui ne compte que 5 requêtes avec réponse et 1 sans réponse, si bien qu'aucun test de permutation n'y peut conclure ; la seconde passe de liaison. Sur le test scellé élargi, le fine-tuning et le RAG vont dans le même sens qu'en dev sans que l'écart soit établi. Les intervalles par projet du test scellé (2 projets) et du test scellé élargi (2 projets mesurés) sont trop grossiers pour être interprétés. En test scellé, le BM25 n'avait jamais été mesuré : il est recalculé ici (MRR de 0,707).
+Ce qui est significatif : le gain du fine-tuning et celui du RAG sur la réponse juste, en dev seulement (le dev a servi au réglage), et le gain du RAG sur l'abstention, sur le test scellé élargi seulement. Ce qui ne l'est pas : l'hybride contre le dense seul, partout ; tous les écarts du test scellé, qui ne compte que 5 requêtes avec réponse et 1 sans réponse, si bien qu'aucun test de permutation n'y peut conclure ; la seconde passe de liaison. Sur le test scellé élargi, le fine-tuning et le RAG vont dans le même sens qu'en dev sans que l'écart soit établi. Les intervalles par projet du test scellé (2 projets) et du test scellé élargi (4 projets) sont trop grossiers pour être interprétés. En test scellé, le BM25 n'avait jamais été mesuré : il est recalculé ici (MRR de 0,707).
 
 ## Limites assumées
 
@@ -405,7 +405,7 @@ Ce qui est significatif : le gain du fine-tuning et celui du RAG sur la réponse
 - Règle du responsable : la personne qui doit réaliser une tâche est le premier participant nommé dans l'énoncé de l'unité. Cette heuristique est vérifiée sur le corpus, mais elle n'est pas généralisable telle quelle.
 - Routage et brouillon d'email : la détection d'intention et la préparation des brouillons sont couvertes par des tests automatiques sur des exemples des projets de développement (`tests/test_agent_logic.py`), mais ne font encore l'objet d'aucune mesure chiffrée.
 - Ingestion et agent reliés en partie seulement : le parcours de démonstration, les mesures de l'agent et l'évaluation de la recherche lisent la mémoire annotée (`data/raw`). La mémoire extraite n'existe que pour les projets 04 à 12, n'est mesurée que sur 20 requêtes, et la réponse finale y est moins souvent juste (10/20 contre 13/20 sur les mêmes requêtes). Avec des relations à 0,40 de F1 strict, la résolution des décisions remplacées y est nettement moins fiable.
-- Test scellé élargi : rédigé par l'assistant de développement après lecture des interfaces de l'agent, il peut être plus favorable au système qu'un jeu rédigé par un tiers ; l'extraction n'y est mesurée que sur 2 projets sur 4.
+- Test scellé élargi : rédigé par l'assistant de développement après lecture des interfaces de l'agent, il peut être plus favorable au système qu'un jeu rédigé par un tiers .
 - Audit qualitatif sur AMI partiel : 6 segments sur 23 traités, sans valeur statistique (voir plus haut).
 - Corpus fictif : les 12 projets ont été écrits pour le projet. Sur QMSum, la majorité des réunions Product (AMI) sont elles aussi jouées selon un scénario.
 
