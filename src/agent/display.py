@@ -42,7 +42,7 @@ def deadline_note(unit: SemanticUnit) -> str | None:
 # --------------------------------------------------------------------------- libelles de l'interface
 
 STATUS_LABELS = {"active": "en vigueur", "superseded": "remplacée", "cancelled": "annulée"}
-INTENT_LABELS = {"answer": "Répondre", "draft_email": "Rédiger un email"}
+INTENT_LABELS = {"answer": "Répondre", "draft_email": "Rédiger un email", "dossier": "Constituer un dossier"}
 # type -> (nom avec article en debut de phrase, nom avec article en cours de phrase, genre)
 _TYPE_NOUNS = {
     "decision": ("La décision", "la décision", "f"),

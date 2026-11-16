@@ -24,7 +24,8 @@ def app_scenarios() -> list[tuple[str, str]]:
     for node in ast.parse((ROOT / "app.py").read_text(encoding="utf-8")).body:
         if isinstance(node, ast.Assign) and isinstance(node.targets[0], ast.Name) and node.targets[0].id in ("DEMO_PROJECT", "DEMO_STEPS", "OTHER_EXAMPLES"):
             constants[node.targets[0].id] = ast.literal_eval(node.value)
-    demo = [(constants["DEMO_PROJECT"], question) for _, question, _ in constants["DEMO_STEPS"]]  # type: ignore[union-attr]
+    # etapes 1 a 5 du parcours (les etapes 6 email et 7 dossier, ajoutees ensuite, ont leurs propres tests)
+    demo = [(constants["DEMO_PROJECT"], question) for _, question, _ in constants["DEMO_STEPS"][:5]]  # type: ignore[index]
     other = [(project, question) for _, project, question in constants["OTHER_EXAMPLES"]]  # type: ignore[union-attr]
     return demo + other  # type: ignore[return-value]
 
@@ -57,6 +58,13 @@ def snapshot(project_id: str, question: str) -> dict[str, object]:
     data["history"] = [list(step) for step in data["history"]]
     record["answer"] = data
     return record
+
+
+def test_steps_6_and_7_are_added_after_the_five_original_steps() -> None:
+    source = (ROOT / "app.py").read_text(encoding="utf-8")
+    steps = ast.literal_eval(next(n.value for n in ast.parse(source).body if isinstance(n, ast.Assign)
+                                  and getattr(n.targets[0], "id", "") == "DEMO_STEPS"))
+    assert [label for label, _, _ in steps][5:] == ["(6) Email", "(7) Dossier"]
 
 
 def test_fixture_covers_the_atlas_path_and_the_other_examples() -> None:

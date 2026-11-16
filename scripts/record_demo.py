@@ -23,6 +23,8 @@ STEPS = [
     ("(3) Décision remplacée", "Information mise à jour"),
     ("(4) Passages sources", "Source de p01_u12"),
     ("(5) Hors sources", "Information absente ou incertaine dans les sources"),
+    ("(6) Email", "Brouillon à confirmer, non envoyé"),
+    ("(7) Dossier", "Historique des changements"),
 ]
 PAUSE_MS = 4500
 

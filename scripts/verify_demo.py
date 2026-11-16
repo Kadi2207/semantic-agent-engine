@@ -4,7 +4,9 @@ V1 le supersedes d'Atlas reussit, de facon reproductible (plusieurs formulations
 V2 les passages sources s'affichent dans l'interface (Streamlit AppTest, rendu reel de app.py) ;
 V3 l'abstention se declenche sur une question hors sources ;
 V4 l'action a un responsable (lu dans l'enonce, pas le locuteur) et une echeance ;
-V5 l'affichage montre le type en francais, signale une proposition comme non validee et date l'echeance relative.
+V5 l'affichage montre le type en francais, signale une proposition comme non validee et date l'echeance relative ;
+V6 l'etape email prepare un brouillon a Claire, a confirmer, jamais envoye ;
+V7 l'etape dossier constitue le dossier Atlas (decision du 5 mai, historique du 14 avril, action de Claire), source par source.
 
     uv run python scripts/verify_demo.py --out <fichier.json>
 Lancer deux fois et comparer les deux fichiers verifie la reproductibilite entre processus.
@@ -152,6 +154,38 @@ def v5_display() -> dict[str, object]:
     }
 
 
+def v6_v7_email_and_dossier() -> tuple[dict[str, object], dict[str, object]]:
+    """Etapes 6 et 7 du parcours, rendues par l'interface reelle (AppTest)."""
+    from streamlit.testing.v1 import AppTest
+
+    at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=600).run()
+    at.button(key="demo_5").click().run()
+    next(b for b in at.button if b.label == "Envoyer").click().run()
+    fields = {t.label: t.value for t in at.text_input}
+    page = "\n".join(m.value for m in at.markdown)
+    email = {
+        "Destinataire": fields.get("Destinataire") == "Claire",
+        "Adresse vide": fields.get("Adresse") == "",
+        "Confirmation requise": "<code>needs_confirmation = True</code>" in page,
+        "Jamais envoye": "<code>executed = False</code>" in page,
+    }
+    at.button(key="demo_6").click().run()
+    next(b for b in at.button if b.label == "Envoyer").click().run()
+    page = "\n".join(m.value for m in at.markdown)
+    dossier = {
+        "Intention dossier": "Intention détectée : <b>Constituer un dossier</b>" in page,
+        "Decision du 5 mai": "La mise en production d&#x27;Atlas est reportée au 5 mai." in page,
+        "Historique 14 avril": "La décision du 31/03/2026 (14 avril) a été remplacée par celle du 09/04/2026 (5 mai)." in page,
+        "Action de Claire": "responsable : Claire ; échéance : le jour même, soit le 9 avril 2026" in page,
+        "Telechargement": any(getattr(e, "label", "") == "Télécharger le dossier (Markdown)" for e in at.get("download_button")),
+    }
+    exc = [str(e) for e in at.exception]
+    return (
+        {"ok": all(email.values()) and not exc, "detail": f"brouillon a Claire, a confirmer, non envoye : {sum(email.values())}/{len(email)}", "checks": email},
+        {"ok": all(dossier.values()) and not exc, "detail": f"dossier Atlas affiche : {sum(dossier.values())}/{len(dossier)}", "checks": dossier},
+    )
+
+
 def main() -> None:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -160,7 +194,8 @@ def main() -> None:
     args = parser.parse_args()
     report = {"V1_supersedes": v1_supersedes(), "V3_abstention": v3_abstention(), "V4_action": v4_action(), "V2_sources": v2_sources_displayed(),
               "V5_affichage": v5_display()}
-    for name in ("V1_supersedes", "V2_sources", "V3_abstention", "V4_action", "V5_affichage"):
+    report["V6_email"], report["V7_dossier"] = v6_v7_email_and_dossier()
+    for name in ("V1_supersedes", "V2_sources", "V3_abstention", "V4_action", "V5_affichage", "V6_email", "V7_dossier"):
         print(f"{name:<15} {'OK ' if report[name]['ok'] else 'ECHEC'}  {report[name]['detail']}")
     if args.out:
         args.out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

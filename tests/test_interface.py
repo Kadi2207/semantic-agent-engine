@@ -27,7 +27,7 @@ class Lookup:
 def test_statuses_and_intents_are_shown_in_french() -> None:
     assert STATUS_LABELS == {"active": "en vigueur", "superseded": "remplacée", "cancelled": "annulée"}
     assert {u.status for u in UNITS.values()} <= set(STATUS_LABELS)
-    assert INTENT_LABELS == {"answer": "Répondre", "draft_email": "Rédiger un email"}
+    assert INTENT_LABELS == {"answer": "Répondre", "draft_email": "Rédiger un email", "dossier": "Constituer un dossier"}
     assert (status_label("active"), intent_label("draft_email")) == ("en vigueur", "Rédiger un email")
 
 

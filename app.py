@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
 from src.agent.answer import ABSTENTION_THRESHOLD, DATA_DIR, Answer, answer, get_graph, get_retriever  # noqa: E402
+from src.agent.dossier import Dossier, Item, build_dossier, named_project, to_markdown  # noqa: E402
 from src.agent.email import Clarification, draft_email, get_participants  # noqa: E402
 from src.agent.display import (  # noqa: E402
     deadline_note,
@@ -28,7 +29,8 @@ from src.agent.display import (  # noqa: E402
 from src.agent.intent import detect_intent  # noqa: E402
 from src.agent.retriever import FINETUNED_PATH, HybridRetriever  # noqa: E402
 from src.agent.sources import load_transcripts, source_passage  # noqa: E402
-from src.memory.extracted import EXTRACTED_PROJECTS, MENTION, get_extracted_graph, get_extracted_retriever  # noqa: E402
+from src.memory.corpus import load_relations  # noqa: E402
+from src.memory.extracted import EXTRACTED_DIR, EXTRACTED_PROJECTS, MENTION, get_extracted_graph, get_extracted_retriever  # noqa: E402
 from src.schemas import EmailDraft, SemanticUnit  # noqa: E402
 
 st.set_page_config(page_title="Embedding Lab", layout="centered")
@@ -95,6 +97,8 @@ DEMO_STEPS = [
     ("(3) Décision remplacée", "La mise en production d'Atlas est-elle toujours prévue le 14 avril ?", False),
     ("(4) Passages sources", "Quelle est la date de mise en production d'Atlas ?", True),
     ("(5) Hors sources", "Quel est le salaire du nouveau directeur technique ?", False),
+    ("(6) Email", "Écris un mail à la personne qui doit annoncer le report aux utilisateurs", False),
+    ("(7) Dossier", "Constitue le dossier sur la mise en production d'Atlas", False),
 ]
 OTHER_EXAMPLES = [
     ("Piège négation", "projet_02", "Le budget de la campagne de printemps est-il approuvé ?"),
@@ -261,6 +265,60 @@ def render_draft(draft: EmailDraft) -> None:
     st.caption("Rien n'est envoyé : relis le brouillon et renseigne l'adresse avant tout envoi.")
 
 
+def render_dossier(dossier: Dossier, retriever: HybridRetriever) -> None:
+    """Dossier documente : chaque element est une unite de la memoire, avec sa reunion, sa date et sa preuve."""
+    if dossier.abstained:
+        st.warning("**Information absente ou incertaine dans les sources** : aucun dossier n'est constitué.")
+        return
+
+    def ref(unit: SemanticUnit) -> str:
+        return f"<span class='meta'>(<code>{unit.unit_id}</code>, réunion {unit.source_id} du {short_date(unit.source_date)})</span>"
+
+    def items(entries: list[Item], empty: str) -> None:
+        if not entries:
+            st.markdown(f"<div class='meta'>{empty}</div>", unsafe_allow_html=True)
+        for item in entries:
+            detail = f" <span class='meta'>{html.escape(item.detail)}</span>" if item.detail else ""
+            st.markdown(f"- {html.escape(item.unit.statement)}{detail} {ref(item.unit)}", unsafe_allow_html=True)
+
+    with st.container(border=True):
+        st.markdown(f"##### Dossier : projet {dossier.project_name}")
+        scope = "toutes les unités du projet" if dossier.scope == "projet" else (
+            "unités retrouvées par la recherche, puis reliées par les relations du graphe")
+        st.markdown(f"<div class='meta'>Objet : {html.escape(dossier.query.strip())}<br>Périmètre : {scope}, "
+                    f"{len(dossier.units)} unités citées.</div>", unsafe_allow_html=True)
+        st.markdown("**Décisions en vigueur**")
+        items(dossier.decisions, "Aucune décision en vigueur dans ce périmètre.")
+        st.markdown("**Historique des changements**")
+        if not dossier.history:
+            st.markdown("<div class='meta'>Aucun remplacement ni contradiction résolue dans ce périmètre.</div>", unsafe_allow_html=True)
+        for item in dossier.history:
+            st.markdown(f"- {html.escape(item.detail)} <span class='old'>{html.escape(item.unit.statement)}</span> {ref(item.unit)}",
+                        unsafe_allow_html=True)
+        st.markdown("**Conflits non tranchés**")
+        if not dossier.conflicts:
+            st.markdown("<div class='meta'>Aucun conflit non tranché dans ce périmètre.</div>", unsafe_allow_html=True)
+        for a, b in dossier.conflicts:
+            st.markdown("<div class='meta'>Deux affirmations contradictoires, toutes deux en vigueur ; les sources ne "
+                        "permettent pas de trancher :</div>", unsafe_allow_html=True)
+            items([a, b], "")
+        st.markdown("**Actions et engagements**")
+        items(dossier.tasks, "Aucune action ni engagement dans ce périmètre.")
+        st.markdown("**Risques**")
+        items(dossier.risks, "Aucun risque dans ce périmètre.")
+        st.markdown("**Questions ouvertes**")
+        items(dossier.open_questions, "Aucune question restée sans réponse dans ce périmètre.")
+        with st.expander(f"Sources citées ({len(dossier.units)} passages de transcript)"):
+            for unit in dossier.units:
+                render_source(unit, context=0, title=f"Source de {unit.unit_id}")
+    st.download_button(
+        "Télécharger le dossier (Markdown)",
+        to_markdown(dossier),
+        file_name=f"dossier_{dossier.project_id}.md",
+        mime="text/markdown",
+    )
+
+
 def render_clarification(result: Clarification) -> None:
     labels = {"ambiguous": "Demande ambiguë", "no_person": "Responsable introuvable", "off_topic": "Sujet introuvable"}
     st.warning(f"**Clarification nécessaire : {labels.get(result.reason, result.reason).lower()}**\n\n{result.question}")
@@ -308,7 +366,7 @@ with st.sidebar:
     st.caption(
         "L'agent répond en citant sa preuve, distingue une décision en vigueur d'une décision remplacée "
         "ou contredite, s'abstient quand le meilleur passage trouvé est trop éloigné de la question, et "
-        "prépare des brouillons d'email sans jamais les envoyer."
+        "prépare des brouillons d'email sans jamais les envoyer, et constitue des dossiers documentés à partir des sources."
     )
 
 try:
@@ -334,14 +392,16 @@ st.markdown(
     f"(<code>{DEMO_PROJECT}</code>, 3 réunions)</div>",
     unsafe_allow_html=True,
 )
-for i, (col, (label, question, detail)) in enumerate(zip(st.columns(len(DEMO_STEPS)), DEMO_STEPS)):
-    col.button(label, key=f"demo_{i}", on_click=apply_scenario, args=(DEMO_PROJECT, question, detail), use_container_width=True)
+for row in (DEMO_STEPS[:4], DEMO_STEPS[4:]):  # deux rangees : 7 boutons ne tiennent pas sur une ligne
+    for col, (label, question, detail) in zip(st.columns(4), row):
+        i = DEMO_STEPS.index((label, question, detail))
+        col.button(label, key=f"demo_{i}", on_click=apply_scenario, args=(DEMO_PROJECT, question, detail), use_container_width=True)
 with st.expander("Autres exemples (négation, email, clarification)"):
     for i, (col, (label, pid, question)) in enumerate(zip(st.columns(len(OTHER_EXAMPLES)), OTHER_EXAMPLES)):
         col.button(label, key=f"other_{i}", on_click=apply_scenario, args=(pid, question), use_container_width=True)
 
 with st.form("ask", border=False):
-    question = st.text_input("Question", key="question", placeholder="Pose une question ou demande un email…")
+    question = st.text_input("Question", key="question", placeholder="Pose une question, demande un email ou un dossier…")
     submitted = st.form_submit_button("Envoyer", type="primary")
 
 if submitted:
@@ -351,7 +411,12 @@ if submitted:
         intent = detect_intent(question)
         st.markdown(f"<div class='meta'>Intention détectée : <b>{intent_label(intent)}</b></div>", unsafe_allow_html=True)
         with st.spinner("Recherche dans les sources…"):
-            if intent == "draft_email":
+            if intent == "dossier":
+                visible = {pid: project_names[pid] for pid in project_ids}
+                target = named_project(question, visible) or project_id
+                relations = load_relations(EXTRACTED_DIR if extracted_mode else DATA_DIR)
+                result = build_dossier(question, target, project_names[target], retriever=retriever, relations=relations)
+            elif intent == "draft_email":
                 result = draft_email(question, project_id, retriever=retriever, graph=graph)
             else:
                 result = answer(question, project_id, retriever=retriever, graph=graph)
@@ -359,5 +424,7 @@ if submitted:
             render_clarification(result)
         elif isinstance(result, EmailDraft):
             render_draft(result)
+        elif isinstance(result, Dossier):
+            render_dossier(result, retriever)
         else:
             render_answer(result, retriever, detail_sources=st.session_state.get("detail_sources", False))

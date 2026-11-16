@@ -1,11 +1,11 @@
-"""Detection d'intention par regles : rediger un email, ou repondre a une question."""
+"""Detection d'intention par regles : constituer un dossier, rediger un email, ou repondre a une question."""
 from __future__ import annotations
 
 import re
 import unicodedata
 from typing import Literal
 
-Intent = Literal["answer", "draft_email"]
+Intent = Literal["answer", "draft_email", "dossier"]
 
 # Verbes qui, a eux seuls, demandent d'ecrire a quelqu'un ("ecris a", "redige", "contacte").
 _WRITE_VERBS = re.compile(r"\b(ecris|ecrire|ecrivez|redige|rediger|redigez|contacte|contacter|contactez)\b")
@@ -42,8 +42,18 @@ def strip_instruction(query: str) -> str:
     return topic or query
 
 
+# Dossier documente : le mot "dossier" dans une demande (pas dans une question sur un dossier).
+_DOSSIER = re.compile(r"(?<!\w)dossiers?(?!\w)")
+_DOSSIER_REQUEST = re.compile(
+    r"^(?:(?:peux-tu|pourrais-tu|pouvez-vous|merci de)\s+)?(?:constitue|fais|faites|prepare|monte|etablis|redige|"
+    r"donne|donnez|compile|assemble|genere)"
+)
+
+
 def detect_intent(query: str) -> Intent:
     text = _normalize(query)
+    if _DOSSIER.search(text) and (_DOSSIER_REQUEST.match(text) or not (text.endswith("?") or _QUESTION_START.match(text))):
+        return "dossier"
     if _WRITE_VERBS.search(text):
         return "draft_email"
     if _MAIL_WORDS.search(text):

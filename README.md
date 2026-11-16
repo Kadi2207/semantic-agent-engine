@@ -2,7 +2,7 @@
 
 ## Objectif et périmètre
 
-Ce projet construit un agent qui lit des comptes rendus de réunions et répond à des questions en citant sa preuve. L'agent distingue une décision en vigueur d'une décision remplacée ou contredite, identifie la personne qui doit réaliser une tâche, prépare un brouillon d'email sans jamais l'envoyer et s'abstient quand le meilleur passage trouvé est trop éloigné de la question, selon un seuil de similarité dont les limites sont décrites plus bas.
+Ce projet construit un agent qui lit des comptes rendus de réunions et répond à des questions en citant sa preuve. L'agent distingue une décision en vigueur d'une décision remplacée ou contredite, identifie la personne qui doit réaliser une tâche, prépare un brouillon d'email sans jamais l'envoyer, constitue un dossier documenté sur un sujet ou un projet, et s'abstient quand le meilleur passage trouvé est trop éloigné de la question, selon un seuil de similarité dont les limites sont décrites plus bas.
 
 Quand deux affirmations contradictoires sont toutes deux encore en vigueur, l'agent ne choisit pas : il affiche un conflit non tranché, avec les deux affirmations et leurs sources, sans en barrer aucune et sans conclure. Une contradiction ne vaut résolution que si l'unité contredite n'est plus active. L'interface affiche le type de chaque unité en français, présente une proposition comme « proposition, non validée » et, pour une échéance « le jour même », ajoute la date de la réunion sans rien calculer d'autre.
 
@@ -191,20 +191,24 @@ Le fine-tuning sur le corpus français s'applique à l'anglais sans dégradation
 
 ## Démonstration
 
-La démonstration porte sur le projet fictif Atlas (projet_01), dont trois comptes rendus successifs racontent une mise en production d'abord proposée puis validée pour le 14 avril, puis reportée au 5 mai. Elle s'appuie sur les unités et relations annotées du projet Atlas, et non sur celles de l'extraction automatique. Le parcours se déroule en cinq temps :
+La démonstration porte sur le projet fictif Atlas (projet_01), dont trois comptes rendus successifs racontent une mise en production d'abord proposée puis validée pour le 14 avril, puis reportée au 5 mai. Elle s'appuie sur les unités et relations annotées du projet Atlas, et non sur celles de l'extraction automatique (mode par défaut de l'interface). Le parcours se déroule en sept temps :
 
 1. retrouver la décision en vigueur, avec sa preuve et sa source ;
 2. identifier l'action qui en découle, avec son responsable et son échéance ;
 3. montrer la décision remplacée et le chemin suivi pour arriver à l'information à jour ;
 4. afficher à l'écran les passages sources du transcript, pour la décision en vigueur et pour celles qu'elle remplace ;
-5. déclencher l'abstention sur une question hors des sources.
+5. déclencher l'abstention sur une question hors des sources ;
+6. préparer un brouillon d'email à la personne chargée d'une action (Claire), à confirmer et jamais envoyé ;
+7. constituer le dossier documenté de la mise en production : décisions en vigueur, historique des changements, conflits non tranchés, actions et engagements (responsable, échéance, statut), risques, questions ouvertes et sources citées, téléchargeable en Markdown.
+
+Le dossier est constitué de façon déterministe, sans LLM : les unités du sujet sont retrouvées par la recherche hybride (ou toutes les unités du projet si la demande le nomme), puis complétées en suivant les relations du graphe sur deux liens. Chaque élément est une unité de la mémoire, citée avec sa réunion, sa date et sa preuve.
 
 Commandes :
 
     uv run streamlit run app.py --server.address localhost
     uv run python scripts/verify_demo.py
 
-Le second script vérifie automatiquement cinq points du parcours (remplacement de décision reproductible, affichage des sources, abstention, responsable et échéance de l'action, libellés d'affichage : type en français, proposition non validée, échéance « le jour même » datée). Une vidéo de la démonstration peut être enregistrée avec `scripts/record_demo.py` ; elle n'est pas versionnée.
+Le second script vérifie automatiquement sept points du parcours (remplacement de décision reproductible, affichage des sources, abstention, responsable et échéance de l'action, libellés d'affichage : type en français, proposition non validée, échéance « le jour même » datée, brouillon d'email non envoyé, contenu du dossier). Une vidéo de la démonstration peut être enregistrée avec `scripts/record_demo.py` ; elle n'est pas versionnée.
 
 ## Audit qualitatif sur AMI
 
