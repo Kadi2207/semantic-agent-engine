@@ -1,0 +1,261 @@
+{
+  "description": "Controle automatique de fidelite du RAG par NLI local",
+  "warning": "exploratoire : un modele NLI est imparfait, surtout en francais et sur des phrases de synthese ; ce controle complete le controle des citations et ne remplace pas une evaluation humaine, non realisee",
+  "date": "2026-11-16",
+  "script": "eval/nli_faithfulness.py",
+  "protocol": {
+    "model": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+    "revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+    "prediction": "etiquette de score maximal, aucun seuil",
+    "premise": "texte integral des unites citees par la phrase (enonce puis preuve)",
+    "hypothesis": "la phrase de la synthese, sans ses citations",
+    "excluded": "reponses qui ne sont pas des syntheses acceptees (rejetees, abstentions, extractives, conflits)",
+    "fixed_before_execution": true
+  },
+  "sources_sha256": {
+    "eval/results/rag_dev.json": "d136057c177e327a64646787860c6577c3c0ef46da388820d9a0a9a32bcee322",
+    "data/processed/groq_rag_cache.jsonl": "8fd6ee3fb550937a81f111d5ca646f1f664596f492fefa8aea890c5eeeffc53a",
+    "eval/results/test2.json": "cb4f687a8405437e8da05345442d374f1c232ed59ef14e2a1b1086563dbb9f9e",
+    "data/processed/groq_rag_test2_cache.jsonl": "9af134959b1024a5c7bf17e7b449f9e1e54e2fe763b75a01b4d5b00f8e5d9fbf"
+  },
+  "splits": {
+    "dev": {
+      "sentences": 25,
+      "syntheses": 24,
+      "excluded_responses": {
+        "non_appelee": 1,
+        "abstention_llm": 4,
+        "conflit": 1
+      },
+      "counts": {
+        "entailment": 19,
+        "neutral": 6,
+        "contradiction": 0
+      },
+      "rates": {
+        "entailment": 0.76,
+        "neutral": 0.24,
+        "contradiction": 0.0
+      },
+      "not_entailed": [
+        {
+          "query_id": "q_dev_006",
+          "piege": "reformulation",
+          "hypothesis": "L'agence estime que l'intégration du catalogue et du tunnel de paiement nécessite six semaines.",
+          "cited_ids": [
+            "p06_u12"
+          ],
+          "premise": "L'intégration du catalogue et du tunnel de paiement prend six semaines. Comptez six semaines pour le catalogue et le tunnel de paiement.",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.038,
+            "neutral": 0.9608,
+            "contradiction": 0.0012
+          }
+        },
+        {
+          "query_id": "q_dev_007",
+          "piege": "responsable_reel",
+          "hypothesis": "Jérémie doit prévenir l'équipe commerciale de la nouvelle règle de clôture.",
+          "cited_ids": [
+            "p07_u06"
+          ],
+          "premise": "Jérémie envoie dès le lendemain un message à l'équipe commerciale pour expliquer la règle. Jérémie, tu envoies un message à l'équipe dès demain pour expliquer la règle ?",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.0501,
+            "neutral": 0.9492,
+            "contradiction": 0.0007
+          }
+        },
+        {
+          "query_id": "q_dev_008",
+          "piege": "negation",
+          "hypothesis": "Les anomalies d'affichage des factures sont mineures et ne bloquent pas le lancement.",
+          "cited_ids": [
+            "p01_u09",
+            "p01_u11"
+          ],
+          "premise": "Les tests de bout en bout passent, hormis deux anomalies mineures d'affichage des factures. Les tests de bout en bout passent, à part deux anomalies mineures sur l'affichage des factures. Les anomalies ne sont pas bloquantes et seront corrigées dans la semaine. Non, elles ne sont pas bloquantes, on les corrige dans la semaine.",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.4316,
+            "neutral": 0.5669,
+            "contradiction": 0.0015
+          }
+        },
+        {
+          "query_id": "q_dev_010",
+          "piege": "sans_reponse",
+          "hypothesis": "Aucune décision n'a encore été prise sur les redirections des anciennes URL des fiches produits.",
+          "cited_ids": [
+            "p06_u25"
+          ],
+          "premise": "Aucune décision n'a encore été prise sur les redirections des anciennes URL. Par contre, toujours aucune décision sur les redirections des anciennes URL.",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.0037,
+            "neutral": 0.9962,
+            "contradiction": 0.0001
+          }
+        },
+        {
+          "query_id": "q_dev_024",
+          "piege": "reformulation",
+          "hypothesis": "La rencontre avec les distributeurs a été déplacée au jeudi 8 octobre.",
+          "cited_ids": [
+            "p05_u12"
+          ],
+          "premise": "La journée clients est décalée au jeudi 8 octobre. La journée clients est décalée au jeudi 8 octobre.",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.4972,
+            "neutral": 0.4986,
+            "contradiction": 0.0041
+          }
+        },
+        {
+          "query_id": "q_dev_025",
+          "piege": "responsable_reel",
+          "hypothesis": "Céline doit organiser la formation des conseillers avant la bascule.",
+          "cited_ids": [
+            "p04_u16"
+          ],
+          "premise": "Céline organise les sessions de formation des conseillers dans les agences d'ici le 10 juillet. Céline, tu organises les sessions de formation dans les agences d'ici le 10 juillet ?",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.0508,
+            "neutral": 0.9488,
+            "contradiction": 0.0004
+          }
+        }
+      ]
+    },
+    "test2": {
+      "sentences": 33,
+      "syntheses": 27,
+      "excluded_responses": {
+        "abstention_llm": 6,
+        "conflit": 2,
+        "non_appelee": 1
+      },
+      "counts": {
+        "entailment": 26,
+        "neutral": 7,
+        "contradiction": 0
+      },
+      "rates": {
+        "entailment": 0.7879,
+        "neutral": 0.2121,
+        "contradiction": 0.0
+      },
+      "not_entailed": [
+        {
+          "query_id": "q_test2_001",
+          "piege": "decision_active",
+          "hypothesis": "Le déménagement du siège a finalement lieu le week‑end du 31 octobre.",
+          "cited_ids": [
+            "p13_u20"
+          ],
+          "premise": "Le déménagement est repoussé au week-end du 31 octobre, dernier jour du bail. On n'a pas le choix : le déménagement est repoussé au week-end du 31 octobre, dernier jour du bail.",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.2743,
+            "neutral": 0.6931,
+            "contradiction": 0.0326
+          }
+        },
+        {
+          "query_id": "q_test2_008",
+          "piege": "complexe",
+          "hypothesis": "La date initiale du week‑end du 10 octobre a d’abord été abandonnée parce que les deux semaines de câblage prévues rendaient cette échéance impossible.",
+          "cited_ids": [
+            "p13_u12"
+          ],
+          "premise": "Avec deux semaines de câblage, la date du 10 octobre n'est plus tenable. Avec deux semaines de câblage, le 10 octobre ne tient plus du tout.",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.0106,
+            "neutral": 0.989,
+            "contradiction": 0.0004
+          }
+        },
+        {
+          "query_id": "q_test2_009",
+          "piege": "complexe",
+          "hypothesis": "Le déménagement a été reporté au week‑end du 31 octobre, exactement le dernier jour du bail, garantissant ainsi que le siège reste occupé jusqu’à la fin du contrat.",
+          "cited_ids": [
+            "p13_u20"
+          ],
+          "premise": "Le déménagement est repoussé au week-end du 31 octobre, dernier jour du bail. On n'a pas le choix : le déménagement est repoussé au week-end du 31 octobre, dernier jour du bail.",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.0156,
+            "neutral": 0.9808,
+            "contradiction": 0.0036
+          }
+        },
+        {
+          "query_id": "q_test2_011",
+          "piege": "decision_active",
+          "hypothesis": "Le loueur Leasecom a été finalement retenu pour les véhicules électriques.",
+          "cited_ids": [
+            "p14_u19"
+          ],
+          "premise": "Le loueur Leasecom est finalement retenu, à 520 euros par mois avec l'entretien inclus. Dans ce cas on bascule sur Leasecom, à 520 euros, mais avec l'entretien inclus.",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.0018,
+            "neutral": 0.997,
+            "contradiction": 0.0011
+          }
+        },
+        {
+          "query_id": "q_test2_024",
+          "piege": "engagement",
+          "hypothesis": "Le point d'étape sera publié sur le site vendredi.",
+          "cited_ids": [
+            "p15_u21"
+          ],
+          "premise": "Élodie publie un point d'étape sur le site vendredi. Je m'engage à publier un point d'étape sur le site vendredi.",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.4786,
+            "neutral": 0.5009,
+            "contradiction": 0.0205
+          }
+        },
+        {
+          "query_id": "q_test2_025",
+          "piege": "reformulation",
+          "hypothesis": "La présence d'arachide provient d'un nettoyage incomplet de la ligne 3 après la production de biscuits aux arachides.",
+          "cited_ids": [
+            "p15_u14"
+          ],
+          "premise": "La contamination vient d'un nettoyage incomplet de la ligne 3 après une production de biscuits aux arachides. La cause est identifiée : un nettoyage incomplet de la ligne 3 après une production de biscuits aux arachides.",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.0539,
+            "neutral": 0.94,
+            "contradiction": 0.0061
+          }
+        },
+        {
+          "query_id": "q_test2_031",
+          "piege": "decision_active",
+          "hypothesis": "Le bon à tirer du rapport annuel part chez l'imprimeur le 18 novembre.",
+          "cited_ids": [
+            "p16_u19"
+          ],
+          "premise": "Le bon à tirer est avancé au 18 novembre, pour garder une marge avant l'assemblée générale. Pour garder une marge avant l'assemblée, le bon à tirer est avancé au 18 novembre.",
+          "label": "neutral",
+          "scores": {
+            "entailment": 0.0941,
+            "neutral": 0.8646,
+            "contradiction": 0.0414
+          }
+        }
+      ]
+    }
+  }
+}

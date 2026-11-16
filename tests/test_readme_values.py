@@ -41,7 +41,7 @@ def all_numbers(node: object) -> set[float]:
 def test_every_three_decimal_number_of_the_readme_exists_in_a_results_json() -> None:
     known = set()
     for name in ("retrieval_dev.json", "retrieval_test.json", "extraction.json", "real_qmsum.json", "agent_dev.json", "agent_test.json", "agent_extracted_dev.json", "rag_dev.json", "rag_test.json",
-                 "architectures_dev.json", "architectures_test.json", "relations_v2.json", "test2.json", "stats.json"):
+                 "architectures_dev.json", "architectures_test.json", "relations_v2.json", "test2.json", "stats.json", "rag_nli.json"):
         known |= {fr(abs(v)) for v in all_numbers(load(name))}  # le signe est lu a part (differences des tests apparies)
     cited = set(re.findall(r"(?<![\d,])\d,\d{3}(?![\d])", README))
     assert cited, "aucun chiffre trouve dans le README"
@@ -471,6 +471,22 @@ def test_stats_tables_are_built_from_the_json() -> None:
     head = README.split("## Évaluer le projet en 5 minutes")[1].split("\n## ")[0]
     ft = s["intervals"]["dev"]["MRR e5_finetuned"]["ci95"]
     assert f"intervalle à 95 % du MRR fine-tuné : [{fr(ft[0])} ; {fr(ft[1])}] en dev" in head
+
+
+def test_nli_section_is_built_from_the_json() -> None:
+    section = README.split("### Contrôle automatique de fidélité (exploratoire)")[1].split("\n### ")[0]
+    data = load("rag_nli.json")
+    for split, label in (("dev", "Développement"), ("test2", "Test scellé élargi")):
+        s = data["splits"][split]
+        c, r = s["counts"], s["rates"]
+        row = (f"| {label} | {s['syntheses']} | {s['sentences']} | {c['entailment']} ({fr(r['entailment'])}) | "
+               f"{c['neutral']} ({fr(r['neutral'])}) | {c['contradiction']} ({fr(r['contradiction'])}) |")
+        assert row in section, row
+        assert "rejetee" not in s["excluded_responses"]
+    excluded = {sp: sum(data["splits"][sp]["excluded_responses"].values()) for sp in ("dev", "test2")}
+    assert f"{excluded['dev']} en dev, {excluded['test2']} sur le test scellé élargi" in section
+    assert data["protocol"]["model"] in section and data["protocol"]["revision"][:7] in section
+    assert "ne remplace pas une évaluation humaine, non réalisée" in section
 
 
 def test_five_minute_section_figures_come_from_the_json() -> None:

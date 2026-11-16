@@ -186,6 +186,17 @@ Les critères d'acceptation ont été fixés avant l'exécution (`eval/eval_rag.
 
 Par catégorie en dev : decision_active 5/5, reformulation 4/5, responsable_reel 5/5, negation 5/5, engagement 5/5. La seule requête avec réponse manquée est q_dev_002, écartée avant tout appel par le seuil de similarité (meilleur cosinus de 0,440). Sur les 6 sondes d'abstention : 5 abstentions et 1 réponse acceptable sur le fond (`p06_u25`, aucune décision prise), soit 0 réponse à tort, contre 5 sans RAG. Le test scellé provient d'une seule exécution d'enregistrement. L'ensemble de la journée a consommé 25 895 tokens Groq (40 appels).
 
+### Contrôle automatique de fidélité (exploratoire)
+
+Fichier `rag_nli.json`, produit par `eval/nli_faithfulness.py`, sans aucun appel Groq. Protocole fixé avant l'exécution : chaque phrase d'une synthèse du RAG contrôlé en cache (dev et test scellé élargi) est soumise à un modèle NLI multilingue local (MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7, révision b5113eb) ; la prémisse est le texte intégral des unités citées par la phrase (énoncé puis preuve), l'hypothèse est la phrase sans ses citations, et la prédiction est l'étiquette de score maximal, sans seuil. Les réponses qui ne sont pas des synthèses acceptées sont exclues (abstentions du modèle ou du seuil de similarité, conflits non tranchés ; aucune synthèse n'a été rejetée par le code) : 6 en dev, 9 sur le test scellé élargi.
+
+| Jeu | Synthèses | Phrases | Impliquées | Neutres | Contradictions |
+|---|---|---|---|---|---|
+| Développement | 24 | 25 | 19 (0,760) | 6 (0,240) | 0 (0,000) |
+| Test scellé élargi | 27 | 33 | 26 (0,788) | 7 (0,212) | 0 (0,000) |
+
+Aucune phrase n'est jugée contradictoire ; environ une phrase sur quatre ou cinq n'est pas jugée impliquée par les unités qu'elle cite. La liste complète de ces phrases, avec leurs unités, figure dans le JSON pour une inspection manuelle, qui n'a pas été faite. Limite : un modèle NLI est imparfait, surtout en français et sur des phrases de synthèse ; ce contrôle complète le contrôle des citations et ne remplace pas une évaluation humaine, non réalisée.
+
 ### Extraction automatique des unités et des relations
 
 Fichier `extraction.json`. La consigne d'extraction a été réglée sur les projets 01 à 03 puis figée (empreinte SHA-256 enregistrée dans le JSON). Les mesures portent sur les projets 04 à 12, que le réglage n'a jamais vus. Une unité extraite est appariée à une unité annotée quand leurs preuves se recouvrent dans le transcript, ou à défaut quand leurs énoncés sont très proches.
@@ -495,6 +506,10 @@ Test scellé élargi : validation du jeu gelé, puis une exécution d'enregistre
 Intervalles de confiance et tests appariés (réécrit `eval/results/stats.json`) :
 
     uv run python eval/stats.py
+
+Contrôle automatique de fidélité du RAG (télécharge une fois le modèle NLI, environ 550 Mo ; lit les caches du RAG, aucun appel Groq) :
+
+    uv run python eval/nli_faithfulness.py
 
 Évaluation QMSum, après avoir cloné https://github.com/Yale-LILY/QMSum dans `data/external/qmsum` (voir `data/external/README.md`). La commande lance deux exécutions complètes, vérifie qu'elles sont identiques et réécrit `eval/results/real_qmsum.json` :
 
