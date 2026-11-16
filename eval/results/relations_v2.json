@@ -1,0 +1,2333 @@
+{
+  "experiment": "relations v2 : seconde passe de liaison sur les unites extraites",
+  "generated_on": "2026-11-16",
+  "script": "eval/eval_relations_v2.py",
+  "link": {
+    "module": "src/ingest/link.py",
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0.0,
+    "json_mode": true,
+    "extra": {
+      "reasoning_effort": "low"
+    },
+    "max_completion_tokens": 6000,
+    "prompts_sha256": {
+      "v1": "623c9efef7032680b32167b4e8c168c81c8d3d1e324b72551e3b3e2d6d2945d3",
+      "v2": "14e69512fc78f8a7e3a89603d6671033ac1bc8a3be2318f27e869952ca2273d2"
+    },
+    "prompt_history": {
+      "v1": "premiere consigne",
+      "v2": "seule revision, apres analyse des erreurs de la v1 sur le dev 04-10"
+    },
+    "candidates": "k plus proches anterieures (cosinus e5 fine-tune, meme projet) + paires deja reliees ; appel sur k=3",
+    "calls": "un appel par projet et par version de consigne",
+    "tuned_on": [
+      "projet_04",
+      "projet_05",
+      "projet_06",
+      "projet_07",
+      "projet_08",
+      "projet_09",
+      "projet_10"
+    ]
+  },
+  "extraction": {
+    "system_prompt_sha256": "3f757d54dd25e19a1614840798fa7156f130d333cb0c69b8350f4d045526a868",
+    "source": "rejeu du cache d'extraction, 0 appel, verifie contre extraction.json",
+    "unchanged": true
+  },
+  "criterion": {
+    "rule": "dev 04-10 : F1 strict des relations >= 0,456 (0,406 + 0,05) et precision stricte >= 0,45",
+    "f1_min": 0.456,
+    "precision_min": 0.45,
+    "fixed_before_results": true
+  },
+  "budget": {
+    "limit_tokens": 100000,
+    "lot_tokens_consumed": 71388,
+    "lot_groq_calls": 16,
+    "source": "usage enregistre de chaque appel dans data/processed/groq_link_cache.jsonl"
+  },
+  "dev": {
+    "projects": [
+      "projet_04",
+      "projet_05",
+      "projet_06",
+      "projet_07",
+      "projet_08",
+      "projet_09",
+      "projet_10"
+    ],
+    "status": "reglage de la consigne de liaison, de k et du mode de fusion sur ces projets uniquement",
+    "before": {
+      "annotated": 84,
+      "extracted": 54,
+      "strict": {
+        "correct": 28,
+        "precision": 0.5185,
+        "recall": 0.3333,
+        "f1": 0.4058
+      },
+      "loose_endpoints_only": {
+        "correct": 31,
+        "precision": 0.5741,
+        "recall": 0.369,
+        "f1": 0.4493
+      },
+      "per_type": {
+        "answers": {
+          "annotated": 16,
+          "extracted": 15,
+          "correct": 11,
+          "precision": 0.7333,
+          "recall": 0.6875,
+          "f1": 0.7097
+        },
+        "creates_action": {
+          "annotated": 25,
+          "extracted": 18,
+          "correct": 6,
+          "precision": 0.3333,
+          "recall": 0.24,
+          "f1": 0.2791
+        },
+        "supports": {
+          "annotated": 35,
+          "extracted": 16,
+          "correct": 9,
+          "precision": 0.5625,
+          "recall": 0.2571,
+          "f1": 0.3529
+        },
+        "supersedes": {
+          "annotated": 7,
+          "extracted": 4,
+          "correct": 2,
+          "precision": 0.5,
+          "recall": 0.2857,
+          "f1": 0.3636
+        },
+        "contradicts": {
+          "annotated": 1,
+          "extracted": 1,
+          "correct": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    "after": {
+      "annotated": 84,
+      "extracted": 60,
+      "strict": {
+        "correct": 29,
+        "precision": 0.4833,
+        "recall": 0.3452,
+        "f1": 0.4028
+      },
+      "loose_endpoints_only": {
+        "correct": 33,
+        "precision": 0.55,
+        "recall": 0.3929,
+        "f1": 0.4583
+      },
+      "per_type": {
+        "answers": {
+          "annotated": 16,
+          "extracted": 16,
+          "correct": 11,
+          "precision": 0.6875,
+          "recall": 0.6875,
+          "f1": 0.6875
+        },
+        "creates_action": {
+          "annotated": 25,
+          "extracted": 18,
+          "correct": 6,
+          "precision": 0.3333,
+          "recall": 0.24,
+          "f1": 0.2791
+        },
+        "supports": {
+          "annotated": 35,
+          "extracted": 16,
+          "correct": 9,
+          "precision": 0.5625,
+          "recall": 0.2571,
+          "f1": 0.3529
+        },
+        "supersedes": {
+          "annotated": 7,
+          "extracted": 9,
+          "correct": 3,
+          "precision": 0.3333,
+          "recall": 0.4286,
+          "f1": 0.375
+        },
+        "contradicts": {
+          "annotated": 1,
+          "extracted": 1,
+          "correct": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    "selected": {
+      "variant": "v2 k=3 union",
+      "prompt": "v2",
+      "k": 3,
+      "mode": "union",
+      "executed": true
+    },
+    "ceiling": {
+      "annotated_relations": 84,
+      "both_endpoints_extracted": 73,
+      "max_strict_recall": 0.869,
+      "definition": "une relation annotee ne peut etre retrouvee que si ses deux extremites sont appariees a des unites extraites"
+    },
+    "per_project": {
+      "v1": {
+        "projet_04": {
+          "units": 22,
+          "candidate_pairs": 63,
+          "decisions": {
+            "aucun": 56,
+            "answers": 3,
+            "creates_action": 2,
+            "supersedes": 1,
+            "supports": 1
+          },
+          "rejections": {}
+        },
+        "projet_05": {
+          "units": 21,
+          "candidate_pairs": 60,
+          "decisions": {
+            "aucun": 55,
+            "creates_action": 2,
+            "supports": 1,
+            "answers": 1,
+            "supersedes": 1
+          },
+          "rejections": {}
+        },
+        "projet_06": {
+          "units": 32,
+          "candidate_pairs": 90,
+          "decisions": {
+            "aucun": 81,
+            "answers": 4,
+            "supports": 4,
+            "creates_action": 1
+          },
+          "rejections": {}
+        },
+        "projet_07": {
+          "units": 22,
+          "candidate_pairs": 64,
+          "decisions": {
+            "aucun": 57,
+            "answers": 4,
+            "creates_action": 3
+          },
+          "rejections": {}
+        },
+        "projet_08": {
+          "units": 20,
+          "candidate_pairs": 57,
+          "decisions": {
+            "aucun": 53,
+            "supersedes": 2,
+            "supports": 1,
+            "creates_action": 1
+          },
+          "rejections": {}
+        },
+        "projet_09": {
+          "units": 20,
+          "candidate_pairs": 57,
+          "decisions": {
+            "aucun": 44,
+            "supports": 5,
+            "answers": 3,
+            "creates_action": 3,
+            "contradicts": 1,
+            "supersedes": 1
+          },
+          "rejections": {}
+        },
+        "projet_10": {
+          "units": 23,
+          "candidate_pairs": 65,
+          "decisions": {
+            "aucun": 50,
+            "supports": 8,
+            "contradicts": 5,
+            "answers": 1,
+            "supersedes": 1
+          },
+          "rejections": {}
+        }
+      },
+      "v2": {
+        "projet_04": {
+          "units": 22,
+          "candidate_pairs": 63,
+          "decisions": {
+            "aucun": 63
+          },
+          "rejections": {}
+        },
+        "projet_05": {
+          "units": 21,
+          "candidate_pairs": 60,
+          "decisions": {
+            "aucun": 54,
+            "supersedes": 5,
+            "answers": 1
+          },
+          "rejections": {}
+        },
+        "projet_06": {
+          "units": 32,
+          "candidate_pairs": 90,
+          "decisions": {
+            "aucun": 90
+          },
+          "rejections": {}
+        },
+        "projet_07": {
+          "units": 22,
+          "candidate_pairs": 64,
+          "decisions": {
+            "aucun": 51
+          },
+          "rejections": {
+            "sens_invalide": 13
+          }
+        },
+        "projet_08": {
+          "units": 20,
+          "candidate_pairs": 57,
+          "decisions": {
+            "aucun": 57
+          },
+          "rejections": {}
+        },
+        "projet_09": {
+          "units": 20,
+          "candidate_pairs": 57,
+          "decisions": {
+            "aucun": 57
+          },
+          "rejections": {}
+        },
+        "projet_10": {
+          "units": 23,
+          "candidate_pairs": 65,
+          "decisions": {
+            "aucun": 65
+          },
+          "rejections": {}
+        }
+      }
+    },
+    "cost": {
+      "v1": {
+        "groq_calls": 7,
+        "api_calls_this_run": 0,
+        "prompt_tokens": 20278,
+        "completion_tokens": 13678
+      },
+      "v2": {
+        "groq_calls": 7,
+        "api_calls_this_run": 0,
+        "prompt_tokens": 21710,
+        "completion_tokens": 7692
+      }
+    },
+    "criterion_met": false,
+    "selection_rule": "parmi les configurations executees (consignes v1, v2, k=3, modes remplacement, union, complement) : meilleur F1 strict a precision >= 0,45 ; les variantes k < 3 sont indicatives et ne peuvent pas etre retenues",
+    "caveats": {
+      "complement_mode": "le mode de fusion complement a ete introduit apres l'analyse des resultats de la v1 sur le dev",
+      "prompt_v2": "la v2 est la seule et derniere revision de la consigne de liaison ; aucune v3",
+      "selection": "choix parmi 6 configurations executees sur le dev : le score dev de la configuration retenue est donc optimiste",
+      "unbiased_measure": "seul le test scelle, execute une fois avec la configuration retenue, sert de mesure non biaisee"
+    },
+    "best_per_prompt": {
+      "v1": "v1 k=3 complement",
+      "v2": "v2 k=3 union"
+    },
+    "variants": {
+      "v1 k=0 remplacement": {
+        "prompt": "v1",
+        "k": 0,
+        "mode": "remplacement",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 28,
+          "strict": {
+            "correct": 12,
+            "precision": 0.4286,
+            "recall": 0.1429,
+            "f1": 0.2143
+          },
+          "loose_endpoints_only": {
+            "correct": 16,
+            "precision": 0.5714,
+            "recall": 0.1905,
+            "f1": 0.2857
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 10,
+              "correct": 7,
+              "precision": 0.7,
+              "recall": 0.4375,
+              "f1": 0.5385
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 9,
+              "correct": 3,
+              "precision": 0.3333,
+              "recall": 0.12,
+              "f1": 0.1765
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 5,
+              "correct": 1,
+              "precision": 0.2,
+              "recall": 0.0286,
+              "f1": 0.05
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 3,
+              "correct": 1,
+              "precision": 0.3333,
+              "recall": 0.1429,
+              "f1": 0.2
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 1,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v1 k=0 union": {
+        "prompt": "v1",
+        "k": 0,
+        "mode": "union",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 59,
+          "strict": {
+            "correct": 29,
+            "precision": 0.4915,
+            "recall": 0.3452,
+            "f1": 0.4056
+          },
+          "loose_endpoints_only": {
+            "correct": 36,
+            "precision": 0.6102,
+            "recall": 0.4286,
+            "f1": 0.5035
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 16,
+              "correct": 12,
+              "precision": 0.75,
+              "recall": 0.75,
+              "f1": 0.75
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 18,
+              "correct": 6,
+              "precision": 0.3333,
+              "recall": 0.24,
+              "f1": 0.2791
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 18,
+              "correct": 9,
+              "precision": 0.5,
+              "recall": 0.2571,
+              "f1": 0.3396
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 5,
+              "correct": 2,
+              "precision": 0.4,
+              "recall": 0.2857,
+              "f1": 0.3333
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 2,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v1 k=0 complement": {
+        "prompt": "v1",
+        "k": 0,
+        "mode": "complement",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 54,
+          "strict": {
+            "correct": 28,
+            "precision": 0.5185,
+            "recall": 0.3333,
+            "f1": 0.4058
+          },
+          "loose_endpoints_only": {
+            "correct": 31,
+            "precision": 0.5741,
+            "recall": 0.369,
+            "f1": 0.4493
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 15,
+              "correct": 11,
+              "precision": 0.7333,
+              "recall": 0.6875,
+              "f1": 0.7097
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 18,
+              "correct": 6,
+              "precision": 0.3333,
+              "recall": 0.24,
+              "f1": 0.2791
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 16,
+              "correct": 9,
+              "precision": 0.5625,
+              "recall": 0.2571,
+              "f1": 0.3529
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 4,
+              "correct": 2,
+              "precision": 0.5,
+              "recall": 0.2857,
+              "f1": 0.3636
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 1,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v1 k=1 remplacement": {
+        "prompt": "v1",
+        "k": 1,
+        "mode": "remplacement",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 42,
+          "strict": {
+            "correct": 18,
+            "precision": 0.4286,
+            "recall": 0.2143,
+            "f1": 0.2857
+          },
+          "loose_endpoints_only": {
+            "correct": 24,
+            "precision": 0.5714,
+            "recall": 0.2857,
+            "f1": 0.381
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 12,
+              "correct": 8,
+              "precision": 0.6667,
+              "recall": 0.5,
+              "f1": 0.5714
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 11,
+              "correct": 4,
+              "precision": 0.3636,
+              "recall": 0.16,
+              "f1": 0.2222
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 11,
+              "correct": 4,
+              "precision": 0.3636,
+              "recall": 0.1143,
+              "f1": 0.1739
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 6,
+              "correct": 1,
+              "precision": 0.1667,
+              "recall": 0.1429,
+              "f1": 0.1538
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 2,
+              "correct": 1,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6667
+            }
+          }
+        }
+      },
+      "v1 k=1 union": {
+        "prompt": "v1",
+        "k": 1,
+        "mode": "union",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 73,
+          "strict": {
+            "correct": 35,
+            "precision": 0.4795,
+            "recall": 0.4167,
+            "f1": 0.4459
+          },
+          "loose_endpoints_only": {
+            "correct": 44,
+            "precision": 0.6027,
+            "recall": 0.5238,
+            "f1": 0.5605
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 18,
+              "correct": 13,
+              "precision": 0.7222,
+              "recall": 0.8125,
+              "f1": 0.7647
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 20,
+              "correct": 7,
+              "precision": 0.35,
+              "recall": 0.28,
+              "f1": 0.3111
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 24,
+              "correct": 12,
+              "precision": 0.5,
+              "recall": 0.3429,
+              "f1": 0.4068
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 8,
+              "correct": 2,
+              "precision": 0.25,
+              "recall": 0.2857,
+              "f1": 0.2667
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 3,
+              "correct": 1,
+              "precision": 0.3333,
+              "recall": 1.0,
+              "f1": 0.5
+            }
+          }
+        }
+      },
+      "v1 k=1 complement": {
+        "prompt": "v1",
+        "k": 1,
+        "mode": "complement",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 68,
+          "strict": {
+            "correct": 34,
+            "precision": 0.5,
+            "recall": 0.4048,
+            "f1": 0.4474
+          },
+          "loose_endpoints_only": {
+            "correct": 39,
+            "precision": 0.5735,
+            "recall": 0.4643,
+            "f1": 0.5132
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 17,
+              "correct": 12,
+              "precision": 0.7059,
+              "recall": 0.75,
+              "f1": 0.7273
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 20,
+              "correct": 7,
+              "precision": 0.35,
+              "recall": 0.28,
+              "f1": 0.3111
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 22,
+              "correct": 12,
+              "precision": 0.5455,
+              "recall": 0.3429,
+              "f1": 0.4211
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 7,
+              "correct": 2,
+              "precision": 0.2857,
+              "recall": 0.2857,
+              "f1": 0.2857
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 2,
+              "correct": 1,
+              "precision": 0.5,
+              "recall": 1.0,
+              "f1": 0.6667
+            }
+          }
+        }
+      },
+      "v1 k=2 remplacement": {
+        "prompt": "v1",
+        "k": 2,
+        "mode": "remplacement",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 54,
+          "strict": {
+            "correct": 18,
+            "precision": 0.3333,
+            "recall": 0.2143,
+            "f1": 0.2609
+          },
+          "loose_endpoints_only": {
+            "correct": 25,
+            "precision": 0.463,
+            "recall": 0.2976,
+            "f1": 0.3623
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 14,
+              "correct": 8,
+              "precision": 0.5714,
+              "recall": 0.5,
+              "f1": 0.5333
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 12,
+              "correct": 4,
+              "precision": 0.3333,
+              "recall": 0.16,
+              "f1": 0.2162
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 19,
+              "correct": 4,
+              "precision": 0.2105,
+              "recall": 0.1143,
+              "f1": 0.1481
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 6,
+              "correct": 1,
+              "precision": 0.1667,
+              "recall": 0.1429,
+              "f1": 0.1538
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 3,
+              "correct": 1,
+              "precision": 0.3333,
+              "recall": 1.0,
+              "f1": 0.5
+            }
+          }
+        }
+      },
+      "v1 k=2 union": {
+        "prompt": "v1",
+        "k": 2,
+        "mode": "union",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 85,
+          "strict": {
+            "correct": 35,
+            "precision": 0.4118,
+            "recall": 0.4167,
+            "f1": 0.4142
+          },
+          "loose_endpoints_only": {
+            "correct": 45,
+            "precision": 0.5294,
+            "recall": 0.5357,
+            "f1": 0.5325
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 20,
+              "correct": 13,
+              "precision": 0.65,
+              "recall": 0.8125,
+              "f1": 0.7222
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 21,
+              "correct": 7,
+              "precision": 0.3333,
+              "recall": 0.28,
+              "f1": 0.3043
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 32,
+              "correct": 12,
+              "precision": 0.375,
+              "recall": 0.3429,
+              "f1": 0.3582
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 8,
+              "correct": 2,
+              "precision": 0.25,
+              "recall": 0.2857,
+              "f1": 0.2667
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 4,
+              "correct": 1,
+              "precision": 0.25,
+              "recall": 1.0,
+              "f1": 0.4
+            }
+          }
+        }
+      },
+      "v1 k=2 complement": {
+        "prompt": "v1",
+        "k": 2,
+        "mode": "complement",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 80,
+          "strict": {
+            "correct": 34,
+            "precision": 0.425,
+            "recall": 0.4048,
+            "f1": 0.4146
+          },
+          "loose_endpoints_only": {
+            "correct": 40,
+            "precision": 0.5,
+            "recall": 0.4762,
+            "f1": 0.4878
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 19,
+              "correct": 12,
+              "precision": 0.6316,
+              "recall": 0.75,
+              "f1": 0.6857
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 21,
+              "correct": 7,
+              "precision": 0.3333,
+              "recall": 0.28,
+              "f1": 0.3043
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 30,
+              "correct": 12,
+              "precision": 0.4,
+              "recall": 0.3429,
+              "f1": 0.3692
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 7,
+              "correct": 2,
+              "precision": 0.2857,
+              "recall": 0.2857,
+              "f1": 0.2857
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 3,
+              "correct": 1,
+              "precision": 0.3333,
+              "recall": 1.0,
+              "f1": 0.5
+            }
+          }
+        }
+      },
+      "v1 k=3 remplacement": {
+        "prompt": "v1",
+        "k": 3,
+        "mode": "remplacement",
+        "executed": true,
+        "nature": "configuration executee (un appel par projet sur ces paires)",
+        "relations": {
+          "annotated": 84,
+          "extracted": 60,
+          "strict": {
+            "correct": 18,
+            "precision": 0.3,
+            "recall": 0.2143,
+            "f1": 0.25
+          },
+          "loose_endpoints_only": {
+            "correct": 26,
+            "precision": 0.4333,
+            "recall": 0.3095,
+            "f1": 0.3611
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 16,
+              "correct": 8,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 12,
+              "correct": 4,
+              "precision": 0.3333,
+              "recall": 0.16,
+              "f1": 0.2162
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 20,
+              "correct": 4,
+              "precision": 0.2,
+              "recall": 0.1143,
+              "f1": 0.1455
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 6,
+              "correct": 1,
+              "precision": 0.1667,
+              "recall": 0.1429,
+              "f1": 0.1538
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 6,
+              "correct": 1,
+              "precision": 0.1667,
+              "recall": 1.0,
+              "f1": 0.2857
+            }
+          }
+        }
+      },
+      "v1 k=3 union": {
+        "prompt": "v1",
+        "k": 3,
+        "mode": "union",
+        "executed": true,
+        "nature": "configuration executee (un appel par projet sur ces paires)",
+        "relations": {
+          "annotated": 84,
+          "extracted": 91,
+          "strict": {
+            "correct": 35,
+            "precision": 0.3846,
+            "recall": 0.4167,
+            "f1": 0.4
+          },
+          "loose_endpoints_only": {
+            "correct": 46,
+            "precision": 0.5055,
+            "recall": 0.5476,
+            "f1": 0.5257
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 22,
+              "correct": 13,
+              "precision": 0.5909,
+              "recall": 0.8125,
+              "f1": 0.6842
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 21,
+              "correct": 7,
+              "precision": 0.3333,
+              "recall": 0.28,
+              "f1": 0.3043
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 33,
+              "correct": 12,
+              "precision": 0.3636,
+              "recall": 0.3429,
+              "f1": 0.3529
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 8,
+              "correct": 2,
+              "precision": 0.25,
+              "recall": 0.2857,
+              "f1": 0.2667
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 7,
+              "correct": 1,
+              "precision": 0.1429,
+              "recall": 1.0,
+              "f1": 0.25
+            }
+          }
+        }
+      },
+      "v1 k=3 complement": {
+        "prompt": "v1",
+        "k": 3,
+        "mode": "complement",
+        "executed": true,
+        "nature": "configuration executee (un appel par projet sur ces paires)",
+        "relations": {
+          "annotated": 84,
+          "extracted": 86,
+          "strict": {
+            "correct": 34,
+            "precision": 0.3953,
+            "recall": 0.4048,
+            "f1": 0.4
+          },
+          "loose_endpoints_only": {
+            "correct": 41,
+            "precision": 0.4767,
+            "recall": 0.4881,
+            "f1": 0.4824
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 21,
+              "correct": 12,
+              "precision": 0.5714,
+              "recall": 0.75,
+              "f1": 0.6486
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 21,
+              "correct": 7,
+              "precision": 0.3333,
+              "recall": 0.28,
+              "f1": 0.3043
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 31,
+              "correct": 12,
+              "precision": 0.3871,
+              "recall": 0.3429,
+              "f1": 0.3636
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 7,
+              "correct": 2,
+              "precision": 0.2857,
+              "recall": 0.2857,
+              "f1": 0.2857
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 6,
+              "correct": 1,
+              "precision": 0.1667,
+              "recall": 1.0,
+              "f1": 0.2857
+            }
+          }
+        }
+      },
+      "v2 k=0 remplacement": {
+        "prompt": "v2",
+        "k": 0,
+        "mode": "remplacement",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 0,
+          "strict": {
+            "correct": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "loose_endpoints_only": {
+            "correct": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v2 k=0 union": {
+        "prompt": "v2",
+        "k": 0,
+        "mode": "union",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 54,
+          "strict": {
+            "correct": 28,
+            "precision": 0.5185,
+            "recall": 0.3333,
+            "f1": 0.4058
+          },
+          "loose_endpoints_only": {
+            "correct": 31,
+            "precision": 0.5741,
+            "recall": 0.369,
+            "f1": 0.4493
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 15,
+              "correct": 11,
+              "precision": 0.7333,
+              "recall": 0.6875,
+              "f1": 0.7097
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 18,
+              "correct": 6,
+              "precision": 0.3333,
+              "recall": 0.24,
+              "f1": 0.2791
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 16,
+              "correct": 9,
+              "precision": 0.5625,
+              "recall": 0.2571,
+              "f1": 0.3529
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 4,
+              "correct": 2,
+              "precision": 0.5,
+              "recall": 0.2857,
+              "f1": 0.3636
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 1,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v2 k=0 complement": {
+        "prompt": "v2",
+        "k": 0,
+        "mode": "complement",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 54,
+          "strict": {
+            "correct": 28,
+            "precision": 0.5185,
+            "recall": 0.3333,
+            "f1": 0.4058
+          },
+          "loose_endpoints_only": {
+            "correct": 31,
+            "precision": 0.5741,
+            "recall": 0.369,
+            "f1": 0.4493
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 15,
+              "correct": 11,
+              "precision": 0.7333,
+              "recall": 0.6875,
+              "f1": 0.7097
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 18,
+              "correct": 6,
+              "precision": 0.3333,
+              "recall": 0.24,
+              "f1": 0.2791
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 16,
+              "correct": 9,
+              "precision": 0.5625,
+              "recall": 0.2571,
+              "f1": 0.3529
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 4,
+              "correct": 2,
+              "precision": 0.5,
+              "recall": 0.2857,
+              "f1": 0.3636
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 1,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v2 k=1 remplacement": {
+        "prompt": "v2",
+        "k": 1,
+        "mode": "remplacement",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 2,
+          "strict": {
+            "correct": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "loose_endpoints_only": {
+            "correct": 1,
+            "precision": 0.5,
+            "recall": 0.0119,
+            "f1": 0.0233
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 2,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v2 k=1 union": {
+        "prompt": "v2",
+        "k": 1,
+        "mode": "union",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 56,
+          "strict": {
+            "correct": 28,
+            "precision": 0.5,
+            "recall": 0.3333,
+            "f1": 0.4
+          },
+          "loose_endpoints_only": {
+            "correct": 32,
+            "precision": 0.5714,
+            "recall": 0.381,
+            "f1": 0.4571
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 15,
+              "correct": 11,
+              "precision": 0.7333,
+              "recall": 0.6875,
+              "f1": 0.7097
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 18,
+              "correct": 6,
+              "precision": 0.3333,
+              "recall": 0.24,
+              "f1": 0.2791
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 16,
+              "correct": 9,
+              "precision": 0.5625,
+              "recall": 0.2571,
+              "f1": 0.3529
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 6,
+              "correct": 2,
+              "precision": 0.3333,
+              "recall": 0.2857,
+              "f1": 0.3077
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 1,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v2 k=1 complement": {
+        "prompt": "v2",
+        "k": 1,
+        "mode": "complement",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 56,
+          "strict": {
+            "correct": 28,
+            "precision": 0.5,
+            "recall": 0.3333,
+            "f1": 0.4
+          },
+          "loose_endpoints_only": {
+            "correct": 32,
+            "precision": 0.5714,
+            "recall": 0.381,
+            "f1": 0.4571
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 15,
+              "correct": 11,
+              "precision": 0.7333,
+              "recall": 0.6875,
+              "f1": 0.7097
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 18,
+              "correct": 6,
+              "precision": 0.3333,
+              "recall": 0.24,
+              "f1": 0.2791
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 16,
+              "correct": 9,
+              "precision": 0.5625,
+              "recall": 0.2571,
+              "f1": 0.3529
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 6,
+              "correct": 2,
+              "precision": 0.3333,
+              "recall": 0.2857,
+              "f1": 0.3077
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 1,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v2 k=2 remplacement": {
+        "prompt": "v2",
+        "k": 2,
+        "mode": "remplacement",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 4,
+          "strict": {
+            "correct": 1,
+            "precision": 0.25,
+            "recall": 0.0119,
+            "f1": 0.0227
+          },
+          "loose_endpoints_only": {
+            "correct": 2,
+            "precision": 0.5,
+            "recall": 0.0238,
+            "f1": 0.0455
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 4,
+              "correct": 1,
+              "precision": 0.25,
+              "recall": 0.1429,
+              "f1": 0.1818
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v2 k=2 union": {
+        "prompt": "v2",
+        "k": 2,
+        "mode": "union",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 58,
+          "strict": {
+            "correct": 29,
+            "precision": 0.5,
+            "recall": 0.3452,
+            "f1": 0.4085
+          },
+          "loose_endpoints_only": {
+            "correct": 33,
+            "precision": 0.569,
+            "recall": 0.3929,
+            "f1": 0.4648
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 15,
+              "correct": 11,
+              "precision": 0.7333,
+              "recall": 0.6875,
+              "f1": 0.7097
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 18,
+              "correct": 6,
+              "precision": 0.3333,
+              "recall": 0.24,
+              "f1": 0.2791
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 16,
+              "correct": 9,
+              "precision": 0.5625,
+              "recall": 0.2571,
+              "f1": 0.3529
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 8,
+              "correct": 3,
+              "precision": 0.375,
+              "recall": 0.4286,
+              "f1": 0.4
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 1,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v2 k=2 complement": {
+        "prompt": "v2",
+        "k": 2,
+        "mode": "complement",
+        "executed": false,
+        "nature": "indicative : filtrage a posteriori de la passe k=3, pas une execution",
+        "relations": {
+          "annotated": 84,
+          "extracted": 58,
+          "strict": {
+            "correct": 29,
+            "precision": 0.5,
+            "recall": 0.3452,
+            "f1": 0.4085
+          },
+          "loose_endpoints_only": {
+            "correct": 33,
+            "precision": 0.569,
+            "recall": 0.3929,
+            "f1": 0.4648
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 15,
+              "correct": 11,
+              "precision": 0.7333,
+              "recall": 0.6875,
+              "f1": 0.7097
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 18,
+              "correct": 6,
+              "precision": 0.3333,
+              "recall": 0.24,
+              "f1": 0.2791
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 16,
+              "correct": 9,
+              "precision": 0.5625,
+              "recall": 0.2571,
+              "f1": 0.3529
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 8,
+              "correct": 3,
+              "precision": 0.375,
+              "recall": 0.4286,
+              "f1": 0.4
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 1,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v2 k=3 remplacement": {
+        "prompt": "v2",
+        "k": 3,
+        "mode": "remplacement",
+        "executed": true,
+        "nature": "configuration executee (un appel par projet sur ces paires)",
+        "relations": {
+          "annotated": 84,
+          "extracted": 6,
+          "strict": {
+            "correct": 1,
+            "precision": 0.1667,
+            "recall": 0.0119,
+            "f1": 0.0222
+          },
+          "loose_endpoints_only": {
+            "correct": 2,
+            "precision": 0.3333,
+            "recall": 0.0238,
+            "f1": 0.0444
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 1,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 5,
+              "correct": 1,
+              "precision": 0.2,
+              "recall": 0.1429,
+              "f1": 0.1667
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 0,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v2 k=3 union": {
+        "prompt": "v2",
+        "k": 3,
+        "mode": "union",
+        "executed": true,
+        "nature": "configuration executee (un appel par projet sur ces paires)",
+        "relations": {
+          "annotated": 84,
+          "extracted": 60,
+          "strict": {
+            "correct": 29,
+            "precision": 0.4833,
+            "recall": 0.3452,
+            "f1": 0.4028
+          },
+          "loose_endpoints_only": {
+            "correct": 33,
+            "precision": 0.55,
+            "recall": 0.3929,
+            "f1": 0.4583
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 16,
+              "correct": 11,
+              "precision": 0.6875,
+              "recall": 0.6875,
+              "f1": 0.6875
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 18,
+              "correct": 6,
+              "precision": 0.3333,
+              "recall": 0.24,
+              "f1": 0.2791
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 16,
+              "correct": 9,
+              "precision": 0.5625,
+              "recall": 0.2571,
+              "f1": 0.3529
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 9,
+              "correct": 3,
+              "precision": 0.3333,
+              "recall": 0.4286,
+              "f1": 0.375
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 1,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      },
+      "v2 k=3 complement": {
+        "prompt": "v2",
+        "k": 3,
+        "mode": "complement",
+        "executed": true,
+        "nature": "configuration executee (un appel par projet sur ces paires)",
+        "relations": {
+          "annotated": 84,
+          "extracted": 60,
+          "strict": {
+            "correct": 29,
+            "precision": 0.4833,
+            "recall": 0.3452,
+            "f1": 0.4028
+          },
+          "loose_endpoints_only": {
+            "correct": 33,
+            "precision": 0.55,
+            "recall": 0.3929,
+            "f1": 0.4583
+          },
+          "per_type": {
+            "answers": {
+              "annotated": 16,
+              "extracted": 16,
+              "correct": 11,
+              "precision": 0.6875,
+              "recall": 0.6875,
+              "f1": 0.6875
+            },
+            "creates_action": {
+              "annotated": 25,
+              "extracted": 18,
+              "correct": 6,
+              "precision": 0.3333,
+              "recall": 0.24,
+              "f1": 0.2791
+            },
+            "supports": {
+              "annotated": 35,
+              "extracted": 16,
+              "correct": 9,
+              "precision": 0.5625,
+              "recall": 0.2571,
+              "f1": 0.3529
+            },
+            "supersedes": {
+              "annotated": 7,
+              "extracted": 9,
+              "correct": 3,
+              "precision": 0.3333,
+              "recall": 0.4286,
+              "f1": 0.375
+            },
+            "contradicts": {
+              "annotated": 1,
+              "extracted": 1,
+              "correct": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      }
+    },
+    "error_analysis": {
+      "categories": "memes categories que eval/analyze_relation_errors.py",
+      "before": {
+        "by_type": {
+          "creates_action": {
+            "annotated": 25,
+            "predicted": 18,
+            "correct": 6,
+            "predicted_errors": {
+              "extremite_non_annotee": 7,
+              "mauvais_sens": 0,
+              "mauvais_type": 1,
+              "mauvaise_cible": 4,
+              "faux_positif_pur": 0
+            },
+            "found": 6,
+            "missed": {
+              "extremite_non_extraite": 4,
+              "autre_type_ou_sens": 0,
+              "autre_cible": 10,
+              "jamais_proposee": 5
+            }
+          },
+          "supports": {
+            "annotated": 35,
+            "predicted": 16,
+            "correct": 9,
+            "predicted_errors": {
+              "extremite_non_annotee": 4,
+              "mauvais_sens": 0,
+              "mauvais_type": 0,
+              "mauvaise_cible": 3,
+              "faux_positif_pur": 0
+            },
+            "found": 9,
+            "missed": {
+              "extremite_non_extraite": 6,
+              "autre_type_ou_sens": 1,
+              "autre_cible": 4,
+              "jamais_proposee": 15
+            }
+          },
+          "answers": {
+            "annotated": 16,
+            "predicted": 15,
+            "correct": 11,
+            "predicted_errors": {
+              "extremite_non_annotee": 4,
+              "mauvais_sens": 0,
+              "mauvais_type": 0,
+              "mauvaise_cible": 0,
+              "faux_positif_pur": 0
+            },
+            "found": 11,
+            "missed": {
+              "extremite_non_extraite": 0,
+              "autre_type_ou_sens": 1,
+              "autre_cible": 0,
+              "jamais_proposee": 4
+            }
+          },
+          "supersedes": {
+            "annotated": 7,
+            "predicted": 4,
+            "correct": 2,
+            "predicted_errors": {
+              "extremite_non_annotee": 1,
+              "mauvais_sens": 0,
+              "mauvais_type": 1,
+              "mauvaise_cible": 0,
+              "faux_positif_pur": 0
+            },
+            "found": 2,
+            "missed": {
+              "extremite_non_extraite": 1,
+              "autre_type_ou_sens": 1,
+              "autre_cible": 1,
+              "jamais_proposee": 2
+            }
+          },
+          "contradicts": {
+            "annotated": 1,
+            "predicted": 1,
+            "correct": 0,
+            "predicted_errors": {
+              "extremite_non_annotee": 0,
+              "mauvais_sens": 0,
+              "mauvais_type": 1,
+              "mauvaise_cible": 0,
+              "faux_positif_pur": 0
+            },
+            "found": 0,
+            "missed": {
+              "extremite_non_extraite": 0,
+              "autre_type_ou_sens": 0,
+              "autre_cible": 0,
+              "jamais_proposee": 1
+            }
+          }
+        },
+        "totals": {
+          "annotated": 84,
+          "predicted": 54,
+          "correct": 28,
+          "found": 28,
+          "predicted_errors": {
+            "extremite_non_annotee": 16,
+            "mauvais_sens": 0,
+            "mauvais_type": 3,
+            "mauvaise_cible": 7,
+            "faux_positif_pur": 0
+          },
+          "missed": {
+            "extremite_non_extraite": 11,
+            "autre_type_ou_sens": 3,
+            "autre_cible": 15,
+            "jamais_proposee": 27
+          },
+          "missed_total": 56
+        }
+      },
+      "after": {
+        "by_type": {
+          "creates_action": {
+            "annotated": 25,
+            "predicted": 18,
+            "correct": 6,
+            "predicted_errors": {
+              "extremite_non_annotee": 7,
+              "mauvais_sens": 0,
+              "mauvais_type": 1,
+              "mauvaise_cible": 4,
+              "faux_positif_pur": 0
+            },
+            "found": 6,
+            "missed": {
+              "extremite_non_extraite": 4,
+              "autre_type_ou_sens": 0,
+              "autre_cible": 10,
+              "jamais_proposee": 5
+            }
+          },
+          "supports": {
+            "annotated": 35,
+            "predicted": 16,
+            "correct": 9,
+            "predicted_errors": {
+              "extremite_non_annotee": 4,
+              "mauvais_sens": 0,
+              "mauvais_type": 0,
+              "mauvaise_cible": 3,
+              "faux_positif_pur": 0
+            },
+            "found": 9,
+            "missed": {
+              "extremite_non_extraite": 6,
+              "autre_type_ou_sens": 2,
+              "autre_cible": 4,
+              "jamais_proposee": 14
+            }
+          },
+          "answers": {
+            "annotated": 16,
+            "predicted": 16,
+            "correct": 11,
+            "predicted_errors": {
+              "extremite_non_annotee": 5,
+              "mauvais_sens": 0,
+              "mauvais_type": 0,
+              "mauvaise_cible": 0,
+              "faux_positif_pur": 0
+            },
+            "found": 11,
+            "missed": {
+              "extremite_non_extraite": 0,
+              "autre_type_ou_sens": 1,
+              "autre_cible": 0,
+              "jamais_proposee": 4
+            }
+          },
+          "supersedes": {
+            "annotated": 7,
+            "predicted": 9,
+            "correct": 3,
+            "predicted_errors": {
+              "extremite_non_annotee": 2,
+              "mauvais_sens": 0,
+              "mauvais_type": 2,
+              "mauvaise_cible": 2,
+              "faux_positif_pur": 0
+            },
+            "found": 3,
+            "missed": {
+              "extremite_non_extraite": 1,
+              "autre_type_ou_sens": 1,
+              "autre_cible": 1,
+              "jamais_proposee": 1
+            }
+          },
+          "contradicts": {
+            "annotated": 1,
+            "predicted": 1,
+            "correct": 0,
+            "predicted_errors": {
+              "extremite_non_annotee": 0,
+              "mauvais_sens": 0,
+              "mauvais_type": 1,
+              "mauvaise_cible": 0,
+              "faux_positif_pur": 0
+            },
+            "found": 0,
+            "missed": {
+              "extremite_non_extraite": 0,
+              "autre_type_ou_sens": 0,
+              "autre_cible": 0,
+              "jamais_proposee": 1
+            }
+          }
+        },
+        "totals": {
+          "annotated": 84,
+          "predicted": 60,
+          "correct": 29,
+          "found": 29,
+          "predicted_errors": {
+            "extremite_non_annotee": 18,
+            "mauvais_sens": 0,
+            "mauvais_type": 4,
+            "mauvaise_cible": 9,
+            "faux_positif_pur": 0
+          },
+          "missed": {
+            "extremite_non_extraite": 11,
+            "autre_type_ou_sens": 4,
+            "autre_cible": 15,
+            "jamais_proposee": 25
+          },
+          "missed_total": 55
+        }
+      }
+    }
+  },
+  "test": {
+    "projects": [
+      "projet_11",
+      "projet_12"
+    ],
+    "status": "execution unique d'enregistrement sur le test scelle, configuration retenue sur le dev, aucun reglage",
+    "before": {
+      "annotated": 23,
+      "extracted": 19,
+      "strict": {
+        "correct": 8,
+        "precision": 0.4211,
+        "recall": 0.3478,
+        "f1": 0.381
+      },
+      "loose_endpoints_only": {
+        "correct": 8,
+        "precision": 0.4211,
+        "recall": 0.3478,
+        "f1": 0.381
+      },
+      "per_type": {
+        "answers": {
+          "annotated": 3,
+          "extracted": 6,
+          "correct": 2,
+          "precision": 0.3333,
+          "recall": 0.6667,
+          "f1": 0.4444
+        },
+        "creates_action": {
+          "annotated": 7,
+          "extracted": 3,
+          "correct": 1,
+          "precision": 0.3333,
+          "recall": 0.1429,
+          "f1": 0.2
+        },
+        "supports": {
+          "annotated": 12,
+          "extracted": 10,
+          "correct": 5,
+          "precision": 0.5,
+          "recall": 0.4167,
+          "f1": 0.4545
+        },
+        "supersedes": {
+          "annotated": 1,
+          "extracted": 0,
+          "correct": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "contradicts": {
+          "annotated": 0,
+          "extracted": 0,
+          "correct": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    "after": {
+      "annotated": 23,
+      "extracted": 19,
+      "strict": {
+        "correct": 8,
+        "precision": 0.4211,
+        "recall": 0.3478,
+        "f1": 0.381
+      },
+      "loose_endpoints_only": {
+        "correct": 8,
+        "precision": 0.4211,
+        "recall": 0.3478,
+        "f1": 0.381
+      },
+      "per_type": {
+        "answers": {
+          "annotated": 3,
+          "extracted": 6,
+          "correct": 2,
+          "precision": 0.3333,
+          "recall": 0.6667,
+          "f1": 0.4444
+        },
+        "creates_action": {
+          "annotated": 7,
+          "extracted": 3,
+          "correct": 1,
+          "precision": 0.3333,
+          "recall": 0.1429,
+          "f1": 0.2
+        },
+        "supports": {
+          "annotated": 12,
+          "extracted": 10,
+          "correct": 5,
+          "precision": 0.5,
+          "recall": 0.4167,
+          "f1": 0.4545
+        },
+        "supersedes": {
+          "annotated": 1,
+          "extracted": 0,
+          "correct": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "contradicts": {
+          "annotated": 0,
+          "extracted": 0,
+          "correct": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    "selected": {
+      "variant": "v2 k=3 union",
+      "prompt": "v2",
+      "k": 3,
+      "mode": "union",
+      "executed": true
+    },
+    "ceiling": {
+      "annotated_relations": 23,
+      "both_endpoints_extracted": 23,
+      "max_strict_recall": 1.0,
+      "definition": "une relation annotee ne peut etre retrouvee que si ses deux extremites sont appariees a des unites extraites"
+    },
+    "per_project": {
+      "v2": {
+        "projet_11": {
+          "units": 24,
+          "candidate_pairs": 68,
+          "decisions": {
+            "aucun": 68
+          },
+          "rejections": {}
+        },
+        "projet_12": {
+          "units": 24,
+          "candidate_pairs": 68,
+          "decisions": {
+            "aucun": 68
+          },
+          "rejections": {}
+        }
+      }
+    },
+    "cost": {
+      "v2": {
+        "groq_calls": 2,
+        "api_calls_this_run": 2,
+        "prompt_tokens": 6485,
+        "completion_tokens": 1545
+      }
+    },
+    "criterion_met_on_dev": false
+  }
+}

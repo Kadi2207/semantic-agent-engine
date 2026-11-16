@@ -41,7 +41,7 @@ def all_numbers(node: object) -> set[float]:
 def test_every_three_decimal_number_of_the_readme_exists_in_a_results_json() -> None:
     known = set()
     for name in ("retrieval_dev.json", "retrieval_test.json", "extraction.json", "real_qmsum.json", "agent_dev.json", "agent_test.json", "agent_extracted_dev.json", "rag_dev.json", "rag_test.json",
-                 "architectures_dev.json", "architectures_test.json"):
+                 "architectures_dev.json", "architectures_test.json", "relations_v2.json"):
         known |= {fr(v) for v in all_numbers(load(name))}
     cited = set(re.findall(r"(?<![\d,])\d,\d{3}(?![\d])", README))
     assert cited, "aucun chiffre trouve dans le README"
@@ -167,7 +167,11 @@ def test_reintegrated_limits_are_present_once() -> None:
     assert "il n'est plus vierge, et seul le test scellé reste indépendant du réglage" in README
     test_n = json.loads((RESULTS / "retrieval_test.json").read_text(encoding="utf-8"))["experiments"]["compare_finetuned"]["queries"]["evaluated"]
     assert f"ses résultats restent fragiles, car il ne comporte que {test_n} requêtes évaluées" in README
-    assert "mesure non biaisée" not in README and "Test scellé minuscule" not in README
+    # « mesure non biaisee » n'est admis que dans la section relations v2, ou il a ete demande explicitement
+    v2_title = "### Seconde passe de liaison des relations : résultat négatif"
+    outside_v2 = README.split(v2_title)[0] + "\n### " + README.split(v2_title)[1].split("\n### ", 1)[1]
+    assert "mesure non biaisée" not in outside_v2 and README.count("mesure non biaisée") == 1
+    assert "Test scellé minuscule" not in README
     assert README.count("triplets construits à la main (") == 1  # une seule puce pour les triplets faits a la main
     assert "non testée ici" in README  # l'explication de la faiblesse de BM25 reste une hypothese
     assert "premier participant nommé dans l'énoncé" in README and "pas généralisable telle quelle" in README
@@ -381,6 +385,42 @@ def test_architecture_section_is_built_from_the_json() -> None:
     c = choice["candidates"]
     assert (f"(e5-base {fr(c['e5_base_finetuned']['mrr'])}, MiniLM-L12 {fr(c['minilm_l12_finetuned']['mrr'])}, "
             f"contre {fr(choice['reference']['mrr'])}), e5-small reste en production") in head
+
+
+def test_relations_v2_section_is_built_from_the_json() -> None:
+    section = README.split("### Seconde passe de liaison des relations : résultat négatif")[1].split("\n### ")[0]
+    data = load("relations_v2.json")
+    dev, test = data["dev"], data["test"]
+    for v in dev["variants"].values():  # toutes les variantes essayees, executees et indicatives
+        s = v["relations"]["strict"]
+        row = (f"| {v['prompt']} | {v['k']} | {v['mode']} | {'exécutée' if v['executed'] else 'indicative'} | "
+               f"{v['relations']['extracted']} | {fr(s['precision'])} | {fr(s['recall'])} | {fr(s['f1'])} |")
+        assert row in section, row
+    for label, get in (("Relations prédites", lambda b: str(b["extracted"])), ("Relations justes", lambda b: str(b["strict"]["correct"])),
+                       ("Précision stricte", lambda b: fr(b["strict"]["precision"])), ("Rappel strict", lambda b: fr(b["strict"]["recall"])),
+                       ("F1 strict", lambda b: fr(b["strict"]["f1"]))):
+        row = f"| {label} | {get(dev['before'])} | {get(dev['after'])} | {get(test['before'])} | {get(test['after'])} |"
+        assert row in section, row
+    c = dev["ceiling"]
+    assert f"{c['both_endpoints_extracted']} des {c['annotated_relations']} relations du dev" in section
+    assert f"ne peut pas dépasser {fr(c['max_strict_recall'])}" in section
+    assert "Seul k = 3 a été exécuté" in section and "6 configurations exécutées" in section and "optimiste" in section
+    assert "seul le test scellé, exécuté une fois, sert de mesure non biaisée" in section
+    assert "mode complement a lui aussi été introduit après l'analyse des résultats de la v1" in section
+    assert not dev["criterion_met"] and "Le critère n'est pas atteint : rien n'est activé" in section
+    sel = dev["selected"]
+    assert f"v2, k = {sel['k']}, {sel['mode']}" in section and sel["prompt"] == "v2"
+    cost = {v: c["prompt_tokens"] + c["completion_tokens"] for v, c in dev["cost"].items()}
+    test_cost = sum(c["prompt_tokens"] + c["completion_tokens"] for c in test["cost"].values())
+    b = data["budget"]
+    assert b["lot_tokens_consumed"] == cost["v1"] + cost["v2"] + test_cost
+    assert (f"{thousands(b['lot_tokens_consumed'])} tokens Groq en {b['lot_groq_calls']} appels, sous le budget de "
+            f"{thousands(b['limit_tokens'])} : {thousands(cost['v1'])} pour la v1 sur le dev, {thousands(cost['v2'])} pour la v2 "
+            f"sur le dev et {thousands(test_cost)} pour le test scellé") in section
+    totals = dev["error_analysis"]["after"]["totals"]
+    assert (f"{totals['predicted_errors']['extremite_non_annotee']} relations prédites dont une extrémité n'est pas annotée, "
+            f"{totals['predicted_errors']['mauvaise_cible']} mauvaises cibles et {totals['predicted_errors']['mauvais_type']} mauvais types") in section
+    assert f"{totals['missed']['jamais_proposee']} ne sont jamais proposées" in section
 
 
 def test_five_minute_section_figures_come_from_the_json() -> None:

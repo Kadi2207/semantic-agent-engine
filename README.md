@@ -201,6 +201,63 @@ Une relation est comptée juste seulement si ses deux extrémités, son sens et 
 
 La relation creates_action est la plus faible. L'extraction des projets 04 à 12 a demandé 19 appels Groq, pour 37 815 tokens en entrée et 60 327 en sortie.
 
+### Seconde passe de liaison des relations : résultat négatif
+
+Fichier `relations_v2.json`, produit par `eval/eval_relations_v2.py` ; module `src/ingest/link.py`. Cette passe part des unités et relations de l'extraction figée, rejouées depuis le cache (0 appel) ; la consigne d'extraction, `extraction.json` et `relation_errors_dev.json` ne sont pas modifiés. Pour chaque unité extraite, les candidats sont les k unités antérieures les plus proches du même projet (cosinus e5 fine-tuné), plus les paires déjà reliées par l'extraction. Un appel Groq par projet (gpt-oss-120b, sortie JSON, température 0, consigne séparée et versionnée) attribue à chaque paire candidate supersedes, contradicts, creates_action, answers, supports ou aucun, avec son sens ; le code rejette tout numéro de paire, type ou sens invalide.
+
+Le critère a été fixé avant les résultats : sur le dev 04-10, F1 strict des relations d'au moins 0,456 (0,406 + 0,05), sans que la précision stricte descende sous 0,45. Plafond : 73 des 84 relations du dev ont leurs deux extrémités extraites, donc le rappel strict ne peut pas dépasser 0,869 (sur le test scellé, 23 relations sur 23).
+
+Toutes les variantes essayées sur le dev. Seul k = 3 a été exécuté (un appel par projet et par consigne) : les lignes k = 0 à 2 sont indicatives, obtenues en filtrant a posteriori la réponse k = 3, et ne pouvaient pas être retenues. Les modes de fusion sont appliqués par le code à la sortie d'un même appel : remplacement (seules les relations de la passe), union (extraction + passe) et complement (extraction + passe sur les seules paires que l'extraction n'a pas reliées).
+
+| Consigne | k | Fusion | Nature | Relations prédites | Précision | Rappel | F1 |
+|---|---|---|---|---|---|---|---|
+| v1 | 0 | remplacement | indicative | 28 | 0,429 | 0,143 | 0,214 |
+| v1 | 0 | union | indicative | 59 | 0,491 | 0,345 | 0,406 |
+| v1 | 0 | complement | indicative | 54 | 0,518 | 0,333 | 0,406 |
+| v1 | 1 | remplacement | indicative | 42 | 0,429 | 0,214 | 0,286 |
+| v1 | 1 | union | indicative | 73 | 0,479 | 0,417 | 0,446 |
+| v1 | 1 | complement | indicative | 68 | 0,500 | 0,405 | 0,447 |
+| v1 | 2 | remplacement | indicative | 54 | 0,333 | 0,214 | 0,261 |
+| v1 | 2 | union | indicative | 85 | 0,412 | 0,417 | 0,414 |
+| v1 | 2 | complement | indicative | 80 | 0,425 | 0,405 | 0,415 |
+| v1 | 3 | remplacement | exécutée | 60 | 0,300 | 0,214 | 0,250 |
+| v1 | 3 | union | exécutée | 91 | 0,385 | 0,417 | 0,400 |
+| v1 | 3 | complement | exécutée | 86 | 0,395 | 0,405 | 0,400 |
+| v2 | 0 | remplacement | indicative | 0 | 0,000 | 0,000 | 0,000 |
+| v2 | 0 | union | indicative | 54 | 0,518 | 0,333 | 0,406 |
+| v2 | 0 | complement | indicative | 54 | 0,518 | 0,333 | 0,406 |
+| v2 | 1 | remplacement | indicative | 2 | 0,000 | 0,000 | 0,000 |
+| v2 | 1 | union | indicative | 56 | 0,500 | 0,333 | 0,400 |
+| v2 | 1 | complement | indicative | 56 | 0,500 | 0,333 | 0,400 |
+| v2 | 2 | remplacement | indicative | 4 | 0,250 | 0,012 | 0,023 |
+| v2 | 2 | union | indicative | 58 | 0,500 | 0,345 | 0,408 |
+| v2 | 2 | complement | indicative | 58 | 0,500 | 0,345 | 0,408 |
+| v2 | 3 | remplacement | exécutée | 6 | 0,167 | 0,012 | 0,022 |
+| v2 | 3 | union | exécutée | 60 | 0,483 | 0,345 | 0,403 |
+| v2 | 3 | complement | exécutée | 60 | 0,483 | 0,345 | 0,403 |
+
+Conditions de ce choix : la consigne v2 est la seule et dernière révision, écrite après l'analyse des erreurs de la v1 sur le dev ; le mode complement a lui aussi été introduit après l'analyse des résultats de la v1. Le choix s'est fait parmi 6 configurations exécutées sur le dev : le score dev de la configuration retenue est donc optimiste, et seul le test scellé, exécuté une fois, sert de mesure non biaisée.
+
+La v1 relie trop : avec la fusion la plus favorable (complement), son rappel monte à 0,405 mais sa précision tombe à 0,395 (F1 0,400). La v2, plus prudente, ne propose plus que 6 relations sur le dev (5 supersedes, 1 answers) et répond « aucun » aux 136 paires du test scellé ; 13 de ses réponses sur le projet 07 ont été rejetées par le code pour un sens invalide. Configuration retenue sur le dev : v2, k = 3, union (à égalité avec complement).
+
+| Mesure | Dev avant | Dev après | Test avant | Test après |
+|---|---|---|---|---|
+| Relations prédites | 54 | 60 | 19 | 19 |
+| Relations justes | 28 | 29 | 8 | 8 |
+| Précision stricte | 0,518 | 0,483 | 0,421 | 0,421 |
+| Rappel strict | 0,333 | 0,345 | 0,348 | 0,348 |
+| F1 strict | 0,406 | 0,403 | 0,381 | 0,381 |
+
+| Relation | F1 dev avant | F1 dev après | F1 test avant | F1 test après |
+|---|---|---|---|---|
+| answers | 0,710 | 0,688 | 0,444 | 0,444 |
+| creates_action | 0,279 | 0,279 | 0,200 | 0,200 |
+| supports | 0,353 | 0,353 | 0,455 | 0,455 |
+| supersedes | 0,364 | 0,375 | 0,000 | 0,000 |
+| contradicts | 0,000 | 0,000 | sans objet | sans objet |
+
+Le critère n'est pas atteint : rien n'est activé, et la mémoire extraite garde les relations de l'extraction. Avec les mêmes catégories que l'analyse précédente, sur le dev, la configuration retenue compte 18 relations prédites dont une extrémité n'est pas annotée, 9 mauvaises cibles et 4 mauvais types ; parmi les relations annotées manquées, 25 ne sont jamais proposées (27 avant). Le lot a consommé 71 388 tokens Groq en 16 appels, sous le budget de 100 000 : 33 956 pour la v1 sur le dev, 29 402 pour la v2 sur le dev et 8 030 pour le test scellé.
+
 ### Chaîne complète en mode extrait
 
 Fichier `agent_extracted_dev.json`, produit par `eval/eval_agent_extracted.py`. Le même agent interroge une autre mémoire : les unités et relations produites par le pipeline d'extraction pour les projets 04 à 12, sans correction manuelle (`data/extracted`, reconstruite depuis le cache Groq local par `scripts/build_extracted_memory.py`, sans aucun appel). Seul le chargeur de mémoire change ; l'interface propose ce mode à côté de la mémoire annotée, qui reste le mode par défaut. La mesure porte sur les 20 requêtes avec réponse du dev qui concernent les projets 04 à 10, sans aucun réglage ; une réponse en mémoire extraite est juste si l'unité affichée est appariée (même appariement que pour l'extraction) à une unité attendue.
@@ -252,7 +309,7 @@ Le fine-tuning sur le corpus français s'applique à l'anglais sans dégradation
 
 ## Limites assumées
 
-- Relations : c'est la partie la plus faible, avec un F1 strict de 0,406 en dev et 0,381 en test. L'analyse des erreurs du dev 04-10 (`eval/results/relation_errors_dev.json`) montre qu'aucune relation prédite n'est fausse à cause de son seul sens. Sur les 54 relations prédites, 28 sont justes ; parmi les erreurs, 16 relient une unité absente de l'annotation et 7 visent la mauvaise cible. Sur les 84 relations annotées, 56 sont manquées, dont 27 jamais proposées (15 supports).
+- Relations : c'est la partie la plus faible, avec un F1 strict de 0,406 en dev et 0,381 en test. L'analyse des erreurs du dev 04-10 (`eval/results/relation_errors_dev.json`) montre qu'aucune relation prédite n'est fausse à cause de son seul sens. Sur les 54 relations prédites, 28 sont justes ; parmi les erreurs, 16 relient une unité absente de l'annotation et 7 visent la mauvaise cible. Sur les 84 relations annotées, 56 sont manquées, dont 27 jamais proposées (15 supports). Une seconde passe de liaison par LLM n'a pas amélioré ce score (F1 strict de 0,403 en dev et 0,381 en test scellé, `relations_v2.json`) : ce résultat négatif est décrit plus haut.
 - Abstention : l'agent s'abstient quand le meilleur cosinus dense passe sous 0,45 (seuil fixé dans `src/agent/answer.py`). Ce seuil écarte bien les questions hors sujet, mais il ne sépare pas une question sur le bon sujet dont la réponse est absente des sources : dans ce cas, la réponse extractive est le plus souvent fausse. C'est mesuré sans RAG : 0 abstention sur les 5 requêtes sans réponse du dev, 0 sur 1 en test scellé ; sur 6 sondes exploratoires, 0 abstention, 5 réponses à tort et 1 acceptable sur le fond (`agent_dev.json`, `agent_test.json`). Ces sondes ne sont pas une mesure indépendante : 5 sur 6 sont les requêtes sans_reponse du dev. À l'inverse, le seuil écarte à tort q_dev_002, dont la réponse existe (meilleur cosinus de 0,440). Le RAG contrôlé, activé par défaut, corrige en grande partie ce cas (4 abstentions sur 5 en dev, 1 sur 1 en test scellé, 0 réponse à tort sur les 6 sondes), mais ces mesures restent petites et non indépendantes, et le seuil de similarité écarte toujours q_dev_002 avant tout appel.
 - Recul sur les décisions en vigueur : en dev, le fine-tuning fait baisser le MRR de 0,800 à 0,707 et le Recall@3 de 1,000 à 0,800 sur cette catégorie de requêtes. La résolution par les relations de l'agent compense ce cas dans la réponse finale : en dev, les 5 requêtes de cette catégorie obtiennent une réponse juste (`agent_dev.json`), ce qui reste une mesure sur 5 requêtes.
 - Reformulation : c'est la catégorie la plus faible en réponse finale, avec 1/5 en dev. L'agent ne retient que le premier résultat de la recherche : une unité pertinente classée deuxième ou troisième ne sert à rien. Ce chiffre vaut pour la réponse extractive ; avec le RAG contrôlé, qui lit les 5 premières unités, la catégorie passe à 4/5.
@@ -342,6 +399,10 @@ Extraction (se rejoue depuis le cache Groq local, sans aucun appel) :
 Analyse des erreurs de relations sur le dev 04-10, depuis le même cache local (réécrit `eval/results/relation_errors_dev.json`) :
 
     uv run python eval/analyze_relation_errors.py
+
+Seconde passe de liaison des relations (rejoue l'extraction depuis le même cache local ; les réponses de liaison sont dans `data/processed/groq_link_cache.jsonl`, non versionné ; `--cache-only` rejoue sans réseau, l'option `--split test` refuse de relancer un test déjà enregistré) :
+
+    uv run python eval/eval_relations_v2.py --split dev --cache-only
 
 Évaluation QMSum, après avoir cloné https://github.com/Yale-LILY/QMSum dans `data/external/qmsum` (voir `data/external/README.md`). La commande lance deux exécutions complètes, vérifie qu'elles sont identiques et réécrit `eval/results/real_qmsum.json` :
 
