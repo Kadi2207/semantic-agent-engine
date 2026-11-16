@@ -134,7 +134,7 @@ def v5_display() -> dict[str, object]:
     expected = {
         "1": ["Type : <b>décision</b>"],
         "2": ["Type : <b>action</b>", "Échéance : <b>le jour même, soit le 9 avril 2026, date de la réunion</b>"],
-        "4": ["— décision, p01_m02", "— proposition, non validée, p01_m01"],
+        "4": ["(décision, p01_m02", "(proposition, non validée, p01_m01"],
     }
     seen: dict[str, dict[str, bool]] = {}
     for step, needles in expected.items():

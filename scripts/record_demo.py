@@ -18,11 +18,11 @@ from playwright.sync_api import sync_playwright
 URL = "http://localhost:8501"
 # (bouton du parcours, texte qui prouve que la bonne reponse est affichee)
 STEPS = [
-    ("1 · Décision en vigueur", "Passage source"),
-    ("2 · Action : qui et quand", "Claire envoie un message aux utilisateurs"),
-    ("3 · Décision remplacée", "Information mise à jour"),
-    ("4 · Passages sources", "Source de p01_u12"),
-    ("5 · Hors sources", "Information absente ou incertaine dans les sources"),
+    ("(1) Décision en vigueur", "Passage source"),
+    ("(2) Action : qui et quand", "Claire envoie un message aux utilisateurs"),
+    ("(3) Décision remplacée", "Information mise à jour"),
+    ("(4) Passages sources", "Source de p01_u12"),
+    ("(5) Hors sources", "Information absente ou incertaine dans les sources"),
 ]
 PAUSE_MS = 4500
 
@@ -39,7 +39,7 @@ def main() -> None:
         context = browser.new_context(viewport=size, record_video_dir=str(video_dir), record_video_size=size)
         page = context.new_page()
         page.goto(URL)
-        page.get_by_text("Agent sémantique").first.wait_for(timeout=600_000)  # chargement du modele
+        page.get_by_text("Embedding Lab").first.wait_for(timeout=600_000)  # chargement du modele
         page.get_by_role("button", name=STEPS[0][0]).wait_for(timeout=600_000)
         page.wait_for_timeout(2500)
         for label, proof in STEPS:

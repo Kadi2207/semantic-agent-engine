@@ -1,0 +1,239 @@
+{
+  "description": "Reponses de l'agent pour le parcours Atlas et les autres exemples de l'interface, enregistrees avant la finition de l'interface",
+  "recorded_on_commit": "55d4dfb",
+  "answers": [
+    {
+      "project_id": "projet_01",
+      "question": "Quelle est la date de mise en production d'Atlas ?",
+      "intent": "answer",
+      "answer": {
+        "query": "Quelle est la date de mise en production d'Atlas ?",
+        "project_id": "projet_01",
+        "abstained": false,
+        "best_dense_score": 0.858814,
+        "threshold": 0.45,
+        "statement": "La mise en production d'Atlas est reportée au 5 mai.",
+        "evidence": "La mise en production d'Atlas est reportée au 5 mai.",
+        "source_id": "p01_m03",
+        "source_date": "2026-04-09",
+        "speaker": "Aminata",
+        "unit_id": "p01_u20",
+        "unit_status": "active",
+        "fused_score": 0.032786885,
+        "resolution": [],
+        "history": [
+          [
+            "p01_u12",
+            "supersedes",
+            "p01_u20"
+          ],
+          [
+            "p01_u01",
+            "supersedes",
+            "p01_u12"
+          ]
+        ],
+        "conflict_with": [],
+        "message": null
+      }
+    },
+    {
+      "project_id": "projet_01",
+      "question": "Qui doit annoncer le report aux utilisateurs, et quand ?",
+      "intent": "answer",
+      "answer": {
+        "query": "Qui doit annoncer le report aux utilisateurs, et quand ?",
+        "project_id": "projet_01",
+        "abstained": false,
+        "best_dense_score": 0.655764,
+        "threshold": 0.45,
+        "statement": "Claire envoie un message aux utilisateurs pour annoncer le report, le jour même.",
+        "evidence": "Je renvoie un message aux utilisateurs pour annoncer le report dès cet après-midi.",
+        "source_id": "p01_m03",
+        "source_date": "2026-04-09",
+        "speaker": "Claire",
+        "unit_id": "p01_u21",
+        "unit_status": "active",
+        "fused_score": 0.032786885,
+        "resolution": [],
+        "history": [],
+        "conflict_with": [],
+        "message": null
+      }
+    },
+    {
+      "project_id": "projet_01",
+      "question": "La mise en production d'Atlas est-elle toujours prévue le 14 avril ?",
+      "intent": "answer",
+      "answer": {
+        "query": "La mise en production d'Atlas est-elle toujours prévue le 14 avril ?",
+        "project_id": "projet_01",
+        "abstained": false,
+        "best_dense_score": 0.881369,
+        "threshold": 0.45,
+        "statement": "La mise en production d'Atlas est reportée au 5 mai.",
+        "evidence": "La mise en production d'Atlas est reportée au 5 mai.",
+        "source_id": "p01_m03",
+        "source_date": "2026-04-09",
+        "speaker": "Aminata",
+        "unit_id": "p01_u20",
+        "unit_status": "active",
+        "fused_score": 0.032786885,
+        "resolution": [
+          "p01_u12 (superseded) -supersedes-> p01_u20 (active)"
+        ],
+        "history": [
+          [
+            "p01_u12",
+            "supersedes",
+            "p01_u20"
+          ],
+          [
+            "p01_u01",
+            "supersedes",
+            "p01_u12"
+          ]
+        ],
+        "conflict_with": [],
+        "message": null
+      }
+    },
+    {
+      "project_id": "projet_01",
+      "question": "Quelle est la date de mise en production d'Atlas ?",
+      "intent": "answer",
+      "answer": {
+        "query": "Quelle est la date de mise en production d'Atlas ?",
+        "project_id": "projet_01",
+        "abstained": false,
+        "best_dense_score": 0.858814,
+        "threshold": 0.45,
+        "statement": "La mise en production d'Atlas est reportée au 5 mai.",
+        "evidence": "La mise en production d'Atlas est reportée au 5 mai.",
+        "source_id": "p01_m03",
+        "source_date": "2026-04-09",
+        "speaker": "Aminata",
+        "unit_id": "p01_u20",
+        "unit_status": "active",
+        "fused_score": 0.032786885,
+        "resolution": [],
+        "history": [
+          [
+            "p01_u12",
+            "supersedes",
+            "p01_u20"
+          ],
+          [
+            "p01_u01",
+            "supersedes",
+            "p01_u12"
+          ]
+        ],
+        "conflict_with": [],
+        "message": null
+      }
+    },
+    {
+      "project_id": "projet_01",
+      "question": "Quel est le salaire du nouveau directeur technique ?",
+      "intent": "answer",
+      "answer": {
+        "query": "Quel est le salaire du nouveau directeur technique ?",
+        "project_id": "projet_01",
+        "abstained": true,
+        "best_dense_score": 0.090486,
+        "threshold": 0.45,
+        "statement": null,
+        "evidence": null,
+        "source_id": null,
+        "source_date": null,
+        "speaker": null,
+        "unit_id": null,
+        "unit_status": null,
+        "fused_score": null,
+        "resolution": [],
+        "history": [],
+        "conflict_with": [],
+        "message": "Information absente ou incertaine dans les sources"
+      }
+    },
+    {
+      "project_id": "projet_02",
+      "question": "Le budget de la campagne de printemps est-il approuvé ?",
+      "intent": "answer",
+      "answer": {
+        "query": "Le budget de la campagne de printemps est-il approuvé ?",
+        "project_id": "projet_02",
+        "abstained": false,
+        "best_dense_score": 0.835844,
+        "threshold": 0.45,
+        "statement": "Le budget de 85 000 euros pour la campagne de printemps n'est pas approuvé.",
+        "evidence": "Le budget de 85 000 euros pour la campagne de printemps n'est pas approuvé.",
+        "source_id": "p02_m02",
+        "source_date": "2026-02-18",
+        "speaker": "Hélène",
+        "unit_id": "p02_u08",
+        "unit_status": "active",
+        "fused_score": 0.032786885,
+        "resolution": [
+          "p02_u01 (superseded) -contradicts-> p02_u08 (active)"
+        ],
+        "history": [
+          [
+            "p02_u01",
+            "contradicts",
+            "p02_u08"
+          ]
+        ],
+        "conflict_with": [],
+        "message": null
+      }
+    },
+    {
+      "project_id": "projet_02",
+      "question": "Écris un mail à la personne qui doit signer le devis d'Horizon",
+      "intent": "draft_email",
+      "draft": {
+        "intent": "draft_email",
+        "tool_candidate": "send_email",
+        "recipient": {
+          "name": "Karim",
+          "email": null,
+          "evidence_unit_ids": [
+            "p02_u04"
+          ],
+          "resolution_status": "email_missing"
+        },
+        "subject": "Suivi : signer le devis de l'agence Horizon d'ici vendredi",
+        "body": "Bonjour Karim,\n\nLors de la réunion du 4 février 2026 (p02_m01), le point suivant a été noté :\n« Karim doit signer le devis de l'agence Horizon d'ici vendredi. »\n\nPoint d'attention : ce point a depuis été remplacé lors de la réunion du 18 février 2026 (p02_m02) :\n« La signature du devis de l'agence Horizon est mise en attente. »\n\nPourriez-vous me faire un retour sur ce sujet ?\n\nBien cordialement,",
+        "source_unit_ids": [
+          "p02_u04",
+          "p02_u11"
+        ],
+        "needs_confirmation": true,
+        "executed": false
+      }
+    },
+    {
+      "project_id": "projet_03",
+      "question": "Écris un mail à la personne qui s'occupe de la grille d'évaluation",
+      "intent": "draft_email",
+      "clarification": {
+        "reason": "ambiguous",
+        "question": "Plusieurs personnes peuvent correspondre (Olivier, Inès). À laquelle veux-tu écrire ?",
+        "candidates": [
+          [
+            "Olivier",
+            "p03_u10",
+            []
+          ],
+          [
+            "Inès",
+            "p03_u11",
+            []
+          ]
+        ]
+      }
+    }
+  ]
+}
