@@ -29,7 +29,7 @@ from eval.results_io import (
 ROOT = Path(__file__).resolve().parent.parent
 RESULTS = {"dev": ROOT / "eval/results/retrieval_dev.json", "test": ROOT / "eval/results/retrieval_test.json"}
 QUERIES = {"dev": ROOT / "data/eval/queries_dev.json", "test": ROOT / "data/eval/queries_test.json"}
-EXPECTED_SECTIONS = {"dev": {"run_baselines", "compare_finetuned", "hybrid_rrf"}, "test": {"compare_finetuned"}}
+EXPECTED_SECTIONS = {"dev": {"run_baselines", "compare_finetuned", "hybrid_rrf"}, "test": {"compare_finetuned", "hybrid_rrf"}}
 EXPERIMENT_KEYS = {"experiment", "generated_on", "corpus", "split", "script", "status", "queries", "models", "params", "params_sha256", "results"}
 QUERY_KEYS = {"file", "sha256", "total", "evaluated", "excluded", "projects"}
 METRICS = ["Recall@3", "Recall@5", "MRR", "nDCG@5"]

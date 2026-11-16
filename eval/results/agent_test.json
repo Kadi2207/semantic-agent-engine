@@ -1,0 +1,226 @@
+{
+  "description": "Reponse finale de l'agent sur le corpus interne, enregistree par eval/eval_agent.py",
+  "generated_on": "2026-11-16",
+  "split": "test",
+  "script": "eval/eval_agent.py",
+  "status": "execution unique d'enregistrement sur le test scelle, aucun reglage effectue ; ce test ne sert jamais a regler quoi que ce soit",
+  "queries": {
+    "file": "data/eval/queries_test.json",
+    "sha256": "7b6d37f1c5c758e970d9e67ff92f67f1e44e91e9d10feffdcb95b93f60f62061",
+    "sha256_normalisation": "fins de ligne normalisees en LF avant calcul (CRLF et CR convertis en LF) : l'empreinte ne depend pas de core.autocrlf ni du systeme d'exploitation de la copie du depot",
+    "total": 6,
+    "evaluated": 5,
+    "excluded": [
+      {
+        "query_id": "q_test_006",
+        "reason": "piege sans_reponse (aucune unite pertinente)"
+      }
+    ],
+    "projects": [
+      "projet_11",
+      "projet_12"
+    ]
+  },
+  "models": {
+    "bm25": {
+      "model": "rank_bm25.BM25Okapi",
+      "training": null
+    },
+    "e5_finetuned": {
+      "model": "models/e5-finetuned",
+      "weights_sha256": "b87f48d52487225b10033892140cad97f050ad8868852616b5c7a41051e50458",
+      "training": {
+        "source": "scripts/train_embeddings.py",
+        "base_model": "intfloat/multilingual-e5-small",
+        "epochs": 3,
+        "batch_size": 16,
+        "warmup_ratio": 0.1,
+        "learning_rate": 2e-05,
+        "seed": 42
+      }
+    }
+  },
+  "params": {
+    "abstention_threshold": 0.45,
+    "abstention_threshold_note": "ABSTENTION_THRESHOLD de src/agent/answer.py, compare au meilleur cosinus e5 du projet",
+    "rrf_k": 60,
+    "rrf_k_note": "RRF_K de src/agent/retriever.py (HybridRetriever, la recherche utilisee par l'agent)",
+    "search_scope": "unites du projet de la requete"
+  },
+  "experiments": {
+    "final_answer": {
+      "experiment": "justesse de la reponse finale de l'agent, apres abstention et resolution des relations",
+      "definition": "juste = l'agent ne s'abstient pas et l'unite affichee apres resolution est une unite pertinente ; pour un conflit non tranche, une unite pertinente figure parmi les affirmations affichees",
+      "results": {
+        "global": {
+          "n": 5,
+          "correct": 4,
+          "accuracy": 0.8,
+          "abstained": 0,
+          "resolved": 0,
+          "correct_thanks_to_resolution": 0,
+          "unresolved_conflict": 0
+        },
+        "per_category": {
+          "decision_active": {
+            "n": 1,
+            "correct": 1,
+            "accuracy": 1.0,
+            "abstained": 0,
+            "resolved": 0,
+            "correct_thanks_to_resolution": 0,
+            "unresolved_conflict": 0
+          },
+          "reformulation": {
+            "n": 1,
+            "correct": 0,
+            "accuracy": 0.0,
+            "abstained": 0,
+            "resolved": 0,
+            "correct_thanks_to_resolution": 0,
+            "unresolved_conflict": 0
+          },
+          "responsable_reel": {
+            "n": 1,
+            "correct": 1,
+            "accuracy": 1.0,
+            "abstained": 0,
+            "resolved": 0,
+            "correct_thanks_to_resolution": 0,
+            "unresolved_conflict": 0
+          },
+          "negation": {
+            "n": 1,
+            "correct": 1,
+            "accuracy": 1.0,
+            "abstained": 0,
+            "resolved": 0,
+            "correct_thanks_to_resolution": 0,
+            "unresolved_conflict": 0
+          },
+          "engagement": {
+            "n": 1,
+            "correct": 1,
+            "accuracy": 1.0,
+            "abstained": 0,
+            "resolved": 0,
+            "correct_thanks_to_resolution": 0,
+            "unresolved_conflict": 0
+          }
+        },
+        "per_query": [
+          {
+            "query_id": "q_test_001",
+            "project_id": "projet_11",
+            "piege": "engagement",
+            "relevant_unit_ids": [
+              "p11_u16"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.816564,
+            "retrieved_unit_id": "p11_u16",
+            "final_unit_id": "p11_u16",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Agnès présentera le plan de formation complet au comité social du 12 novembre.",
+            "correct": true,
+            "retrieved_was_relevant": true
+          },
+          {
+            "query_id": "q_test_002",
+            "project_id": "projet_11",
+            "piege": "reformulation",
+            "relevant_unit_ids": [
+              "p11_u11"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.74634,
+            "retrieved_unit_id": "p11_u09",
+            "final_unit_id": "p11_u09",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Valérie demande un devis à l'organisme nantais pour la formation aux urgences.",
+            "correct": false,
+            "retrieved_was_relevant": false
+          },
+          {
+            "query_id": "q_test_003",
+            "project_id": "projet_11",
+            "piege": "decision_active",
+            "relevant_unit_ids": [
+              "p11_u14"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.453048,
+            "retrieved_unit_id": "p11_u14",
+            "final_unit_id": "p11_u14",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Le programme accueil doit être envoyé à Camille avant la fin du mois, le destinataire restant ambigu entre Camille Roux et Camille Petit.",
+            "correct": true,
+            "retrieved_was_relevant": true
+          },
+          {
+            "query_id": "q_test_004",
+            "project_id": "projet_12",
+            "piege": "negation",
+            "relevant_unit_ids": [
+              "p12_u02"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.605724,
+            "retrieved_unit_id": "p12_u02",
+            "final_unit_id": "p12_u02",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Aucune purge n'a été faite dans la base depuis la migration de 2015.",
+            "correct": true,
+            "retrieved_was_relevant": true
+          },
+          {
+            "query_id": "q_test_005",
+            "project_id": "projet_12",
+            "piege": "responsable_reel",
+            "relevant_unit_ids": [
+              "p12_u07"
+            ],
+            "abstained": false,
+            "best_dense_score": 0.756704,
+            "retrieved_unit_id": "p12_u07",
+            "final_unit_id": "p12_u07",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Aurélie valide les critères d'inactivité avec Christophe d'ici le 20 février.",
+            "correct": true,
+            "retrieved_was_relevant": true
+          }
+        ]
+      },
+      "sans_reponse": {
+        "n": 1,
+        "expected": "abstention",
+        "abstained": 0,
+        "answered": 1,
+        "per_query": [
+          {
+            "query_id": "q_test_006",
+            "project_id": "projet_12",
+            "abstained": false,
+            "best_dense_score": 0.684356,
+            "retrieved_unit_id": "p12_u09",
+            "final_unit_id": "p12_u09",
+            "final_unit_status": "active",
+            "resolved": false,
+            "conflict_with": [],
+            "statement": "Une dernière campagne de reconsentement est envoyée aux contacts inactifs, ceux qui ne répondent pas sont supprimés."
+          }
+        ]
+      }
+    }
+  }
+}

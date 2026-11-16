@@ -162,6 +162,119 @@
       "params_sha256": "31a52b36b2c6484bdf0983472dc7dcb74529a55d507bf0036317e8b38205424a",
       "params_sha256_covers": "params_sha256 = SHA-256 du JSON canonique (cles triees, sans espaces) de {'params': params, 'training': {modele: parametres d'entrainement}} ; params contient top_k, metrics, prefixes e5, portee de recherche, rrf_k et seed d'evaluation ; training contient, pour chaque modele fine-tune, les constantes lues dans scripts/train_embeddings.py (base_model, epochs, batch_size, warmup_ratio, learning_rate, seed)",
       "metadata_updated_on": "2026-11-16"
+    },
+    "hybrid_rrf": {
+      "generated_on": "2026-11-16",
+      "experiment": "recherche hybride de l'agent : BM25 + e5 fine-tune, fusion RRF",
+      "corpus": "corpus interne (data/raw), projets projet_11, projet_12",
+      "split": "test",
+      "script": "eval/eval_hybrid.py",
+      "status": "execution unique d'enregistrement sur le test scelle, aucun reglage effectue ; ce test ne sert jamais a regler quoi que ce soit",
+      "queries": {
+        "file": "data/eval/queries_test.json",
+        "sha256": "7b6d37f1c5c758e970d9e67ff92f67f1e44e91e9d10feffdcb95b93f60f62061",
+        "sha256_normalisation": "fins de ligne normalisees en LF avant calcul (CRLF et CR convertis en LF) : l'empreinte ne depend pas de core.autocrlf ni du systeme d'exploitation de la copie du depot",
+        "total": 6,
+        "evaluated": 5,
+        "excluded": [
+          {
+            "query_id": "q_test_006",
+            "reason": "piege sans_reponse (aucune unite pertinente)"
+          }
+        ],
+        "projects": [
+          "projet_11",
+          "projet_12"
+        ]
+      },
+      "models": {
+        "bm25": {
+          "model": "rank_bm25.BM25Okapi",
+          "training": null
+        },
+        "e5_finetuned": {
+          "model": "models/e5-finetuned",
+          "weights_sha256": "b87f48d52487225b10033892140cad97f050ad8868852616b5c7a41051e50458",
+          "training": {
+            "source": "scripts/train_embeddings.py",
+            "base_model": "intfloat/multilingual-e5-small",
+            "epochs": 3,
+            "batch_size": 16,
+            "warmup_ratio": 0.1,
+            "learning_rate": 2e-05,
+            "seed": 42
+          }
+        }
+      },
+      "params": {
+        "top_k": 5,
+        "metrics": [
+          "Recall@3",
+          "Recall@5",
+          "MRR",
+          "nDCG@5"
+        ],
+        "search_scope": "unites du projet de la requete",
+        "e5_prefixes": {
+          "query": "query: ",
+          "passage": "passage: "
+        },
+        "e5_prefixes_note": "declares ; verifies par test contre src/retrieval/dense_baseline.py",
+        "rrf_k": 60,
+        "rrf_k_note": "RRF_K de src/agent/retriever.py (HybridRetriever, la recherche utilisee par l'agent)",
+        "evaluation_seed": null,
+        "evaluation_seed_note": "evaluation deterministe, aucun tirage aleatoire"
+      },
+      "results": {
+        "hybrid_rrf": {
+          "global": {
+            "n": 5,
+            "Recall@3": 0.8,
+            "Recall@5": 1.0,
+            "MRR": 0.85,
+            "nDCG@5": 0.8861353116146786
+          },
+          "per_category": {
+            "decision_active": {
+              "n": 1,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 1.0,
+              "nDCG@5": 1.0
+            },
+            "reformulation": {
+              "n": 1,
+              "Recall@3": 0.0,
+              "Recall@5": 1.0,
+              "MRR": 0.25,
+              "nDCG@5": 0.43067655807339306
+            },
+            "responsable_reel": {
+              "n": 1,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 1.0,
+              "nDCG@5": 1.0
+            },
+            "negation": {
+              "n": 1,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 1.0,
+              "nDCG@5": 1.0
+            },
+            "engagement": {
+              "n": 1,
+              "Recall@3": 1.0,
+              "Recall@5": 1.0,
+              "MRR": 1.0,
+              "nDCG@5": 1.0
+            }
+          }
+        }
+      },
+      "params_sha256": "89cb7aab33dd6383199d7e78e22a2b9059e5ece47b3afb4ef813d500026adf2c",
+      "params_sha256_covers": "params_sha256 = SHA-256 du JSON canonique (cles triees, sans espaces) de {'params': params, 'training': {modele: parametres d'entrainement}} ; params contient top_k, metrics, prefixes e5, portee de recherche, rrf_k et seed d'evaluation ; training contient, pour chaque modele fine-tune, les constantes lues dans scripts/train_embeddings.py (base_model, epochs, batch_size, warmup_ratio, learning_rate, seed)"
     }
   }
 }

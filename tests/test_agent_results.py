@@ -66,3 +66,11 @@ def test_metadata_come_from_the_code_and_the_query_file() -> None:
     assert AGENT["split"] == "dev" and (ROOT / AGENT["script"]).exists()
     assert AGENT["queries"]["sha256"] == sha256_text_file(ROOT / AGENT["queries"]["file"])
     assert (AGENT["queries"]["total"], AGENT["queries"]["evaluated"]) == (30, 25)
+
+
+def test_sealed_test_run_is_a_single_recording_without_tuning() -> None:
+    test = json.loads((ROOT / "eval/results/agent_test.json").read_text(encoding="utf-8"))
+    assert test["split"] == "test" and "abstention_probes" not in test["experiments"]  # les sondes sont dev seulement
+    assert "execution unique d'enregistrement sur le test scelle, aucun reglage effectue" in test["status"]
+    assert (test["queries"]["total"], test["queries"]["evaluated"]) == (6, 5)
+    assert test["queries"]["sha256"] == sha256_text_file(ROOT / test["queries"]["file"])

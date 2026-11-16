@@ -40,7 +40,7 @@ def all_numbers(node: object) -> set[float]:
 
 def test_every_three_decimal_number_of_the_readme_exists_in_a_results_json() -> None:
     known = set()
-    for name in ("retrieval_dev.json", "retrieval_test.json", "extraction.json", "real_qmsum.json"):
+    for name in ("retrieval_dev.json", "retrieval_test.json", "extraction.json", "real_qmsum.json", "agent_dev.json", "agent_test.json"):
         known |= {fr(v) for v in all_numbers(load(name))}
     cited = set(re.findall(r"(?<![\d,])\d,\d{3}(?![\d])", README))
     assert cited, "aucun chiffre trouve dans le README"
@@ -56,6 +56,8 @@ def test_retrieval_tables_are_built_from_the_json() -> None:
         ("e5-small fine-tuné", dev["compare_finetuned"]["results"]["e5_finetuned"]["global"]),
         ("e5-small de base", test["results"]["e5_base"]["global"]),
         ("e5-small fine-tuné", test["results"]["e5_finetuned"]["global"]),
+        ("Hybride RRF (agent)", dev["hybrid_rrf"]["results"]["hybrid_rrf"]["global"]),
+        ("Hybride RRF (agent)", load("retrieval_test.json")["experiments"]["hybrid_rrf"]["results"]["hybrid_rrf"]["global"]),
     ]
     for label, g in rows:
         assert f"| {label} | {fr(g['Recall@3'])} | {fr(g['Recall@5'])} | {fr(g['MRR'])} | {fr(g['nDCG@5'])} |" in README
@@ -185,6 +187,55 @@ def test_relation_error_figures_come_from_the_analysis_json() -> None:
     ) in README
     assert "`eval/results/relation_errors_dev.json`" in README and "uv run python eval/analyze_relation_errors.py" in README
     assert "non versionnée)" not in README.split("## Limites assumées")[1].split("\n- Abstention")[0]
+
+
+def test_hybrid_and_final_answer_figures_come_from_the_json() -> None:
+    dev_search = load("retrieval_dev.json")["experiments"]
+    hybrid = dev_search["hybrid_rrf"]
+    h, finetuned = hybrid["results"]["hybrid_rrf"], dev_search["compare_finetuned"]["results"]["e5_finetuned"]["global"]
+    g = h["global"]
+    assert f"RRF avec k = {hybrid['params']['rrf_k']}" in README
+    assert f"le meilleur Recall@3 ({fr(g['Recall@3'])})" in README and g["Recall@3"] > finetuned["Recall@3"]
+    assert f"(MRR de {fr(g['MRR'])} contre {fr(finetuned['MRR'])})" in README
+    assert all(g[m] < finetuned[m] for m in ("Recall@5", "MRR", "nDCG@5"))  # "sous le e5 fine-tune sur les trois autres"
+    assert f"Sur les décisions en vigueur, son MRR est de {fr(h['per_category']['decision_active']['MRR'])}" in README
+
+    dev, test = load("agent_dev.json"), load("agent_test.json")
+    final_dev, final_test = dev["experiments"]["final_answer"], test["experiments"]["final_answer"]
+    gd, gt = final_dev["results"]["global"], final_test["results"]["global"]
+    assert f"| Global | {gd['correct']}/{gd['n']} ({fr(gd['accuracy'])}) | {gt['correct']}/{gt['n']} ({fr(gt['accuracy'])}) |" in README
+    for piege, bd in final_dev["results"]["per_category"].items():
+        bt = final_test["results"]["per_category"][piege]
+        assert f"| {piege} | {bd['correct']}/{bd['n']} | {bt['correct']}/{bt['n']} |" in README, piege
+    resolved = [r for r in final_dev["results"]["per_query"] if r["resolved"]]
+    assert all(r["correct"] for r in resolved)
+    assert f"En dev, {len(resolved)} réponses passent par une résolution" in README
+    assert f"et {gd['unresolved_conflict']} réponse est un conflit non tranché" in README
+    categories = final_dev["results"]["per_category"]
+    assert min(categories, key=lambda p: categories[p]["accuracy"]) == "reformulation"
+    assert "La reformulation est la catégorie la plus faible" in README
+    assert f"L'agent s'abstient à tort {gd['abstained']} fois sur ces {gd['n']} requêtes" in README
+    sd, st = final_dev["sans_reponse"], final_test["sans_reponse"]
+    assert f"l'agent s'abstient {sd['abstained']} fois sur {sd['n']} en dev et {st['abstained']} fois sur {st['n']} en test scellé" in README
+    probes = dev["experiments"]["abstention_probes"]["results"]
+    assert f"{probes['wrongly_answered']} réponses à tort sur {probes['n']}, {probes['abstained']} abstention" in README
+    assert "sondes exploratoires, sur les projets de développement, jamais utilisées pour régler" in README
+    recorded_once = "execution unique d'enregistrement sur le test scelle"
+    assert recorded_once in test["status"] and recorded_once in load("retrieval_test.json")["experiments"]["hybrid_rrf"]["status"]
+    assert "d'une seule exécution d'enregistrement, sans aucun réglage" in README
+
+    limits = README.split("## Limites assumées")[1].split("\n## ")[0]
+    assert (
+        f"{sd['abstained']} abstention sur les {sd['n']} requêtes sans réponse du dev, {st['abstained']} sur {st['n']} en test scellé, "
+        f"et {probes['wrongly_answered']} réponses à tort sur {probes['n']} sondes exploratoires"
+    ) in limits
+    active = categories["decision_active"]
+    assert active["correct"] == active["n"] and f"les {active['n']} requêtes de cette catégorie obtiennent une réponse juste" in limits
+    ref = categories["reformulation"]
+    assert f"{gd['n'] - gd['correct']} réponses sur {gd['n']} sont fausses, dont {ref['n'] - ref['correct']} sur {ref['n']} en reformulation" in limits
+    assert "Conflit non tranché : le corpus de développement n'en contient qu'un seul cas (projet_10)" in limits
+    assert "conflit non tranché, avec les deux affirmations et leurs sources, sans en barrer aucune et sans conclure" in README
+    assert "« proposition, non validée »" in README and "ajoute la date de la réunion sans rien calculer d'autre" in README
 
 
 def test_demo_scope_is_stated() -> None:

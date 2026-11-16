@@ -4,6 +4,8 @@
 
 Ce projet construit un agent qui lit des comptes rendus de réunions et répond à des questions en citant sa preuve. L'agent distingue une décision en vigueur d'une décision remplacée ou contredite, identifie la personne qui doit réaliser une tâche, prépare un brouillon d'email sans jamais l'envoyer et s'abstient quand le meilleur passage trouvé est trop éloigné de la question, selon un seuil de similarité dont les limites sont décrites plus bas.
 
+Quand deux affirmations contradictoires sont toutes deux encore en vigueur, l'agent ne choisit pas : il affiche un conflit non tranché, avec les deux affirmations et leurs sources, sans en barrer aucune et sans conclure. Une contradiction ne vaut résolution que si l'unité contredite n'est plus active. L'interface affiche le type de chaque unité en français, présente une proposition comme « proposition, non validée » et, pour une échéance « le jour même », ajoute la date de la réunion sans rien calculer d'autre.
+
 Le projet comporte quatre parties :
 
 1. un corpus de réunions en français, découpé en unités sémantiques typées et reliées entre elles ;
@@ -21,13 +23,13 @@ Le LLM (openai/gpt-oss-120b via Groq) intervient à deux endroits, toujours en a
     src/memory/corpus.py         chargement du corpus, des relations et des participants
     src/retrieval/               recherches de référence BM25 et dense (e5)
     src/ingest/                  extraction d'unités et de relations par LLM, client Groq avec cache
-    src/agent/                   recherche hybride, réponse sourcée, historique, passages sources, intentions, email
+    src/agent/                   recherche hybride, réponse sourcée, conflits, historique, passages sources, affichage, intentions, email
     eval/                        métriques et scripts d'évaluation
     eval/results/                résultats enregistrés en JSON, avec métadonnées et empreintes SHA-256
     scripts/                     validation du corpus, triplets, entraînement, démo en ligne de commande,
                                  vérification et enregistrement vidéo de la démonstration
     data/raw/                    les 12 projets annotés
-    data/eval/                   requêtes de développement et de test scellé
+    data/eval/                   requêtes de développement et de test scellé, sondes d'abstention
     data/processed/              triplets d'entraînement
     data/external/               documentation des corpus externes (les données ne sont pas versionnées)
     app.py                       interface de démonstration Streamlit
@@ -57,6 +59,7 @@ Développement, 25 requêtes évaluées sur 30 :
 | BM25 | 0,800 | 0,880 | 0,631 | 0,695 |
 | e5-small de base | 0,680 | 0,880 | 0,526 | 0,614 |
 | e5-small fine-tuné | 0,840 | 1,000 | 0,716 | 0,786 |
+| Hybride RRF (agent) | 0,920 | 0,960 | 0,708 | 0,772 |
 
 Le fine-tuning contrastif fait passer le modèle dense devant BM25 sur les quatre métriques. Les deux faiblesses ciblées progressent le plus : sur la négation, le MRR passe de 0,207 à 0,507, et sur les engagements de 0,550 à 1,000.
 
@@ -66,10 +69,28 @@ Test scellé, 5 requêtes évaluées sur 6 :
 |---|---|---|---|---|
 | e5-small de base | 0,600 | 0,800 | 0,640 | 0,677 |
 | e5-small fine-tuné | 0,800 | 1,000 | 0,750 | 0,812 |
+| Hybride RRF (agent) | 0,800 | 1,000 | 0,850 | 0,886 |
 
 Avec seulement 5 requêtes, ce résultat est un signal fragile et non une preuve : une seule requête qui change de rang suffit à modifier fortement les moyennes.
 
-La recherche hybride utilisée par l'agent est évaluée sur QMSum (voir plus bas), mais pas encore sur le corpus interne.
+La ligne Hybride RRF est la recherche utilisée par l'agent : BM25 et e5 fine-tuné fusionnés par RRF avec k = 60, mesurés par `eval/eval_hybrid.py` sur le classement de `HybridRetriever`. En dev, l'hybride obtient le meilleur Recall@3 (0,920) mais reste légèrement sous le e5 fine-tuné seul sur les trois autres métriques (MRR de 0,708 contre 0,716) : la fusion n'apporte pas de gain net sur ce corpus. Sur les décisions en vigueur, son MRR est de 0,840. Sur le test scellé, l'hybride et la réponse finale ci-dessous proviennent d'une seule exécution d'enregistrement, sans aucun réglage.
+
+### Réponse finale de l'agent
+
+Fichiers `agent_dev.json` et `agent_test.json`, produits par `eval/eval_agent.py`. Une réponse est comptée juste si l'agent ne s'abstient pas et si l'unité affichée après résolution des relations est une unité pertinente ; pour un conflit non tranché, il suffit qu'une unité pertinente figure parmi les affirmations affichées.
+
+| Catégorie | Dev | Test scellé |
+|---|---|---|
+| Global | 17/25 (0,680) | 4/5 (0,800) |
+| decision_active | 5/5 | 1/1 |
+| reformulation | 1/5 | 0/1 |
+| responsable_reel | 3/5 | 1/1 |
+| negation | 4/5 | 1/1 |
+| engagement | 4/5 | 1/1 |
+
+En dev, 3 réponses passent par une résolution (l'unité retrouvée était périmée et l'agent a suivi les relations jusqu'à l'unité active), toutes justes, et 1 réponse est un conflit non tranché. La reformulation est la catégorie la plus faible. L'agent s'abstient à tort 1 fois sur ces 25 requêtes.
+
+Requêtes sans réponse (abstention attendue) : l'agent s'abstient 0 fois sur 5 en dev et 0 fois sur 1 en test scellé. Six sondes complémentaires (`data/eval/probes_abstention.json`) posent une question dont le sujet existe dans le projet mais dont la réponse est absente des sources : 5 réponses à tort sur 6, 0 abstention. Ce sont des sondes exploratoires, sur les projets de développement, jamais utilisées pour régler ; cinq d'entre elles reprennent les requêtes sans réponse du dev.
 
 ### Extraction automatique des unités et des relations
 
@@ -137,15 +158,18 @@ Le fine-tuning sur le corpus français s'applique à l'anglais sans dégradation
 ## Limites assumées
 
 - Relations : c'est la partie la plus faible, avec un F1 strict de 0,406 en dev et 0,381 en test. L'analyse des erreurs du dev 04-10 (`eval/results/relation_errors_dev.json`) montre qu'aucune relation prédite n'est fausse à cause de son seul sens. Sur les 54 relations prédites, 28 sont justes ; parmi les erreurs, 16 relient une unité absente de l'annotation et 7 visent la mauvaise cible. Sur les 84 relations annotées, 56 sont manquées, dont 27 jamais proposées (15 supports).
-- Abstention : l'agent s'abstient quand le meilleur cosinus dense passe sous 0,45 (seuil fixé dans `src/agent/answer.py`). Ce seuil écarte bien les questions hors sujet, mais il ne sépare pas une question sur le bon sujet dont la réponse est absente des sources : dans ce cas, l'agent peut répondre à tort. Un cross-encoder ou un modèle d'inférence textuelle serait la solution propre.
-- Recul sur les décisions en vigueur : en dev, le fine-tuning fait baisser le MRR de 0,800 à 0,707 et le Recall@3 de 1,000 à 0,800 sur cette catégorie de requêtes. La résolution par les relations de l'agent est conçue pour compenser ce cas, sans que cela soit encore mesuré.
+- Abstention : l'agent s'abstient quand le meilleur cosinus dense passe sous 0,45 (seuil fixé dans `src/agent/answer.py`). Ce seuil écarte bien les questions hors sujet, mais il ne sépare pas une question sur le bon sujet dont la réponse est absente des sources : dans ce cas, l'agent répond le plus souvent à tort. C'est mesuré : 0 abstention sur les 5 requêtes sans réponse du dev, 0 sur 1 en test scellé, et 5 réponses à tort sur 6 sondes exploratoires (`agent_dev.json`, `agent_test.json`). Un cross-encoder ou un modèle d'inférence textuelle serait la solution propre.
+- Recul sur les décisions en vigueur : en dev, le fine-tuning fait baisser le MRR de 0,800 à 0,707 et le Recall@3 de 1,000 à 0,800 sur cette catégorie de requêtes. La résolution par les relations de l'agent compense ce cas dans la réponse finale : en dev, les 5 requêtes de cette catégorie obtiennent une réponse juste (`agent_dev.json`), ce qui reste une mesure sur 5 requêtes.
+- Réponse finale : en dev, 8 réponses sur 25 sont fausses, dont 4 sur 5 en reformulation. La résolution ne corrige que les cas où la recherche tombe sur une unité périmée ; elle ne rattrape pas une recherche qui tombe sur une autre unité active.
+- Conflit non tranché : le corpus de développement n'en contient qu'un seul cas (projet_10). Le comportement est testé sur ce cas, pas mesuré à plus grande échelle, et il dépend d'une relation contradicts annotée entre les deux unités.
+- Recherche hybride : sur le corpus interne, la fusion RRF ne fait pas mieux que le e5 fine-tuné seul en MRR, en nDCG@5 et en Recall@5 (dev).
 - Surextraction : sur les projets 04 à 12, l'extraction produit 19 unités idea pour 4 annotées.
 - Confusion entre action et engagement : en dev, 4 engagements annotés sont extraits comme actions et 2 actions comme engagements ; sur les projets 04 à 12, le rappel des actions n'est que de 0,294. Une partie de ces écarts vient d'un désaccord de convention entre la consigne et l'annotation.
 - Jeux d'évaluation petits : en dev, 25 requêtes évaluées pour la recherche ; en test scellé, 5 requêtes évaluées pour la recherche et 34 unités appariées pour l'extraction. Les écarts sont indicatifs, pas statistiquement solides.
 - Dev non vierge : il a servi au réglage de la génération des triplets (voir plus haut).
 - Projets 09 et 10 peu couverts : seuls 4 triplets construits à la main en proviennent, aucun triplet enrichi.
 - Règle du responsable : la personne qui doit réaliser une tâche est le premier participant nommé dans l'énoncé de l'unité. Cette heuristique est vérifiée sur le corpus, mais elle n'est pas généralisable telle quelle.
-- Routage et brouillon d'email : la détection d'intention et la préparation des brouillons sont vérifiées sur des exemples de démonstration, mais ne font encore l'objet ni d'une mesure chiffrée ni d'un test automatique.
+- Routage et brouillon d'email : la détection d'intention et la préparation des brouillons sont couvertes par des tests automatiques sur des exemples des projets de développement (`tests/test_agent_logic.py`), mais ne font encore l'objet d'aucune mesure chiffrée.
 - Ingestion et agent non reliés : l'agent et la démonstration lisent la mémoire annotée (`data/raw`), pas les unités et relations produites par l'extraction automatique. L'extraction est évaluée séparément (`extraction.json`). Les brancher l'une sur l'autre est l'étape suivante.
 - Corpus fictif : les 12 projets ont été écrits pour le projet. Sur QMSum, la majorité des réunions Product (AMI) sont elles aussi jouées selon un scénario.
 
@@ -164,7 +188,7 @@ Commandes :
     uv run streamlit run app.py --server.address localhost
     uv run python scripts/verify_demo.py
 
-Le second script vérifie automatiquement les quatre points du parcours (remplacement de décision reproductible, affichage des sources, abstention, responsable et échéance de l'action). Une vidéo de la démonstration peut être enregistrée avec `scripts/record_demo.py` ; elle n'est pas versionnée.
+Le second script vérifie automatiquement cinq points du parcours (remplacement de décision reproductible, affichage des sources, abstention, responsable et échéance de l'action, libellés d'affichage : type en français, proposition non validée, échéance « le jour même » datée). Une vidéo de la démonstration peut être enregistrée avec `scripts/record_demo.py` ; elle n'est pas versionnée.
 
 ## Audit qualitatif sur AMI
 
@@ -188,6 +212,11 @@ Recherche sur le corpus interne (l'option `--out` réécrit le JSON correspondan
     uv run python eval/run_baselines.py --out eval/results/retrieval_dev.json
     uv run python eval/compare_finetuned.py --out eval/results/retrieval_dev.json
     uv run python eval/compare_finetuned.py --queries data/eval/queries_test.json
+    uv run python eval/eval_hybrid.py --out eval/results/retrieval_dev.json
+
+Réponse finale de l'agent et sondes d'abstention (réécrit `eval/results/agent_dev.json`) :
+
+    uv run python eval/eval_agent.py --out eval/results/agent_dev.json
 
 Extraction (se rejoue depuis le cache Groq local, sans aucun appel) :
 
