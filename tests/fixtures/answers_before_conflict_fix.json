@@ -1,0 +1,247 @@
+{
+  "note": "reponses de answer() sur main (d2450ee), avant le lot 1 du renforcement ; reference du test avant/apres",
+  "answers": [
+    {
+      "query": "Quelle est la date de mise en production d'Atlas ?",
+      "project_id": "projet_01",
+      "abstained": false,
+      "best_dense_score": 0.858814,
+      "threshold": 0.45,
+      "statement": "La mise en production d'Atlas est reportée au 5 mai.",
+      "evidence": "La mise en production d'Atlas est reportée au 5 mai.",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "speaker": "Aminata",
+      "unit_id": "p01_u20",
+      "unit_status": "active",
+      "fused_score": 0.032786885,
+      "resolution": [],
+      "history": [
+        [
+          "p01_u12",
+          "supersedes",
+          "p01_u20"
+        ],
+        [
+          "p01_u01",
+          "supersedes",
+          "p01_u12"
+        ]
+      ],
+      "message": null
+    },
+    {
+      "query": "Qui doit annoncer le report aux utilisateurs, et quand ?",
+      "project_id": "projet_01",
+      "abstained": false,
+      "best_dense_score": 0.655764,
+      "threshold": 0.45,
+      "statement": "Claire envoie un message aux utilisateurs pour annoncer le report, le jour même.",
+      "evidence": "Je renvoie un message aux utilisateurs pour annoncer le report dès cet après-midi.",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "speaker": "Claire",
+      "unit_id": "p01_u21",
+      "unit_status": "active",
+      "fused_score": 0.032786885,
+      "resolution": [],
+      "history": [],
+      "message": null
+    },
+    {
+      "query": "La mise en production d'Atlas est-elle toujours prévue le 14 avril ?",
+      "project_id": "projet_01",
+      "abstained": false,
+      "best_dense_score": 0.881369,
+      "threshold": 0.45,
+      "statement": "La mise en production d'Atlas est reportée au 5 mai.",
+      "evidence": "La mise en production d'Atlas est reportée au 5 mai.",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "speaker": "Aminata",
+      "unit_id": "p01_u20",
+      "unit_status": "active",
+      "fused_score": 0.032786885,
+      "resolution": [
+        "p01_u12 (superseded) -supersedes-> p01_u20 (active)"
+      ],
+      "history": [
+        [
+          "p01_u12",
+          "supersedes",
+          "p01_u20"
+        ],
+        [
+          "p01_u01",
+          "supersedes",
+          "p01_u12"
+        ]
+      ],
+      "message": null
+    },
+    {
+      "query": "La mise en production d'Atlas est-elle validée pour le 14 avril ?",
+      "project_id": "projet_01",
+      "abstained": false,
+      "best_dense_score": 0.923541,
+      "threshold": 0.45,
+      "statement": "La mise en production d'Atlas est reportée au 5 mai.",
+      "evidence": "La mise en production d'Atlas est reportée au 5 mai.",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "speaker": "Aminata",
+      "unit_id": "p01_u20",
+      "unit_status": "active",
+      "fused_score": 0.032786885,
+      "resolution": [
+        "p01_u12 (superseded) -supersedes-> p01_u20 (active)"
+      ],
+      "history": [
+        [
+          "p01_u12",
+          "supersedes",
+          "p01_u20"
+        ],
+        [
+          "p01_u01",
+          "supersedes",
+          "p01_u12"
+        ]
+      ],
+      "message": null
+    },
+    {
+      "query": "Le lancement d'Atlas a-t-il lieu le 14 avril ?",
+      "project_id": "projet_01",
+      "abstained": false,
+      "best_dense_score": 0.65114,
+      "threshold": 0.45,
+      "statement": "La mise en production d'Atlas est reportée au 5 mai.",
+      "evidence": "La mise en production d'Atlas est reportée au 5 mai.",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "speaker": "Aminata",
+      "unit_id": "p01_u20",
+      "unit_status": "active",
+      "fused_score": 0.032522475,
+      "resolution": [
+        "p01_u12 (superseded) -supersedes-> p01_u20 (active)"
+      ],
+      "history": [
+        [
+          "p01_u12",
+          "supersedes",
+          "p01_u20"
+        ],
+        [
+          "p01_u01",
+          "supersedes",
+          "p01_u12"
+        ]
+      ],
+      "message": null
+    },
+    {
+      "query": "La mise en production d'Atlas aura-t-elle lieu le 14 avril comme Claire l'avait proposé ?",
+      "project_id": "projet_01",
+      "abstained": false,
+      "best_dense_score": 0.876929,
+      "threshold": 0.45,
+      "statement": "La mise en production d'Atlas est reportée au 5 mai.",
+      "evidence": "La mise en production d'Atlas est reportée au 5 mai.",
+      "source_id": "p01_m03",
+      "source_date": "2026-04-09",
+      "speaker": "Aminata",
+      "unit_id": "p01_u20",
+      "unit_status": "active",
+      "fused_score": 0.032786885,
+      "resolution": [
+        "p01_u01 (superseded) -supersedes-> p01_u12 (superseded)",
+        "p01_u12 (superseded) -supersedes-> p01_u20 (active)"
+      ],
+      "history": [
+        [
+          "p01_u12",
+          "supersedes",
+          "p01_u20"
+        ],
+        [
+          "p01_u01",
+          "supersedes",
+          "p01_u12"
+        ]
+      ],
+      "message": null
+    },
+    {
+      "query": "Quel est le salaire du nouveau directeur technique ?",
+      "project_id": "projet_01",
+      "abstained": true,
+      "best_dense_score": 0.090486,
+      "threshold": 0.45,
+      "statement": null,
+      "evidence": null,
+      "source_id": null,
+      "source_date": null,
+      "speaker": null,
+      "unit_id": null,
+      "unit_status": null,
+      "fused_score": null,
+      "resolution": [],
+      "history": [],
+      "message": "Information absente ou incertaine dans les sources"
+    },
+    {
+      "query": "Le budget de la campagne de printemps est-il approuvé ?",
+      "project_id": "projet_02",
+      "abstained": false,
+      "best_dense_score": 0.835844,
+      "threshold": 0.45,
+      "statement": "Le budget de 85 000 euros pour la campagne de printemps n'est pas approuvé.",
+      "evidence": "Le budget de 85 000 euros pour la campagne de printemps n'est pas approuvé.",
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "speaker": "Hélène",
+      "unit_id": "p02_u08",
+      "unit_status": "active",
+      "fused_score": 0.032786885,
+      "resolution": [
+        "p02_u01 (superseded) -contradicts-> p02_u08 (active)"
+      ],
+      "history": [
+        [
+          "p02_u01",
+          "contradicts",
+          "p02_u08"
+        ]
+      ],
+      "message": null
+    },
+    {
+      "query": "Le budget de la campagne de printemps est-il approuve ?",
+      "project_id": "projet_02",
+      "abstained": false,
+      "best_dense_score": 0.835249,
+      "threshold": 0.45,
+      "statement": "Le budget de 85 000 euros pour la campagne de printemps n'est pas approuvé.",
+      "evidence": "Le budget de 85 000 euros pour la campagne de printemps n'est pas approuvé.",
+      "source_id": "p02_m02",
+      "source_date": "2026-02-18",
+      "speaker": "Hélène",
+      "unit_id": "p02_u08",
+      "unit_status": "active",
+      "fused_score": 0.032522475,
+      "resolution": [
+        "p02_u01 (superseded) -contradicts-> p02_u08 (active)"
+      ],
+      "history": [
+        [
+          "p02_u01",
+          "contradicts",
+          "p02_u08"
+        ]
+      ],
+      "message": null
+    }
+  ]
+}

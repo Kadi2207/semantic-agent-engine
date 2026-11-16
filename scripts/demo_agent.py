@@ -31,6 +31,17 @@ def render_answer(result: Answer) -> str:
     lines = [f"Question : {result.query}", f"Projet   : {result.project_id}", "Intention: answer", ""]
     if result.abstained:
         lines.append(f"Reponse  : {result.message}")
+    elif result.conflict_with:
+        from src.agent.answer import get_retriever
+
+        lines.append("CONFLIT NON TRANCHE : affirmations contradictoires, toutes en vigueur ; l'agent ne choisit pas.")
+        for number, unit_id in enumerate((result.unit_id, *result.conflict_with), start=1):
+            unit = get_retriever().unit(unit_id)
+            lines += [
+                f"Affirmation {number} : {unit.statement}",
+                f"  Preuve : \"{unit.evidence}\"",
+                f"  Source : {unit.source_id} du {unit.source_date}, dit par {unit.speaker or 'inconnu'} ; unite {unit.unit_id} (statut {unit.status})",
+            ]
     else:
         lines += [
             f"Reponse  : {result.statement}",

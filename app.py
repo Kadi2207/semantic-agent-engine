@@ -123,11 +123,39 @@ def render_source(unit: SemanticUnit, context: int, title: str) -> None:
     )
 
 
+def render_conflict(result: Answer, retriever: HybridRetriever, detail_sources: bool = False) -> None:
+    """Conflit non tranche : les affirmations contradictoires, toutes en vigueur, a egalite et sans conclusion."""
+    st.warning(
+        "**Conflit non tranché** : les sources contiennent des affirmations contradictoires, toutes encore en "
+        "vigueur. L'agent ne choisit pas entre elles.",
+        icon="⚖️",
+    )
+    for number, unit_id in enumerate((result.unit_id, *result.conflict_with), start=1):
+        unit = retriever.unit(unit_id)
+        with st.container(border=True):
+            st.markdown(f"##### Affirmation {number}")
+            st.markdown(f"**{html.escape(unit.statement)}**", unsafe_allow_html=True)
+            st.markdown(f"<div class='evidence'>« {html.escape(unit.evidence)} »</div>", unsafe_allow_html=True)
+            st.markdown(
+                f"<div class='meta'>Réunion <b>{unit.source_id}</b> du {unit.source_date:%d/%m/%Y} · "
+                f"locuteur : {unit.speaker or 'inconnu'} · unité <code>{unit.unit_id}</code> "
+                f"(statut <b>{unit.status}</b>)</div>",
+                unsafe_allow_html=True,
+            )
+            render_source(unit, context=2 if detail_sources else 1, title="Passage source")
+    rrf = f" · score RRF {result.fused_score:.4f}" if result.fused_score is not None else ""
+    confidence_caption(result.best_dense_score, rrf)
+
+
 def render_answer(result: Answer, retriever: HybridRetriever, detail_sources: bool = False) -> None:
     if result.abstained:
         st.warning(f"**{result.message}**", icon="🤷")
         st.caption("L'agent préfère ne pas répondre plutôt que d'inventer.")
         confidence_caption(result.best_dense_score)
+        return
+
+    if result.conflict_with:
+        render_conflict(result, retriever, detail_sources)
         return
 
     with st.container(border=True):

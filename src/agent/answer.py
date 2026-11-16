@@ -45,7 +45,14 @@ class Answer:
     # Historique : unites plus anciennes que la reponse remplace ou contredit, de la plus recente a la plus
     # ancienne, sous la forme (unite_ancienne, relation, unite_qui_la_remplace).
     history: tuple[tuple[str, str, str], ...] = ()
+    # Conflit non tranche : unites ACTIVES qui contredisent l'unite retrouvee, elle-meme active. Les sources
+    # ne permettent pas de choisir : aucune des affirmations n'est presentee comme la bonne.
+    conflict_with: tuple[str, ...] = ()
     message: str | None = None
+
+    @property
+    def unresolved_conflict(self) -> bool:
+        return bool(self.conflict_with)
 
 
 class ReplacementGraph:
@@ -59,20 +66,39 @@ class ReplacementGraph:
                 self._replaced_by.setdefault(rel.to_id, []).append((rel.from_id, rel.relation))
                 self._replaces.setdefault(rel.from_id, []).append((rel.to_id, rel.relation))
 
-    def history(self, unit_id: str) -> tuple[tuple[str, str, str], ...]:
-        """Unites que `unit_id` remplace ou contredit, en remontant la chaine (parcours en largeur)."""
+    def history(self, unit_id: str, lookup: HybridRetriever | None = None) -> tuple[tuple[str, str, str], ...]:
+        """Unites que `unit_id` remplace ou contredit, en remontant la chaine (parcours en largeur).
+
+        Avec `lookup`, une contradiction n'entre dans l'historique que si l'unite contredite n'est plus
+        active : une unite contredite mais toujours active est un conflit non tranche (open_conflicts),
+        pas une information perimee.
+        """
         steps: list[tuple[str, str, str]] = []
         frontier, seen = [unit_id], {unit_id}
         while frontier:
             next_frontier = []
             for newer in frontier:
                 for older, relation in self._replaces.get(newer, []):
-                    if older not in seen:
-                        seen.add(older)
-                        steps.append((older, relation, newer))
-                        next_frontier.append(older)
+                    if older in seen:
+                        continue
+                    if lookup is not None and relation == "contradicts" and lookup.unit(older).status == "active":
+                        continue
+                    seen.add(older)
+                    steps.append((older, relation, newer))
+                    next_frontier.append(older)
             frontier = next_frontier
         return tuple(steps)
+
+    def open_conflicts(self, unit: SemanticUnit, lookup: HybridRetriever) -> tuple[str, ...]:
+        """Unites actives liees a `unit` (active) par contradicts, dans un sens ou dans l'autre."""
+        if unit.status != "active":
+            return ()
+        neighbours = [
+            other
+            for other, relation in self._replaces.get(unit.unit_id, []) + self._replaced_by.get(unit.unit_id, [])
+            if relation == "contradicts"
+        ]
+        return tuple(sorted({other for other in neighbours if lookup.unit(other).status == "active"}))
 
     def resolve(self, start: SemanticUnit, lookup: HybridRetriever) -> tuple[SemanticUnit, tuple[str, ...]]:
         """Remonte la chaine depuis une unite perimee jusqu'a une unite active.
@@ -151,5 +177,6 @@ def answer(
         unit_status=unit.status,
         fused_score=top.score,
         resolution=resolution,
-        history=graph.history(unit.unit_id),
+        history=graph.history(unit.unit_id, retriever),
+        conflict_with=graph.open_conflicts(unit, retriever),
     )
