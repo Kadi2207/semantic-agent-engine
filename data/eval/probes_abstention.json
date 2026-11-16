@@ -1,0 +1,55 @@
+{
+  "description": "Sondes exploratoires, projets de developpement, jamais utilisees pour regler. Six questions de la revue produit : le sujet existe dans le projet, mais les sources ne contiennent pas la reponse. Comportement attendu : abstention.",
+  "status": "sondes exploratoires, projets de developpement, jamais utilisees pour regler",
+  "rule": "une reponse est comptee 'a tort' si l'agent ne s'abstient pas et que l'unite renvoyee n'est pas dans acceptable_unit_ids (unite qui dit explicitement que l'information n'existe pas)",
+  "probes": [
+    {
+      "probe_id": "probe_01",
+      "project_id": "projet_01",
+      "query": "Quel est le budget publicitaire prévu pour le lancement d'Atlas ?",
+      "expected": "abstention",
+      "acceptable_unit_ids": []
+    },
+    {
+      "probe_id": "probe_02",
+      "project_id": "projet_06",
+      "query": "Quelle décision a été prise pour les redirections des anciennes URL des fiches produits ?",
+      "expected": "abstention",
+      "acceptable_unit_ids": ["p06_u25"],
+      "acceptable_note": "p06_u25 dit explicitement qu'aucune décision n'a encore été prise : la renvoyer n'est pas une réponse à tort",
+      "same_as_dev_query": "q_dev_010"
+    },
+    {
+      "probe_id": "probe_03",
+      "project_id": "projet_09",
+      "query": "Combien coûte une licence Chantio par utilisateur ?",
+      "expected": "abstention",
+      "acceptable_unit_ids": [],
+      "same_as_dev_query": "q_dev_016"
+    },
+    {
+      "probe_id": "probe_04",
+      "project_id": "projet_08",
+      "query": "Quel est le montant annuel du contrat avec Embaleco ?",
+      "expected": "abstention",
+      "acceptable_unit_ids": [],
+      "same_as_dev_query": "q_dev_022"
+    },
+    {
+      "probe_id": "probe_05",
+      "project_id": "projet_07",
+      "query": "Quelle probabilité a été fixée pour le stade proposition ?",
+      "expected": "abstention",
+      "acceptable_unit_ids": [],
+      "same_as_dev_query": "q_dev_028"
+    },
+    {
+      "probe_id": "probe_06",
+      "project_id": "projet_10",
+      "query": "Quel montant a déjà été recouvré sur les factures échues ?",
+      "expected": "abstention",
+      "acceptable_unit_ids": [],
+      "same_as_dev_query": "q_dev_029"
+    }
+  ]
+}

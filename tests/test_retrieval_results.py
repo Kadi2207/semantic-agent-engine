@@ -29,7 +29,7 @@ from eval.results_io import (
 ROOT = Path(__file__).resolve().parent.parent
 RESULTS = {"dev": ROOT / "eval/results/retrieval_dev.json", "test": ROOT / "eval/results/retrieval_test.json"}
 QUERIES = {"dev": ROOT / "data/eval/queries_dev.json", "test": ROOT / "data/eval/queries_test.json"}
-EXPECTED_SECTIONS = {"dev": {"run_baselines", "compare_finetuned"}, "test": {"compare_finetuned"}}
+EXPECTED_SECTIONS = {"dev": {"run_baselines", "compare_finetuned", "hybrid_rrf"}, "test": {"compare_finetuned"}}
 EXPERIMENT_KEYS = {"experiment", "generated_on", "corpus", "split", "script", "status", "queries", "models", "params", "params_sha256", "results"}
 QUERY_KEYS = {"file", "sha256", "total", "evaluated", "excluded", "projects"}
 METRICS = ["Recall@3", "Recall@5", "MRR", "nDCG@5"]
@@ -115,9 +115,14 @@ def test_query_counts_and_fingerprints_match_the_query_files(split: str, total: 
 @pytest.mark.parametrize("split", ["dev", "test"])
 def test_no_invented_category_or_value(split: str) -> None:
     pieges = {q["piege"] for q in queries(split) if q["relevant_unit_ids"] and q["piege"] != "sans_reponse"}
-    for experiment in load(split)["experiments"].values():
+    for section, experiment in load(split)["experiments"].items():
         params = experiment["params"]
-        assert params["rrf_k"] is None and params["rrf_k_note"]  # pas de fusion RRF dans ces scripts
+        if section == "hybrid_rrf":  # seule section avec fusion : le k vient de src/agent/retriever.py
+            from src.agent.retriever import RRF_K
+
+            assert params["rrf_k"] == RRF_K == 60 and "src/agent/retriever.py" in params["rrf_k_note"]
+        else:
+            assert params["rrf_k"] is None and params["rrf_k_note"]  # pas de fusion RRF dans ces scripts
         assert params["evaluation_seed"] is None and params["evaluation_seed_note"]
         for result in experiment["results"].values():
             assert set(result["per_category"]) == pieges  # seulement les categories presentes dans les requetes
@@ -155,9 +160,11 @@ def test_fingerprint_is_recomputed_from_code_constants_not_from_the_json(split: 
     from eval.run_baselines import METRICS as CODE_METRICS
     from eval.run_baselines import TOP_K as CODE_TOP_K
 
-    expected_params = retrieval_params(CODE_TOP_K, CODE_METRICS)
+    from eval.eval_hybrid import hybrid_params
+
     for section, experiment in load(split)["experiments"].items():
-        training = {"e5_finetuned": training_config()} if section == "compare_finetuned" else {}
+        expected_params = hybrid_params() if section == "hybrid_rrf" else retrieval_params(CODE_TOP_K, CODE_METRICS)
+        training = {"e5_finetuned": training_config()} if section in ("compare_finetuned", "hybrid_rrf") else {}
         expected = sha256_params({"params": expected_params, "training": training})
         assert experiment["params"] == expected_params, section
         assert experiment["params_sha256"] == expected, section
