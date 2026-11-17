@@ -55,10 +55,21 @@ def test_decisions_have_alternative_and_proof() -> None:
         assert re.search(r"Alternatives? écartées? :", s) and ("Preuve" in s or "Limite chiffrée" in s), s[:60]
 
 
-def test_mit_license_and_data_note() -> None:
-    license_text = (ROOT / "LICENSE").read_text(encoding="utf-8")
-    assert license_text.startswith("MIT License") and "Copyright (c) 2026 Kadidiatou Ibrahima Bagayoko" in license_text
+LICENSE_TEXT = (
+    "Copyright (c) 2026 Kadidiatou Ibrahima Bagayoko. Tous droits reserves.\n\n"
+    "Ce depot est rendu public uniquement pour l'evaluation du projet Embedding Lab (Intelligence Lab, ECE Paris). "
+    "Sa consultation est autorisee. Toute autre utilisation, copie, modification, redistribution ou usage commercial "
+    "du code, des donnees ou de la documentation est interdite sans l'autorisation ecrite prealable de l'autrice. "
+    "Les bibliotheques tierces utilisees restent soumises a leurs propres licences."
+)
+
+
+def test_all_rights_reserved_license_and_data_note() -> None:
+    license_text = (ROOT / "LICENSE").read_text(encoding="utf-8").replace("\r\n", "\n").strip()
+    assert license_text == LICENSE_TEXT
     section = README.split("\n## Licence\n")[1].split("\n## ")[0]
+    assert "Tous droits réservés" in section and "consultation est autorisée" in section
+    assert "autorisation écrite préalable" in section and "propres licences" in section
     assert "(LICENSE)" in section and "QMSum" in section and "ne sont pas redistribuées" in section
     projects = sorted(ROOT.glob("data/raw/projet_*.json")) + sorted(ROOT.glob("data/test2/projet_*.json"))
     assert len(projects) == 16 and "Les 16 projets du corpus" in section and "fictifs" in section
