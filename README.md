@@ -1,6 +1,12 @@
+<p align="center">
+  <img src="assets/header.svg" alt="En-tête : Embedding Lab, de la mémoire sémantique à l'agent intelligent" width="100%">
+</p>
+
 # Embedding Lab : de la mémoire sémantique à l'agent intelligent
 
 [![tests](https://github.com/Kadi2207/semantic-agent-engine/actions/workflows/tests.yml/badge.svg)](https://github.com/Kadi2207/semantic-agent-engine/actions/workflows/tests.yml)
+
+<a href="https://drive.google.com/file/d/1A4HDj5xyuPv-5aGcpKXTdHA3EXMbnUb0/view?usp=sharing"><img src="assets/demo-video.svg" alt="Voir la démo vidéo"></a>
 
 ## Évaluer le projet en 5 minutes
 
