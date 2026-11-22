@@ -6,7 +6,7 @@
 
 Un agent lit des comptes rendus de réunions et répond en citant sa preuve : il distingue une décision en vigueur d'une décision remplacée, signale un conflit qu'il ne peut pas trancher, identifie le responsable d'une action, prépare un brouillon d'email sans l'envoyer, constitue un dossier documenté et s'abstient quand les sources ne contiennent pas la réponse.
 
-Vidéo de la démonstration (parcours Atlas en sept étapes) : [demo_atlas.webm, Release v1.0-rendu](https://drive.google.com/file/d/1A4HDj5xyuPv-5aGcpKXTdHA3EXMbnUb0/view?usp=sharing).
+Vidéo de la démonstration (parcours Atlas en sept étapes) : [demo_atlas.webm, Google Drive](https://drive.google.com/file/d/1A4HDj5xyuPv-5aGcpKXTdHA3EXMbnUb0/view?usp=sharing).
 
 Cinq chiffres clés, tirés de `eval/results` (développement, puis test scellé quand il existe) :
 
