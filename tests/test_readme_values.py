@@ -523,5 +523,5 @@ def test_five_minute_section_figures_come_from_the_json() -> None:
         f"{ex['extracted']['global']['correct']} réponses justes sur {ex['extracted']['global']['n']}, contre "
         f"{ex['annotated']['global']['correct']} sur {ex['annotated']['global']['n']} avec la mémoire annotée"
     ) in head
-    assert "releases/download/v1.0-rendu/demo_atlas.webm" in head
+    assert "https://drive.google.com/file/d/1A4HDj5xyuPv-5aGcpKXTdHA3EXMbnUb0/view?usp=sharing" in head
     assert "uv run python scripts/train_embeddings.py" in head and "uv run streamlit run app.py" in head
