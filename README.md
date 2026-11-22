@@ -69,7 +69,17 @@ Chaque ligne a été vérifiée dans le code et dans les fichiers de `eval/resul
 | Livrable : documentation des datasets et licences | couvert | `data/external/README.md`, `docs/ARCHITECTURE.md` (données et jeux d'évaluation), `LICENSE` |
 | Livrable : scripts d'entraînement et d'inférence | couvert | `scripts/train_embeddings.py`, `scripts/train_architectures.py`, `scripts/demo_agent.py`, `app.py` |
 | Livrable : démo reproductible | couvert | `scripts/run_demo.py`, `scripts/verify_demo.py`, cache versionné `data/processed/groq_rag_cache.jsonl` |
-| Livrable : rapport expérimental | partiel | Pas de rapport autonome : les protocoles et résultats sont dans la section Résultats de ce README et dans `docs/DECISIONS.md`, adossés aux JSON de `eval/results`. |
+| Livrable : rapport expérimental | couvert | Section Résultats de ce README (comparaisons, ablation, analyse d'erreurs, coûts, limites) et `docs/DECISIONS.md`, adossés aux JSON de `eval/results`. |
+
+### Prochaines étapes
+
+Évolutions prévues pour les points partiels ou non couverts du tableau :
+
+- ajouter à la détection d'intention les intentions compare (dont la comparaison de deux réunions), create_task, schedule_event et clarify ;
+- mesurer la détection d'intention sur un jeu de requêtes annotées, avec un résultat chiffré enregistré dans `eval/results` ;
+- ajouter des connecteurs simulés de tâche et d'agenda, sur le modèle du brouillon d'email : contrat JSON, confirmation demandée, aucune exécution réelle ;
+- écrire une règle et un test dédiés à la phrase hypothétique, pour qu'elle ne produise aucune action ;
+- mesurer la latence de bout en bout de l'agent, de la question à la réponse affichée.
 
 ## Objectif et périmètre
 
