@@ -12,7 +12,7 @@
 
 Un agent lit des comptes rendus de réunions et répond en citant sa preuve : il distingue une décision en vigueur d'une décision remplacée, signale un conflit qu'il ne peut pas trancher, identifie le responsable d'une action, prépare un brouillon d'email sans l'envoyer, constitue un dossier documenté et s'abstient quand les sources ne contiennent pas la réponse.
 
-Vidéo de la démonstration (parcours Atlas en sept étapes) : [demo_atlas.webm, Google Drive](https://drive.google.com/file/d/1A4HDj5xyuPv-5aGcpKXTdHA3EXMbnUb0/view?usp=sharing).
+[Vidéo de la démonstration (4 min 48, voix off et sous-titres)](https://drive.google.com/file/d/1A4HDj5xyuPv-5aGcpKXTdHA3EXMbnUb0/view?usp=sharing)
 
 Cinq chiffres clés, tirés de `eval/results` (développement, puis test scellé quand il existe) :
 
@@ -37,6 +37,39 @@ Ou étape par étape (Python 3.12 et uv ; l'entraînement du modèle prend quelq
     uv run python scripts/verify_demo.py
 
 Aucune clé n'est nécessaire : les synthèses du RAG de la démonstration sont rejouées depuis un cache versionné, et sans réseau l'agent répond de façon extractive.
+
+## Couverture du sujet
+
+Chaque ligne a été vérifiée dans le code et dans les fichiers de `eval/results`, pas dans ce README.
+
+| Exigence du sujet | Statut | Preuve |
+|---|---|---|
+| Démonstration : décision précise avec preuve | couvert | `src/agent/answer.py` (énoncé, preuve, réunion, date), `scripts/verify_demo.py` ; `agent_dev.json` |
+| Démonstration : proposition contre décision | couvert | `src/agent/display.py` (type idea affiché « proposition, non validée »), `tests/test_display.py`, `scripts/verify_demo.py` |
+| Démonstration : comparaison de deux réunions | partiel | Pas d'intention de comparaison : seul l'historique d'une unité remplacée ou contredite d'une réunion à l'autre est affiché (`src/agent/answer.py`, `src/agent/display.py`, section historique de `src/agent/dossier.py`). |
+| Démonstration : dossier multi-sources traçable | couvert | `src/agent/dossier.py` (unités de plusieurs réunions d'un projet, chacune avec réunion, date et preuve), `tests/test_dossier.py` ; `test2.json` |
+| Démonstration : email à la bonne personne avec destinataire justifié | couvert | `src/agent/email.py` (responsable lu dans l'énoncé, `evidence_unit_ids`), `src/schemas.py`, `tests/test_agent_logic.py` |
+| Démonstration : demande de précision au lieu d'inventer | couvert | `src/agent/email.py` (`Clarification` : ambiguous, no_person, off_topic), abstention de `src/agent/answer.py`, `tests/test_agent_logic.py` |
+| Démonstration : phrase hypothétique sans action | partiel | Une hypothèse est annotée idea (`data/raw/projet_08_partenariat_fournisseur.json`) et l'email ne vise que les actions et engagements (`src/agent/email.py`) ; aucune règle ni aucun test ne traite spécifiquement la phrase hypothétique. |
+| Module : baseline lexicale (BM25) | couvert | `src/retrieval/bm25_baseline.py` ; `retrieval_dev.json` |
+| Module : embeddings denses pré-entraînés | couvert | `src/retrieval/dense_baseline.py` (e5-small de base) ; `retrieval_dev.json` |
+| Module : fine-tuning contrastif avec négatifs difficiles | couvert | `scripts/train_embeddings.py` (MultipleNegativesRankingLoss, négatif miné dans le même projet), `data/processed/triplets_*.jsonl` ; `retrieval_dev.json`, `retrieval_test.json` |
+| Module : comparaison d'architectures et ablation | couvert | `scripts/train_architectures.py`, `eval/eval_architectures.py` ; `architectures_dev.json`, `architectures_test.json` |
+| Module : relations (supports, contradicts, supersedes, creates_action, answers) | couvert | `src/schemas.py`, `src/ingest/extract.py`, résolution dans `src/agent/answer.py` ; `extraction.json` |
+| Module : mémoire d'unités typées avec source, date, preuve | couvert | `src/schemas.py` (`SemanticUnit` : type, `source_id`, `source_date`, `evidence`), `src/memory/corpus.py`, `data/raw` |
+| Module : recherche hybride | couvert | `src/agent/retriever.py` (BM25 et e5 fusionnés par RRF), `eval/eval_hybrid.py` ; `retrieval_dev.json` |
+| Module : détection d'intention (answer, compare, build_dossier, draft_email, create_task, schedule_event, clarify) | partiel | `src/agent/intent.py` ne reconnaît que answer, draft_email et dossier ; compare, create_task et schedule_event n'existent pas, et la clarification n'est qu'une issue de l'email, pas une intention. |
+| Module : connecteurs simulés et contrats JSON sans exécution réelle | partiel | Un seul connecteur simulé : `EmailDraft` (`src/schemas.py`, outil `send_email` jamais appelé, `executed=True` refusé) ; aucun connecteur de tâche ni d'agenda. |
+| Évaluation : Recall@K, MRR, nDCG | couvert | `eval/metrics.py` ; `retrieval_dev.json`, `retrieval_test.json`, `test2.json`, `real_qmsum.json` |
+| Évaluation : F1 des relations | couvert | `eval/eval_extraction.py` (F1 strict, par type) ; `extraction.json`, `relations_v2.json` |
+| Évaluation : mesure des intentions | non couvert | Aucune mesure chiffrée de la détection d'intention : seuls des tests sur des exemples existent (`tests/test_agent_logic.py`). |
+| Évaluation : split par projet et test scellé | couvert | `data/eval/queries_dev.json`, `queries_test.json`, `queries_test2.json`, `data/eval/test2_manifest.json` ; `retrieval_test.json`, `test2.json` |
+| Évaluation : analyse d'erreurs | couvert | `eval/analyze_relation_errors.py` ; `relation_errors_dev.json`, `rag_nli_inspection.json` |
+| Évaluation : latence et coût | partiel | Latence d'encodage d'une requête, paramètres, poids et durée d'entraînement par modèle (`architectures_dev.json`), tokens Groq (`rag_dev.json`, `extraction.json`) ; pas de latence de bout en bout de l'agent ni de coût en euros. |
+| Livrable : documentation des datasets et licences | couvert | `data/external/README.md`, `docs/ARCHITECTURE.md` (données et jeux d'évaluation), `LICENSE` |
+| Livrable : scripts d'entraînement et d'inférence | couvert | `scripts/train_embeddings.py`, `scripts/train_architectures.py`, `scripts/demo_agent.py`, `app.py` |
+| Livrable : démo reproductible | couvert | `scripts/run_demo.py`, `scripts/verify_demo.py`, cache versionné `data/processed/groq_rag_cache.jsonl` |
+| Livrable : rapport expérimental | partiel | Pas de rapport autonome : les protocoles et résultats sont dans la section Résultats de ce README et dans `docs/DECISIONS.md`, adossés aux JSON de `eval/results`. |
 
 ## Objectif et périmètre
 
