@@ -465,7 +465,7 @@ Ce qui est significatif : le gain du fine-tuning et celui du RAG sur la réponse
 - Règle du responsable : la personne qui doit réaliser une tâche est le premier participant nommé dans l'énoncé de l'unité. Cette heuristique est vérifiée sur le corpus, mais elle n'est pas généralisable telle quelle.
 - Routage et brouillon d'email : la détection d'intention et la préparation des brouillons sont couvertes par des tests automatiques sur des exemples des projets de développement (`tests/test_agent_logic.py`), mais ne font encore l'objet d'aucune mesure chiffrée.
 - Ingestion et agent reliés en partie seulement : le parcours de démonstration, les mesures de l'agent et l'évaluation de la recherche lisent la mémoire annotée (`data/raw`). La mémoire extraite n'existe que pour les projets 04 à 12, n'est mesurée que sur 20 requêtes, et la réponse finale y est moins souvent juste (10/20 contre 13/20 sur les mêmes requêtes). Avec des relations à 0,40 de F1 strict, la résolution des décisions remplacées y est nettement moins fiable.
-- Test scellé élargi : rédigé par l'assistant de développement après lecture des interfaces de l'agent, il peut être plus favorable au système qu'un jeu rédigé par un tiers .
+- Test scellé élargi : rédigé par l'assistant de développement après lecture des interfaces de l'agent, il peut être plus favorable au système qu'un jeu rédigé par un tiers.
 - Audit qualitatif sur AMI partiel : 6 segments sur 23 traités, sans valeur statistique (voir plus haut).
 - Corpus fictif : les 12 projets ont été écrits pour le projet. Sur QMSum, la majorité des réunions Product (AMI) sont elles aussi jouées selon un scénario.
 
@@ -581,3 +581,7 @@ La clé Groq se place uniquement dans un fichier `.env` à la racine (`GROQ_API_
 ## Licence
 
 Tous droits réservés (voir [LICENSE](LICENSE)). Le dépôt est public uniquement pour l'évaluation du projet ; sa consultation est autorisée, mais toute autre utilisation, copie, modification, redistribution ou usage commercial du code, des données ou de la documentation demande l'autorisation écrite préalable de l'autrice. Les bibliothèques tierces restent soumises à leurs propres licences. Les données tierces (QMSum) ne sont pas redistribuées dans le dépôt : `eval/results/real_qmsum.json` ne contient que des identifiants de réunions et des scores, et le jeu se clone à part (voir `data/external/README.md`). Les 16 projets du corpus (12 dans `data/raw`, 4 dans `data/test2`) sont des jeux fictifs écrits pour ce projet.
+
+## Autrice
+
+**Kadidiatou Ibrahima Bagayoko**, projet solo de 3 semaines (piscine Makers, Intelligence Lab, ECE Paris). Étudiante en Bachelor en Intelligence Artificielle (grade Licence), ECE Paris, spécialisation Data & IA. [LinkedIn](https://linkedin.com/in/kadi-bagayoko), [portfolio](https://kadidiatou-bagayoko.vercel.app/), kadibaga22@gmail.com

@@ -70,7 +70,7 @@ interne (`data/raw/`).
 
 ## Sources parlementaires (domaine Committee)
 
-### Parlement du Canada (Chambre des communes) — réunions `covid_*`
+### Parlement du Canada (Chambre des communes), réunions `covid_*`
 
 - **Source** : comptes rendus des comités, https://www.ourcommons.ca/.
 - **Licence / conditions** : « Speaker's Permission Regarding the Reproduction of the Proceedings of the House of
@@ -82,11 +82,11 @@ interne (`data/raw/`).
   aucun contenu ; nos résultats ne sont pas une publication de la Chambre.
 - **Usage fait** : 2 réunions du split test (18 requêtes spécifiques), évaluation non commerciale.
 
-### Parlement gallois (Senedd) — réunions `education_*`
+### Parlement gallois (Senedd), réunions `education_*`
 
 - **Source** : Record of Proceedings des comités, https://record.senedd.wales/ (lien de l'article :
   https://record.assembly.wales/).
-- **Licence / conditions — NON VÉRIFIÉE pour les comités** :
+- **Licence / conditions, NON VÉRIFIÉE pour les comités** :
   - la page Open Data (https://senedd.wales/help/open-data/) place sous Open Government Licence uniquement le
     « Record of Proceedings (Plenary) XML library », pas les transcriptions de comités ;
   - la page « Re-using Public Sector Information »
